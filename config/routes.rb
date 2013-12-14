@@ -1,4 +1,12 @@
 SIVIC::Application.routes.draw do
+  resources :sivic_cidades
+
+  resources :sivic_estados
+
+  resources :sivic_tipo_eventos
+
+  resources :sivic_igrejas
+
   get "static_pages/home"
   get "static_pages/help"
   resources :sivic_escolaridades

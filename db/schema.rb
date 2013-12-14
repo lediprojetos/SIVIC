@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131214151357) do
+ActiveRecord::Schema.define(version: 20131214181007) do
+
+  create_table "sivic_cidades", force: true do |t|
+    t.string   "nome"
+    t.integer  "estado_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sivic_escolaridades", force: true do |t|
     t.string   "escolaridade"
@@ -19,8 +26,30 @@ ActiveRecord::Schema.define(version: 20131214151357) do
     t.datetime "updated_at"
   end
 
+  create_table "sivic_estados", force: true do |t|
+    t.string   "nome"
+    t.string   "sigla"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sivic_igrejas", force: true do |t|
+    t.string   "nome"
+    t.integer  "igrejaSede_id"
+    t.integer  "endereco_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sivic_profissaos", force: true do |t|
     t.string   "profissao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sivic_tipo_eventos", force: true do |t|
+    t.string   "nome"
+    t.integer  "igreja_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
