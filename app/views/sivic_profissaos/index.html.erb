@@ -1,0 +1,27 @@
+<h1>Listing sivic_profissaos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Profissao</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_profissaos.each do |sivic_profissao| %>
+      <tr>
+        <td><%= sivic_profissao.profissao %></td>
+        <td><%= link_to 'Show', sivic_profissao %></td>
+        <td><%= link_to 'Edit', edit_sivic_profissao_path(sivic_profissao) %></td>
+        <td><%= link_to 'Destroy', sivic_profissao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic profissao', new_sivic_profissao_path %>

@@ -1,0 +1,21 @@
+<%= form_for(@sivic_profissao) do |f| %>
+  <% if @sivic_profissao.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_profissao.errors.count, "error") %> prohibited this sivic_profissao from being saved:</h2>
+
+      <ul>
+      <% @sivic_profissao.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :profissao %><br>
+    <%= f.text_field :profissao %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
