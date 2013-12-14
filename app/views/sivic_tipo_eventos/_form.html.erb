@@ -1,0 +1,25 @@
+<%= form_for(@sivic_tipo_evento) do |f| %>
+  <% if @sivic_tipo_evento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_tipo_evento.errors.count, "error") %> prohibited this sivic_tipo_evento from being saved:</h2>
+
+      <ul>
+      <% @sivic_tipo_evento.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nome %><br>
+    <%= f.text_field :nome %>
+  </div>
+  <div class="field">
+    <%= f.label :igreja_id %><br>
+    <%= f.number_field :igreja_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

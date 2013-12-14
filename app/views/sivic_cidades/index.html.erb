@@ -1,0 +1,29 @@
+<h1>Listing sivic_cidades</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Estado</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_cidades.each do |sivic_cidade| %>
+      <tr>
+        <td><%= sivic_cidade.nome %></td>
+        <td><%= sivic_cidade.estado_id %></td>
+        <td><%= link_to 'Show', sivic_cidade %></td>
+        <td><%= link_to 'Edit', edit_sivic_cidade_path(sivic_cidade) %></td>
+        <td><%= link_to 'Destroy', sivic_cidade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic cidade', new_sivic_cidade_path %>
