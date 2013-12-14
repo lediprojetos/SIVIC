@@ -1,4 +1,4 @@
-<h1>Listing sivic_profissaos</h1>
+<h1>Cadastro de Profissões</h1>
 
 <table>
   <thead>
@@ -14,9 +14,9 @@
     <% @sivic_profissaos.each do |sivic_profissao| %>
       <tr>
         <td><%= sivic_profissao.profissao %></td>
-        <td><%= link_to 'Show', sivic_profissao %></td>
-        <td><%= link_to 'Edit', edit_sivic_profissao_path(sivic_profissao) %></td>
-        <td><%= link_to 'Destroy', sivic_profissao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Listar', sivic_profissao %></td>
+        <td><%= link_to 'Editar', edit_sivic_profissao_path(sivic_profissao) %></td>
+        <td><%= link_to 'Deletar', sivic_profissao, method: :delete, data: { confirm: 'Deseja deletar?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New Sivic profissao', new_sivic_profissao_path %>
+<%= link_to 'Nova Profissao', new_sivic_profissao_path %>
