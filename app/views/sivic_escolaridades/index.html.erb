@@ -1,0 +1,27 @@
+<h1>Listing sivic_escolaridades</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Escolaridade</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_escolaridades.each do |sivic_escolaridade| %>
+      <tr>
+        <td><%= sivic_escolaridade.escolaridade %></td>
+        <td><%= link_to 'Show', sivic_escolaridade %></td>
+        <td><%= link_to 'Edit', edit_sivic_escolaridade_path(sivic_escolaridade) %></td>
+        <td><%= link_to 'Destroy', sivic_escolaridade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic escolaridade', new_sivic_escolaridade_path %>
