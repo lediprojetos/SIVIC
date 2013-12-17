@@ -1,0 +1,37 @@
+<h1>Listing sivic_enderecos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Desc bairro</th>
+      <th>Desc rua</th>
+      <th>Desc complemento</th>
+      <th>Desc pontoreferencia</th>
+      <th>Numr cep</th>
+      <th>Sivic cidade</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_enderecos.each do |sivic_endereco| %>
+      <tr>
+        <td><%= sivic_endereco.DESC_Bairro %></td>
+        <td><%= sivic_endereco.DESC_Rua %></td>
+        <td><%= sivic_endereco.DESC_Complemento %></td>
+        <td><%= sivic_endereco.DESC_Pontoreferencia %></td>
+        <td><%= sivic_endereco.NUMR_Cep %></td>
+        <td><%= sivic_endereco.sivic_cidade %></td>
+        <td><%= link_to 'Show', sivic_endereco %></td>
+        <td><%= link_to 'Edit', edit_sivic_endereco_path(sivic_endereco) %></td>
+        <td><%= link_to 'Destroy', sivic_endereco, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic endereco', new_sivic_endereco_path %>

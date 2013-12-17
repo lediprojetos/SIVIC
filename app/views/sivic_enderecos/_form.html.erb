@@ -1,0 +1,41 @@
+<%= form_for(@sivic_endereco) do |f| %>
+  <% if @sivic_endereco.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_endereco.errors.count, "error") %> prohibited this sivic_endereco from being saved:</h2>
+
+      <ul>
+      <% @sivic_endereco.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :DESC_Bairro %><br>
+    <%= f.text_field :DESC_Bairro %>
+  </div>
+  <div class="field">
+    <%= f.label :DESC_Rua %><br>
+    <%= f.text_field :DESC_Rua %>
+  </div>
+  <div class="field">
+    <%= f.label :DESC_Complemento %><br>
+    <%= f.text_field :DESC_Complemento %>
+  </div>
+  <div class="field">
+    <%= f.label :DESC_Pontoreferencia %><br>
+    <%= f.text_field :DESC_Pontoreferencia %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_Cep %><br>
+    <%= f.number_field :NUMR_Cep %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_cidade_id %><br>
+    <%= f.text_field :sivic_cidade_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
