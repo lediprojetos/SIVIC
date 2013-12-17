@@ -5,8 +5,10 @@ SIVIC::Application.routes.draw do
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
 
-  resources :sivic_estados
   resources :sivic_cidades
+  resources :sivic_estados do
+    resources :sivic_cidades
+  end
   resources :sivic_igrejas
   resources :sivic_tipo_eventos
   resources :sivic_escolaridades

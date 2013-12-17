@@ -1,14 +1,49 @@
+<h1>Manter Cidades</h1>
+
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Nome:</strong>
-  <%= @sivic_estado.nome %>
+  <strong>Nome estado:</strong>
+  <%= @sivic_estado.nome_estado %>
 </p>
 
 <p>
-  <strong>Sigla:</strong>
-  <%= @sivic_estado.sigla %>
+  <strong>Sigl estado:</strong>
+  <%= @sivic_estado.sigl_estado %>
 </p>
 
-<%= link_to 'Edit', edit_sivic_estado_path(@sivic_estado) %> |
-<%= link_to 'Back', sivic_estados_path %>
+<%= link_to 'Editar', edit_sivic_estado_path(@sivic_estado) %> |
+<%= link_to 'Voltar', sivic_estados_path %>
+
+<h2>Cidades</h2>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nome cidade</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sivic_estado.sivic_cidades.each do |sivic_cidade| %>
+      <tr>
+        <td><%= sivic_cidade.nome_cidade %></td>
+        <td><%= link_to 'Excluir', sivic_cidade, method: :delete, data: { confirm: 'Confirma?' } %></td>
+        <td><%= link_to 'Editar', sivic_cidade, method: :edit, data: { confirm: 'Confirma?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<h2>Adicione outras cidades:</h2>
+<%= form_for([@sivic_estado, @sivic_estado.sivic_cidades.build]) do |f| %>
+  <div class="field">
+    <%= f.label :nome_cidade %><br />
+    <%= f.text_field :nome_cidade %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+

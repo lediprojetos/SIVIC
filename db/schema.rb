@@ -11,14 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131214181007) do
+ActiveRecord::Schema.define(version: 20131216203925) do
 
   create_table "sivic_cidades", force: true do |t|
-    t.string   "nome"
-    t.integer  "estado_id"
+    t.string   "nome_cidade"
+    t.integer  "sivic_estado_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "sivic_cidades", ["sivic_estado_id"], name: "index_sivic_cidades_on_sivic_estado_id"
 
   create_table "sivic_escolaridades", force: true do |t|
     t.string   "escolaridade"
@@ -27,8 +29,8 @@ ActiveRecord::Schema.define(version: 20131214181007) do
   end
 
   create_table "sivic_estados", force: true do |t|
-    t.string   "nome"
-    t.string   "sigla"
+    t.string   "nome_estado"
+    t.string   "sigl_estado"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

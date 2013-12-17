@@ -3,8 +3,8 @@
 <table>
   <thead>
     <tr>
-      <th>Nome</th>
-      <th>Estado</th>
+      <th>Nome cidade</th>
+      <th>Sivic estado</th>
       <th></th>
       <th></th>
       <th></th>
@@ -12,10 +12,10 @@
   </thead>
 
   <tbody>
-    <% @sivic_cidades.each do |sivic_cidade| %>
+    <% @sivic_cidade.each do |sivic_cidade| %>
       <tr>
-        <td><%= sivic_cidade.nome %></td>
-        <td><%= sivic_cidade.estado_id %></td>
+        <td><%= sivic_cidade.nome_cidade %></td>
+        <td><%= sivic_cidade.sivic_estado %></td>
         <td><%= link_to 'Show', sivic_cidade %></td>
         <td><%= link_to 'Edit', edit_sivic_cidade_path(sivic_cidade) %></td>
         <td><%= link_to 'Destroy', sivic_cidade, method: :delete, data: { confirm: 'Are you sure?' } %></td>

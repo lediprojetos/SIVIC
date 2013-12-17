@@ -23,7 +23,7 @@ describe SivicCidadesController do
   # This should return the minimal set of attributes required to create a valid
   # SivicCidade. As you add validations to SivicCidade, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "nome" => "MyString" } }
+  let(:valid_attributes) { { "nome_cidade" => "MyString" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -85,14 +85,14 @@ describe SivicCidadesController do
       it "assigns a newly created but unsaved sivic_cidade as @sivic_cidade" do
         # Trigger the behavior that occurs when invalid params are submitted
         SivicCidade.any_instance.stub(:save).and_return(false)
-        post :create, {:sivic_cidade => { "nome" => "invalid value" }}, valid_session
+        post :create, {:sivic_cidade => { "nome_cidade" => "invalid value" }}, valid_session
         assigns(:sivic_cidade).should be_a_new(SivicCidade)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         SivicCidade.any_instance.stub(:save).and_return(false)
-        post :create, {:sivic_cidade => { "nome" => "invalid value" }}, valid_session
+        post :create, {:sivic_cidade => { "nome_cidade" => "invalid value" }}, valid_session
         response.should render_template("new")
       end
     end
@@ -106,8 +106,8 @@ describe SivicCidadesController do
         # specifies that the SivicCidade created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        SivicCidade.any_instance.should_receive(:update).with({ "nome" => "MyString" })
-        put :update, {:id => sivic_cidade.to_param, :sivic_cidade => { "nome" => "MyString" }}, valid_session
+        SivicCidade.any_instance.should_receive(:update).with({ "nome_cidade" => "MyString" })
+        put :update, {:id => sivic_cidade.to_param, :sivic_cidade => { "nome_cidade" => "MyString" }}, valid_session
       end
 
       it "assigns the requested sivic_cidade as @sivic_cidade" do
@@ -128,7 +128,7 @@ describe SivicCidadesController do
         sivic_cidade = SivicCidade.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         SivicCidade.any_instance.stub(:save).and_return(false)
-        put :update, {:id => sivic_cidade.to_param, :sivic_cidade => { "nome" => "invalid value" }}, valid_session
+        put :update, {:id => sivic_cidade.to_param, :sivic_cidade => { "nome_cidade" => "invalid value" }}, valid_session
         assigns(:sivic_cidade).should eq(sivic_cidade)
       end
 
@@ -136,7 +136,7 @@ describe SivicCidadesController do
         sivic_cidade = SivicCidade.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         SivicCidade.any_instance.stub(:save).and_return(false)
-        put :update, {:id => sivic_cidade.to_param, :sivic_cidade => { "nome" => "invalid value" }}, valid_session
+        put :update, {:id => sivic_cidade.to_param, :sivic_cidade => { "nome_cidade" => "invalid value" }}, valid_session
         response.should render_template("edit")
       end
     end

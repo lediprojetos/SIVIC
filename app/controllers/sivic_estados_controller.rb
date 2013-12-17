@@ -69,6 +69,6 @@ class SivicEstadosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_estado_params
-      params.require(:sivic_estado).permit(:nome, :sigla)
+      params.require(:sivic_estado).permit(:nome_estado, :sigl_estado)
     end
 end
