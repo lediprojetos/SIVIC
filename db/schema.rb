@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131217192549) do
+ActiveRecord::Schema.define(version: 20131219132752) do
 
   create_table "sivic_cidades", force: true do |t|
     t.string   "nome_cidade"
@@ -49,12 +49,17 @@ ActiveRecord::Schema.define(version: 20131217192549) do
   end
 
   create_table "sivic_igrejas", force: true do |t|
-    t.string   "nome"
-    t.integer  "igrejaSede_id"
-    t.integer  "endereco_id"
+    t.integer  "father_id"
+    t.string   "NOME_igreja"
+    t.string   "NUMR_telefone"
+    t.string   "NOME_responsavel"
+    t.string   "NUMR_cnpj"
+    t.integer  "sivic_endereco_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "sivic_igrejas", ["sivic_endereco_id"], name: "index_sivic_igrejas_on_sivic_endereco_id"
 
   create_table "sivic_profissaos", force: true do |t|
     t.string   "profissao"

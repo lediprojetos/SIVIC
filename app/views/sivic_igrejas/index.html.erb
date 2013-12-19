@@ -1,0 +1,35 @@
+<h1>Listing sivic_igrejas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome igreja</th>
+      <th>Numr telefone</th>
+      <th>Nome responsavel</th>
+      <th>Numr cnpj</th>
+      <th>Sivic endereco</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_igrejas.each do |sivic_igreja| %>
+      <tr>
+        <td><%= sivic_igreja.NOME_igreja %></td>
+        <td><%= sivic_igreja.NUMR_telefone %></td>
+        <td><%= sivic_igreja.NOME_responsavel %></td>
+        <td><%= sivic_igreja.NUMR_cnpj %></td>
+        <td><%= sivic_igreja.sivic_endereco %></td>
+        <td><%= link_to 'Show', sivic_igreja %></td>
+        <td><%= link_to 'Edit', edit_sivic_igreja_path(sivic_igreja) %></td>
+        <td><%= link_to 'Destroy', sivic_igreja, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic igreja', new_sivic_igreja_path %>

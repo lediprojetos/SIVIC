@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_igrejas
+
   resources :sivic_enderecos
 
   root  'static_pages#home'

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome igreja:</strong>
+  <%= @sivic_igreja.NOME_igreja %>
+</p>
+
+<p>
+  <strong>Numr telefone:</strong>
+  <%= @sivic_igreja.NUMR_telefone %>
+</p>
+
+<p>
+  <strong>Nome responsavel:</strong>
+  <%= @sivic_igreja.NOME_responsavel %>
+</p>
+
+<p>
+  <strong>Numr cnpj:</strong>
+  <%= @sivic_igreja.NUMR_cnpj %>
+</p>
+
+<p>
+  <strong>Sivic endereco:</strong>
+  <%= @sivic_igreja.sivic_endereco %>
+</p>
+
+<%= link_to 'Edit', edit_sivic_igreja_path(@sivic_igreja) %> |
+<%= link_to 'Back', sivic_igrejas_path %>
