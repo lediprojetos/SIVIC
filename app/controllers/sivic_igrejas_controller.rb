@@ -15,6 +15,7 @@ class SivicIgrejasController < ApplicationController
   # GET /sivic_igrejas/new
   def new
     @sivic_igreja = SivicIgreja.new
+    @sivic_endereco = SivicEndereco.new
   end
 
   # GET /sivic_igrejas/1/edit

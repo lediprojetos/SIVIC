@@ -10,28 +10,30 @@
       </ul>
     </div>
   <% end %>
-
+ 
   <div class="field">
-    <%= f.label :NOME_igreja %><br>
+    <%= f.label :NOME %><br>
     <%= f.text_field :NOME_igreja %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_telefone %><br>
+    <%= f.label :Telefone %><br>
     <%= f.text_field :NUMR_telefone %>
   </div>
   <div class="field">
-    <%= f.label :NOME_responsavel %><br>
+    <%= f.label :Nome_Responsável %><br>
     <%= f.text_field :NOME_responsavel %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_cnpj %><br>
+    <%= f.label :CNPJ %><br>
     <%= f.text_field :NUMR_cnpj %>
-  </div>
-  <div class="field">
-    <%= f.label :sivic_endereco_id %><br>
-    <%= f.text_field :sivic_endereco_id %>
-  </div>
-  <div class="actions">
+  </div>  
+
+<!--Adicionando form do endereco-->
+<fieldset>
+    <legend>Endereço</legend>
+ <%= render 'shared/formEndereco' %>
+</fieldset>
+  <div class="actions" >
     <%= f.submit %>
   </div>
 <% end %>
