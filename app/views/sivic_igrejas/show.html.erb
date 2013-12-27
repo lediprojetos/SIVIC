@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<legend>Dados Principais</legend>
+
 <p>
   <strong>Nome igreja:</strong>
   <%= @sivic_igreja.NOME_igreja %>
@@ -16,14 +18,44 @@
 </p>
 
 <p>
-  <strong>Numr cnpj:</strong>
+  <strong>CNPJ:</strong>
   <%= @sivic_igreja.NUMR_cnpj %>
 </p>
 
+<legend>Endereço</legend>
+
+
 <p>
-  <strong>Sivic endereco:</strong>
-  <%= @sivic_igreja.sivic_endereco %>
+  <strong>Cidade:</strong>
+  <%= @sivic_igreja.sivic_endereco.sivic_cidade %>
 </p>
 
-<%= link_to 'Edit', edit_sivic_igreja_path(@sivic_igreja) %> |
-<%= link_to 'Back', sivic_igrejas_path %>
+<p>
+  <strong>Bairro:</strong>
+  <%= @sivic_igreja.sivic_endereco.DESC_Bairro %>
+</p>
+
+<p>
+  <strong>Rua:</strong>
+  <%= @sivic_igreja.sivic_endereco.DESC_Rua %>
+</p>
+
+<p>
+  <strong>Complemento:</strong>
+  <%= @sivic_igreja.sivic_endereco.DESC_Complemento%>
+</p>
+
+<p>
+  <strong>Referência:</strong>
+  <%= @sivic_igreja.sivic_endereco.DESC_Pontoreferencia%>
+</p>
+
+<p>
+  <strong>CEP:</strong>
+  <%= @sivic_igreja.sivic_endereco.NUMR_Cep%>
+</p>
+
+
+
+<%= link_to 'Editar', edit_sivic_igreja_path(@sivic_igreja) %> |
+<%= link_to 'Voltar', sivic_igrejas_path %>

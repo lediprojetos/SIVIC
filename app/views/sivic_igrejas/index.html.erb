@@ -1,4 +1,4 @@
-<h1>Lista das Igrejas</h1>
+<h1>Lista de Igrejas</h1>
 
 <table class="table table-hover">
   <thead>
@@ -6,8 +6,8 @@
       <th>Nome </th>
       <th>Telefône</th>
       <th>Nome responsável</th>
-      <th>Cnpj</th>
-      <th>Sivic endereco</th>
+      <th>CNPJ</th>
+      
       <th></th>
       <th></th>
       <th></th>
@@ -21,10 +21,9 @@
         <td><%= sivic_igreja.NUMR_telefone %></td>
         <td><%= sivic_igreja.NOME_responsavel %></td>
         <td><%= sivic_igreja.NUMR_cnpj %></td>
-        <td><%= sivic_igreja.sivic_endereco %></td>
-        <td><%= link_to 'Show', sivic_igreja %></td>
-        <td><%= link_to 'Edit', edit_sivic_igreja_path(sivic_igreja) %></td>
-        <td><%= link_to 'Destroy', sivic_igreja, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Exibir', sivic_igreja %></td>
+        <td><%= link_to 'Editar', edit_sivic_igreja_path(sivic_igreja) %></td>
+        <td><%= link_to 'Excluir', sivic_igreja, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
       </tr>
     <% end %>
   </tbody>

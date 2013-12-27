@@ -5,37 +5,46 @@ class SivicIgrejasController < ApplicationController
   # GET /sivic_igrejas.json
   def index
     @sivic_igrejas = SivicIgreja.all
+
   end
 
   # GET /sivic_igrejas/1
   # GET /sivic_igrejas/1.json
   def show
+    @sivic_cidade = SivicCidade.all
   end
 
   # GET /sivic_igrejas/new
   def new
+    @sivic_cidade = SivicCidade.all
+
     @sivic_igreja = SivicIgreja.new
-    @sivic_endereco = SivicEndereco.new
+    @sivic_igreja.build_sivic_endereco
+
   end
+
 
   # GET /sivic_igrejas/1/edit
   def edit
+    @sivic_cidade = SivicCidade.all
   end
 
   # POST /sivic_igrejas
   # POST /sivic_igrejas.json
   def create
+
     @sivic_igreja = SivicIgreja.new(sivic_igreja_params)
 
     respond_to do |format|
       if @sivic_igreja.save
-        format.html { redirect_to @sivic_igreja, notice: 'Sivic igreja was successfully created.' }
+        format.html { redirect_to @sivic_igreja, notice: 'Igreja inserida com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_igreja }
       else
         format.html { render action: 'new' }
         format.json { render json: @sivic_igreja.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PATCH/PUT /sivic_igrejas/1
@@ -70,6 +79,6 @@ class SivicIgrejasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_igreja_params
-      params.require(:sivic_igreja).permit(:NOME_igreja, :NUMR_telefone, :NOME_responsavel, :NUMR_cnpj, :sivic_endereco_id)
+      params.require(:sivic_igreja).permit(:NOME_igreja, :NUMR_telefone, :NOME_responsavel, :NUMR_cnpj, :sivic_endereco_id, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep])
     end
 end

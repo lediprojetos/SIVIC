@@ -1,4 +1,4 @@
-<h1>Manter Estados</h1>
+<h1>Lista de Estados</h1>
 
 <table class="table table-hover">
   <thead>
@@ -18,7 +18,7 @@
         <td><%= sivic_estado.sigl_estado %></td>
         <td><%= link_to 'Exibir', sivic_estado %></td>
         <td><%= link_to 'Editar', edit_sivic_estado_path(sivic_estado) %></td>
-        <td><%= link_to 'Excluir', sivic_estado, method: :delete, data: { confirm: 'Confirma?' } %></td>
+        <td><%= link_to 'Excluir', sivic_estado, method: :delete, data: { confirm: 'Deseja exluir o registro?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Sivic estado', new_sivic_estado_path %>
+<%= link_to 'Novo Registro', new_sivic_estado_path %>

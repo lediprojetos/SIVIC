@@ -28,7 +28,7 @@
     <% @sivic_estado.sivic_cidades.each do |sivic_cidade| %>
       <tr>
         <td><%= sivic_cidade.nome_cidade %></td>
-        <td><%= link_to 'Excluir', [sivic_cidade.sivic_estado, sivic_cidade],:confirm => 'Tem certeza?',:method => :delete %>
+        <td><%= link_to 'Excluir', [sivic_cidade.sivic_estado, sivic_cidade],:confirm => 'Deseja excluir o registro?',:method => :delete %>
          </td>        
       </tr>
     <% end %>

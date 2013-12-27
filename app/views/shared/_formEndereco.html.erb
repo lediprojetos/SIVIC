@@ -1,26 +1,29 @@
-<%= form_for(@sivic_endereco) do |f| %>
+<fieldset>
+  <legend>Endereço</legend>
+  <%=  fields_for :sivic_endereco do |endereco| %>
   <div class="field">
-    <%= f.label :Bairro %><br>
-    <%= f.text_field :DESC_Bairro %>
+    <%= endereco.label :Bairro %><br>
+    <%= endereco.text_field :DESC_Bairro %>
   </div>
   <div class="field">
-    <%= f.label :Rua %><br>
-    <%= f.text_field :DESC_Rua %>
+    <%= endereco.label :Rua %><br>
+    <%= endereco.text_field :DESC_Rua %>
   </div>
   <div class="field">
-    <%= f.label :Complemento %><br>
-    <%= f.text_field :DESC_Complemento %>
+    <%= endereco.label :Complemento %><br>
+    <%= endereco.text_field :DESC_Complemento %>
   </div>
   <div class="field">
-    <%= f.label :Ponto_referência %><br>
-    <%= f.text_field :DESC_Pontoreferencia %>
+    <%= endereco.label :Ponto_referência %><br>
+    <%= endereco.text_field :DESC_Pontoreferencia %>
   </div>
   <div class="field">
-    <%= f.label :Cep %><br>
-    <%= f.number_field :NUMR_Cep %>
+    <%= endereco.label :Cep %><br>
+    <%= endereco.number_field :NUMR_Cep %>
   </div>
   <div class="field">
-    <%= f.label :sivic_cidade_id %><br>
-    <%= f.text_field :sivic_cidade_id %>
-  </div>
-<% end %>
+    <%= endereco.label :sivic_cidade_id %><br>
+    <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade') %>
+  </div> 
+  <% end %>
+</fieldset>

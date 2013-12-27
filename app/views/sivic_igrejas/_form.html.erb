@@ -10,6 +10,8 @@
       </ul>
     </div>
   <% end %>
+
+  <legend>Dados Principais</legend>
  
   <div class="field">
     <%= f.label :NOME %><br>
@@ -20,7 +22,7 @@
     <%= f.text_field :NUMR_telefone %>
   </div>
   <div class="field">
-    <%= f.label :Nome_Responsável %><br>
+    <%= f.label :Nome_do_Responsável %><br>
     <%= f.text_field :NOME_responsavel %>
   </div>
   <div class="field">
@@ -29,10 +31,10 @@
   </div>  
 
 <!--Adicionando form do endereco-->
-<fieldset>
-    <legend>Endereço</legend>
- <%= render 'shared/formEndereco' %>
-</fieldset>
+<%= render 'shared/formEndereco' %>
+<!--Adicionando form do endereco-->
+
+
   <div class="actions" >
     <%= f.submit %>
   </div>

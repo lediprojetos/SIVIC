@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 20131219132752) do
   end
 
   create_table "sivic_igrejas", force: true do |t|
-    t.integer  "father_id"
     t.string   "NOME_igreja"
     t.string   "NUMR_telefone"
     t.string   "NOME_responsavel"
@@ -63,13 +62,6 @@ ActiveRecord::Schema.define(version: 20131219132752) do
 
   create_table "sivic_profissaos", force: true do |t|
     t.string   "profissao"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "sivic_tipo_eventos", force: true do |t|
-    t.string   "nome"
-    t.integer  "igreja_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
