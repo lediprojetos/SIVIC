@@ -30,12 +30,70 @@
     <%= f.text_field :NUMR_cnpj %>
   </div>  
 
-<!--Adicionando form do endereco-->
-<%= render 'shared/formEndereco' %>
-<!--Adicionando form do endereco-->
 
+  <legend>Endereço</legend>
+
+
+  <%=  f.fields_for :sivic_endereco do |endereco| %>
+  <div class="field">
+    <%= endereco.label :Bairro %><br>
+    <%= endereco.text_field :DESC_Bairro %>
+  </div>
+  <div class="field">
+    <%= endereco.label :Rua %><br>
+    <%= endereco.text_field :DESC_Rua %>
+  </div>
+  <div class="field">
+    <%= endereco.label :Complemento %><br>
+    <%= endereco.text_field :DESC_Complemento %>
+  </div>
+  <div class="field">
+    <%= endereco.label :Ponto_referência %><br>
+    <%= endereco.text_field :DESC_Pontoreferencia %>
+  </div>
+  <div class="field">
+    <%= endereco.label :Cep %><br>
+    <%= endereco.number_field :NUMR_Cep %>
+  </div>
+
+  <%=  f.fields_for :sivic_estado do |estado| %>
+  <div class="field">
+    <%= estado.label :sivic_estado_id %><br>
+    <%= estado.select :sivic_estado_id, options_from_collection_for_select(@sivic_estado, 'id', 'nome_estado') , {}, {:onchange => 'changeState(this)'}%>
+  </div>
+  <%end%>
+
+  <div class="field">
+    <%= endereco.label :sivic_cidade_id   %><br>
+    <%= endereco.select :sivic_cidade_id, [] %><br>
+  </div> 
+
+  <% end %>
+</fieldset>
 
   <div class="actions" >
     <%= f.submit %>
   </div>
 <% end %>
+
+<script>
+  function changeState(state){
+      $.ajax({
+        url: '<%= listarCidade_path %>',
+        data : {id : state.value},
+        success: function(data){
+          $('#sivic_igreja_sivic_endereco_attributes_sivic_cidade_id').empty();
+          $('#sivic_igreja_sivic_endereco_attributes_sivic_cidade_id').html('<option>Carregando...</option>');
+          $('#sivic_igreja_sivic_endereco_attributes_sivic_cidade_id').attr('disabled', 'disabled');
+          var options = "";
+          for (var i in data) {
+            var item = data[i];
+            options += "<option value='"+item.id+"'>"+item.name+"</option>"
+          };
+ 
+          $('#sivic_igreja_sivic_endereco_attributes_sivic_cidade_id').html(options);
+          $('#sivic_igreja_sivic_endereco_attributes_sivic_cidade_id').removeAttr('disabled');          
+        }
+      })
+    }
+</script>

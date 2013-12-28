@@ -1,4 +1,4 @@
 class SivicEndereco < ActiveRecord::Base
   belongs_to :sivic_cidade
-  has_many :sivic_igreja
+  has_one :sivic_igreja
 end

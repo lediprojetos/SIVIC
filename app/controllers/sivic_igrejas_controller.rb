@@ -9,14 +9,13 @@ class SivicIgrejasController < ApplicationController
   end
 
   
-
+  #Método chamado pra carregar cidades dinâmicamente via ajax
   def get_cities
     sivic_cidades = SivicCidade.find :all, :conditions => {:sivic_estado_id => params[:id]}, :order => "nome_cidade ASC"
     sivic_cidades_json = sivic_cidades.map {|item| {:id => item.id, :name => item.nome_cidade}}
  
     render :json => sivic_cidades_json
   end
-
 
 
   # GET /sivic_igrejas/1
@@ -29,7 +28,6 @@ class SivicIgrejasController < ApplicationController
   def new
     @sivic_estado = SivicEstado.all
     @sivic_cidade = SivicCidade.all
-
     @sivic_igreja = SivicIgreja.new
     @sivic_igreja.build_sivic_endereco
     
@@ -38,12 +36,13 @@ class SivicIgrejasController < ApplicationController
 
   # GET /sivic_igrejas/1/edit
   def edit
-    @sivic_cidade = SivicCidade.all
+    @sivic_estado = SivicEstado.all
   end
 
   # POST /sivic_igrejas
   # POST /sivic_igrejas.json
   def create
+
     @sivic_igreja = SivicIgreja.new(sivic_igreja_params)
 
     respond_to do |format|
@@ -91,6 +90,6 @@ class SivicIgrejasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_igreja_params
-      params.require(:sivic_igreja).permit(:NOME_igreja, :NUMR_telefone, :NOME_responsavel, :NUMR_cnpj, :sivic_endereco_id, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
+      params.require(:sivic_igreja).permit(:NOME_igreja, :NUMR_telefone, :NOME_responsavel, :NUMR_cnpj, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
     end
 end

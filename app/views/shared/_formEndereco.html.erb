@@ -1,6 +1,6 @@
 <fieldset>
   <legend>Endereço</legend>
-  <%=  fields_for :sivic_endereco do |endereco| %>
+  <%=  fields_for (@sivic_endereco) do |endereco| %>
   <div class="field">
     <%= endereco.label :Bairro %><br>
     <%= endereco.text_field :DESC_Bairro %>

@@ -25,6 +25,37 @@
 <legend>Endereço</legend>
 
 
+<p>
+  <strong>Desc bairro:</strong>
+  <%= @sivic_igreja.sivic_endereco.DESC_Bairro %>
+</p>
+
+<p>
+  <strong>Desc rua:</strong>
+  <%= @sivic_igreja.sivic_endereco.DESC_Rua %>
+</p>
+
+<p>
+  <strong>Desc complemento:</strong>
+  <%= @sivic_igreja.sivic_endereco.DESC_Complemento %>
+</p>
+
+<p>
+  <strong>Desc pontoreferencia:</strong>
+  <%= @sivic_igreja.sivic_endereco.DESC_Pontoreferencia %>
+</p>
+
+<p>
+  <strong>Numr cep:</strong>
+  <%= @sivic_igreja.sivic_endereco.NUMR_Cep %>
+</p>
+
+<p>
+  <strong>Sivic cidade:</strong>
+  <%= @sivic_igreja.sivic_endereco.sivic_cidade.nome_cidade %>
+</p>
+
+
 
 
 <%= link_to 'Editar', edit_sivic_igreja_path(@sivic_igreja) %> |
