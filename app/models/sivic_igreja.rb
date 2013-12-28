@@ -1,5 +1,5 @@
 class SivicIgreja < ActiveRecord::Base
-	
+        
   belongs_to :sivic_endereco, :dependent => :destroy
 
   has_many :children, :class_name => "sivic_igreja", :foreign_key => "father_id"

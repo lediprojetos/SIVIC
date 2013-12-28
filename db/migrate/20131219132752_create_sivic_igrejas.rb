@@ -1,7 +1,7 @@
 class CreateSivicIgrejas < ActiveRecord::Migration
   def change
     create_table :sivic_igrejas do |t|
-      t.column :father_id, :integer, :references => :sivic_igrejas 
+      #t.column :father_id, :integer, :references => :sivic_igrejas 
       t.string :NOME_igreja
       t.string :NUMR_telefone
       t.string :NOME_responsavel

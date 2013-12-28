@@ -10,6 +10,7 @@ class SivicEnderecosController < ApplicationController
   # GET /sivic_enderecos/1
   # GET /sivic_enderecos/1.json
   def show
+    
   end
 
   # GET /sivic_enderecos/new

@@ -22,8 +22,38 @@
     <%= endereco.number_field :NUMR_Cep %>
   </div>
   <div class="field">
-    <%= endereco.label :sivic_cidade_id %><br>
-    <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade') %>
+    <%= endereco.label :sivic_estado_id %><br>
+    <%= endereco.select :sivic_estado_id, options_from_collection_for_select(@sivic_estado, 'id', 'nome_estado') , {}, {:onchange => 'changeState(this)'}%>
+  </div>
+
+  <div class="field">
+    <%= endereco.label :sivic_cidade_id   %><br>
+    <%= endereco.select :sivic_cidade_id, [] %><br>
   </div> 
+
   <% end %>
 </fieldset>
+
+
+
+<script>
+  function changeState(state){
+      $.ajax({
+        url: '<%= listarCidade_path %>',
+        data : {id : state.value},
+        success: function(data){
+          $('#sivic_endereco_sivic_cidade_id').empty();
+          $('#sivic_endereco_sivic_cidade_id').html('<option>Carregando...</option>');
+          $('#sivic_endereco_sivic_cidade_id').attr('disabled', 'disabled');
+          var options = "";
+          for (var i in data) {
+            var item = data[i];
+            options += "<option value='"+item.id+"'>"+item.name+"</option>"
+          };
+ 
+          $('#sivic_endereco_sivic_cidade_id').html(options);
+          $('#sivic_endereco_sivic_cidade_id').removeAttr('disabled');          
+        }
+      })
+    }
+</script>
