@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_redes
+
   resources :sivic_igrejas do 
     resources :sivic_enderecos
   end

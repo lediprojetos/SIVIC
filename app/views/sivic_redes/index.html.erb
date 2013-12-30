@@ -1,0 +1,27 @@
+<h1>Listagem de Redes</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nome rede</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_redes.each do |sivic_rede| %>
+      <tr>
+        <td><%= sivic_rede.nome_rede %></td>
+        <td><%= link_to 'Exibir', sivic_rede %></td>
+        <td><%= link_to 'Editar', edit_sivic_rede_path(sivic_rede) %></td>
+        <td><%= link_to 'Excluir', sivic_rede, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Cadastrar nova Rede', new_sivic_rede_path %>

@@ -1,0 +1,2 @@
+module SivicRedesHelper
+end

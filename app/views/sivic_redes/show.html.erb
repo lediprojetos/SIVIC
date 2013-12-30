@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @sivic_rede.nome_rede %>
+</p>
+
+<p>
+  <strong>Sivic igreja:</strong>
+  <%= @sivic_rede.sivic_igreja %>
+</p>
+
+<%= link_to 'Editar', edit_sivic_rede_path(@sivic_rede) %> |
+<%= link_to 'Voltar', sivic_redes_path %>
