@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Desc tipoevento:</strong>
+  <%= @sivic_tipo_evento.desc_tipoevento %>
+</p>
+
+<p>
+  <strong>Sivic igreja:</strong>
+  <%= @sivic_tipo_evento.sivic_igreja %>
+</p>
+
+<%= link_to 'Editar', edit_sivic_tipo_evento_path(@sivic_tipo_evento) %> |
+<%= link_to 'Voltar', sivic_tipo_eventos_path %>

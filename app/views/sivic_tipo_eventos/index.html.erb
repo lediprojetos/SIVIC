@@ -1,0 +1,29 @@
+<h1>Listagem de Tipo de Eventos</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Desc tipoevento</th>
+      <th>Sivic igreja</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_tipo_eventos.each do |sivic_tipo_evento| %>
+      <tr>
+        <td><%= sivic_tipo_evento.desc_tipoevento %></td>
+        <td><%= sivic_tipo_evento.sivic_igreja %></td>
+        <td><%= link_to 'Exibir', sivic_tipo_evento %></td>
+        <td><%= link_to 'Editar', edit_sivic_tipo_evento_path(sivic_tipo_evento) %></td>
+        <td><%= link_to 'Excluir', sivic_tipo_evento, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Cadastrar novo Tipo Evento', new_sivic_tipo_evento_path %>
