@@ -8,12 +8,12 @@
 </p>
 
 <p>
-  <strong>Numr telefone:</strong>
+  <strong>Telefone:</strong>
   <%= @sivic_igreja.NUMR_telefone %>
 </p>
 
 <p>
-  <strong>Nome responsavel:</strong>
+  <strong>Nome do Eesponsavel:</strong>
   <%= @sivic_igreja.NOME_responsavel %>
 </p>
 
@@ -26,33 +26,38 @@
 
 
 <p>
-  <strong>Desc bairro:</strong>
+  <strong>Bairro:</strong>
   <%= @sivic_igreja.sivic_endereco.DESC_Bairro %>
 </p>
 
 <p>
-  <strong>Desc rua:</strong>
+  <strong>Rua:</strong>
   <%= @sivic_igreja.sivic_endereco.DESC_Rua %>
 </p>
 
 <p>
-  <strong>Desc complemento:</strong>
+  <strong>Complemento:</strong>
   <%= @sivic_igreja.sivic_endereco.DESC_Complemento %>
 </p>
 
 <p>
-  <strong>Desc pontoreferencia:</strong>
+  <strong>Ponto de Referência:</strong>
   <%= @sivic_igreja.sivic_endereco.DESC_Pontoreferencia %>
 </p>
 
 <p>
-  <strong>Numr cep:</strong>
+  <strong>CEP:</strong>
   <%= @sivic_igreja.sivic_endereco.NUMR_Cep %>
 </p>
 
 <p>
-  <strong>Sivic cidade:</strong>
+  <strong>Cidade:</strong>
   <%= @sivic_igreja.sivic_endereco.sivic_cidade.nome_cidade %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @sivic_igreja.sivic_endereco.sivic_cidade.sivic_estado.nome_estado %>
 </p>
 
 

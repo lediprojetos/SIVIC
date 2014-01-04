@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 20131230191314) do
   end
 
   create_table "sivic_igrejas", force: true do |t|
-    t.integer  "father_id"
     t.string   "NOME_igreja"
     t.string   "NUMR_telefone"
     t.string   "NOME_responsavel"

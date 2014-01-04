@@ -21,22 +21,24 @@ class SivicIgrejasController < ApplicationController
   # GET /sivic_igrejas/1
   # GET /sivic_igrejas/1.json
   def show
-    @sivic_cidade = SivicCidade.all
   end
 
   # GET /sivic_igrejas/new
   def new
-    @sivic_estado = SivicEstado.all
-    @sivic_cidade = SivicCidade.all
     @sivic_igreja = SivicIgreja.new
     @sivic_igreja.build_sivic_endereco
-    
   end
 
 
   # GET /sivic_igrejas/1/edit
   def edit
-    @sivic_estado = SivicEstado.all
+    @sivic_estado = SivicIgreja.find(params[:id])
+    @sivic_estado = @sivic_estado.sivic_endereco.sivic_cidade.sivic_estado.id
+
+    @sivic_cidade = SivicCidade.find :all, :conditions => {:sivic_estado_id => @sivic_estado}
+
+    @sivic_cidade_setada = SivicIgreja.find(params[:id])
+    @sivic_cidade_setada = @sivic_cidade_setada.sivic_endereco.sivic_cidade.id
   end
 
   # POST /sivic_igrejas

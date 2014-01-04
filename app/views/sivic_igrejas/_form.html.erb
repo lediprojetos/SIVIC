@@ -26,7 +26,7 @@
     <%= f.text_field :NOME_responsavel %>
   </div>
   <div class="field">
-    <%= f.label :CNPJ %><br>
+    <%= f.label :cnpj.upcase %><br>
     <%= f.text_field :NUMR_cnpj %>
   </div>  
 
@@ -52,21 +52,32 @@
     <%= endereco.text_field :DESC_Pontoreferencia %>
   </div>
   <div class="field">
-    <%= endereco.label :Cep %><br>
+    <%= endereco.label :CEP.capitalize %><br>
     <%= endereco.number_field :NUMR_Cep %>
   </div>
 
   <%=  f.fields_for :sivic_estado do |estado| %>
   <div class="field">
-    <%= estado.label :sivic_estado_id %><br>
-    <%= estado.select :sivic_estado_id, options_from_collection_for_select(@sivic_estado, 'id', 'nome_estado') , {}, {:onchange => 'changeState(this)'}%>
+    <%= estado.label :Estado %><br>
+    <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado) , {}, {:onchange => 'changeState(this)'}%>
   </div>
   <%end%>
 
-  <div class="field">
-    <%= endereco.label :sivic_cidade_id   %><br>
-    <%= endereco.select :sivic_cidade_id, [] %><br>
-  </div> 
+  <%if @sivic_cidade %>
+
+    <div class="field">
+      <%= endereco.label :Cidade %><br>
+      <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada)%>
+    </div>
+
+  <%else%>
+
+    <div class="field">
+      <%= endereco.label :Cidade   %><br>
+      <%= endereco.select :sivic_cidade_id, [] %><br>
+    </div> 
+
+  <%end%>
 
   <% end %>
 </fieldset>
