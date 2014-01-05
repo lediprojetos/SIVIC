@@ -49,7 +49,7 @@ class SivicIgrejasController < ApplicationController
 
     respond_to do |format|
       if @sivic_igreja.save
-        format.html { redirect_to @sivic_igreja, notice: 'Igreja inserida com sucesso.' }
+        format.html { redirect_to @sivic_igreja, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_igreja }
       else
         format.html { render action: 'new' }
@@ -64,7 +64,7 @@ class SivicIgrejasController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_igreja.update(sivic_igreja_params)
-        format.html { redirect_to @sivic_igreja, notice: 'Sivic igreja was successfully updated.' }
+        format.html { redirect_to @sivic_igreja, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
