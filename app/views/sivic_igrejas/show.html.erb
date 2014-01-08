@@ -2,6 +2,18 @@
 
 <legend>Dados Principais</legend>
 
+
+<p>
+  <strong>Igreja Sede:</strong>
+  <% @sede = SivicIgreja.find_by_id(@sivic_igreja.father_id) %>
+  <% if @sede != nil %>
+    <%= SivicIgreja.find_by_id(@sivic_igreja.father_id).NOME_igreja%>
+  <%else%>
+      <%= nil%>
+  <%end%>
+
+</p>
+
 <p>
   <strong>Nome igreja:</strong>
   <%= @sivic_igreja.NOME_igreja %>

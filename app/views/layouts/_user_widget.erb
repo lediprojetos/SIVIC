@@ -1,0 +1,8 @@
+<% if user_signed_in? %>
+  <p>Bem Vindo <%= current_user.email %></p>
+  <%= link_to 'Clique para sair', destroy_user_session_path, :method => :delete, class: "btn btn-large btn-primary" %>
+  
+<% else %>
+  <p>Você não está logado.</p>
+  <%= link_to "Entrar!", new_user_session_path, class: "btn btn-large btn-primary" %>
+<% end %>

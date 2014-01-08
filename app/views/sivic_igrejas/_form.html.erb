@@ -12,6 +12,11 @@
   <% end %>
 
   <legend>Dados Principais</legend>
+
+  <div class="field">
+    <%= f.label :Sede %><br>
+    <%= f.select :father_id, options_from_collection_for_select(SivicIgreja.all, 'id', 'NOME_igreja',@sivic_sede),:include_blank => true%>
+  </div>
  
   <div class="field">
     <%= f.label :NOME %><br>
