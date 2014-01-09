@@ -1,0 +1,61 @@
+<%= form_for(@sivic_evento) do |f| %>
+  <% if @sivic_evento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_evento.errors.count, "error") %> prohibited this sivic_evento from being saved:</h2>
+
+      <ul>
+      <% @sivic_evento.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :DESC_evento %><br>
+    <%= f.text_field :DESC_evento %>
+  </div>
+  <div class="field">
+    <%= f.label :DESC_resumo %><br>
+    <%= f.text_area :DESC_resumo %>
+  </div>
+  <div class="field">
+    <%= f.label :VARL_inscricao %><br>
+    <%= f.text_field :VARL_inscricao %>
+  </div>
+  <div class="field">
+    <%= f.label :DATA_inicio %><br>
+    <%= f.datetime_select :DATA_inicio %>
+  </div>
+  <div class="field">
+    <%= f.label :DATA_fim %><br>
+    <%= f.datetime_select :DATA_fim %>
+  </div>
+  <div class="field">
+    <%= f.label :FLAG_ilimitado %><br>
+    <%= f.number_field :FLAG_ilimitado %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_qdtVagas %><br>
+    <%= f.number_field :NUMR_qdtVagas %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_user_id %><br>
+    <%= f.text_field :sivic_user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_igreja_id %><br>
+    <%= f.text_field :sivic_igreja_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_endereco_id %><br>
+    <%= f.text_field :sivic_endereco_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_tipoEvento_id %><br>
+    <%= f.text_field :sivic_tipoEvento_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
