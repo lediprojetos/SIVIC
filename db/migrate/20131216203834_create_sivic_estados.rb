@@ -6,5 +6,10 @@ class CreateSivicEstados < ActiveRecord::Migration
 
       t.timestamps
     end
+
+	    SivicEstado.create(:nome_estado => "Goias", :sigl_estado => "GO")
+	    SivicEstado.create(:nome_estado => "Minas Gerais", :sigl_estado => "MG")
+	    SivicEstado.create(:nome_estado => "Tocantins", :sigl_estado => "TO")    
   end
+
 end
