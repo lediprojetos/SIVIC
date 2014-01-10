@@ -1,0 +1,47 @@
+<h1>Listagem de Eventos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Desc evento</th>
+      <th>Desc resumo</th>
+      <th>Varl inscricao</th>
+      <th>Data inicio</th>
+      <th>Data fim</th>
+      <th>Flag ilimitado</th>
+      <th>Numr qdtvagas</th>
+      <th>Sivic user</th>
+      <th>Sivic igreja</th>
+      <th>Sivic endereco</th>
+      <th>Sivic tipoevento</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_eventos.each do |sivic_evento| %>
+      <tr>
+        <td><%= sivic_evento.DESC_evento %></td>
+        <td><%= sivic_evento.DESC_resumo %></td>
+        <td><%= sivic_evento.VARL_inscricao %></td>
+        <td><%= sivic_evento.DATA_inicio %></td>
+        <td><%= sivic_evento.DATA_fim %></td>
+        <td><%= sivic_evento.FLAG_ilimitado %></td>
+        <td><%= sivic_evento.NUMR_qdtVagas %></td>
+        <td><%= sivic_evento.sivic_user %></td>
+        <td><%= sivic_evento.sivic_igreja %></td>
+        <td><%= sivic_evento.sivic_endereco %></td>
+        <td><%= sivic_evento.sivic_tipoEvento %></td>
+        <td><%= link_to 'Exibir', sivic_evento %></td>
+        <td><%= link_to 'Editar', edit_sivic_evento_path(sivic_evento) %></td>
+        <td><%= link_to 'Excluir', sivic_evento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic evento', new_sivic_evento_path %>

@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Desc evento:</strong>
+  <%= @sivic_evento.DESC_evento %>
+</p>
+
+<p>
+  <strong>Desc resumo:</strong>
+  <%= @sivic_evento.DESC_resumo %>
+</p>
+
+<p>
+  <strong>Varl inscricao:</strong>
+  <%= @sivic_evento.VARL_inscricao %>
+</p>
+
+<p>
+  <strong>Data inicio:</strong>
+  <%= @sivic_evento.DATA_inicio %>
+</p>
+
+<p>
+  <strong>Data fim:</strong>
+  <%= @sivic_evento.DATA_fim %>
+</p>
+
+<p>
+  <strong>Flag ilimitado:</strong>
+  <%= @sivic_evento.FLAG_ilimitado %>
+</p>
+
+<p>
+  <strong>Numr qdtvagas:</strong>
+  <%= @sivic_evento.NUMR_qdtVagas %>
+</p>
+
+<p>
+  <strong>Sivic user:</strong>
+  <%= @sivic_evento.sivic_user %>
+</p>
+
+<p>
+  <strong>Sivic igreja:</strong>
+  <%= @sivic_evento.sivic_igreja %>
+</p>
+
+<p>
+  <strong>Sivic endereco:</strong>
+  <%= @sivic_evento.sivic_endereco %>
+</p>
+
+<p>
+  <strong>Sivic tipoevento:</strong>
+  <%= @sivic_evento.sivic_tipoEvento %>
+</p>
+
+<%= link_to 'Editar', edit_sivic_evento_path(@sivic_evento) %> |
+<%= link_to 'Voltar', sivic_eventos_path %>

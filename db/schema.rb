@@ -11,8 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140110094355) do
-
+ActiveRecord::Schema.define(version: 20140109153639) do
   create_table "sivic_cidades", force: true do |t|
     t.string   "nome_cidade"
     t.integer  "sivic_estado_id"
@@ -48,8 +47,28 @@ ActiveRecord::Schema.define(version: 20140110094355) do
     t.datetime "updated_at"
   end
 
+  create_table "sivic_eventos", force: true do |t|
+    t.string   "DESC_evento"
+    t.text     "DESC_resumo"
+    t.decimal  "VARL_inscricao",      precision: 10, scale: 2
+    t.datetime "DATA_inicio"
+    t.datetime "DATA_fim"
+    t.integer  "FLAG_ilimitado"
+    t.integer  "NUMR_qdtVagas"
+    t.integer  "sivic_user_id"
+    t.integer  "sivic_igreja_id"
+    t.integer  "sivic_endereco_id"
+    t.integer  "sivic_tipoEvento_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_eventos", ["sivic_endereco_id"], name: "index_sivic_eventos_on_sivic_endereco_id"
+  add_index "sivic_eventos", ["sivic_igreja_id"], name: "index_sivic_eventos_on_sivic_igreja_id"
+  add_index "sivic_eventos", ["sivic_tipoEvento_id"], name: "index_sivic_eventos_on_sivic_tipoEvento_id"
+  add_index "sivic_eventos", ["sivic_user_id"], name: "index_sivic_eventos_on_sivic_user_id"
+
   create_table "sivic_igrejas", force: true do |t|
-    t.integer  "father_id"
     t.string   "NOME_igreja"
     t.string   "NUMR_telefone"
     t.string   "NOME_responsavel"
