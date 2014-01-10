@@ -19,6 +19,9 @@
   <div><%= f.label :Senha_Atual %> <i>(Você precisa de sua senha atual para confirmar a alteração)</i><br />
   <%= f.password_field :current_password %></div>
 
+  <div><%= f.label :Permissão %><br />
+  <%= f.collection_select :role, User::ROLES, :to_s, :humanize %></div>  
+
   <div><%= f.submit "Atualizar" %></div>
 <% end %>
 

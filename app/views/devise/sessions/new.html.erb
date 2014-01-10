@@ -8,8 +8,10 @@
   <%= f.password_field :password %></div>
 
   <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %></div>
-    <div><%= f.label :Lembrar_Senha %></div>
+    <div>
+    	<%= f.check_box :remember_me %>
+    	<%= f.label :Lembrar_Senha %>
+	</div>
   <% end -%>
 
   <div><%= f.submit "Fazer Login" %></div>
