@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140109153639) do
+ActiveRecord::Schema.define(version: 20140110154321) do
+
   create_table "sivic_cidades", force: true do |t|
     t.string   "nome_cidade"
     t.integer  "sivic_estado_id"
@@ -69,6 +70,8 @@ ActiveRecord::Schema.define(version: 20140109153639) do
   add_index "sivic_eventos", ["sivic_user_id"], name: "index_sivic_eventos_on_sivic_user_id"
 
   create_table "sivic_igrejas", force: true do |t|
+    t.integer  "father_id"
+    t.integer  "integer"
     t.string   "NOME_igreja"
     t.string   "NUMR_telefone"
     t.string   "NOME_responsavel"
@@ -79,6 +82,21 @@ ActiveRecord::Schema.define(version: 20140109153639) do
   end
 
   add_index "sivic_igrejas", ["sivic_endereco_id"], name: "index_sivic_igrejas_on_sivic_endereco_id"
+
+  create_table "sivic_pessoas", force: true do |t|
+    t.integer  "father_id"
+    t.integer  "integer"
+    t.string   "NOME_pessoa"
+    t.string   "DESC_email"
+    t.string   "DESC_observacao"
+    t.integer  "sivic_igreja_id"
+    t.integer  "User_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_pessoas", ["User_id"], name: "index_sivic_pessoas_on_User_id"
+  add_index "sivic_pessoas", ["sivic_igreja_id"], name: "index_sivic_pessoas_on_sivic_igreja_id"
 
   create_table "sivic_profissaos", force: true do |t|
     t.string   "profissao"
