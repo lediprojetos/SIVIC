@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20140109153639) do
   create_table "sivic_eventos", force: true do |t|
     t.string   "DESC_evento"
     t.text     "DESC_resumo"
-    t.decimal  "VARL_inscricao"
+    t.decimal  "VARL_inscricao",      precision: 10, scale: 2
     t.datetime "DATA_inicio"
     t.datetime "DATA_fim"
     t.integer  "FLAG_ilimitado"
@@ -70,7 +70,6 @@ ActiveRecord::Schema.define(version: 20140109153639) do
   add_index "sivic_eventos", ["sivic_user_id"], name: "index_sivic_eventos_on_sivic_user_id"
 
   create_table "sivic_igrejas", force: true do |t|
-    t.integer  "father_id"
     t.string   "NOME_igreja"
     t.string   "NUMR_telefone"
     t.string   "NOME_responsavel"

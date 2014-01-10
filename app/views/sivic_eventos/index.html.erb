@@ -1,4 +1,4 @@
-<h1>Listing sivic_eventos</h1>
+<h1>Listagem de Eventos</h1>
 
 <table>
   <thead>
@@ -34,9 +34,9 @@
         <td><%= sivic_evento.sivic_igreja %></td>
         <td><%= sivic_evento.sivic_endereco %></td>
         <td><%= sivic_evento.sivic_tipoEvento %></td>
-        <td><%= link_to 'Show', sivic_evento %></td>
-        <td><%= link_to 'Edit', edit_sivic_evento_path(sivic_evento) %></td>
-        <td><%= link_to 'Destroy', sivic_evento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Exibir', sivic_evento %></td>
+        <td><%= link_to 'Editar', edit_sivic_evento_path(sivic_evento) %></td>
+        <td><%= link_to 'Excluir', sivic_evento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

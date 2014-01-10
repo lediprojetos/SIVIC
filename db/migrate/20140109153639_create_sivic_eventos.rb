@@ -3,7 +3,7 @@ class CreateSivicEventos < ActiveRecord::Migration
     create_table :sivic_eventos do |t|
       t.string :DESC_evento
       t.text :DESC_resumo
-      t.decimal :VARL_inscricao
+      t.decimal :VARL_inscricao, :precision => 10, :scale => 2
       t.datetime :DATA_inicio
       t.datetime :DATA_fim
       t.integer :FLAG_ilimitado
