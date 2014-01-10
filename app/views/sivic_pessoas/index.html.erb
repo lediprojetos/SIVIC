@@ -1,0 +1,35 @@
+<h1>Listing sivic_pessoas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome pessoa</th>
+      <th>Desc email</th>
+      <th>Desc observacao</th>
+      <th>Sivic igreja</th>
+      <th>User</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_pessoas.each do |sivic_pessoa| %>
+      <tr>
+        <td><%= sivic_pessoa.NOME_pessoa %></td>
+        <td><%= sivic_pessoa.DESC_email %></td>
+        <td><%= sivic_pessoa.DESC_observacao %></td>
+        <td><%= sivic_pessoa.sivic_igreja %></td>
+        <td><%= sivic_pessoa.User %></td>
+        <td><%= link_to 'Show', sivic_pessoa %></td>
+        <td><%= link_to 'Edit', edit_sivic_pessoa_path(sivic_pessoa) %></td>
+        <td><%= link_to 'Destroy', sivic_pessoa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic pessoa', new_sivic_pessoa_path %>

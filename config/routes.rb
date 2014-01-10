@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_pessoas
+
   resources :sivic_eventos
 
   devise_for :users
