@@ -1,33 +1,39 @@
 <h2>Editar Usuario <%#= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-  <%= devise_error_messages! %>
+<div class="row">
+  <div class="span6 offset3">
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, :autofocus => true %></div>
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+      <%= devise_error_messages! %>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+      <%= f.label :email %>
+      <%= f.email_field :email, :autofocus => true %>
 
-  <div><%= f.label :Senha %> <i>(Deixe em branco caso não queira editar a senha)</i><br />
-  <%= f.password_field :password, :autocomplete => "off" %></div>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        Currently waiting confirmation for: <%= resource.unconfirmed_email %>
+      <% end %>
 
-  <div><%= f.label :Confirmação_de_Senha %>
-  <%= f.password_field :password_confirmation %></div>
+      <%= f.label :Senha %> <i>(Deixe em branco caso não queira editar a senha)</i>
+      <%= f.password_field :password, :autocomplete => "off" %>
 
-  <div><%= f.label :Senha_Atual %> <i>(Você precisa de sua senha atual para confirmar a alteração)</i><br />
-  <%= f.password_field :current_password %></div>
+      <%= f.label :Confirmação_de_Senha %>
+      <%= f.password_field :password_confirmation %>
 
-  <div><%= f.label :Permissão %><br />
-  <%= f.collection_select :role, User::ROLES, :to_s, :humanize %></div>  
+      <%= f.label :Senha_Atual %> <i>(Você precisa de sua senha atual para confirmar a alteração)</i>
+      <%= f.password_field :current_password %>
 
-  <div><%= f.submit "Atualizar" %></div>
-<% end %>
+      <%= f.label :Permissão %>
+      <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>  
+
+      <%= f.submit "Atualizar", class: "btn btn-mediun btn-primary" %>
+    <% end %>
+
 
 
 <h2>Encerrar conta <%#= resource_name.to_s.humanize %></h2>
 
-<p> Deseja Encerrar sua conta? <%= button_to "Encerrar conta", registration_path(resource_name), :data => { :confirm => "Confirma ação?" }, :method => :delete %></p>
+<p> Deseja Encerrar sua conta? <%= button_to "Encerrar conta", registration_path(resource_name), :data => { :confirm => "Confirma ação?" }, :method => :delete , class: "btn btn-mediun btn-primary"%></p>
 
 <%= link_to "Voltar", :back %>
+  </div>
+</div>  

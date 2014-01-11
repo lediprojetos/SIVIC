@@ -15,10 +15,15 @@ class SivicPessoasController < ApplicationController
   # GET /sivic_pessoas/new
   def new
     @sivic_pessoa = SivicPessoa.new
+
+    @sivic_user = User.all
+    @sivic_igreja = SivicIgreja.all
   end
 
   # GET /sivic_pessoas/1/edit
   def edit
+    @sivic_user = User.all
+    @sivic_igreja = SivicIgreja.all
   end
 
   # POST /sivic_pessoas
@@ -28,7 +33,7 @@ class SivicPessoasController < ApplicationController
 
     respond_to do |format|
       if @sivic_pessoa.save
-        format.html { redirect_to @sivic_pessoa, notice: 'Sivic pessoa was successfully created.' }
+        format.html { redirect_to @sivic_pessoa, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_pessoa }
       else
         format.html { render action: 'new' }
@@ -42,7 +47,7 @@ class SivicPessoasController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_pessoa.update(sivic_pessoa_params)
-        format.html { redirect_to @sivic_pessoa, notice: 'Sivic pessoa was successfully updated.' }
+        format.html { redirect_to @sivic_pessoa, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

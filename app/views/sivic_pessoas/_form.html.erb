@@ -12,24 +12,25 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :NOME_pessoa %><br>
+    <%= f.label :Nome %><br>
     <%= f.text_field :NOME_pessoa %>
   </div>
   <div class="field">
-    <%= f.label :DESC_email %><br>
+    <%= f.label :Email %><br>
     <%= f.text_field :DESC_email %>
   </div>
   <div class="field">
-    <%= f.label :DESC_observacao %><br>
+    <%= f.label :Observação %><br>
     <%= f.text_field :DESC_observacao %>
   </div>
   <div class="field">
-    <%= f.label :sivic_igreja_id %><br>
-    <%= f.text_field :sivic_igreja_id %>
+    <%= f.label :Igreja %><br>
+    <%= f.select :sivic_igreja_id, options_from_collection_for_select(@sivic_igreja, 'id', 'NOME_igreja')%>
   </div>
   <div class="field">
-    <%= f.label :User_id %><br>
-    <%= f.text_field :User_id %>
+    <%= f.label :Usuário_de_sistema %><br>
+    <%#= f.text_field :User_id %>
+    <%= f.select :User_id, options_from_collection_for_select(@sivic_user, 'id', 'email')%>
   </div>
   <div class="actions">
     <%= f.submit %>

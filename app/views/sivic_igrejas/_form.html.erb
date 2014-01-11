@@ -64,7 +64,7 @@
   <%=  f.fields_for :sivic_estado do |estado| %>
   <div class="field">
     <%= estado.label :Estado %><br>
-    <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado) , {}, {:onchange => 'changeState(this)'}%>
+    <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)',}%>
   </div>
   <%end%>
 

@@ -1,29 +1,29 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Nome pessoa:</strong>
+  <strong>Nome:</strong>
   <%= @sivic_pessoa.NOME_pessoa %>
 </p>
 
 <p>
-  <strong>Desc email:</strong>
+  <strong>Email:</strong>
   <%= @sivic_pessoa.DESC_email %>
 </p>
 
 <p>
-  <strong>Desc observacao:</strong>
+  <strong>Observação:</strong>
   <%= @sivic_pessoa.DESC_observacao %>
 </p>
 
 <p>
-  <strong>Sivic igreja:</strong>
-  <%= @sivic_pessoa.sivic_igreja %>
+  <strong>Igreja:</strong>
+  <%= @sivic_pessoa.sivic_igreja.NOME_igreja %>
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @sivic_pessoa.User %>
+  <strong>Usuário de sistema:</strong>
+  <%= @sivic_pessoa.User.email %>
 </p>
 
-<%= link_to 'Edit', edit_sivic_pessoa_path(@sivic_pessoa) %> |
-<%= link_to 'Back', sivic_pessoas_path %>
+<%= link_to 'Editar', edit_sivic_pessoa_path(@sivic_pessoa) %> |
+<%= link_to 'Voltar', sivic_pessoas_path %>

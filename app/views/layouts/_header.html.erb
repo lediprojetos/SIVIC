@@ -4,9 +4,16 @@
       <%= link_to "SIVIC", root_path, id: "logo" %>
       <nav>
         <ul class="nav pull-right">
+
+          <% if user_signed_in? %>
+            <li><%= link_to current_user.email, edit_user_registration_path %></li>
+            <li><%= link_to 'Sair', destroy_user_session_path, :method => :delete%></li>
+          <% else %>
+            <li><%= link_to "Entrar", new_user_session_path%>
+          <% end %>
+
+          <li><%= link_to "|", '#' %></li>
           <li><%= link_to "Home",    root_path %></li>
-          <li><%= link_to "Ajuda",    help_path %></li>
-          <li><%= link_to "Entrar!", new_user_session_path%></li>
         </ul>
       </nav>
     </div>

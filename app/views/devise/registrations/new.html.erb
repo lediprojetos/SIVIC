@@ -1,21 +1,27 @@
 <h2>Registrar</h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
 
-  <div><%= f.label :Email %><br />
-  <%= f.email_field :email%></div>
+      <%= f.label :Email %>
+      <%= f.email_field :email%>
 
-  <div><%= f.label :Senha %><br />
-  <%= f.password_field :password %></div>
+      <%= f.label :Senha %>
+      <%= f.password_field :password %>
 
-  <div><%= f.label :Confirmação_de_Senha %><br />
-  <%= f.password_field :password_confirmation %></div>
+      <%= f.label :Confirmação_de_Senha %>
+      <%= f.password_field :password_confirmation %>
 
-  <div><%= f.label :Permissão %><br />
-  <%= f.collection_select :role, User::ROLES, :to_s, :humanize %></div>
+      <%= f.label :Permissão %>
+      <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
 
-  <div><%= f.submit "Registrar" %></div>
-<% end %>
+      <%= f.submit "Registrar" ,class: "btn btn-mediun btn-primary"%>
+    <% end %>
+    <%= render "devise/shared/links" %>
+    
+  </div>
+</div>  
 
-<%= render "devise/shared/links" %>
+

@@ -1,13 +1,13 @@
-<h1>Listing sivic_pessoas</h1>
+<h1>Lista de Pessoas</h1>
 
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
-      <th>Nome pessoa</th>
-      <th>Desc email</th>
-      <th>Desc observacao</th>
-      <th>Sivic igreja</th>
-      <th>User</th>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Observacao</th>
+      <th>Igreja</th>
+      <th>Usuário de Sistema</th>
       <th></th>
       <th></th>
       <th></th>
@@ -20,11 +20,11 @@
         <td><%= sivic_pessoa.NOME_pessoa %></td>
         <td><%= sivic_pessoa.DESC_email %></td>
         <td><%= sivic_pessoa.DESC_observacao %></td>
-        <td><%= sivic_pessoa.sivic_igreja %></td>
-        <td><%= sivic_pessoa.User %></td>
-        <td><%= link_to 'Show', sivic_pessoa %></td>
-        <td><%= link_to 'Edit', edit_sivic_pessoa_path(sivic_pessoa) %></td>
-        <td><%= link_to 'Destroy', sivic_pessoa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= sivic_pessoa.sivic_igreja.NOME_igreja %></td>
+        <td><%= sivic_pessoa.User.email %></td>
+        <td><%= link_to 'Exibir', sivic_pessoa %></td>
+        <td><%= link_to 'Editar', edit_sivic_pessoa_path(sivic_pessoa) %></td>
+        <td><%= link_to 'Excluir', sivic_pessoa, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'New Sivic pessoa', new_sivic_pessoa_path %>
+<%= link_to 'Novo Cadastro', new_sivic_pessoa_path %>
