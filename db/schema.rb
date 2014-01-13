@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(version: 20140110154321) do
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
+    t.integer  "sivic_pessoas_id"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -140,5 +141,6 @@ ActiveRecord::Schema.define(version: 20140110154321) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["sivic_pessoas_id"], name: "index_users_on_sivic_pessoas_id"
 
 end

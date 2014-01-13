@@ -12,6 +12,11 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :Lider %><br>
+    <%= f.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',@sivic_lider),:include_blank => true%>
+  </div>  
+
+  <div class="field">
     <%= f.label :Nome %><br>
     <%= f.text_field :NOME_pessoa %>
   </div>
@@ -28,10 +33,12 @@
     <%= f.select :sivic_igreja_id, options_from_collection_for_select(@sivic_igreja, 'id', 'NOME_igreja')%>
   </div>
   <div class="field">
-    <%= f.label :Usuário_de_sistema %><br>
+    <%#= f.label :Operador_de_inclusão %>
     <%#= f.text_field :User_id %>
-    <%= f.select :User_id, options_from_collection_for_select(@sivic_user, 'id', 'email')%>
+    <p><%#= current_user.email%><p/>
+    <%#= f.text_field :User_id%>
   </div>
+  <br>
   <div class="actions">
     <%= f.submit %>
   </div>
