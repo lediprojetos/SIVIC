@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @sivic_ministerio.nome_ministerio %>
+</p>
+
+<p>
+  <strong>Sigla:</strong>
+  <%= @sivic_ministerio.sigl_ministerio %>
+</p>
+
+
+
+<%= link_to 'Editar', edit_sivic_ministerio_path(@sivic_ministerio) %> |
+<%= link_to 'Voltar', sivic_ministerios_path %>

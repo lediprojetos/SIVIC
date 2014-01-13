@@ -1,0 +1,29 @@
+<h1>Lista de Ministerios</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Sigla</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_ministerios.each do |sivic_ministerio| %>
+      <tr>
+        <td><%= sivic_ministerio.nome_ministerio %></td>
+        <td><%= sivic_ministerio.sigl_ministerio %></td>
+        <td><%= link_to 'Exibir', sivic_ministerio %></td>
+        <td><%= link_to 'Editar', edit_sivic_ministerio_path(sivic_ministerio) %></td>
+        <td><%= link_to 'Deletar', sivic_ministerio, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Cadastrar Novo Ministerio', new_sivic_ministerio_path %>
