@@ -1,6 +1,7 @@
 class SivicTipoEventosController < ApplicationController
   before_action :set_sivic_tipo_evento, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
+  
   # GET /sivic_tipo_eventos
   # GET /sivic_tipo_eventos.json
   def index

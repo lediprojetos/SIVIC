@@ -1,5 +1,6 @@
 class SivicProfissaosController < ApplicationController
   before_action :set_sivic_profissao, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /sivic_profissaos
   # GET /sivic_profissaos.json

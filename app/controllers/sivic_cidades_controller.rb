@@ -1,4 +1,5 @@
 class SivicCidadesController < ApplicationController
+before_action :authenticate_user!
 
    def create
     @sivic_estado = SivicEstado.find(params[:sivic_estado_id])

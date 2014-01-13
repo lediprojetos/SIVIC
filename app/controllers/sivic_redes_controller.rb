@@ -1,5 +1,6 @@
 class SivicRedesController < ApplicationController
   before_action :set_sivic_rede, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /sivic_redes
   # GET /sivic_redes.json
