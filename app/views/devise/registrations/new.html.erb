@@ -5,6 +5,11 @@
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
       <%= devise_error_messages! %>
 
+      <div class="field">
+        <%= f.label :Pessoa %><br>
+        <%= f.select :sivic_pessoas_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa')%>
+      </div>
+
       <%= f.label :Email %>
       <%= f.email_field :email%>
 

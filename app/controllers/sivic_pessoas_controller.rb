@@ -25,6 +25,9 @@ class SivicPessoasController < ApplicationController
   def edit
     @sivic_user = User.all
     @sivic_igreja = SivicIgreja.all
+
+    @sivic_lider = SivicPessoa.find(params[:id])
+    @sivic_lider = @sivic_lider.father_id   
   end
 
   # POST /sivic_pessoas
@@ -75,6 +78,6 @@ class SivicPessoasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_pessoa_params
-      params.require(:sivic_pessoa).permit(:NOME_pessoa, :DESC_email, :DESC_observacao, :sivic_igreja_id, :User_id)
+      params.require(:sivic_pessoa).permit(:NOME_pessoa, :DESC_email, :DESC_observacao, :sivic_igreja_id, :User_id, :father_id)
     end
 end

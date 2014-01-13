@@ -16,14 +16,16 @@
 </p>
 
 <p>
-  <strong>Igreja:</strong>
-  <%= @sivic_pessoa.sivic_igreja.NOME_igreja %>
+  <strong>Lider:</strong>
+  <% @lider = @sivic_pessoa.father %>
+  <% if @lider != nil %>
+    <%= @sivic_pessoa.father.NOME_pessoa%>
+  <%else%>
+      <%= nil%>
+  <%end%>
 </p>
 
-<p>
-  <strong>Usuário de sistema:</strong>
-  <%= @sivic_pessoa.User.email %>
-</p>
+
 
 <%= link_to 'Editar', edit_sivic_pessoa_path(@sivic_pessoa) %> |
 <%= link_to 'Voltar', sivic_pessoas_path %>
