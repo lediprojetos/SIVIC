@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_escolaridades
+
   resources :sivic_ministerios
 
   resources :sivic_pessoas
