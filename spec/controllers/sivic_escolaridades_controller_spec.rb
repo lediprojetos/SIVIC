@@ -23,7 +23,7 @@ describe SivicEscolaridadesController do
   # This should return the minimal set of attributes required to create a valid
   # SivicEscolaridade. As you add validations to SivicEscolaridade, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "escolaridade" => "MyString" } }
+  let(:valid_attributes) { { "NOME_escolaridade" => "MyString" } }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -85,14 +85,14 @@ describe SivicEscolaridadesController do
       it "assigns a newly created but unsaved sivic_escolaridade as @sivic_escolaridade" do
         # Trigger the behavior that occurs when invalid params are submitted
         SivicEscolaridade.any_instance.stub(:save).and_return(false)
-        post :create, {:sivic_escolaridade => { "escolaridade" => "invalid value" }}, valid_session
+        post :create, {:sivic_escolaridade => { "NOME_escolaridade" => "invalid value" }}, valid_session
         assigns(:sivic_escolaridade).should be_a_new(SivicEscolaridade)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         SivicEscolaridade.any_instance.stub(:save).and_return(false)
-        post :create, {:sivic_escolaridade => { "escolaridade" => "invalid value" }}, valid_session
+        post :create, {:sivic_escolaridade => { "NOME_escolaridade" => "invalid value" }}, valid_session
         response.should render_template("new")
       end
     end
@@ -106,8 +106,8 @@ describe SivicEscolaridadesController do
         # specifies that the SivicEscolaridade created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        SivicEscolaridade.any_instance.should_receive(:update).with({ "escolaridade" => "MyString" })
-        put :update, {:id => sivic_escolaridade.to_param, :sivic_escolaridade => { "escolaridade" => "MyString" }}, valid_session
+        SivicEscolaridade.any_instance.should_receive(:update).with({ "NOME_escolaridade" => "MyString" })
+        put :update, {:id => sivic_escolaridade.to_param, :sivic_escolaridade => { "NOME_escolaridade" => "MyString" }}, valid_session
       end
 
       it "assigns the requested sivic_escolaridade as @sivic_escolaridade" do
@@ -128,7 +128,7 @@ describe SivicEscolaridadesController do
         sivic_escolaridade = SivicEscolaridade.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         SivicEscolaridade.any_instance.stub(:save).and_return(false)
-        put :update, {:id => sivic_escolaridade.to_param, :sivic_escolaridade => { "escolaridade" => "invalid value" }}, valid_session
+        put :update, {:id => sivic_escolaridade.to_param, :sivic_escolaridade => { "NOME_escolaridade" => "invalid value" }}, valid_session
         assigns(:sivic_escolaridade).should eq(sivic_escolaridade)
       end
 
@@ -136,7 +136,7 @@ describe SivicEscolaridadesController do
         sivic_escolaridade = SivicEscolaridade.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         SivicEscolaridade.any_instance.stub(:save).and_return(false)
-        put :update, {:id => sivic_escolaridade.to_param, :sivic_escolaridade => { "escolaridade" => "invalid value" }}, valid_session
+        put :update, {:id => sivic_escolaridade.to_param, :sivic_escolaridade => { "NOME_escolaridade" => "invalid value" }}, valid_session
         response.should render_template("edit")
       end
     end

@@ -8,6 +8,14 @@ class SivicEventosController < ApplicationController
     @sivic_eventos = SivicEvento.all
   end
 
+#Método chamado pra carregar cidades dinâmicamente via ajax
+  def get_cities
+    sivic_cidades = SivicCidade.find :all, :conditions => {:sivic_estado_id => params[:id]}, :order => "nome_cidade ASC"
+    sivic_cidades_json = sivic_cidades.map {|item| {:id => item.id, :name => item.nome_cidade}}
+ 
+    render :json => sivic_cidades_json
+  end
+
   # GET /sivic_eventos/1
   # GET /sivic_eventos/1.json
   def show
@@ -16,10 +24,21 @@ class SivicEventosController < ApplicationController
   # GET /sivic_eventos/new
   def new
     @sivic_evento = SivicEvento.new
+    @sivic_evento.build_sivic_endereco
   end
 
   # GET /sivic_eventos/1/edit
   def edit
+    @sivic_estado = SivicIgreja.find(params[:id])
+    @sivic_estado = @sivic_estado.sivic_endereco.sivic_cidade.sivic_estado.id
+
+    @sivic_cidade = SivicCidade.find :all, :conditions => {:sivic_estado_id => @sivic_estado}
+
+    @sivic_cidade_setada = SivicIgreja.find(params[:id])
+    @sivic_cidade_setada = @sivic_cidade_setada.sivic_endereco.sivic_cidade.id
+
+    @sivic_sede = SivicIgreja.find(params[:id])
+    @sivic_sede = @sivic_sede.father_id
   end
 
   # POST /sivic_eventos
@@ -70,6 +89,6 @@ class SivicEventosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_evento_params
-      params.require(:sivic_evento).permit(:DESC_evento, :DESC_resumo, :VARL_inscricao, :DATA_inicio, :DATA_fim, :FLAG_ilimitado, :NUMR_qdtVagas, :sivic_user_id, :sivic_igreja_id, :sivic_endereco_id, :sivic_tipoEvento_id)
+      params.require(:sivic_evento).permit(:DESC_evento, :DESC_resumo, :VARL_inscricao, :DATA_inicio, :DATA_fim, :FLAG_ilimitado, :NUMR_qdtVagas, :sivic_user_id, :sivic_igreja_id, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ], :sivic_tipoEvento_id)
     end
 end

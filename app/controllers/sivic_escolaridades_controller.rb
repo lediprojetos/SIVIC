@@ -1,6 +1,5 @@
 class SivicEscolaridadesController < ApplicationController
   before_action :set_sivic_escolaridade, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
 
   # GET /sivic_escolaridades
   # GET /sivic_escolaridades.json
@@ -70,6 +69,6 @@ class SivicEscolaridadesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_escolaridade_params
-      params.require(:sivic_escolaridade).permit(:escolaridade)
+      params.require(:sivic_escolaridade).permit(:NOME_escolaridade)
     end
 end
