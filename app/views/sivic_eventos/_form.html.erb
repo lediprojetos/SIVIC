@@ -11,37 +11,40 @@
     </div>
   <% end %>
 
+  <%= f.fields_for :sivic_tipoEvento do |tipoEvento| %>
   <div class="field">
-    <%= f.label :DESC_evento %><br>
+    <%= tipoEvento.label :Tipo_do_Evento %><br>
+    <%= tipoEvento.select :sivic_tipoEvento_id, options_from_collection_for_select(SivicTipoEvento.all, 'id', 'desc_tipoevento',@sivic_tipo_eventos),:include_blank => true%>
+  </div>
+  <%end%>
+
+  <div class="field">
+    <%= f.label :Evento %><br>
     <%= f.text_field :DESC_evento %>
   </div>
   <div class="field">
-    <%= f.label :DESC_resumo %><br>
+    <%= f.label :Resumo %><br>
     <%= f.text_area :DESC_resumo %>
   </div>
   <div class="field">
-    <%= f.label :VARL_inscricao %><br>
+    <%= f.label :Valor_inscricao %><br>
     <%= f.text_field :VARL_inscricao %>
   </div>
   <div class="field">
     <%= f.label :DATA_inicio %><br>
-    <%= f.datetime_select :DATA_inicio %>
-  </div>
+    <%= f.text_field :DATA_inicio %>
+  </div>  
   <div class="field">
     <%= f.label :DATA_fim %><br>
-    <%= f.datetime_select :DATA_fim %>
+    <%= f.text_field :DATA_fim %>
   </div>
   <div class="field">
-    <%= f.label :FLAG_ilimitado %><br>
+    <%= f.label :Vagas_limitado %><br>
     <%= f.number_field :FLAG_ilimitado %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_qdtVagas %><br>
+    <%= f.label :Qtd_Vagas %><br>
     <%= f.number_field :NUMR_qdtVagas %>
-  </div>
-  <div class="field">
-    <%= f.label :sivic_user_id %><br>
-    <%= f.text_field :sivic_user_id %>
   </div>
   <div class="field">
     <%= f.label :sivic_igreja_id %><br>
@@ -51,10 +54,12 @@
     <%= f.label :sivic_endereco_id %><br>
     <%= f.text_field :sivic_endereco_id %>
   </div>
-  <div class="field">
-    <%= f.label :sivic_tipoEvento_id %><br>
-    <%= f.text_field :sivic_tipoEvento_id %>
-  </div>
+  
+  <!--Capturando Usuario Logado-->
+  <% if user_signed_in? %>
+  <%=@sivic_evento_sivic_user_id = current_user.id %>
+  <%end%>
+  
   <div class="actions">
     <%= f.submit %>
   </div>
