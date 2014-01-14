@@ -46,6 +46,8 @@
     <%= f.label :Qtd_Vagas %><br>
     <%= f.number_field :NUMR_qdtVagas %>
   </div>
+  
+  
   <div class="field">
     <%= f.label :sivic_igreja_id %><br>
     <%= f.text_field :sivic_igreja_id %>
@@ -107,6 +109,8 @@
   <% if user_signed_in? %>
   <%=@sivic_evento_sivic_user_id = current_user.id %>
   <%end%>
+  
+  Igreja<%=@current_user.sivic_pessoa.id %>
   
   <div class="actions">
     <%= f.submit %>
