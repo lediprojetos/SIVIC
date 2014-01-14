@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sivic pessoa:</strong>
+  <%= @sivic_celula.sivic_pessoa %>
+</p>
+
+<p>
+  <strong>Sivic endereco:</strong>
+  <%= @sivic_celula.sivic_endereco %>
+</p>
+
+<p>
+  <strong>Numr dia:</strong>
+  <%= @sivic_celula.NUMR_Dia %>
+</p>
+
+<p>
+  <strong>Data bloqueio:</strong>
+  <%= @sivic_celula.DATA_Bloqueio %>
+</p>
+
+<%= link_to 'Edit', edit_sivic_celula_path(@sivic_celula) %> |
+<%= link_to 'Back', sivic_celulas_path %>

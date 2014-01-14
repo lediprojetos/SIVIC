@@ -16,4 +16,11 @@ before_filter :configure_devise_params, if: :devise_controller?
     	end
 	end
 
+  def get_cities
+    sivic_cidades = SivicCidade.find :all, :conditions => {:sivic_estado_id => params[:id]}, :order => "nome_cidade ASC"
+    sivic_cidades_json = sivic_cidades.map {|item| {:id => item.id, :name => item.nome_cidade}}
+ 
+    render :json => sivic_cidades_json
+  end	
+
 end

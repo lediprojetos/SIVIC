@@ -9,15 +9,6 @@ class SivicIgrejasController < ApplicationController
 
   end
 
-  
-  #Método chamado pra carregar cidades dinâmicamente via ajax
-  def get_cities
-    sivic_cidades = SivicCidade.find :all, :conditions => {:sivic_estado_id => params[:id]}, :order => "nome_cidade ASC"
-    sivic_cidades_json = sivic_cidades.map {|item| {:id => item.id, :name => item.nome_cidade}}
- 
-    render :json => sivic_cidades_json
-  end
-
   # GET /sivic_igrejas/1
   # GET /sivic_igrejas/1.json
   def show

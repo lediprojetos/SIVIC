@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140113145623) do
+ActiveRecord::Schema.define(version: 20140114161444) do
+
+  create_table "sivic_celulas", force: true do |t|
+    t.integer  "sivic_pessoa_id"
+    t.integer  "sivic_endereco_id"
+    t.integer  "NUMR_Dia"
+    t.datetime "DATA_Bloqueio"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_celulas", ["sivic_endereco_id"], name: "index_sivic_celulas_on_sivic_endereco_id"
+  add_index "sivic_celulas", ["sivic_pessoa_id"], name: "index_sivic_celulas_on_sivic_pessoa_id"
 
   create_table "sivic_cidades", force: true do |t|
     t.string   "nome_cidade"

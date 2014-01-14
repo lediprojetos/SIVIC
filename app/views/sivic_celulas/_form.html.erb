@@ -1,42 +1,35 @@
-<%= form_for(@sivic_igreja) do |f| %>
-  <% if @sivic_igreja.errors.any? %>
+<%= form_for(@sivic_celula) do |f| %>
+  <% if @sivic_celula.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@sivic_igreja.errors.count, "error") %> prohibited this sivic_igreja from being saved:</h2>
+      <h2><%= pluralize(@sivic_celula.errors.count, "error") %> prohibited this sivic_celula from being saved:</h2>
 
       <ul>
-      <% @sivic_igreja.errors.full_messages.each do |msg| %>
+      <% @sivic_celula.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <legend>Dados Principais</legend>
+  <div class="field">
+    <%= f.label :sivic_pessoa_id %><br>
+    <%= f.select :sivic_pessoa_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa')%>
+  </div>
 
   <div class="field">
-    <%= f.label :Sede %><br>
-    <%= f.select :father_id, options_from_collection_for_select(SivicIgreja.all, 'id', 'NOME_igreja',@sivic_sede),:include_blank => true%>
+    <%= f.label :NUMR_Dia %><br>
+    <%= f.collection_select :NUMR_Dia, SivicCelula::DIAS, :to_s, :humanize %>
   </div>
- 
+  <!--
+  Data Bloqueio
+  =============
   <div class="field">
-    <%= f.label :NOME %><br>
-    <%= f.text_field :NOME_igreja %>
+    <%#= f.label :DATA_Bloqueio %><br>
+    <%#= f.datetime_select :DATA_Bloqueio %>
   </div>
-  <div class="field">
-    <%= f.label :Telefone %><br>
-    <%= f.text_field :NUMR_telefone %>
-  </div>
-  <div class="field">
-    <%= f.label :Nome_do_Responsável %><br>
-    <%= f.text_field :NOME_responsavel %>
-  </div>
-  <div class="field">
-    <%= f.label :cnpj.upcase %><br>
-    <%= f.text_field :NUMR_cnpj %>
-  </div>  
+-->
 
-
-  <legend>Endereço</legend>
+<legend>Endereço</legend>
 
 
   <%=  f.fields_for :sivic_endereco do |endereco| %>
@@ -86,10 +79,11 @@
 
   <% end %>
 
-  <div class="actions" >
+  <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
 
 <script>
   function changeState(state){
@@ -97,17 +91,17 @@
         url: '<%= listarCidade_path %>',
         data : {id : state.value},
         success: function(data){
-          $('#sivic_igreja_sivic_endereco_attributes_sivic_cidade_id').empty();
-          $('#sivic_igreja_sivic_endereco_attributes_sivic_cidade_id').html('<option>Carregando...</option>');
-          $('#sivic_igreja_sivic_endereco_attributes_sivic_cidade_id').attr('disabled', 'disabled');
+          $('#sivic_celula_sivic_endereco_sivic_cidade_id').empty();
+          $('#sivic_celula_sivic_endereco_sivic_cidade_id').html('<option>Carregando...</option>');
+          $('#sivic_celula_sivic_endereco_sivic_cidade_id').attr('disabled', 'disabled');
           var options = "";
           for (var i in data) {
             var item = data[i];
             options += "<option value='"+item.id+"'>"+item.name+"</option>"
           };
  
-          $('#sivic_igreja_sivic_endereco_attributes_sivic_cidade_id').html(options);
-          $('#sivic_igreja_sivic_endereco_attributes_sivic_cidade_id').removeAttr('disabled');          
+          $('#sivic_celula_sivic_endereco_sivic_cidade_id').html(options);
+          $('#sivic_celula_sivic_endereco_sivic_cidade_id').removeAttr('disabled');          
         }
       })
     }

@@ -10,6 +10,13 @@
         <%= f.select :sivic_pessoas_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa')%>
       </div>
 
+      <div class="field">
+        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+          Nova Pessoa
+        </button>
+      </div>
+
+
       <%= f.label :Email %>
       <%= f.email_field :email%>
 
@@ -28,5 +35,25 @@
     
   </div>
 </div>  
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Nova Pessoa</h4>
+      </div>
+      <div class="modal-body">
+          <%#= render 'sivic_pessoas/form' %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
+        <button type="button" class="btn btn-primary">Salvar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
