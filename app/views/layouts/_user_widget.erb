@@ -1,7 +1,5 @@
 <% if user_signed_in? %>
-  	<p>Bem Vindo <%= current_user.email %></p>
-	<%= link_to 'Cadastro de Igreja', sivic_igrejas_path , class: "btn btn-small btn-primary"%>
-	<%= link_to 'Cadastro de Pessoas', sivic_pessoas_path , class: "btn btn-small btn-primary"%>  
+  	<p>Bem Vindo <%= current_user.email %></p> 
 <% else %>
   <p>Você não está logado.</p>
 <% end %>

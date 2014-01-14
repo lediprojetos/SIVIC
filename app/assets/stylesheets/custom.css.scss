@@ -1,5 +1,7 @@
 @import "bootstrap";
 
+@import "bootstrap-responsive";
+
 /* mixins, variables, etc. */
 
 $grayMediumLight: #eaeaea;
@@ -160,3 +162,4 @@ input, textarea, select, .uneditable-input {
 input {
   height: auto !important;
 }
+
