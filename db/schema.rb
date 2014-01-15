@@ -24,8 +24,7 @@ ActiveRecord::Schema.define(version: 20140114161444) do
 
   add_index "sivic_celulas", ["sivic_endereco_id"], name: "index_sivic_celulas_on_sivic_endereco_id"
   add_index "sivic_celulas", ["sivic_pessoa_id"], name: "index_sivic_celulas_on_sivic_pessoa_id"
-ActiveRecord::Schema.define(version: 20140114150357) do
-  
+
   create_table "sivic_cidades", force: true do |t|
     t.string   "nome_cidade"
     t.integer  "sivic_estado_id"

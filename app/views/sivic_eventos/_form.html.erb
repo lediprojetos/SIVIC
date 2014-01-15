@@ -105,13 +105,17 @@
   <% end %>
 </fieldset>
 
-  <!--Capturando Usuario Logado-->
-  <% if user_signed_in? %>
-  <%=@sivic_evento_sivic_user_id = current_user.id %>
-  <%end%>
-  
-  Igreja<%=@current_user.sivic_pessoa.id %>
-  
+ 
+      
+	  <%=@endereco = SivicEndereco.find_by_id(1) 
+	   @endereco.sivic_cidade.sivic_estado.nome_estado%>
+      
+
+      <%=@sivic_evento_sivic_user_id = current_user.id %>
+      <%=@User = User.find_by_id(@sivic_evento_sivic_user_id)
+         @User.sivic_pessoas_id%>
+	  
+	 
   <div class="actions">
     <%= f.submit %>
   </div>
