@@ -11,13 +11,15 @@
     </div>
   <% end %>
 
+  <legend>Dados Principais</legend>
+
   <div class="field">
-    <%= f.label :sivic_pessoa_id %><br>
-    <%= f.select :sivic_pessoa_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa')%>
+    <%= f.label :Lider %><br>
+    <%= f.select :sivic_pessoa_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',@sivic_celula.sivic_pessoa_id)%>
   </div>
 
   <div class="field">
-    <%= f.label :NUMR_Dia %><br>
+    <%= f.label :Dia_da_Semana %><br>
     <%= f.collection_select :NUMR_Dia, SivicCelula::DIAS, :to_s, :humanize %>
   </div>
   <!--
@@ -91,17 +93,17 @@
         url: '<%= listarCidade_path %>',
         data : {id : state.value},
         success: function(data){
-          $('#sivic_celula_sivic_endereco_sivic_cidade_id').empty();
-          $('#sivic_celula_sivic_endereco_sivic_cidade_id').html('<option>Carregando...</option>');
-          $('#sivic_celula_sivic_endereco_sivic_cidade_id').attr('disabled', 'disabled');
+          $('#sivic_celula_sivic_endereco_attributes_sivic_cidade_id').empty();
+          $('#sivic_celula_sivic_endereco_attributes_sivic_cidade_id').html('<option>Carregando...</option>');
+          $('#sivic_celula_sivic_endereco_attributes_sivic_cidade_id').attr('disabled', 'disabled');
           var options = "";
           for (var i in data) {
             var item = data[i];
             options += "<option value='"+item.id+"'>"+item.name+"</option>"
           };
  
-          $('#sivic_celula_sivic_endereco_sivic_cidade_id').html(options);
-          $('#sivic_celula_sivic_endereco_sivic_cidade_id').removeAttr('disabled');          
+          $('#sivic_celula_sivic_endereco_attributes_sivic_cidade_id').html(options);
+          $('#sivic_celula_sivic_endereco_attributes_sivic_cidade_id').removeAttr('disabled');          
         }
       })
     }

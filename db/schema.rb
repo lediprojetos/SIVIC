@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20140114161444) do
   create_table "sivic_celulas", force: true do |t|
     t.integer  "sivic_pessoa_id"
     t.integer  "sivic_endereco_id"
-    t.integer  "NUMR_Dia"
+    t.string   "NUMR_Dia"
     t.datetime "DATA_Bloqueio"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -24,8 +24,7 @@ ActiveRecord::Schema.define(version: 20140114161444) do
 
   add_index "sivic_celulas", ["sivic_endereco_id"], name: "index_sivic_celulas_on_sivic_endereco_id"
   add_index "sivic_celulas", ["sivic_pessoa_id"], name: "index_sivic_celulas_on_sivic_pessoa_id"
-ActiveRecord::Schema.define(version: 20140114150357) do
-  
+
   create_table "sivic_cidades", force: true do |t|
     t.string   "nome_cidade"
     t.integer  "sivic_estado_id"
@@ -148,7 +147,7 @@ ActiveRecord::Schema.define(version: 20140114150357) do
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
-    t.integer  "sivic_pessoas_id"
+    t.integer  "sivic_pessoa_id"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -164,6 +163,6 @@ ActiveRecord::Schema.define(version: 20140114150357) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["sivic_pessoas_id"], name: "index_users_on_sivic_pessoas_id"
+  add_index "users", ["sivic_pessoa_id"], name: "index_users_on_sivic_pessoa_id"
 
 end

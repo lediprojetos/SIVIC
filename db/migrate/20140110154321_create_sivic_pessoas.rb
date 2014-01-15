@@ -10,6 +10,7 @@ class CreateSivicPessoas < ActiveRecord::Migration
 
       t.timestamps
     end
+    SivicPessoa.create(:NOME_pessoa => "Diel Oliveira de Faria", :DESC_email => "diel.faria@gmail.com", :DESC_observacao => "Usuario Padrao")
   end
 
    def self.down

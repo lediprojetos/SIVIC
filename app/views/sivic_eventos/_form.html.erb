@@ -105,12 +105,7 @@
   <% end %>
 </fieldset>
 
-  <!--Capturando Usuario Logado-->
-  <% if user_signed_in? %>
-  <%=@sivic_evento_sivic_user_id = current_user.id %>
-  <%end%>
-  
-  Igreja<%=@current_user.sivic_pessoa.id %>
+  Igreja<%= current_user.sivic_pessoa.id %>
   
   <div class="actions">
     <%= f.submit %>

@@ -1,17 +1,14 @@
 <p id="notice"><%= notice %></p>
 
+<legend>Dados Principais</legend>
+
 <p>
-  <strong>Sivic pessoa:</strong>
-  <%= @sivic_celula.sivic_pessoa %>
+  <strong>Lider:</strong>
+  <%= @sivic_celula.sivic_pessoa.NOME_pessoa %>
 </p>
 
 <p>
-  <strong>Sivic endereco:</strong>
-  <%= @sivic_celula.sivic_endereco %>
-</p>
-
-<p>
-  <strong>Numr dia:</strong>
+  <strong>Dia:</strong>
   <%= @sivic_celula.NUMR_Dia %>
 </p>
 
@@ -20,5 +17,43 @@
   <%= @sivic_celula.DATA_Bloqueio %>
 </p>
 
-<%= link_to 'Edit', edit_sivic_celula_path(@sivic_celula) %> |
-<%= link_to 'Back', sivic_celulas_path %>
+<legend>Endereço</legend>
+
+<p>
+  <strong>Bairro:</strong>
+  <%= @sivic_celula.sivic_endereco.DESC_Bairro %>
+</p>
+
+<p>
+  <strong>Rua:</strong>
+  <%= @sivic_celula.sivic_endereco.DESC_Rua %>
+</p>
+
+<p>
+  <strong>Complemento:</strong>
+  <%= @sivic_celula.sivic_endereco.DESC_Complemento %>
+</p>
+
+<p>
+  <strong>Ponto de Referência:</strong>
+  <%= @sivic_celula.sivic_endereco.DESC_Pontoreferencia %>
+</p>
+
+<p>
+  <strong>CEP:</strong>
+  <%= @sivic_celula.sivic_endereco.NUMR_Cep %>
+</p>
+
+<p>
+  <strong>Cidade:</strong>
+  <%= @sivic_celula.sivic_endereco.sivic_cidade.nome_cidade %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @sivic_celula.sivic_endereco.sivic_cidade.sivic_estado.nome_estado %>
+</p>
+
+
+<%= link_to 'Editar', edit_sivic_celula_path(@sivic_celula) %> |
+<%= link_to 'Voltar', sivic_celulas_path %>
