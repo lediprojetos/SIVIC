@@ -46,14 +46,7 @@
     <%= f.label :Qtd_Vagas %><br>
     <%= f.number_field :NUMR_qdtVagas %>
   </div>
-  
-  
-  <div class="field">
-    <%= f.label :sivic_igreja_id %><br>
-    <%= f.text_field :sivic_igreja_id %>
-  </div>
- 
-  
+    
   <legend>Endereço</legend>
 
 
@@ -105,8 +98,13 @@
   <% end %>
 </fieldset>
 
-  Igreja<%= current_user.sivic_pessoa.id %>
-	 
+  <!--Campos preenchidos automáticos-->
+
+  <!--Capturando igreja do usuaário logado -->
+  <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja.id %>
+  <!--Capturando Usuário logado -->
+  <%= f.hidden_field :sivic_user_id, :value => current_user.id%>
+   
   <div class="actions">
     <%= f.submit %>
   </div>

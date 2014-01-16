@@ -12,13 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :desc_tipoevento %><br>
+    <%= f.label :Nome_Tipo_Evento %><br>
     <%= f.text_field :desc_tipoevento %>
   </div>
-  <div class="field">
-    <%= f.label :sivic_igreja_id %><br>
-    <%= f.text_field :sivic_igreja_id %>
-  </div>
+  
+    <!--Capturando igreja do usuaário logado -->
+  <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja.id %>
+  
   <div class="actions">
     <%= f.submit %>
   </div>
