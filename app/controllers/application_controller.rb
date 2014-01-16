@@ -21,6 +21,6 @@ before_filter :configure_devise_params, if: :devise_controller?
     sivic_cidades_json = sivic_cidades.map {|item| {:id => item.id, :name => item.nome_cidade}}
  
     render :json => sivic_cidades_json
-  end	
+  end 
 
 end

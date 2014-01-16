@@ -2,6 +2,13 @@
 
 <div class="row">
   <div class="span6 offset3">
+
+<div class="alert alert-warning alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  Pessoa cadastrada com sucesso
+</div>
+
+
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
       <%= devise_error_messages! %>
 
@@ -11,9 +18,7 @@
       </div>
 
       <div class="field">
-        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-          Nova Pessoa
-        </button>
+        <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Nova Pessoa</a>
       </div>
 
 
@@ -37,23 +42,86 @@
 </div>  
 
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Nova Pessoa</h4>
-      </div>
+
+<fieldset>
+
+<%
+  @sivic_pessoa = SivicPessoa.new
+  @sivic_igreja = SivicIgreja.all
+%>
+
+ 
+
+ <div id="myModal" class="modal fade" style="display: none;">  
+
+    <%= form_for(@sivic_pessoa) do |f| %>
+      <div class="modal-header">  
+        <a class="close" data-dismiss="modal">×</a>  
+        <h3>Cadastro de Pessoa</h3>  
+      </div>  
       <div class="modal-body">
-          <%#= render 'sivic_pessoas/form' %>
+        <div class="field">
+          <%= f.label :Lider %><br>
+          <%= f.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',0),:include_blank => true%>
+        </div>  
+        <div class="field">
+          <%= f.label :Nome %><br>
+          <%= f.text_field :NOME_pessoa %>
+        </div>
+        <div class="field">
+          <%= f.label :Email %><br>
+          <%= f.text_field :DESC_email %>
+        </div>
+        <div class="field">
+          <%= f.label :Observação %><br>
+          <%= f.text_field :DESC_observacao %>
+        </div>
+        <div class="field">
+          <%= f.label :Igreja %><br>
+          <%= f.select :sivic_igreja_id, options_from_collection_for_select(@sivic_igreja, 'id', 'NOME_igreja')%>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Sair</button>
-        <button type="button" class="btn btn-primary">Salvar</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        <div class="field">
+          <a data-toggle="modal" href="javascript:createPessoa('teste');" class="btn btn-success">Cadastrar</a>
+        </div>        
+      </div>  
+      </div>  
+    <% end %>
+
+</fieldset>
 
 
+
+<script>
+  function createPessoa(state){
+
+      alert($('#sivic_pessoa_NOME_pessoa').val());
+      $.ajax({
+        url: '<%= criarPessoa_path %>',
+        data : 
+        {
+            father_id : $('#sivic_pessoa_father_id').val()
+            ,NOME_pessoa : $('#sivic_pessoa_NOME_pessoa').val()
+            ,DESC_email : $('#sivic_pessoa_DESC_email').val()
+            ,DESC_observacao : $('#sivic_pessoa_DESC_observacao').val()
+            ,sivic_igreja_id : $('#sivic_pessoa_sivic_igreja_id').val()
+        },
+        success: function(data){
+          $('#user_sivic_pessoa_id').empty();
+          $('#user_sivic_pessoa_id').html('<option>Carregando...</option>');
+          $('#user_sivic_pessoa_id').attr('disabled', 'disabled');
+          var options = "";
+          for (var i in data) {
+            var item = data[i];
+            options += "<option value='"+item.id+"'>"+item.NOME_pessoa+"</option>";
+          };
+ 
+          $('#user_sivic_pessoa_id').html(options);
+          $('#user_sivic_pessoa_id').removeAttr('disabled');
+          $('#myModal').modal('hide')
+
+        }
+      })
+    }
+</script>
