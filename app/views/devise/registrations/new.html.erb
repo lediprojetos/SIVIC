@@ -137,13 +137,16 @@
           $('#user_sivic_pessoa_id').html('<option>Carregando...</option>');
           $('#user_sivic_pessoa_id').attr('disabled', 'disabled');
           var options = "";
+          var email
           for (var i in data) {
             var item = data[i];
             options += "<option value='"+item.id+"'>"+item.NOME_pessoa+"</option>";
+            email = item.DESC_email
           };
  
           $('#user_sivic_pessoa_id').html(options);
           $('#user_sivic_pessoa_id').removeAttr('disabled');
+          $('#user_email').val(email);
           $('#myModal').modal('hide');
 
         }
@@ -162,23 +165,23 @@
           $("#tbodyid").empty();
           for (var i in data) {
             var item = data[i];
-            $('#table_user').append("<tr><td><a href='javascript:setaNome('"+item.NOME_pessoa+"','"+item.id+');">'+item.NOME_pessoa+'</a></td><td><a href="">'+item.DESC_email+'</a></td></tr>')
+            $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.NOME_pessoa+'\','+item.id+',\'' + item.DESC_email+'\');">'+item.NOME_pessoa+'</a></td><td><a href="javascript:setaNome(\'' + item.NOME_pessoa+'\','+item.id+',\'' + item.DESC_email+'\');">'+item.DESC_email+'</a></td></tr>')
           };
  
         }
       })
     }
 
-  function setaNome(nome,id){
+  function setaNome(nome,id,email){
 
-          alert(nome);
           $('#user_sivic_pessoa_id').empty();
           $('#user_sivic_pessoa_id').html('<option>Carregando...</option>');
           $('#user_sivic_pessoa_id').attr('disabled', 'disabled');
           var options = "<option value='"+id+"'>"+nome+"</option>";
           $('#user_sivic_pessoa_id').html(options);
           $('#user_sivic_pessoa_id').removeAttr('disabled');
-          $('#myModal').modal('hide');
+          $('#user_email').val(email);
+          $('#myModal2').modal('hide');
 
   } 
 

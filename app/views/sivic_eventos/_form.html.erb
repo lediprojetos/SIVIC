@@ -11,12 +11,11 @@
     </div>
   <% end %>
 
-  <%= f.fields_for :sivic_tipoEvento do |tipoEvento| %>
   <div class="field">
-    <%= tipoEvento.label :Tipo_do_Evento %><br>
-    <%= tipoEvento.select :sivic_tipoEvento_id, options_from_collection_for_select(SivicTipoEvento.all, 'id', 'desc_tipoevento',@sivic_evento.sivic_tipoEvento_id),:include_blank => true%>
+    <%= f.label :Tipo_do_Evento %><br>
+    <%= f.select :sivic_tipoEvento_id, options_from_collection_for_select(SivicTipoEvento.all, 'id', 'desc_tipoevento',@sivic_evento.sivic_tipoEvento_id),:include_blank => true%>
   </div>
-  <%end%>
+
 
   <div class="field">
     <%= f.label :Evento %><br>
