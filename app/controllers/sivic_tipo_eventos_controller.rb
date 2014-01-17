@@ -29,7 +29,7 @@ class SivicTipoEventosController < ApplicationController
 
     respond_to do |format|
       if @sivic_tipo_evento.save
-        format.html { redirect_to @sivic_tipo_evento, notice: 'Sivic tipo evento was successfully created.' }
+        format.html { redirect_to @sivic_tipo_evento, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_tipo_evento }
       else
         format.html { render action: 'new' }
@@ -43,7 +43,7 @@ class SivicTipoEventosController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_tipo_evento.update(sivic_tipo_evento_params)
-        format.html { redirect_to @sivic_tipo_evento, notice: 'Sivic tipo evento was successfully updated.' }
+        format.html { redirect_to @sivic_tipo_evento, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

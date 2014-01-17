@@ -1,17 +1,24 @@
 <p id="notice"><%= notice %></p>
 
+<legend>Dados Principais</legend>
+
 <p>
-  <strong>Desc evento:</strong>
+  <strong>Tipo Evento:</strong>
+  <%= @sivic_evento.sivic_tipoEvento %>
+</p>
+
+<p>
+  <strong>Evento:</strong>
   <%= @sivic_evento.DESC_evento %>
 </p>
 
 <p>
-  <strong>Desc resumo:</strong>
+  <strong>Resumo:</strong>
   <%= @sivic_evento.DESC_resumo %>
 </p>
 
 <p>
-  <strong>Varl inscricao:</strong>
+  <strong>Valor Inscricao:</strong>
   <%= @sivic_evento.VARL_inscricao %>
 </p>
 
@@ -25,24 +32,46 @@
   <%= @sivic_evento.DATA_fim %>
 </p>
 
-<p>
-  <strong>Flag ilimitado:</strong>
-  <%= @sivic_evento.FLAG_ilimitado %>
-</p>
 
 <p>
-  <strong>Numr qdtvagas:</strong>
+  <strong>Quantidade Vagas:</strong>
   <%= @sivic_evento.NUMR_qdtVagas %>
 </p>
 
+<legend>Endereço</legend>
+
 <p>
-  <strong>Sivic endereco:</strong>
-  <%= @sivic_evento.sivic_endereco %>
+  <strong>Bairro:</strong>
+  <%= @sivic_evento.sivic_endereco.DESC_Bairro %>
 </p>
 
 <p>
-  <strong>Sivic tipoevento:</strong>
-  <%= @sivic_evento.sivic_tipoEvento %>
+  <strong>Rua:</strong>
+  <%= @sivic_evento.sivic_endereco.DESC_Rua %>
+</p>
+
+<p>
+  <strong>Complemento:</strong>
+  <%= @sivic_evento.sivic_endereco.DESC_Complemento %>
+</p>
+
+<p>
+  <strong>Ponto de Referência:</strong>
+  <%= @sivic_evento.sivic_endereco.DESC_Pontoreferencia %>
+</p>
+
+<p>
+  <strong>CEP:</strong>
+  <%= @sivic_evento.sivic_endereco.NUMR_Cep %>
+</p>
+
+<p>
+  <strong>Cidade:</strong>
+  <%= @sivic_evento.sivic_endereco.sivic_cidade.nome_cidade %>
+</p>
+<p>
+  <strong>Cidade:</strong>
+  <%= @sivic_evento.sivic_endereco.sivic_cidade.sivic_estado.nome_estado %>
 </p>
 
 <%= link_to 'Editar', edit_sivic_evento_path(@sivic_evento) %> |
