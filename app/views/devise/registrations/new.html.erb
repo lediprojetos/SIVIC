@@ -3,24 +3,21 @@
 <div class="row">
   <div class="span6 offset3">
 
-<div class="alert alert-warning alert-dismissable">
-  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-  Pessoa cadastrada com sucesso
-</div>
-
 
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
       <%= devise_error_messages! %>
 
       <div class="field">
         <%= f.label :Pessoa %><br>
-        <%= f.select :sivic_pessoa_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa')%>
+        <%#= f.select :sivic_pessoa_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa')%>
+        <select id="user_sivic_pessoa_id" name="user[sivic_pessoa_id]" disabled="disabled">
+        </select>
       </div>
 
       <div class="field">
+        <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Pessoa</a>
         <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Nova Pessoa</a>
       </div>
-
 
       <%= f.label :Email %>
       <%= f.email_field :email%>
@@ -41,8 +38,6 @@
   </div>
 </div>  
 
-
-
 <fieldset>
 
 <%
@@ -50,7 +45,6 @@
   @sivic_igreja = SivicIgreja.all
 %>
 
- 
 
  <div id="myModal" class="modal fade" style="display: none;">  
 
@@ -83,7 +77,7 @@
       </div>
       <div class="modal-footer">
         <div class="field">
-          <a data-toggle="modal" href="javascript:createPessoa('teste');" class="btn btn-success">Cadastrar</a>
+          <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
         </div>        
       </div>  
       </div>  
@@ -91,12 +85,43 @@
 
 </fieldset>
 
+  <div id="myModal2" class="modal fade" style="display: none;">  
+      <div class="modal-header">  
+        <a class="close" data-dismiss="modal">×</a>  
+        <h3>Buscar Pessoas</h3>  
+      </div>  
+      <div class="modal-body">
+        <div class="input-group input-group-lg">
+          <label >Nome</label><br>
+          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onchange="buscaPessoa()"type="text" class="form-control" placeholder="Username" style="width: 300px;">
+          <a data-toggle="modal" href="javascript:buscaPessoa();" class="btn btn-success" style="margin-bottom: 10px;">Buscar</a>
+        </div>
+        <table id="table_user" name="table_user" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyid">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+      </div>
+      <div class="modal-footer">
+      </div>
+  </div>  
+
+</fieldset>
+
 
 
 <script>
-  function createPessoa(state){
+  function createPessoa(){
 
-      alert($('#sivic_pessoa_NOME_pessoa').val());
       $.ajax({
         url: '<%= criarPessoa_path %>',
         data : 
@@ -119,9 +144,43 @@
  
           $('#user_sivic_pessoa_id').html(options);
           $('#user_sivic_pessoa_id').removeAttr('disabled');
-          $('#myModal').modal('hide')
+          $('#myModal').modal('hide');
 
         }
       })
     }
+
+  function buscaPessoa(){
+
+      $.ajax({
+        url: '<%= listarPessoa_path %>',
+        data : 
+        {
+            NOME_pessoa : $('#NOME_pessoa_buscar').val()
+        },
+        success: function(data){
+          $("#tbodyid").empty();
+          for (var i in data) {
+            var item = data[i];
+            $('#table_user').append("<tr><td><a href='javascript:setaNome('"+item.NOME_pessoa+"','"+item.id+');">'+item.NOME_pessoa+'</a></td><td><a href="">'+item.DESC_email+'</a></td></tr>')
+          };
+ 
+        }
+      })
+    }
+
+  function setaNome(nome,id){
+
+          alert(nome);
+          $('#user_sivic_pessoa_id').empty();
+          $('#user_sivic_pessoa_id').html('<option>Carregando...</option>');
+          $('#user_sivic_pessoa_id').attr('disabled', 'disabled');
+          var options = "<option value='"+id+"'>"+nome+"</option>";
+          $('#user_sivic_pessoa_id').html(options);
+          $('#user_sivic_pessoa_id').removeAttr('disabled');
+          $('#myModal').modal('hide');
+
+  } 
+
+
 </script>
