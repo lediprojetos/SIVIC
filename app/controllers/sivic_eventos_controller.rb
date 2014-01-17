@@ -50,7 +50,7 @@ class SivicEventosController < ApplicationController
 
     respond_to do |format|
       if @sivic_evento.save
-        format.html { redirect_to @sivic_evento, notice: 'Sivic evento was successfully created.' }
+        format.html { redirect_to @sivic_evento, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_evento }
       else
         format.html { render action: 'new' }
@@ -64,7 +64,7 @@ class SivicEventosController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_evento.update(sivic_evento_params)
-        format.html { redirect_to @sivic_evento, notice: 'Sivic evento was successfully updated.' }
+        format.html { redirect_to @sivic_evento, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -91,6 +91,6 @@ class SivicEventosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_evento_params
-      params.require(:sivic_evento).permit(:DESC_evento, :DESC_resumo, :VARL_inscricao, :DATA_inicio, :DATA_fim, :FLAG_ilimitado, :NUMR_qdtVagas, :sivic_user_id, :sivic_igreja_id, :sivic_tipoEvento_id, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
+      params.require(:sivic_evento).permit(:DESC_evento, :DESC_resumo, :VARL_inscricao, :DATA_inicio, :DATA_fim, :FLAG_ilimitado, :NUMR_qdtVagas, :sivic_user_id, :sivic_igreja_id, :sivic_tipo_evento_id, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
     end
 end

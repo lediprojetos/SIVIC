@@ -11,7 +11,7 @@ class CreateSivicEventos < ActiveRecord::Migration
       t.references :sivic_user, index: true
       t.references :sivic_igreja, index: true
       t.references :sivic_endereco, index: true
-      t.references :sivic_tipoEvento, index: true
+      t.references :sivic_tipo_evento, index: true
 
       t.timestamps
     end

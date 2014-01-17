@@ -19,7 +19,7 @@
   <tbody>
     <% @sivic_eventos.each do |sivic_evento| %>
       <tr>
-        <td><%= sivic_evento.sivic_tipoEvento%></td>
+        <td><%= sivic_evento.sivic_tipo_evento.desc_tipoevento %></td>
         <td><%= sivic_evento.DESC_evento %></td>
         <td><%= sivic_evento.DESC_resumo %></td>
         <td><%= sivic_evento.VARL_inscricao %></td>
@@ -28,7 +28,7 @@
         <td><%= sivic_evento.NUMR_qdtVagas %></td>
         <td><%= link_to 'Exibir', sivic_evento %></td>
         <td><%= link_to 'Editar', edit_sivic_evento_path(sivic_evento) %></td>
-        <td><%= link_to 'Excluir', sivic_evento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Excluir', sivic_evento, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
       </tr>
     <% end %>
   </tbody>
