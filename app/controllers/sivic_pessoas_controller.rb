@@ -6,10 +6,17 @@ class SivicPessoasController < ApplicationController
   def create_pessoa
     SivicPessoa.create(:father_id => params[:father_id],:NOME_pessoa => params[:NOME_pessoa],:DESC_email => params[:DESC_email],:DESC_observacao => params[:DESC_observacao],:sivic_igreja_id => params[:sivic_igreja_id])
 
-    sivic_pessoa = SivicPessoa.find :all, :conditions => {:NOME_pessoa => params[:NOME_pessoa]}, :order => "NOME_pessoa ASC"
+    sivic_pessoa = SivicPessoa.find :all, :conditions => {:NOME_pessoa =>  params[:NOME_pessoa]}, :order => "NOME_pessoa ASC"
     sivic_pessoa_json = sivic_pessoa.map {|item| {:id => item.id, :NOME_pessoa => item.NOME_pessoa, :DESC_email => item.DESC_email}}
     render :json => sivic_pessoa_json
-  end  
+  end
+
+  def busca_pessoa
+
+    sivic_pessoa = SivicPessoa.where("NOME_pessoa like ?", "#{params[:NOME_pessoa]}%")
+    sivic_pessoa_json = sivic_pessoa.map {|item| {:id => item.id, :NOME_pessoa => item.NOME_pessoa, :DESC_email => item.DESC_email}}
+    render :json => sivic_pessoa_json
+  end   
 
   # GET /sivic_pessoas
   # GET /sivic_pessoas.json
