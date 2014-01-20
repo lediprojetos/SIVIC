@@ -1,0 +1,67 @@
+<h1>Listing sivic_relatorioscelulas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sivic celula</th>
+      <th>Data reuniao</th>
+      <th>Data horainicio</th>
+      <th>Data horatermino</th>
+      <th>Numr numvisitante</th>
+      <th>Numr numparticipante</th>
+      <th>Desc assuntoestudo</th>
+      <th>Desc textobiblico</th>
+      <th>Valr oferta</th>
+      <th>Numr decisoes</th>
+      <th>Desc outrasinformacoes</th>
+      <th>Flag situacao</th>
+      <th>Numr qtdnovoconvertido</th>
+      <th>Numr qtdresgate</th>
+      <th>Numr qtdpreencontro</th>
+      <th>Numr qtdencontro</th>
+      <th>Numr qtdposencontro</th>
+      <th>Numr qtdescolid1</th>
+      <th>Numr escolid2</th>
+      <th>Numr escolid3</th>
+      <th>Numr qtdlidcelula</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_relatorioscelulas.each do |sivic_relatorioscelula| %>
+      <tr>
+        <td><%= sivic_relatorioscelula.sivic_celula %></td>
+        <td><%= sivic_relatorioscelula.DATA_Reuniao %></td>
+        <td><%= sivic_relatorioscelula.DATA_Horainicio %></td>
+        <td><%= sivic_relatorioscelula.DATA_HoraTermino %></td>
+        <td><%= sivic_relatorioscelula.NUMR_NumVisitante %></td>
+        <td><%= sivic_relatorioscelula.NUMR_NumParticipante %></td>
+        <td><%= sivic_relatorioscelula.DESC_AssuntoEstudo %></td>
+        <td><%= sivic_relatorioscelula.DESC_TextoBiblico %></td>
+        <td><%= sivic_relatorioscelula.VALR_Oferta %></td>
+        <td><%= sivic_relatorioscelula.NUMR_Decisoes %></td>
+        <td><%= sivic_relatorioscelula.DESC_OutrasInformacoes %></td>
+        <td><%= sivic_relatorioscelula.FLAG_Situacao %></td>
+        <td><%= sivic_relatorioscelula.NUMR_QtdNovoConvertido %></td>
+        <td><%= sivic_relatorioscelula.NUMR_QtdResgate %></td>
+        <td><%= sivic_relatorioscelula.NUMR_QtdPreEncontro %></td>
+        <td><%= sivic_relatorioscelula.NUMR_QtdEncontro %></td>
+        <td><%= sivic_relatorioscelula.NUMR_QtdPosEncontro %></td>
+        <td><%= sivic_relatorioscelula.NUMR_QtdEscoLid1 %></td>
+        <td><%= sivic_relatorioscelula.NUMR_EscoLid2 %></td>
+        <td><%= sivic_relatorioscelula.NUMR_EscoLid3 %></td>
+        <td><%= sivic_relatorioscelula.NUMR_QtdLidCelula %></td>
+        <td><%= link_to 'Show', sivic_relatorioscelula %></td>
+        <td><%= link_to 'Edit', edit_sivic_relatorioscelula_path(sivic_relatorioscelula) %></td>
+        <td><%= link_to 'Destroy', sivic_relatorioscelula, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic relatorioscelula', new_sivic_relatorioscelula_path %>

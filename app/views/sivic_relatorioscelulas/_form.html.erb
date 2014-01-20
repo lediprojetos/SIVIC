@@ -1,0 +1,101 @@
+<%= form_for(@sivic_relatorioscelula) do |f| %>
+  <% if @sivic_relatorioscelula.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_relatorioscelula.errors.count, "error") %> prohibited this sivic_relatorioscelula from being saved:</h2>
+
+      <ul>
+      <% @sivic_relatorioscelula.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :sivic_celula_id %><br>
+    <%= f.text_field :sivic_celula_id %>
+  </div>
+  <div class="field">
+    <%= f.label :DATA_Reuniao %><br>
+    <%= f.date_select :DATA_Reuniao %>
+  </div>
+  <div class="field">
+    <%= f.label :DATA_Horainicio %><br>
+    <%= f.time_select :DATA_Horainicio %>
+  </div>
+  <div class="field">
+    <%= f.label :DATA_HoraTermino %><br>
+    <%= f.time_select :DATA_HoraTermino %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_NumVisitante %><br>
+    <%= f.number_field :NUMR_NumVisitante %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_NumParticipante %><br>
+    <%= f.number_field :NUMR_NumParticipante %>
+  </div>
+  <div class="field">
+    <%= f.label :DESC_AssuntoEstudo %><br>
+    <%= f.text_field :DESC_AssuntoEstudo %>
+  </div>
+  <div class="field">
+    <%= f.label :DESC_TextoBiblico %><br>
+    <%= f.text_field :DESC_TextoBiblico %>
+  </div>
+  <div class="field">
+    <%= f.label :VALR_Oferta %><br>
+    <%= f.text_field :VALR_Oferta %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_Decisoes %><br>
+    <%= f.number_field :NUMR_Decisoes %>
+  </div>
+  <div class="field">
+    <%= f.label :DESC_OutrasInformacoes %><br>
+    <%= f.text_area :DESC_OutrasInformacoes %>
+  </div>
+  <div class="field">
+    <%= f.label :FLAG_Situacao %><br>
+    <%= f.number_field :FLAG_Situacao %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_QtdNovoConvertido %><br>
+    <%= f.number_field :NUMR_QtdNovoConvertido %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_QtdResgate %><br>
+    <%= f.number_field :NUMR_QtdResgate %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_QtdPreEncontro %><br>
+    <%= f.number_field :NUMR_QtdPreEncontro %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_QtdEncontro %><br>
+    <%= f.number_field :NUMR_QtdEncontro %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_QtdPosEncontro %><br>
+    <%= f.number_field :NUMR_QtdPosEncontro %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_QtdEscoLid1 %><br>
+    <%= f.number_field :NUMR_QtdEscoLid1 %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_EscoLid2 %><br>
+    <%= f.number_field :NUMR_EscoLid2 %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_EscoLid3 %><br>
+    <%= f.number_field :NUMR_EscoLid3 %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_QtdLidCelula %><br>
+    <%= f.number_field :NUMR_QtdLidCelula %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
