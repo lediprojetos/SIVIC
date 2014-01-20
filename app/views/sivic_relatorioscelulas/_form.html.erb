@@ -12,90 +12,105 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :sivic_celula_id %><br>
-    <%= f.text_field :sivic_celula_id %>
+    <%= f.label :Célula %><br>
+    <%#= f.text_field :sivic_celula_id %>
+    <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.all, 'id', 'NUMR_Dia',@sivic_sede),:include_blank => true%>
   </div>
   <div class="field">
-    <%= f.label :DATA_Reuniao %><br>
-    <%= f.date_select :DATA_Reuniao %>
+    <%= f.label :DATA_da_Reuniao %><br>
+    <%= f.text_field :DATA_Reuniao %> 
   </div>
   <div class="field">
-    <%= f.label :DATA_Horainicio %><br>
+    <%= f.label :Horário_de_início %><br>
     <%= f.time_select :DATA_Horainicio %>
   </div>
   <div class="field">
-    <%= f.label :DATA_HoraTermino %><br>
+    <%= f.label :Horário_de_término %><br>
     <%= f.time_select :DATA_HoraTermino %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_NumVisitante %><br>
+    <%= f.label :Número_de_visitantes %><br>
     <%= f.number_field :NUMR_NumVisitante %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_NumParticipante %><br>
+    <%= f.label :Número_de_participantes %><br>
     <%= f.number_field :NUMR_NumParticipante %>
   </div>
   <div class="field">
-    <%= f.label :DESC_AssuntoEstudo %><br>
+    <%= f.label :Assunto_do_estudo %><br>
     <%= f.text_field :DESC_AssuntoEstudo %>
   </div>
   <div class="field">
-    <%= f.label :DESC_TextoBiblico %><br>
+    <%= f.label :Texto_Bíblico %><br>
     <%= f.text_field :DESC_TextoBiblico %>
   </div>
   <div class="field">
-    <%= f.label :VALR_Oferta %><br>
+    <%= f.label :Valor_de_oferta %><br>
     <%= f.text_field :VALR_Oferta %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_Decisoes %><br>
+    <%= f.label :Decisões %><br>
     <%= f.number_field :NUMR_Decisoes %>
   </div>
   <div class="field">
-    <%= f.label :DESC_OutrasInformacoes %><br>
+    <%= f.label :Outras_informações %><br>
     <%= f.text_area :DESC_OutrasInformacoes %>
   </div>
   <div class="field">
-    <%= f.label :FLAG_Situacao %><br>
+    <%= f.label :Situação %><br>
     <%= f.number_field :FLAG_Situacao %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_QtdNovoConvertido %><br>
+    <%= f.label :Novos_convertidos %><br>
     <%= f.number_field :NUMR_QtdNovoConvertido %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_QtdResgate %><br>
+    <%= f.label :Resgate %><br>
     <%= f.number_field :NUMR_QtdResgate %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_QtdPreEncontro %><br>
+    <%= f.label :Pre_Encontro %><br>
     <%= f.number_field :NUMR_QtdPreEncontro %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_QtdEncontro %><br>
+    <%= f.label :Encontro %><br>
     <%= f.number_field :NUMR_QtdEncontro %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_QtdPosEncontro %><br>
+    <%= f.label :Pos_encontro %><br>
     <%= f.number_field :NUMR_QtdPosEncontro %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_QtdEscoLid1 %><br>
+    <%= f.label :Escola_de_líderes %><br>
     <%= f.number_field :NUMR_QtdEscoLid1 %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_EscoLid2 %><br>
+    <%= f.label :Escola_de_líderes_2 %><br>
     <%= f.number_field :NUMR_EscoLid2 %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_EscoLid3 %><br>
+    <%= f.label :Escola_de_líderes_3 %><br>
     <%= f.number_field :NUMR_EscoLid3 %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_QtdLidCelula %><br>
+    <%= f.label :Líderes_de_células %><br>
     <%= f.number_field :NUMR_QtdLidCelula %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+
+<!-- Implementação do calendário -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+
+<script>
+  $(function() {
+    //ID do campo a ser implementado
+    $( "#sivic_relatorioscelula_DATA_Reuniao" ).datepicker();
+  });
+</script>

@@ -28,7 +28,7 @@ class SivicRelatorioscelulasController < ApplicationController
 
     respond_to do |format|
       if @sivic_relatorioscelula.save
-        format.html { redirect_to @sivic_relatorioscelula, notice: 'Sivic relatorioscelula was successfully created.' }
+        format.html { redirect_to @sivic_relatorioscelula, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_relatorioscelula }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class SivicRelatorioscelulasController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_relatorioscelula.update(sivic_relatorioscelula_params)
-        format.html { redirect_to @sivic_relatorioscelula, notice: 'Sivic relatorioscelula was successfully updated.' }
+        format.html { redirect_to @sivic_relatorioscelula, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
