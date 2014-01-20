@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140114161444) do
+ActiveRecord::Schema.define(version: 20140120105255) do
 
   create_table "sivic_celulas", force: true do |t|
     t.integer  "sivic_pessoa_id"
@@ -134,6 +134,34 @@ ActiveRecord::Schema.define(version: 20140114161444) do
   end
 
   add_index "sivic_redes", ["sivic_igreja_id"], name: "index_sivic_redes_on_sivic_igreja_id"
+
+  create_table "sivic_relatorioscelulas", force: true do |t|
+    t.integer  "sivic_celula_id"
+    t.date     "DATA_Reuniao"
+    t.time     "DATA_Horainicio"
+    t.time     "DATA_HoraTermino"
+    t.integer  "NUMR_NumVisitante"
+    t.integer  "NUMR_NumParticipante"
+    t.string   "DESC_AssuntoEstudo"
+    t.string   "DESC_TextoBiblico"
+    t.decimal  "VALR_Oferta"
+    t.integer  "NUMR_Decisoes"
+    t.text     "DESC_OutrasInformacoes"
+    t.integer  "FLAG_Situacao"
+    t.integer  "NUMR_QtdNovoConvertido"
+    t.integer  "NUMR_QtdResgate"
+    t.integer  "NUMR_QtdPreEncontro"
+    t.integer  "NUMR_QtdEncontro"
+    t.integer  "NUMR_QtdPosEncontro"
+    t.integer  "NUMR_QtdEscoLid1"
+    t.integer  "NUMR_EscoLid2"
+    t.integer  "NUMR_EscoLid3"
+    t.integer  "NUMR_QtdLidCelula"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_relatorioscelulas", ["sivic_celula_id"], name: "index_sivic_relatorioscelulas_on_sivic_celula_id"
 
   create_table "sivic_tipo_eventos", force: true do |t|
     t.string   "desc_tipoevento"
