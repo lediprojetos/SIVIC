@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_movimentofinanceiros
+
   resources :sivic_relatorioscelulas
 
   resources :sivic_celulas
