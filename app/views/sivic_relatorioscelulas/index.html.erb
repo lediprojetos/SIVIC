@@ -1,0 +1,41 @@
+<h1>Relatóriso de Células</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Responsável</th>
+      <th>Dia</th>
+      <th>Data da Reunião</th>
+      <th>Início</th>
+      <th>Término</th>
+      <th>Assunto</th>
+      <th>Valor de Oferta</th>
+      <th>Situação</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_relatorioscelulas.each do |sivic_relatorioscelula| %>
+      <tr>
+        <td><%= sivic_relatorioscelula.sivic_celula.sivic_pessoa.NOME_pessoa %></td>
+        <td><%= sivic_relatorioscelula.sivic_celula.NUMR_Dia %></td>
+        <td><%= sivic_relatorioscelula.DATA_Reuniao %></td>
+        <td><%= sivic_relatorioscelula.DATA_Horainicio %></td>
+        <td><%= sivic_relatorioscelula.DATA_HoraTermino %></td>
+        <td><%= sivic_relatorioscelula.DESC_AssuntoEstudo %></td>
+        <td><%= sivic_relatorioscelula.VALR_Oferta %></td>
+        <td><%= sivic_relatorioscelula.FLAG_Situacao %></td>
+        <td><%= link_to 'Exibir', sivic_relatorioscelula %></td>
+        <td><%= link_to 'Editar', edit_sivic_relatorioscelula_path(sivic_relatorioscelula) %></td>
+        <td><%= link_to 'Excluir', sivic_relatorioscelula, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Novo Relatório', new_sivic_relatorioscelula_path %>

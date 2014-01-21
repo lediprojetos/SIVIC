@@ -1,0 +1,39 @@
+<h1>Listing sivic_movimentofinanceiros</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Valr movimento</th>
+      <th>User</th>
+      <th>Data exclusao</th>
+      <th>Flag baixa</th>
+      <th>User</th>
+      <th>Sivic tipmovfinanceiro</th>
+      <th>Sivic evento</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_movimentofinanceiros.each do |sivic_movimentofinanceiro| %>
+      <tr>
+        <td><%= sivic_movimentofinanceiro.VALR_movimento %></td>
+        <td><%= sivic_movimentofinanceiro.User %></td>
+        <td><%= sivic_movimentofinanceiro.DATA_exclusao %></td>
+        <td><%= sivic_movimentofinanceiro.FLAG_baixa %></td>
+        <td><%= sivic_movimentofinanceiro.User %></td>
+        <td><%= sivic_movimentofinanceiro.sivic_tipmovfinanceiro %></td>
+        <td><%= sivic_movimentofinanceiro.sivic_evento %></td>
+        <td><%= link_to 'Show', sivic_movimentofinanceiro %></td>
+        <td><%= link_to 'Edit', edit_sivic_movimentofinanceiro_path(sivic_movimentofinanceiro) %></td>
+        <td><%= link_to 'Destroy', sivic_movimentofinanceiro, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic movimentofinanceiro', new_sivic_movimentofinanceiro_path %>

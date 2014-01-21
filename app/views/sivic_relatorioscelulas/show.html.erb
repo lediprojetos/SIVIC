@@ -1,0 +1,114 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Responsável:</strong>
+  <%= @sivic_relatorioscelula.sivic_celula.sivic_pessoa.NOME_pessoa %>
+</p>
+
+<p>
+  <strong>Dia da semana:</strong>
+  <%= @sivic_relatorioscelula.sivic_celula.NUMR_Dia %>
+</p>
+
+<p>
+  <strong>Data de reuniao:</strong>
+  <%= @sivic_relatorioscelula.DATA_Reuniao %>
+</p>
+
+<p>
+  <strong>Horário de início:</strong>
+  <%= @sivic_relatorioscelula.DATA_Horainicio %>
+</p>
+
+<p>
+  <strong>Horário de término:</strong>
+  <%= @sivic_relatorioscelula.DATA_HoraTermino %>
+</p>
+
+<p>
+  <strong>Visitantes:</strong>
+  <%= @sivic_relatorioscelula.NUMR_NumVisitante %>
+</p>
+
+<p>
+  <strong>Participantes:</strong>
+  <%= @sivic_relatorioscelula.NUMR_NumParticipante %>
+</p>
+
+<p>
+  <strong>Assunto:</strong>
+  <%= @sivic_relatorioscelula.DESC_AssuntoEstudo %>
+</p>
+
+<p>
+  <strong>Texto bíblico:</strong>
+  <%= @sivic_relatorioscelula.DESC_TextoBiblico %>
+</p>
+
+<p>
+  <strong>Valor da oferta:</strong>
+  <%= @sivic_relatorioscelula.VALR_Oferta %>
+</p>
+
+<p>
+  <strong>Decisões:</strong>
+  <%= @sivic_relatorioscelula.NUMR_Decisoes %>
+</p>
+
+<p>
+  <strong>Outras Informações:</strong>
+  <%= @sivic_relatorioscelula.DESC_OutrasInformacoes %>
+</p>
+
+<p>
+  <strong>Situação:</strong>
+  <%= @sivic_relatorioscelula.FLAG_Situacao %>
+</p>
+
+<p>
+  <strong>Novos Convertidos:</strong>
+  <%= @sivic_relatorioscelula.NUMR_QtdNovoConvertido %>
+</p>
+
+<p>
+  <strong>Resgates:</strong>
+  <%= @sivic_relatorioscelula.NUMR_QtdResgate %>
+</p>
+
+<p>
+  <strong>Pré-encontro:</strong>
+  <%= @sivic_relatorioscelula.NUMR_QtdPreEncontro %>
+</p>
+
+<p>
+  <strong>Encontro:</strong>
+  <%= @sivic_relatorioscelula.NUMR_QtdEncontro %>
+</p>
+
+<p>
+  <strong>Pós-encontro:</strong>
+  <%= @sivic_relatorioscelula.NUMR_QtdPosEncontro %>
+</p>
+
+<p>
+  <strong>Escola de Líderes:</strong>
+  <%= @sivic_relatorioscelula.NUMR_QtdEscoLid1 %>
+</p>
+
+<p>
+  <strong>Escola de Líderes 2:</strong>
+  <%= @sivic_relatorioscelula.NUMR_EscoLid2 %>
+</p>
+
+<p>
+  <strong>Escola de Líderes 3:</strong>
+  <%= @sivic_relatorioscelula.NUMR_EscoLid3 %>
+</p>
+
+<p>
+  <strong>Líderes de Células:</strong>
+  <%= @sivic_relatorioscelula.NUMR_QtdLidCelula %>
+</p>
+
+<%= link_to 'Editar', edit_sivic_relatorioscelula_path(@sivic_relatorioscelula) %> |
+<%= link_to 'Voltar', sivic_relatorioscelulas_path %>
