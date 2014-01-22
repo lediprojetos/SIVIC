@@ -95,14 +95,10 @@
 
   <% end %>
 </fieldset>
-
-  <!--Campos preenchidos automáticos-->
-
   <!--Capturando igreja do usuaário logado -->
   <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja.id %>
   <!--Capturando Usuário logado -->
-  <%= f.hidden_field :sivic_user_id, :value => current_user.id%>
-   
+  <%= f.hidden_field :sivic_user_id, :value => current_user.id%>  
   <div class="actions">
     <%= f.submit %>
   </div>
@@ -140,7 +136,8 @@
 
   $(function() {
     //ID do campo a ser implementado
-    $( "#sivic_relatorioscelula_DATA_Reuniao" ).datepicker();
+    $( "#sivic_evento_DATA_inicio" ).datepicker();
+    $( "#sivic_evento_DATA_fim" ).datepicker();
   });
 
 </script>

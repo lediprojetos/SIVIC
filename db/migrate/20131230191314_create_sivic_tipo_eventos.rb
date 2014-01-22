@@ -5,6 +5,6 @@ class CreateSivicTipoEventos < ActiveRecord::Migration
       t.references :sivic_igreja, index: true
 
       t.timestamps
-    end
+      end
   end
 end
