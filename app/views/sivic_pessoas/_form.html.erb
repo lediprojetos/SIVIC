@@ -33,10 +33,7 @@
     <%= f.select :sivic_igreja_id, options_from_collection_for_select(@sivic_igreja, 'id', 'NOME_igreja')%>
   </div>
   <div class="field">
-    <%#= f.label :Operador_de_inclusão %>
-    <%#= f.text_field :User_id %>
-    <p><%#= current_user.email%><p/>
-    <%#= f.text_field :User_id%>
+    <%=f.hidden_field :User_id, :value => current_user.id%>
   </div>
   <br>
   <div class="actions">

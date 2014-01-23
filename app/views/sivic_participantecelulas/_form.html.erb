@@ -1,0 +1,33 @@
+<%= form_for(@sivic_participantecelula) do |f| %>
+  <% if @sivic_participantecelula.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_participantecelula.errors.count, "error") %> prohibited this sivic_participantecelula from being saved:</h2>
+
+      <ul>
+      <% @sivic_participantecelula.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :NOME_Participante %><br>
+    <%= f.text_field :NOME_Participante %>
+  </div>
+  <div class="field">
+    <%= f.label :DESC_Email %><br>
+    <%= f.text_field :DESC_Email %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_Telefone %><br>
+    <%= f.text_field :NUMR_Telefone %>
+  </div>
+  <div class="field">
+    <%= f.label :DESC_SituacaoParticipante %><br>
+    <%= f.text_field :DESC_SituacaoParticipante %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

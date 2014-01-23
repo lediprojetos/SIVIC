@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140122152620) do
+ActiveRecord::Schema.define(version: 20140123093212) do
 
   create_table "sivic_celulas", force: true do |t|
     t.integer  "sivic_pessoa_id"
@@ -121,6 +121,27 @@ ActiveRecord::Schema.define(version: 20140122152620) do
 
   add_index "sivic_movimentofinanceiros", ["sivic_evento_id"], name: "index_sivic_movimentofinanceiros_on_sivic_evento_id"
   add_index "sivic_movimentofinanceiros", ["sivic_tipmovfinanceiro_id"], name: "index_sivic_movimentofinanceiros_on_sivic_tipmovfinanceiro_id"
+
+  create_table "sivic_partevenrelacelulas", force: true do |t|
+    t.string   "sivic_relatorioscelula"
+    t.integer  "sivic_relatorioscelula_id"
+    t.integer  "sivic_participantecelula_id"
+    t.string   "DESC_SituacaoParticipante"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_partevenrelacelulas", ["sivic_participantecelula_id"], name: "index_sivic_partevenrelacelulas_on_sivic_participantecelula_id"
+  add_index "sivic_partevenrelacelulas", ["sivic_relatorioscelula_id"], name: "index_sivic_partevenrelacelulas_on_sivic_relatorioscelula_id"
+
+  create_table "sivic_participantecelulas", force: true do |t|
+    t.string   "NOME_Participante"
+    t.string   "DESC_Email"
+    t.string   "NUMR_Telefone"
+    t.string   "DESC_SituacaoParticipante"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sivic_pessoas", force: true do |t|
     t.integer  "father_id"

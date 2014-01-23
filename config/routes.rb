@@ -1,25 +1,27 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_partevenrelacelulas
+  resources :sivic_participantecelulas
   resources :sivic_movimentofinanceiros
-
   resources :sivic_relatorioscelulas
-
   resources :sivic_celulas
   resources :sivic_escolaridades
-
   resources :sivic_ministerios
-
   resources :sivic_pessoas
-
   resources :sivic_eventos
-
-  devise_for :users
+  #devise_for :users
   resources :sivic_tipo_eventos
-
   resources :sivic_redes
+  resources :sivic_tipo_eventos
+  resources :sivic_escolaridades
+  resources :sivic_profissaos
 
   resources :sivic_igrejas do 
     resources :sivic_enderecos
+  end
+
+  resources :sivic_estados do
+    resources :sivic_cidades
   end
 
   root  'static_pages#home'
@@ -31,16 +33,10 @@ SIVIC::Application.routes.draw do
   match '/criarPessoa', to: 'sivic_pessoas#create_pessoa', via: 'get'
   match '/listarPessoa', to: 'sivic_pessoas#busca_pessoa', via: 'get'
 
+  #resources :users
+  match '/users', to: 'users#index', via: 'get'
+  match '/users/new', to: 'users#new', via: 'get'
+  devise_for :users, :controllers => {:users => "users"}
 
 
-  resources :sivic_estados do
-    resources :sivic_cidades
-  end
-
-
-  resources :sivic_tipo_eventos
-  resources :sivic_escolaridades
-  resources :sivic_profissaos
-
-  
 end

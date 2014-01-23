@@ -1,0 +1,33 @@
+<h1>Listing sivic_participantecelulas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome participante</th>
+      <th>Desc email</th>
+      <th>Numr telefone</th>
+      <th>Desc situacaoparticipante</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_participantecelulas.each do |sivic_participantecelula| %>
+      <tr>
+        <td><%= sivic_participantecelula.NOME_Participante %></td>
+        <td><%= sivic_participantecelula.DESC_Email %></td>
+        <td><%= sivic_participantecelula.NUMR_Telefone %></td>
+        <td><%= sivic_participantecelula.DESC_SituacaoParticipante %></td>
+        <td><%= link_to 'Show', sivic_participantecelula %></td>
+        <td><%= link_to 'Edit', edit_sivic_participantecelula_path(sivic_participantecelula) %></td>
+        <td><%= link_to 'Destroy', sivic_participantecelula, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic participantecelula', new_sivic_participantecelula_path %>

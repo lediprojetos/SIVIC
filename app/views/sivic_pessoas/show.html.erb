@@ -25,6 +25,11 @@
   <%end%>
 </p>
 
+<p>
+  <strong>Operador de Inclusão:</strong>
+  <%= User.find_by_id(@sivic_pessoa.User_id).email %>
+</p>
+
 
 
 <%= link_to 'Editar', edit_sivic_pessoa_path(@sivic_pessoa) %> |
