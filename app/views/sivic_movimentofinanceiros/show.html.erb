@@ -1,39 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Valr movimento:</strong>
-  <%= @sivic_movimentofinanceiro.VALR_movimento %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @sivic_movimentofinanceiro.User %>
-</p>
-
-<p>
-  <strong>Data exclusao:</strong>
-  <%= @sivic_movimentofinanceiro.DATA_exclusao %>
-</p>
-
-<p>
-  <strong>Flag baixa:</strong>
-  <%= @sivic_movimentofinanceiro.FLAG_baixa %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @sivic_movimentofinanceiro.User %>
-</p>
-
-<p>
-  <strong>Sivic tipmovfinanceiro:</strong>
+  <strong>Tipo do Movimento:</strong>
   <%= @sivic_movimentofinanceiro.sivic_tipmovfinanceiro %>
 </p>
 
 <p>
-  <strong>Sivic evento:</strong>
-  <%= @sivic_movimentofinanceiro.sivic_evento %>
+  <strong>Valor do Movimento:</strong>
+  <%= @sivic_movimentofinanceiro.VALR_movimento %>
 </p>
 
-<%= link_to 'Edit', edit_sivic_movimentofinanceiro_path(@sivic_movimentofinanceiro) %> |
-<%= link_to 'Back', sivic_movimentofinanceiros_path %>
+<p>
+  <strong>Lançado Para:</strong>
+  <%= @sivic_movimentofinanceiro.sivic_evento.DESC_evento %>
+</p>
+
+<%= link_to 'Editar', edit_sivic_movimentofinanceiro_path(@sivic_movimentofinanceiro) %> |
+<%= link_to 'Voltar', sivic_movimentofinanceiros_path %>

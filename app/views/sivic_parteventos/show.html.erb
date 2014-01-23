@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sivic pessoa:</strong>
+  <%= @sivic_partevento.sivic_pessoa %>
+</p>
+
+<p>
+  <strong>Sivic evento:</strong>
+  <%= @sivic_partevento.sivic_evento %>
+</p>
+
+<p>
+  <strong>Sivic movimentofinanceiro:</strong>
+  <%= @sivic_partevento.sivic_movimentofinanceiro %>
+</p>
+
+<p>
+  <strong>Flag naoparticipou:</strong>
+  <%= @sivic_partevento.FLAG_naoparticipou %>
+</p>
+
+<%= link_to 'Editar', edit_sivic_partevento_path(@sivic_partevento) %> |
+<%= link_to 'Voltar', sivic_parteventos_path %>

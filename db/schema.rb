@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140122152620) do
+ActiveRecord::Schema.define(version: 20140123153921) do
 
   create_table "sivic_celulas", force: true do |t|
     t.integer  "sivic_pessoa_id"
@@ -121,6 +121,19 @@ ActiveRecord::Schema.define(version: 20140122152620) do
 
   add_index "sivic_movimentofinanceiros", ["sivic_evento_id"], name: "index_sivic_movimentofinanceiros_on_sivic_evento_id"
   add_index "sivic_movimentofinanceiros", ["sivic_tipmovfinanceiro_id"], name: "index_sivic_movimentofinanceiros_on_sivic_tipmovfinanceiro_id"
+
+  create_table "sivic_parteventos", force: true do |t|
+    t.integer  "sivic_pessoa_id"
+    t.integer  "sivic_evento_id"
+    t.integer  "sivic_movimentofinanceiro_id"
+    t.boolean  "FLAG_naoparticipou"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_parteventos", ["sivic_evento_id"], name: "index_sivic_parteventos_on_sivic_evento_id"
+  add_index "sivic_parteventos", ["sivic_movimentofinanceiro_id"], name: "index_sivic_parteventos_on_sivic_movimentofinanceiro_id"
+  add_index "sivic_parteventos", ["sivic_pessoa_id"], name: "index_sivic_parteventos_on_sivic_pessoa_id"
 
   create_table "sivic_pessoas", force: true do |t|
     t.integer  "father_id"

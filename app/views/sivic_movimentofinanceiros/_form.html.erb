@@ -12,20 +12,20 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :Evento %><br>
+    <%= f.select :sivic_evento_id, options_from_collection_for_select(SivicEvento.all, 'id', 'DESC_evento',@sivic_movimentofinanceiro.sivic_evento_id), :include_blank => true%>
+  </div>
+  <div class="field">
     <%= f.label :Tipo_Movimento %><br>
     <%= f.select :sivic_tipmovfinanceiro_id, options_from_collection_for_select(SivicTipmovfinanceiro.all, 'id', 'DESC_movimento',@sivic_movimentofinanceiro.sivic_tipmovfinanceiro_id),:include_blank => true%>
   </div>
   <div class="field">
-    <%= f.label :VALR_movimento %><br>
+    <%= f.label :Valor %><br>
     <%= f.text_field :VALR_movimento %>
   </div>
     <div class="field">
-    <%= f.label :Descricao_Movimento %><br>
-    <%= f.text_field :DESC_movimento %>
-  </div>
-  <div class="field">
-    <%= f.label :sivic_evento_id %><br>
-    <%= f.text_field :sivic_evento_id %>
+    <%= f.label :Descricão_Movimento %><br>
+    <%= f.text_area :DESC_movimento %>
   </div>
 
 <!--Capturando Usuario logado-->

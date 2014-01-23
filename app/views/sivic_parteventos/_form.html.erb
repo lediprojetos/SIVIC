@@ -1,0 +1,131 @@
+<%= form_for(@sivic_partevento) do |f| %>
+  <% if @sivic_partevento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_partevento.errors.count, "error") %> prohibited this sivic_partevento from being saved:</h2>
+
+      <ul>
+      <% @sivic_partevento.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :Nome %><br>
+    <%= f.text_field :sivic_pessoa_id %>
+  </div>
+
+  <div class="field">
+        <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Pessoa</a>
+        <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Nova Pessoa</a>
+  </div>
+
+  <div class="field">
+    <%= f.label :sivic_evento_id %><br>
+    <%= f.text_field :sivic_evento_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_movimentofinanceiro_id %><br>
+    <%= f.text_field :sivic_movimentofinanceiro_id %>
+  </div>
+  <div class="field">
+    <%= f.label :FLAG_naoparticipou %><br>
+    <%= f.check_box :FLAG_naoparticipou %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<fieldset>
+<%
+  @sivic_pessoa = SivicPessoa.new
+  @sivic_igreja = SivicIgreja.all
+%>
+
+ <div id="myModal" class="modal fade" style="display: none;">  
+
+    <%= form_for(@sivic_pessoa) do |f| %>
+      <div class="modal-header">  
+        <a class="close" data-dismiss="modal">×</a>  
+        <h3>Cadastro de Pessoa</h3>  
+      </div>  
+      <div class="modal-body">
+        <div class="field">
+          <%= f.label :Lider %><br>
+          <%= f.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',0),:include_blank => true%>
+        </div>  
+        <div class="field">
+          <%= f.label :Nome %><br>
+          <%= f.text_field :NOME_pessoa %>
+        </div>
+        <div class="field">
+          <%= f.label :Email %><br>
+          <%= f.text_field :DESC_email %>
+        </div>
+        <div class="field">
+          <%= f.label :Observação %><br>
+          <%= f.text_field :DESC_observacao %>
+        </div>
+
+          <!--Capturando igreja do usuaário logado -->
+         <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja.id %>
+      </div>
+      <div class="modal-footer">
+        <div class="field">
+          <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
+        </div>        
+      </div>  
+      </div>  
+ <% end %>
+</fieldset>
+
+ <div id="myModal2" class="modal fade" style="display: none;">  
+      <div class="modal-header">  
+        <a class="close" data-dismiss="modal">×</a>  
+        <h3>Buscar Pessoas</h3>  
+      </div>  
+      <div class="modal-body">
+        <div class="input-group input-group-lg">
+          <label >Nome</label><br>
+          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onchange="buscaPessoa()"type="text" class="form-control" placeholder="Username" style="width: 300px;">
+          <a data-toggle="modal" href="javascript:buscaPessoa();" class="btn btn-success" style="margin-bottom: 10px;">Buscar</a>
+        </div>
+        <table id="table_user" name="table_user" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyid">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+      </div>
+      <div class="modal-footer">
+      </div>
+  </div>  
+<% end %>
+
+<script>
+
+  function createPessoa(){
+       $.ajax({
+        url: '<%= crirPessoa_path%>',
+        data:
+        {
+          father_id : $('#sivic_pessoa_father_id').val()
+          ,NOME_pessoa : $('#sivic_pessoa_NOME_pessoa').val()
+          ,DESC_email: $('#sivic_pessoa_DESC_email').val()
+          ,DESC_observacao : $('#sivic_pessoa_DESC_observacao').val()
+        }
+
+       })      
+  }
+
+</script>
+

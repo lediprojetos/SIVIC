@@ -3,13 +3,10 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Valr movimento</th>
-      <th>User</th>
-      <th>Data exclusao</th>
-      <th>Flag baixa</th>
-      <th>User</th>
-      <th>Sivic tipmovfinanceiro</th>
-      <th>Sivic evento</th>
+      <th>Tipo do Movimento</th>
+      <th>Valor R$</th>    
+      <th>Lançado Para</th>
+      <th>Dado baixa</th>
       <th></th>
       <th></th>
       <th></th>
@@ -19,16 +16,13 @@
   <tbody>
     <% @sivic_movimentofinanceiros.each do |sivic_movimentofinanceiro| %>
       <tr>
+        <td><%= sivic_movimentofinanceiro.sivic_tipmovfinanceiro.DESC_movimento %></td>
         <td><%= sivic_movimentofinanceiro.VALR_movimento %></td>
-        <td><%= sivic_movimentofinanceiro.User %></td>
-        <td><%= sivic_movimentofinanceiro.DATA_exclusao %></td>
+        <td><%= sivic_movimentofinanceiro.sivic_evento.DESC_evento %></td>
         <td><%= sivic_movimentofinanceiro.FLAG_baixa %></td>
-        <td><%= sivic_movimentofinanceiro.User %></td>
-        <td><%= sivic_movimentofinanceiro.sivic_tipmovfinanceiro %></td>
-        <td><%= sivic_movimentofinanceiro.sivic_evento %></td>
         <td><%= link_to 'Exibir', sivic_movimentofinanceiro %></td>
         <td><%= link_to 'Editar', edit_sivic_movimentofinanceiro_path(sivic_movimentofinanceiro) %></td>
-        <td><%= link_to 'Deletar', sivic_movimentofinanceiro, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Deletar', sivic_movimentofinanceiro, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -28,7 +28,7 @@ class SivicMovimentofinanceirosController < ApplicationController
 
     respond_to do |format|
       if @sivic_movimentofinanceiro.save
-        format.html { redirect_to @sivic_movimentofinanceiro, notice: 'Sivic movimentofinanceiro was successfully created.' }
+        format.html { redirect_to @sivic_movimentofinanceiro, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_movimentofinanceiro }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class SivicMovimentofinanceirosController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_movimentofinanceiro.update(sivic_movimentofinanceiro_params)
-        format.html { redirect_to @sivic_movimentofinanceiro, notice: 'Sivic movimentofinanceiro was successfully updated.' }
+        format.html { redirect_to @sivic_movimentofinanceiro, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
