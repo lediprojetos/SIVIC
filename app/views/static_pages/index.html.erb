@@ -22,7 +22,7 @@
         <td><%= sivic_user.sivic_pessoa.NOME_pessoa %></td>
         <td><%= sivic_user.role %></td>
         <td><%= sivic_user.last_sign_in_at %></td>
-        <td><%= link_to 'Exibir', User %></td>
+        <td><%#= link_to 'Exibir', User %></td>
         <td><%#= link_to 'Editar', edit_sivic_estado_path(sivic_estado) %></td>
         <td><%#= link_to 'Excluir', sivic_estado, method: :delete, data: { confirm: 'Deseja exluir o registro?' } %></td>
       </tr>
@@ -32,4 +32,4 @@
 
 <br>
 
-<%= link_to 'Novo Registro', 'new_user_path' %>
+<%= link_to 'Novo Registro', '/users/sign_up' %>

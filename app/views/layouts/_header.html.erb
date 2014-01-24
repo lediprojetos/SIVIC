@@ -13,6 +13,8 @@
                   <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
+                  <li><%= link_to "Cadastro de Usuários", '/users/sign_up' %></li>
+                  <li><%= link_to "Listar Usuários", '/admin' %></li>
                   <li><%= link_to 'Cadastro de Igreja', sivic_igrejas_path%></li>
                   <li><%= link_to 'Cadastro de Pessoas', sivic_pessoas_path%> </li>
                   <li><%= link_to 'Cadastro de Eventos', sivic_eventos_path%> </li>
@@ -25,7 +27,6 @@
                   <li><%= link_to 'Movimento Financeiro', sivic_movimentofinanceiros_path%> </li>
                   <li><%= link_to 'Fazer Inscrição', sivic_parteventos_path%> </li>                  
                   <li><%= link_to 'Movimento Financeiro', sivic_movimentofinanceiros_path%> </li>
-                  <li><%= link_to "Registrar", '/users/sign_up' %></li>
                 </ul>
               </div>
             </div>

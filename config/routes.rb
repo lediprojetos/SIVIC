@@ -32,6 +32,7 @@ SIVIC::Application.routes.draw do
   match '/listarCidade', to: 'sivic_igrejas#get_cities', via: 'get'
   match '/criarPessoa', to: 'sivic_pessoas#create_pessoa', via: 'get'
   match '/listarPessoa', to: 'sivic_pessoas#busca_pessoa', via: 'get'
+  match '/admin', to: 'static_pages#index', via: 'get'
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
