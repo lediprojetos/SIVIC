@@ -9,7 +9,6 @@ SIVIC::Application.routes.draw do
   resources :sivic_ministerios
   resources :sivic_pessoas
   resources :sivic_eventos
-  #devise_for :users
   resources :sivic_tipo_eventos
   resources :sivic_redes
   resources :sivic_tipo_eventos
@@ -33,10 +32,6 @@ SIVIC::Application.routes.draw do
   match '/criarPessoa', to: 'sivic_pessoas#create_pessoa', via: 'get'
   match '/listarPessoa', to: 'sivic_pessoas#busca_pessoa', via: 'get'
 
-  #resources :users
-  match '/users', to: 'users#index', via: 'get'
-  match '/users/new', to: 'users#new', via: 'get'
-  devise_for :users, :controllers => {:users => "users"}
-
+  devise_for :users, :controllers => {:registrations => "users/registrations"}
 
 end

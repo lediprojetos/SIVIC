@@ -1,0 +1,44 @@
+<h2>Editar Usuario <%#= resource_name.to_s.humanize %></h2>
+
+<div class="row">
+  <div class="span6 offset3">
+
+    <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+      <%= devise_error_messages! %>
+
+      <div class="field">
+        <%= f.label :Pessoa %><br>
+        <%= f.select :sivic_pessoa_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa')%>
+      </div>      
+
+      <%= f.label :email %>
+      <%= f.email_field :email, :autofocus => true %>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        Currently waiting confirmation for: <%= resource.unconfirmed_email %>
+      <% end %>
+
+      <%= f.label :Senha %> <i>(Deixe em branco caso não queira editar a senha)</i>
+      <%= f.password_field :password, :autocomplete => "off" %>
+
+      <%= f.label :Confirmação_de_Senha %>
+      <%= f.password_field :password_confirmation %>
+
+      <%= f.label :Senha_Atual %> <i>(Você precisa de sua senha atual para confirmar a alteração)</i>
+      <%= f.password_field :current_password %>
+
+      <%= f.label :Permissão %>
+      <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>  
+
+      <%= f.submit "Atualizar", class: "btn btn-mediun btn-primary" %>
+    <% end %>
+
+
+
+<h2>Encerrar conta <%#= resource_name.to_s.humanize %></h2>
+
+<p> Deseja Encerrar sua conta? <%= button_to "Encerrar conta", registration_path(resource_name), :data => { :confirm => "Confirma ação?" }, :method => :delete , class: "btn btn-mediun btn-primary"%></p>
+
+<%= link_to "Voltar", :back %>
+  </div>
+</div>  
