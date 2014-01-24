@@ -10,4 +10,9 @@ class StaticPagesController < ApplicationController
 
   def contact
   end
+
+  def index
+    @sivic_users = User.all
+  end
+
 end
