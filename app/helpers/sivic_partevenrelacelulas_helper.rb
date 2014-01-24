@@ -1,0 +1,2 @@
+module SivicPartevenrelacelulasHelper
+end
