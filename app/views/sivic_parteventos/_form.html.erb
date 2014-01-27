@@ -79,11 +79,9 @@
         </div>        
       </div>  
       </div>  
- <% end %>
- <%end%>
-
-</fieldset>
-
+  <% end %>
+ </fieldset>
+<%end%>
  <div id="myModal2" class="modal fade" style="display: none;">  
       <div class="modal-header">  
         <a class="close" data-dismiss="modal">×</a>  
@@ -119,7 +117,7 @@
   function createPessoa(){
        $.ajax({
         url: '<%= criarPessoa_path %>',
-        data:
+        data :
         {
           father_id : $('#sivic_pessoa_father_id').val()
           ,NOME_pessoa : $('#sivic_pessoa_NOME_pessoa').val()
@@ -132,10 +130,10 @@
          $('#sivic_partevento_sivic_pessoa_id').empty();
          $('#sivic_partevento_sivic_pessoa_id').html('<option>Carregando...</option>');
          $('#sivic_partevento_sivic_pessoa_id').attr('disabled', 'disabled');
-         var options
+         var options = "";
          for (var i in data){
           var item = data[i];
-          options += "<option value>='"+item.id+"'>"+item.NOME_pessoa+"</option>";
+          options += "<option value='"+item.id+"'>"+item.NOME_pessoa+"</option>";
          };
          
          $('#sivic_partevento_sivic_pessoa_id').html(options);
@@ -144,5 +142,35 @@
          } 
        })      
      }
+
+     function buscaPessoa(){
+ 
+       $.ajax({
+        url : '<%= listarPessoa_path%>',
+        data :
+        {
+          NOME_pessoa : $('#NOME_pessoa_buscar').val()
+        },
+        success: function(data){
+          $('tbodyid').empty();
+          for (var i in data){
+            var item = data[i];
+            $('#table_user').append('<tr><td><a href="javascript:setaNome(\''+ item.NOME_pessoa+'\','+item.id+'\');">'+item.NOME_pessoa+'</a></td><td><a href="javascript:setaNome(\'' + item.NOME_pessoa+'\','+item.id+'\'</a></td></tr>')
+          };
+        }
+       })
+     }
+   function setaNome(nome, id){
+      
+      $('#sivic_partevento_sivic_pessoa_id').empty();
+      $('#sivic_partevento_sivic_pessoa_id').html('<option>Carregando...</option>'));
+      $('#sivic_partevento_sivic_pessoa_id').attr('disabled', 'disabled');
+      var options = "<option value='"+id+"'>"+nome+"</option>";
+        $('#sivic_partevento_sivic_pessoa_id').html(options);
+        $('#sivic_partevento_sivic_pessoa_id').removeAttr('disabled');
+        $('#myModal2').modal('hide');      
+        
+    }
+         
 </script>
 
