@@ -39,11 +39,11 @@
     <%= f.submit%>
   </div>
 
-<fieldset>
-<%
-  @sivic_pessoa = SivicPessoa.new
-  @sivic_igreja = SivicIgreja.all
-%>
+  <fieldset>
+  <%
+    @sivic_pessoa = SivicPessoa.new
+    @sivic_igreja = SivicIgreja.all
+  %>
 
  <div id="myModal" class="modal fade" style="display: none;">  
 
@@ -80,8 +80,8 @@
       </div>  
       </div>  
   <% end %>
- </fieldset>
-<%end%>
+  </fieldset>
+ 
  <div id="myModal2" class="modal fade" style="display: none;">  
       <div class="modal-header">  
         <a class="close" data-dismiss="modal">×</a>  
@@ -97,12 +97,9 @@
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Email</th>
             </tr>
           </thead>
           <tbody id="tbodyid">
-              <tr>
-              </tr>
               <tr>
               </tr>
           </tbody>  
@@ -115,6 +112,7 @@
 <script>
 
   function createPessoa(){
+       alert("teste");
        $.ajax({
         url: '<%= criarPessoa_path %>',
         data :
@@ -143,10 +141,12 @@
        })      
      }
 
-     function buscaPessoa(){
+  function buscaPessoa(){
  
+       alert("teste");
+
        $.ajax({
-        url : '<%= listarPessoa_path%>',
+        url : '<%= listarPessoa_path %>',
         data :
         {
           NOME_pessoa : $('#NOME_pessoa_buscar').val()
@@ -156,11 +156,11 @@
           for (var i in data){
             var item = data[i];
             $('#table_user').append('<tr><td><a href="javascript:setaNome(\''+ item.NOME_pessoa+'\','+item.id+'\');">'+item.NOME_pessoa+'</a></td><td><a href="javascript:setaNome(\'' + item.NOME_pessoa+'\','+item.id+'\'</a></td></tr>')
-          };
+          };         
         }
        })
      }
-   function setaNome(nome, id){
+     function setaNome(nome, id){
       
       $('#sivic_partevento_sivic_pessoa_id').empty();
       $('#sivic_partevento_sivic_pessoa_id').html('<option>Carregando...</option>'));
@@ -174,3 +174,4 @@
          
 </script>
 
+<%end%>
