@@ -107,12 +107,14 @@
       </div>
       <div class="modal-footer">
     </div>
-    </div>  
+    </div> 
+     </fieldset> 
+  <%end%>
 
-<script>
+ <script>
 
   function createPessoa(){
-       alert("teste");
+
        $.ajax({
         url: '<%= criarPessoa_path %>',
         data :
@@ -142,9 +144,7 @@
      }
 
   function buscaPessoa(){
- 
-       alert("teste");
-
+       
        $.ajax({
         url : '<%= listarPessoa_path %>',
         data :
@@ -152,26 +152,23 @@
           NOME_pessoa : $('#NOME_pessoa_buscar').val()
         },
         success: function(data){
-          $('tbodyid').empty();
+          $('#tbodyid').empty();
           for (var i in data){
             var item = data[i];
-            $('#table_user').append('<tr><td><a href="javascript:setaNome(\''+ item.NOME_pessoa+'\','+item.id+'\');">'+item.NOME_pessoa+'</a></td><td><a href="javascript:setaNome(\'' + item.NOME_pessoa+'\','+item.id+'\'</a></td></tr>')
+            $('#table_user').append('<tr><td><a href="javascript:setaNome(\''+ item.NOME_pessoa+'\','+item.id+'\);">'+item.NOME_pessoa+'</a></td></tr>')
           };         
         }
        })
      }
-     function setaNome(nome, id){
-      
+     function setaNome(nome,id){
+      alert("entrou");
       $('#sivic_partevento_sivic_pessoa_id').empty();
-      $('#sivic_partevento_sivic_pessoa_id').html('<option>Carregando...</option>'));
+      $('#sivic_partevento_sivic_pessoa_id').html('<option>Carregando...</option>');
       $('#sivic_partevento_sivic_pessoa_id').attr('disabled', 'disabled');
       var options = "<option value='"+id+"'>"+nome+"</option>";
         $('#sivic_partevento_sivic_pessoa_id').html(options);
         $('#sivic_partevento_sivic_pessoa_id').removeAttr('disabled');
-        $('#myModal2').modal('hide');      
-        
+        $('#myModal2').modal('hide');         
     }
          
-</script>
-
-<%end%>
+ </script>
