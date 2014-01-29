@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140123153921) do
+ActiveRecord::Schema.define(version: 20140128205941) do
+
+  create_table "pr_adesos", force: true do |t|
+    t.string   "nome_prestador"
+    t.string   "situacao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sivic_celulas", force: true do |t|
     t.integer  "sivic_pessoa_id"
