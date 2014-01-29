@@ -33,6 +33,9 @@ SIVIC::Application.routes.draw do
   match '/criarPessoa', to: 'sivic_pessoas#create_pessoa', via: 'get'
   match '/listarPessoa', to: 'sivic_pessoas#busca_pessoa', via: 'get'
   match '/admin', to: 'static_pages#index', via: 'get'
+  match '/listarParticipantesCelulas', to: 'sivic_participantecelulas#busca_participante', via: 'get'
+  match '/listarParticipantesCelulasid', to: 'sivic_participantecelulas#busca_participanteid', via: 'get'
+
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
