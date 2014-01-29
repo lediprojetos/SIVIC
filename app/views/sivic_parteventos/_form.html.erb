@@ -24,9 +24,15 @@
   </div>
 
   <div class="field">
-    <%= f.label :sivic_evento_id %><br>
-    <%= f.text_field :sivic_evento_id %>
+    <%= f.label :Evento %><br>
+    <%#= f.text_field :sivic_evento_id %>
+    <select id="sivic_partevento_sivic_evento_id" name="sivic_partevento[sivic_evento_id]" disabled="disabled">
+    </select>
   </div>
+  <div class="field">
+        <a data-toggle="modal" href="#myModal3" class="btn btn-primary btn-small btn-signup">Buscar Evento</a>
+  </div>
+
   <div class="field">
     <%= f.label :sivic_movimentofinanceiro_id %><br>
     <%= f.text_field :sivic_movimentofinanceiro_id %>
@@ -107,9 +113,39 @@
       </div>
       <div class="modal-footer">
     </div>
-    </div> 
-     </fieldset> 
+    </div>      
   <%end%>
+
+ <div id="myModal3" class="modal fade" style="display: none;" >  
+      <div class="modal-header">  
+        <a class="close" data-dismiss="modal">×</a>  
+        <h3 class="center">Eventos</h3>  
+      </div>  
+      <div class="modal-body">
+        <table id="table_evento" name="table_evento" class="table table-hover" onload="buscaEvento()">
+          <thead>
+            <tr>
+              <th>Tipo Evento</th>
+              <th>Evento</th>
+              <th>Dt Inicio</th>
+              <th>Dt Fim</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyeventos" >
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+      </div>
+      <div class="modal-footer">
+    </div>
+    </div> 
 
  <script>
 
@@ -119,7 +155,7 @@
         url: '<%= criarPessoa_path %>',
         data :
         {
-          father_id : $('#sivic_pessoa_father_id').val()
+           father_id : $('#sivic_pessoa_father_id').val()
           ,NOME_pessoa : $('#sivic_pessoa_NOME_pessoa').val()
           ,DESC_email: $('#sivic_pessoa_DESC_email').val()
           ,DESC_observacao : $('#sivic_pessoa_DESC_observacao').val()
@@ -144,7 +180,7 @@
      }
 
   function buscaPessoa(){
-       
+       alert("entrou");
        $.ajax({
         url : '<%= listarPessoa_path %>',
         data :
@@ -155,13 +191,38 @@
           $('#tbodyid').empty();
           for (var i in data){
             var item = data[i];
-            $('#table_user').append('<tr><td><a href="javascript:setaNome(\''+ item.NOME_pessoa+'\','+item.id+'\);">'+item.NOME_pessoa+'</a></td></tr>')
+            $('#table_evento').append('<tr><td><a href="javascript:setaNome(\''+ item.NOME_pessoa+'\','+item.id+'\);">'+item.NOME_pessoa+'</a></td></tr>')
           };         
         }
        })
      }
      function setaNome(nome,id){
-      alert("entrou");
+
+      $('#sivic_partevento_sivic_pessoa_id').empty();
+      $('#sivic_partevento_sivic_pessoa_id').html('<option>Carregando...</option>');
+      $('#sivic_partevento_sivic_pessoa_id').attr('disabled', 'disabled');
+      var options = "<option value='"+id+"'>"+nome+"</option>";
+        $('#sivic_partevento_sivic_pessoa_id').html(options);
+        $('#sivic_partevento_sivic_pessoa_id').removeAttr('disabled');
+        $('#myModal2').modal('hide');         
+    }
+
+  function buscaEvento(){
+       
+       $.ajax({
+        url : '<%= sivic_eventos_path %>',
+        data :{},
+        success: function(data){
+          $('#tbodyeventos').empty();
+          for (var i in data){
+            var item = data[i];
+            $('#table_user').append('<tr><td><a href="javascript:setaEvento(\''+ item.sivic_tipo_evento.desc_tipoevento+'\','+item.id+'\);">'+item.DESC_evento+'</a></td></tr>')
+          };         
+        }
+       })
+     }
+     function setaEvento(nome,id){
+
       $('#sivic_partevento_sivic_pessoa_id').empty();
       $('#sivic_partevento_sivic_pessoa_id').html('<option>Carregando...</option>');
       $('#sivic_partevento_sivic_pessoa_id').attr('disabled', 'disabled');
