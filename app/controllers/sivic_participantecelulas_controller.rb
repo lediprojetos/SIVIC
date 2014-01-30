@@ -29,15 +29,6 @@ class SivicParticipantecelulasController < ApplicationController
 
   end 
 
-  def busca_participanteid
-
-    sivic_participante = SivicParticipantecelula.where("id like ?", "#{params[:id]}%")
-    sivic_participante_json = sivic_participante.map {|item| {:id => item.id, :NOME_Participante => item.NOME_Participante, :DESC_SituacaoParticipante => item.DESC_SituacaoParticipante}}
-    render :json => sivic_participante_json
-
-  end   
-
-
   # POST /sivic_participantecelulas
   # POST /sivic_participantecelulas.json
   def create
