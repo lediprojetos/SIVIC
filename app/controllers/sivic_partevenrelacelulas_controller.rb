@@ -27,6 +27,14 @@ class SivicPartevenrelacelulasController < ApplicationController
     redirect_to sivic_relatorioscelula_path(@sivic_relatorioscelula)
    end
 
+  def create_participante
+    SivicPartevenrelacelula.create(:sivic_relatorioscelula_id => params[:sivic_relatorioscelula_id],:sivic_participantecelula_id => params[:sivic_participantecelula_id],:DESC_SituacaoParticipante => params[:DESC_SituacaoParticipante])
+    sivic_relatorioparticipante = SivicPartevenrelacelula.find :all, :conditions => {:sivic_relatorioscelula_id => params[:sivic_relatorioscelula_id],:sivic_participantecelula_id => params[:sivic_participantecelula_id]}
+    sivic_relatorioparticipante_json = sivic_relatorioparticipante.map {|item| {:id => item.id, :NOME_Participante => item.sivic_participantecelula.NOME_Participante, :DESC_Email => item.sivic_participantecelula.DESC_Email, :NUMR_Telefone => item.sivic_participantecelula.NUMR_Telefone, :DESC_SituacaoParticipante => item.sivic_participantecelula.DESC_SituacaoParticipante}}
+
+    render :json => sivic_relatorioparticipante_json
+  end   
+
 
 
    def destroy
