@@ -110,20 +110,26 @@
   <%= @sivic_relatorioscelula.NUMR_QtdLidCelula %>
 </p>
 
+<input type="hidden" value="<%= @sivic_relatorioscelula.id%>" id="sivic_relatorioscelula_id"></input>
+
 <%= link_to 'Editar', edit_sivic_relatorioscelula_path(@sivic_relatorioscelula) %> |
 <%= link_to 'Voltar', sivic_relatorioscelulas_path %>
 
-<h2>Pessoas Cadastradas no Relatório</h2>
+<h2>Participantes</h2>
 <hr />
 
-<table class="table table-hover">
+  <div class="field">
+    <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Participante</a>
+    <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Novo Participante</a>
+  </div>
+
+<table class="table table-hover" id="tlbparticipantes">
   <thead>
     <tr>
       <th>Nome:</th>
       <th>Email</th>
       <th>Telefone:</th>
-      <th>Situação Atual:</th>
-      <th>Situação Relatório:</th>
+      <th>Situação:</th>
       <th></th>     
     </tr>
   </thead>
@@ -134,7 +140,6 @@
         <td><%= sivic_partevenrelacelula.sivic_participantecelula.NOME_Participante %></td>
         <td><%= sivic_partevenrelacelula.sivic_participantecelula.DESC_Email %></td>
         <td><%= sivic_partevenrelacelula.sivic_participantecelula.NUMR_Telefone %></td>
-        <td><%= sivic_partevenrelacelula.DESC_SituacaoParticipante %></td>
         <td><%= sivic_partevenrelacelula.sivic_participantecelula.DESC_SituacaoParticipante %></td>
         <td><%= link_to 'Excluir', [sivic_partevenrelacelula.sivic_relatorioscelula, sivic_partevenrelacelula],:confirm => 'Deseja excluir o registro?',:method => :delete %>
          </td>          
@@ -145,32 +150,6 @@
 
 <br />
 <br />
-
-<h2>Adicionar outros participantes:</h2>
-<hr />
-<%= form_for([@sivic_relatorioscelula, @sivic_relatorioscelula.sivic_partevenrelacelula.build]) do |f| %>
-  <div class="field"> 
-    <%= f.hidden_field :sivic_relatorioscelula_id, :value => @sivic_relatorioscelula.id%>  
-  </div>
-  <div class="field">
-    <%= f.label :Participante%><br>
-    <%#= f.select :sivic_participantecelula_id, options_from_collection_for_select(SivicParticipantecelula.all, 'id', 'NOME_Participante')%>
-    <select id="sivic_partevenrelacelula_sivic_participantecelula_id" name="sivic_partevenrelacelula[sivic_participantecelula_id]" disabled="disabled">
-    </select>
-  </div>
-  <div class="field">
-    <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Participante</a>
-    <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Novo Participante</a>
-  </div>
-  <br />
-  <div class="field">
-    <%= f.label :Situação_do_Participante %><br>
-    <%= f.text_field :DESC_SituacaoParticipante %>
-  </div>
-  <div class="actions">
-    <input name="commit" type="submit" value="Adicionar Participante" class="btn btn-primary btn-medium btn-signup" />
-  </div>
-<% end %>
 
 
 
@@ -217,32 +196,81 @@
 
 </fieldset>
 
-  <div id="myModal2" class="modal fade" style="display: none;">  
-      <div class="modal-header">  
-        <a class="close" data-dismiss="modal">×</a>  
-        <h3>Buscar Participantes</h3>  
-      </div>  
-      <div class="modal-body">
-        <div class="input-group input-group-lg">
-          <label >Nome</label><br>
-          <input id="NOME_participante_buscar" name="NOME_participante_buscar" onchange="buscaPessoa()"type="text" class="form-control" placeholder="Username" style="width: 300px;">
-          <a data-toggle="modal" href="javascript:buscaPessoa();" class="btn btn-success" style="margin-bottom: 10px;">Buscar</a>
+  <div id="myModal2" class="modal fade" style="display: none;">
+
+    <div class="tabbable"> <!-- Only required for left/right tabs -->
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab">Consultar</a></li>
+        <li><a href="#tab2" data-toggle="tab">Cadastrar</a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+          <!--Conteúdo Consulta -->
+          <div class="modal-header">  
+                  <a class="close" data-dismiss="modal">×</a>  
+                  <h3>Buscar Participantes</h3>  
+                </div>   
+                <div class="modal-body">
+                  <div class="input-group input-group-lg">
+                    <label >Nome</label><br>
+                    <input id="NOME_participante_buscar" name="NOME_participante_buscar" onchange="buscaPessoa()"type="text" class="form-control" placeholder="Username" style="width: 300px;">
+                    <a data-toggle="modal" href="javascript:buscaPessoa();" class="btn btn-success" style="margin-bottom: 10px;">Buscar</a>
+                  </div>
+                  <table id="table_user" name="table_user" class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Nome</th>
+                        <th>Situacão</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbodyid">
+                        <tr>
+                        </tr>
+                        <tr>
+                        </tr>
+                    </tbody>  
+                  </table>
+            </div>
+
         </div>
-        <table id="table_user" name="table_user" class="table table-hover">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Situacão</th>
-            </tr>
-          </thead>
-          <tbody id="tbodyid">
-              <tr>
-              </tr>
-              <tr>
-              </tr>
-          </tbody>  
-        </table>
+        <div class="tab-pane" id="tab2">
+          <!--Conteúdo Cadastro -->
+          <%= form_for(@sivic_participantecelula) do |f| %>
+            <div class="modal-header">  
+              <a class="close" data-dismiss="modal">×</a>  
+              <h3>Cadastro de Participantes de Células</h3>  
+            </div>  
+            <div class="modal-body">
+              <div class="field">
+                <%= f.label :NOME %><br>
+                <%= f.text_field :NOME_Participante %>
+              </div>
+              <div class="field">
+                <%= f.label :Email %><br>
+                <%= f.text_field :DESC_Email %>
+              </div>
+              <div class="field">
+                <%= f.label :Telefone %><br>
+                <%= f.text_field :NUMR_Telefone %>
+              </div>
+              <div class="field">
+                <%= f.label :Situação %><br>
+                <%= f.text_field :DESC_SituacaoParticipante %>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="field">
+                <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
+              </div>        
+            </div>  
+            </div>  
+          <% end %>
+              
+        </div>
       </div>
+    </div>     
+
+      
       <div class="modal-footer">
       </div>
   </div>  
@@ -282,7 +310,7 @@
 
         }
       })
-    }
+  }
 
   function buscaPessoa(){
       $.ajax({
@@ -304,15 +332,25 @@
 
   function setaNome(nome,id,situacao){
 
-          $('#sivic_partevenrelacelula_sivic_participantecelula_id').empty();
-          $('#sivic_partevenrelacelula_sivic_participantecelula_id').html('<option>Carregando...</option>');
-          $('#sivic_partevenrelacelula_sivic_participantecelula_id').attr('disabled', 'disabled');
-          var options = "<option value='"+id+"'>"+nome+"</option>";
-          $('#sivic_partevenrelacelula_sivic_participantecelula_id').html(options);
-          $('#sivic_partevenrelacelula_sivic_participantecelula_id').removeAttr('disabled');
-          $('#sivic_partevenrelacelula_DESC_SituacaoParticipante').val(situacao);
-          $('#myModal2').modal('hide');
-  } 
+      $.ajax({
+        url: '<%= criarParticipantesRelatorios_path %>',
+        data : 
+        {
+            sivic_relatorioscelula_id : $('#sivic_relatorioscelula_id').val()
+            ,sivic_participantecelula_id : id
+            ,DESC_SituacaoParticipante : situacao
+        },
+        success: function(data){
+          for (var i in data) {
+            var item = data[i];
+            $('#tlbparticipantes').append('<tr><td>'+item.NOME_Participante+'</td><td>'+item.DESC_Email+'</td><td>'+item.NUMR_Telefone+'</td><td>'+item.DESC_SituacaoParticipante+'</td><td><a data-confirm="Deseja excluir o registro?" data-method="delete" href="/sivic_relatorioscelulas/'+$('#sivic_relatorioscelula_id').val()+'/sivic_partevenrelacelulas/'+item.id+'" rel="nofollow">Excluir</a></td></tr>');
+            //alert(item.id);
+          };
+ 
+        }
+      })
+    }
+
 
 
 </script>
