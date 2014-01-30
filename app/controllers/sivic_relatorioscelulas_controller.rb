@@ -10,6 +10,7 @@ class SivicRelatorioscelulasController < ApplicationController
   # GET /sivic_relatorioscelulas/1
   # GET /sivic_relatorioscelulas/1.json
   def show
+    @sivic_partevenrelacelulas = SivicParticipantecelula.all
   end
 
   # GET /sivic_relatorioscelulas/new

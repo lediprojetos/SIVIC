@@ -24,6 +24,10 @@ SIVIC::Application.routes.draw do
     resources :sivic_cidades
   end
 
+  resources :sivic_relatorioscelulas do
+    resources :sivic_partevenrelacelulas
+  end
+
   root  'static_pages#home'
   match '/help',    to: 'static_pages#help',    via: 'get'
   match '/about',   to: 'static_pages#about',   via: 'get'

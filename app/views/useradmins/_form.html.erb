@@ -1,0 +1,40 @@
+<%= form_for(@sivic_user) do |f| %>
+  <% if @sivic_user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_user.errors.count, "error") %> prohibited this sivic_pessoa from being saved:</h2>
+
+      <ul>
+      <% @sivic_user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :Pessoa %><br>
+    <%= f.text_field :sivic_pessoa_id%>
+  </div>
+
+  <div class="field">
+    <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Pessoa</a>
+    <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Nova Pessoa</a>
+  </div>
+
+  <%= f.label :Email %>
+  <%= f.email_field :email%>
+
+  <%= f.label :Senha %>
+  <%= f.password_field :password %>
+
+  <%= f.label :Confirmação_de_Senha %>
+  <%= f.password_field :password_confirmation %>
+
+  <%= f.label :Permissão %>
+  <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>

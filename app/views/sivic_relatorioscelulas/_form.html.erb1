@@ -1,0 +1,287 @@
+<%= form_for(@sivic_relatorioscelula) do |f| %>
+  <% if @sivic_relatorioscelula.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_relatorioscelula.errors.count, "error") %> prohibited this sivic_relatorioscelula from being saved:</h2>
+
+      <ul>
+      <% @sivic_relatorioscelula.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ <div class="field">
+    <%= f.label :Célula %><br>
+    <%#= f.text_field :sivic_celula_id %>
+    <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.all, 'id', 'NUMR_Dia',@sivic_sede),:include_blank => true%>
+  </div>
+  <div class="field">
+    <%= f.label :DATA_da_Reuniao %><br>
+    <%= f.text_field :DATA_Reuniao %> 
+  </div>
+  <div class="field">
+    <%= f.label :Horário_de_início %><br>
+    <%= f.time_select :DATA_Horainicio %>
+  </div>
+  <div class="field">
+    <%= f.label :Horário_de_término %><br>
+    <%= f.time_select :DATA_HoraTermino %>
+  </div>
+  <div class="field">
+    <%= f.label :Número_de_visitantes %><br>
+    <%= f.number_field :NUMR_NumVisitante %>
+  </div>
+  <div class="field">
+    <%= f.label :Número_de_participantes %><br>
+    <%= f.number_field :NUMR_NumParticipante %>
+  </div>
+  <div class="field">
+    <%= f.label :Assunto_do_estudo %><br>
+    <%= f.text_field :DESC_AssuntoEstudo %>
+  </div>
+  <div class="field">
+    <%= f.label :Texto_Bíblico %><br>
+    <%= f.text_field :DESC_TextoBiblico %>
+  </div>
+  <div class="field">
+    <%= f.label :Valor_de_oferta %><br>
+    <%= f.text_field :VALR_Oferta %>
+  </div>
+  <div class="field">
+    <%= f.label :Decisões %><br>
+    <%= f.number_field :NUMR_Decisoes %>
+  </div>
+  <div class="field">
+    <%= f.label :Outras_informações %><br>
+    <%= f.text_area :DESC_OutrasInformacoes %>
+  </div>
+  <div class="field">
+    <%= f.label :Situação %><br>
+    <%= f.number_field :FLAG_Situacao %>
+  </div>
+  <div class="field">
+    <%= f.label :Novos_convertidos %><br>
+    <%= f.number_field :NUMR_QtdNovoConvertido %>
+  </div>
+  <div class="field">
+    <%= f.label :Resgate %><br>
+    <%= f.number_field :NUMR_QtdResgate %>
+  </div>
+  <div class="field">
+    <%= f.label :Pre_Encontro %><br>
+    <%= f.number_field :NUMR_QtdPreEncontro %>
+  </div>
+  <div class="field">
+    <%= f.label :Encontro %><br>
+    <%= f.number_field :NUMR_QtdEncontro %>
+  </div>
+  <div class="field">
+    <%= f.label :Pos_encontro %><br>
+    <%= f.number_field :NUMR_QtdPosEncontro %>
+  </div>
+  <div class="field">
+    <%= f.label :Escola_de_líderes %><br>
+    <%= f.number_field :NUMR_QtdEscoLid1 %>
+  </div>
+  <div class="field">
+    <%= f.label :Escola_de_líderes_2 %><br>
+    <%= f.number_field :NUMR_EscoLid2 %>
+  </div>
+  <div class="field">
+    <%= f.label :Escola_de_líderes_3 %><br>
+    <%= f.number_field :NUMR_EscoLid3 %>
+  </div>
+  <div class="field">
+    <%= f.label :Líderes_de_células %><br>
+    <%= f.number_field :NUMR_QtdLidCelula %>
+  </div>
+
+  <div class="field">
+    <a data-toggle="modal" href="#myModal1" class="btn btn-primary btn-small btn-signup">Buscar Pessoas</a>
+  </div> 
+
+  <table id="attendees" class="attendees table table-hover">
+    <thead border="1">
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Situação</th>
+      </tr>
+    </thead>
+    <tbody id="tbodyid">   
+    </tbody>  
+  </table>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+</fieldset>
+
+  <div id="myModal1" class="modal fade" style="display: none; width:900px;">  
+      <div class="modal-header">  
+        <a class="close" data-dismiss="modal">×</a>  
+        <h3>Buscar Pessoas</h3>  
+      </div>  
+      <div class="modal-body">
+        <div class="input-group input-group-lg">
+          <label >Nome</label><br>
+          <input id="NOME_participante_buscar" name="NOME_participante_buscar" onchange="buscaParticipante()"type="text" class="form-control" placeholder="Username" style="width: 300px;">
+          <a data-toggle="modal" href="javascript:buscaParticipante();" class="btn btn-success" style="margin-bottom: 10px;">Buscar</a>          
+        </div>
+      <table width="100%">
+        <tr align="center">
+            <td>
+              <label><b>Agenda de Pessoas</b></label>
+            </td>
+            <td>
+              <label><b>Pessoas Participantes</b></label>
+            </td>
+        </tr>
+      </table>
+
+            <div style="float: left; width:50%;">
+              <table id="table_agenda" name="table_agenda" width="400px" class="table table-hover">
+                <thead>
+                  <tr>
+                    <th >Nome</th>
+                    <th >Situação</th>
+                    <th ></th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyid">
+                </tbody>  
+              </table>
+            </div>
+
+            <div style="float: rigth; width:50%;">
+              <table id="table_celula" name="table_celula" width="400px" class="table table-hover">
+                <thead border="1">
+                  <tr>
+                    <th></th>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Situação</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyid">
+                </tbody>  
+              </table>
+            </div>
+
+      </div>
+      <div class="modal-footer">
+        <div class="field">
+          <a data-toggle="modal" class="btn btn-primary btn-small btn-signup" onclick="getValuesTable();">Inserir Pessoas</a>
+        </div>         
+      </div>
+  </div>  
+
+</fieldset>
+
+
+
+<!-- Implementação do calendário 
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="/resources/demos/style.css">
+-->
+
+<script>
+
+
+function getValuesTable() {
+    var row;
+    var i;
+    i = 0;
+    row = '<tr>'
+    var data = $("#table_celula tr.data").map(function (index, elem) {
+        var ret = [];
+        $('.inputValue', this).each(function () {
+            var d = $(this).val() || $(this).text();
+            ret.push(d);
+            row += '<td>'+d+'</td>'
+            console.log(d);
+            i++;
+            //alert(i);
+            if (i == 3){
+              row += '</tr><tr>'
+              i = 0;
+            }
+        });
+        return ret;
+    });
+    console.log(data);
+    console.log(data[0]);
+    row += '</tr>';
+    //alert(row);
+    //$("#attendees tr").remove();
+    $('#attendees').find("tr:gt(0)").remove();
+    $('#attendees').append(row);
+    $('#myModal1').modal('hide');
+
+}
+
+
+  function buscaParticipante(){
+      $.ajax({
+        url: '<%= listarParticipantesCelulas_path %>',
+        data : 
+        {
+            NOME_Participante : $('#NOME_participante_buscar').val()
+        },
+        success: function(data){
+
+          $('#table_agenda').find("tr:gt(0)").remove();
+
+          var options = "";
+          for (var i in data) {
+            var item = data[i];
+            $('#table_agenda').append('<tr><td>'+item.NOME_Participante+'</td><td>'+item.DESC_SituacaoParticipante+'<td align="center"><input type="button" onclick="isereParticipante('+item.id+',\''+item.NOME_Participante+'\',\''+item.DESC_SituacaoParticipante+'\')" value=">"></inpunt></td></tr>')
+
+          };
+        }
+      })
+    }
+
+
+  function isereParticipante(id,nome,situacao){
+
+    $('#table_celula').append('<tr class="data"><td align="center"><input type="button" value="<" onclick="$(this).closest(\'tr\').remove();"></input></td><td class="inputValue" align="center">'+id+'</td><td class="inputValue">'+nome+'</td><td class="inputValue">'+situacao+'</tr>')
+  }
+
+function tableToJson(table) {
+    var data = [];
+
+    // first row needs to be headers
+    var headers = [];
+    for (var i=0; i<table.rows[0].cells.length; i++) {
+        headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi,'');
+    }
+
+    // go through cells
+    for (var i=1; i<table.rows.length; i++) {
+
+        var tableRow = table.rows[i];
+        var rowData = {};
+
+        for (var j=0; j<tableRow.cells.length; j++) {
+
+            rowData[ headers[j] ] = tableRow.cells[j].innerHTML;
+
+        }
+        //alert(rowData[0,0]);
+        data.push(rowData);
+    }  
+  return data;
+}
+
+</script>      
+
+
+
+

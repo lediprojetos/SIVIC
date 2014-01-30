@@ -112,3 +112,212 @@
 
 <%= link_to 'Editar', edit_sivic_relatorioscelula_path(@sivic_relatorioscelula) %> |
 <%= link_to 'Voltar', sivic_relatorioscelulas_path %>
+
+
+<h2>Pessoas Cadastradas no Relatório</h2>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nome:</th>
+      <th>Email</th>
+      <th>Telefone:</th>
+      <th>Situação Atual:</th>
+      <th>Situação Relatório:</th>
+      <th></th>     
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_relatorioscelula.sivic_partevenrelacelula.each do |sivic_partevenrelacelula| %>
+      <tr>
+        <td><%= sivic_partevenrelacelula.sivic_participantecelula.NOME_Participante %></td>
+        <td><%= sivic_partevenrelacelula.sivic_participantecelula.DESC_Email %></td>
+        <td><%= sivic_partevenrelacelula.sivic_participantecelula.NUMR_Telefone %></td>
+        <td><%= sivic_partevenrelacelula.DESC_SituacaoParticipante %></td>
+        <td><%= sivic_partevenrelacelula.sivic_participantecelula.DESC_SituacaoParticipante %></td>
+        <td><%= link_to 'Excluir', [sivic_partevenrelacelula.sivic_relatorioscelula, sivic_partevenrelacelula],:confirm => 'Deseja excluir o registro?',:method => :delete %>
+         </td>          
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br />
+<br />
+
+<h2>Adicione outros participantes:</h2>
+<%= form_for([@sivic_relatorioscelula, @sivic_relatorioscelula.sivic_partevenrelacelula.build]) do |f| %>
+  <div class="field"> 
+    <%= f.hidden_field :sivic_relatorioscelula_id, :value => @sivic_relatorioscelula.id%>  
+  </div>
+  <div class="field">
+    <%= f.label :Participante%><br>
+    <%#= f.select :sivic_participantecelula_id, options_from_collection_for_select(SivicParticipantecelula.all, 'id', 'NOME_Participante')%>
+    <select id="sivic_partevenrelacelula_sivic_participantecelula_id" name="sivic_partevenrelacelula[sivic_participantecelula_id]" disabled="disabled">
+    </select>
+  </div>
+  <div class="field">
+    <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Pessoa</a>
+    <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Nova Pessoa</a>
+  </div>
+
+  <div class="field">
+    <%= f.label :Situação_do_Participante %><br>
+    <%= f.text_field :DESC_SituacaoParticipante %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+
+<fieldset>
+
+<%
+  @sivic_pessoa = SivicPessoa.new
+  @sivic_igreja = SivicIgreja.all
+%>
+
+
+ <div id="myModal" class="modal fade" style="display: none;">  
+
+    <%= form_for(@sivic_pessoa) do |f| %>
+      <div class="modal-header">  
+        <a class="close" data-dismiss="modal">×</a>  
+        <h3>Cadastro de Pessoa</h3>  
+      </div>  
+      <div class="modal-body">
+        <div class="field">
+          <%= f.label :Lider %><br>
+          <%= f.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',0),:include_blank => true%>
+        </div>  
+        <div class="field">
+          <%= f.label :Nome %><br>
+          <%= f.text_field :NOME_pessoa %>
+        </div>
+        <div class="field">
+          <%= f.label :Email %><br>
+          <%= f.text_field :DESC_email %>
+        </div>
+        <div class="field">
+          <%= f.label :Observação %><br>
+          <%= f.text_field :DESC_observacao %>
+        </div>
+        <div class="field">
+          <%= f.label :Igreja %><br>
+          <%= f.select :sivic_igreja_id, options_from_collection_for_select(@sivic_igreja, 'id', 'NOME_igreja')%>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <div class="field">
+          <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
+        </div>        
+      </div>  
+      </div>  
+    <% end %>
+
+</fieldset>
+
+  <div id="myModal2" class="modal fade" style="display: none;">  
+      <div class="modal-header">  
+        <a class="close" data-dismiss="modal">×</a>  
+        <h3>Buscar Pessoas</h3>  
+      </div>  
+      <div class="modal-body">
+        <div class="input-group input-group-lg">
+          <label >Nome</label><br>
+          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onchange="buscaPessoa()"type="text" class="form-control" placeholder="Username" style="width: 300px;">
+          <a data-toggle="modal" href="javascript:buscaPessoa();" class="btn btn-success" style="margin-bottom: 10px;">Buscar</a>
+        </div>
+        <table id="table_user" name="table_user" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyid">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+      </div>
+      <div class="modal-footer">
+      </div>
+  </div>  
+
+</fieldset>
+
+
+
+<script>
+  function createPessoa(){
+
+      $.ajax({
+        url: '<%= criarPessoa_path %>',
+        data : 
+        {
+            father_id : $('#sivic_pessoa_father_id').val()
+            ,NOME_pessoa : $('#sivic_pessoa_NOME_pessoa').val()
+            ,DESC_email : $('#sivic_pessoa_DESC_email').val()
+            ,DESC_observacao : $('#sivic_pessoa_DESC_observacao').val()
+            ,sivic_igreja_id : $('#sivic_pessoa_sivic_igreja_id').val()
+        },
+        success: function(data){
+          $('#user_sivic_pessoa_id').empty();
+          $('#user_sivic_pessoa_id').html('<option>Carregando...</option>');
+          $('#user_sivic_pessoa_id').attr('disabled', 'disabled');
+          var options = "";
+          var email
+          for (var i in data) {
+            var item = data[i];
+            options += "<option value='"+item.id+"'>"+item.NOME_pessoa+"</option>";
+            email = item.DESC_email
+          };
+ 
+          $('#user_sivic_pessoa_id').html(options);
+          $('#user_sivic_pessoa_id').removeAttr('disabled');
+          $('#user_email').val(email);
+          $('#myModal').modal('hide');
+
+        }
+      })
+    }
+
+  function buscaPessoa(){
+
+      $.ajax({
+        url: '<%= listarPessoa_path %>',
+        data : 
+        {
+            NOME_pessoa : $('#NOME_pessoa_buscar').val()
+        },
+        success: function(data){
+          $("#tbodyid").empty();
+          for (var i in data) {
+            var item = data[i];
+            $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.NOME_pessoa+'\','+item.id+',\'' + item.DESC_email+'\');">'+item.NOME_pessoa+'</a></td><td><a href="javascript:setaNome(\'' + item.NOME_pessoa+'\','+item.id+',\'' + item.DESC_email+'\');">'+item.DESC_email+'</a></td></tr>')
+          };
+ 
+        }
+      })
+    }
+
+  function setaNome(nome,id,email){
+
+          $('#user_sivic_pessoa_id').empty();
+          $('#user_sivic_pessoa_id').html('<option>Carregando...</option>');
+          $('#user_sivic_pessoa_id').attr('disabled', 'disabled');
+          var options = "<option value='"+id+"'>"+nome+"</option>";
+          $('#user_sivic_pessoa_id').html(options);
+          $('#user_sivic_pessoa_id').removeAttr('disabled');
+          $('#user_email').val(email);
+          $('#myModal2').modal('hide');
+  } 
+
+
+</script>

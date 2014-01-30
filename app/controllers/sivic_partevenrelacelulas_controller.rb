@@ -21,44 +21,19 @@ class SivicPartevenrelacelulasController < ApplicationController
   def edit
   end
 
-  # POST /sivic_partevenrelacelulas
-  # POST /sivic_partevenrelacelulas.json
-  def create
-    @sivic_partevenrelacelula = SivicPartevenrelacelula.new(sivic_partevenrelacelula_params)
+   def create
+    @sivic_relatorioscelula = SivicRelatorioscelula.find(params[:sivic_relatorioscelula_id])
+    @sivic_partevenrelacelula = @sivic_relatorioscelula.sivic_partevenrelacelula.create(sivic_partevenrelacelula_params)
+    redirect_to sivic_relatorioscelula_path(@sivic_relatorioscelula)
+   end
 
-    respond_to do |format|
-      if @sivic_partevenrelacelula.save
-        format.html { redirect_to @sivic_partevenrelacelula, notice: 'Sivic partevenrelacelula was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @sivic_partevenrelacelula }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @sivic_partevenrelacelula.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
-  # PATCH/PUT /sivic_partevenrelacelulas/1
-  # PATCH/PUT /sivic_partevenrelacelulas/1.json
-  def update
-    respond_to do |format|
-      if @sivic_partevenrelacelula.update(sivic_partevenrelacelula_params)
-        format.html { redirect_to @sivic_partevenrelacelula, notice: 'Sivic partevenrelacelula was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @sivic_partevenrelacelula.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
-  # DELETE /sivic_partevenrelacelulas/1
-  # DELETE /sivic_partevenrelacelulas/1.json
-  def destroy
+   def destroy
+    @sivic_relatorioscelula = SivicRelatorioscelula.find(params[:sivic_relatorioscelula_id])
+    @sivic_partevenrelacelula = @sivic_relatorioscelula.sivic_partevenrelacelula.find(params[:id])
     @sivic_partevenrelacelula.destroy
-    respond_to do |format|
-      format.html { redirect_to sivic_partevenrelacelulas_url }
-      format.json { head :no_content }
-    end
+    redirect_to sivic_relatorioscelula_path(@sivic_relatorioscelula)
   end
 
   private
@@ -69,6 +44,7 @@ class SivicPartevenrelacelulasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_partevenrelacelula_params
-      params.require(:sivic_partevenrelacelula).permit(:sivic_relatorioscelula, :_id, :sivic_participantecelula_id, :DESC_SituacaoParticipante)
+      params.require(:sivic_partevenrelacelula).permit(:sivic_relatorioscelula_id, :sivic_participantecelula_id, :DESC_SituacaoParticipante)
     end
 end
+

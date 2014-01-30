@@ -4,7 +4,6 @@
   <thead>
     <tr>
       <th>Sivic relatorioscelula</th>
-      <th></th>
       <th>Sivic participantecelula</th>
       <th>Desc situacaoparticipante</th>
       <th></th>
@@ -16,9 +15,8 @@
   <tbody>
     <% @sivic_partevenrelacelulas.each do |sivic_partevenrelacelula| %>
       <tr>
-        <td><%= sivic_partevenrelacelula.sivic_relatorioscelula %></td>
-        <td><%= sivic_partevenrelacelula. %></td>
-        <td><%= sivic_partevenrelacelula.sivic_participantecelula %></td>
+        <td><%= sivic_partevenrelacelula.sivic_relatorioscelula.id %></td>
+        <td><%= sivic_partevenrelacelula.sivic_participantecelula.NOME_Participante %></td>
         <td><%= sivic_partevenrelacelula.DESC_SituacaoParticipante %></td>
         <td><%= link_to 'Show', sivic_partevenrelacelula %></td>
         <td><%= link_to 'Edit', edit_sivic_partevenrelacelula_path(sivic_partevenrelacelula) %></td>
