@@ -113,8 +113,8 @@
 <%= link_to 'Editar', edit_sivic_relatorioscelula_path(@sivic_relatorioscelula) %> |
 <%= link_to 'Voltar', sivic_relatorioscelulas_path %>
 
-
 <h2>Pessoas Cadastradas no Relatório</h2>
+<hr />
 
 <table class="table table-hover">
   <thead>
@@ -146,7 +146,8 @@
 <br />
 <br />
 
-<h2>Adicione outros participantes:</h2>
+<h2>Adicionar outros participantes:</h2>
+<hr />
 <%= form_for([@sivic_relatorioscelula, @sivic_relatorioscelula.sivic_partevenrelacelula.build]) do |f| %>
   <div class="field"> 
     <%= f.hidden_field :sivic_relatorioscelula_id, :value => @sivic_relatorioscelula.id%>  
@@ -158,16 +159,16 @@
     </select>
   </div>
   <div class="field">
-    <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Pessoa</a>
-    <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Nova Pessoa</a>
+    <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Participante</a>
+    <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Novo Participante</a>
   </div>
-
+  <br />
   <div class="field">
     <%= f.label :Situação_do_Participante %><br>
     <%= f.text_field :DESC_SituacaoParticipante %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <input name="commit" type="submit" value="Adicionar Participante" class="btn btn-primary btn-medium btn-signup" />
   </div>
 <% end %>
 
@@ -176,38 +177,34 @@
 <fieldset>
 
 <%
-  @sivic_pessoa = SivicPessoa.new
+  @sivic_participantecelula = SivicParticipantecelula.new
   @sivic_igreja = SivicIgreja.all
 %>
 
 
  <div id="myModal" class="modal fade" style="display: none;">  
 
-    <%= form_for(@sivic_pessoa) do |f| %>
+    <%= form_for(@sivic_participantecelula) do |f| %>
       <div class="modal-header">  
         <a class="close" data-dismiss="modal">×</a>  
-        <h3>Cadastro de Pessoa</h3>  
+        <h3>Cadastro de Participantes de Células</h3>  
       </div>  
       <div class="modal-body">
         <div class="field">
-          <%= f.label :Lider %><br>
-          <%= f.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',0),:include_blank => true%>
-        </div>  
-        <div class="field">
-          <%= f.label :Nome %><br>
-          <%= f.text_field :NOME_pessoa %>
+          <%= f.label :NOME %><br>
+          <%= f.text_field :NOME_Participante %>
         </div>
         <div class="field">
           <%= f.label :Email %><br>
-          <%= f.text_field :DESC_email %>
+          <%= f.text_field :DESC_Email %>
         </div>
         <div class="field">
-          <%= f.label :Observação %><br>
-          <%= f.text_field :DESC_observacao %>
+          <%= f.label :Telefone %><br>
+          <%= f.text_field :NUMR_Telefone %>
         </div>
         <div class="field">
-          <%= f.label :Igreja %><br>
-          <%= f.select :sivic_igreja_id, options_from_collection_for_select(@sivic_igreja, 'id', 'NOME_igreja')%>
+          <%= f.label :Situação %><br>
+          <%= f.text_field :DESC_SituacaoParticipante %>
         </div>
       </div>
       <div class="modal-footer">
@@ -223,19 +220,19 @@
   <div id="myModal2" class="modal fade" style="display: none;">  
       <div class="modal-header">  
         <a class="close" data-dismiss="modal">×</a>  
-        <h3>Buscar Pessoas</h3>  
+        <h3>Buscar Participantes</h3>  
       </div>  
       <div class="modal-body">
         <div class="input-group input-group-lg">
           <label >Nome</label><br>
-          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onchange="buscaPessoa()"type="text" class="form-control" placeholder="Username" style="width: 300px;">
+          <input id="NOME_participante_buscar" name="NOME_participante_buscar" onchange="buscaPessoa()"type="text" class="form-control" placeholder="Username" style="width: 300px;">
           <a data-toggle="modal" href="javascript:buscaPessoa();" class="btn btn-success" style="margin-bottom: 10px;">Buscar</a>
         </div>
         <table id="table_user" name="table_user" class="table table-hover">
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Email</th>
+              <th>Situacão</th>
             </tr>
           </thead>
           <tbody id="tbodyid">
@@ -258,30 +255,29 @@
   function createPessoa(){
 
       $.ajax({
-        url: '<%= criarPessoa_path %>',
+        url: '<%= criarParticipantesCelulas_path %>',
         data : 
         {
-            father_id : $('#sivic_pessoa_father_id').val()
-            ,NOME_pessoa : $('#sivic_pessoa_NOME_pessoa').val()
-            ,DESC_email : $('#sivic_pessoa_DESC_email').val()
-            ,DESC_observacao : $('#sivic_pessoa_DESC_observacao').val()
-            ,sivic_igreja_id : $('#sivic_pessoa_sivic_igreja_id').val()
+            NOME_Participante : $('#sivic_participantecelula_NOME_Participante').val()
+            ,DESC_Email : $('#sivic_participantecelula_DESC_Email').val()
+            ,NUMR_Telefone : $('#sivic_participantecelula_NUMR_Telefone').val()
+            ,DESC_SituacaoParticipante : $('#sivic_participantecelula_DESC_SituacaoParticipante').val()
         },
         success: function(data){
-          $('#user_sivic_pessoa_id').empty();
-          $('#user_sivic_pessoa_id').html('<option>Carregando...</option>');
-          $('#user_sivic_pessoa_id').attr('disabled', 'disabled');
+          $('#sivic_partevenrelacelula_sivic_participantecelula_id').empty();
+          $('#sivic_partevenrelacelula_sivic_participantecelula_id').html('<option>Carregando...</option>');
+          $('#sivic_partevenrelacelula_sivic_participantecelula_id').attr('disabled', 'disabled');
           var options = "";
-          var email
+          var DESC_SituacaoParticipante
           for (var i in data) {
             var item = data[i];
-            options += "<option value='"+item.id+"'>"+item.NOME_pessoa+"</option>";
-            email = item.DESC_email
+            options += "<option value='"+item.id+"'>"+item.NOME_Participante+"</option>";
+            DESC_SituacaoParticipante = item.DESC_SituacaoParticipante
           };
  
-          $('#user_sivic_pessoa_id').html(options);
-          $('#user_sivic_pessoa_id').removeAttr('disabled');
-          $('#user_email').val(email);
+          $('#sivic_partevenrelacelula_sivic_participantecelula_id').html(options);
+          $('#sivic_partevenrelacelula_sivic_participantecelula_id').removeAttr('disabled');
+          $('#sivic_partevenrelacelula_DESC_SituacaoParticipante').val(DESC_SituacaoParticipante);
           $('#myModal').modal('hide');
 
         }
@@ -289,33 +285,32 @@
     }
 
   function buscaPessoa(){
-
       $.ajax({
-        url: '<%= listarPessoa_path %>',
+        url: '<%= listarParticipantesCelulas_path %>',
         data : 
         {
-            NOME_pessoa : $('#NOME_pessoa_buscar').val()
+            NOME_Participante : $('#NOME_participante_buscar').val()
         },
         success: function(data){
           $("#tbodyid").empty();
           for (var i in data) {
             var item = data[i];
-            $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.NOME_pessoa+'\','+item.id+',\'' + item.DESC_email+'\');">'+item.NOME_pessoa+'</a></td><td><a href="javascript:setaNome(\'' + item.NOME_pessoa+'\','+item.id+',\'' + item.DESC_email+'\');">'+item.DESC_email+'</a></td></tr>')
+            $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.NOME_Participante+'\','+item.id+',\'' + item.DESC_SituacaoParticipante+'\');">'+item.NOME_Participante+'</a></td><td><a href="javascript:setaNome(\'' + item.NOME_Participante+'\','+item.id+',\'' + item.DESC_SituacaoParticipante+'\');">'+item.DESC_SituacaoParticipante+'</a></td></tr>')
           };
  
         }
       })
     }
 
-  function setaNome(nome,id,email){
+  function setaNome(nome,id,situacao){
 
-          $('#user_sivic_pessoa_id').empty();
-          $('#user_sivic_pessoa_id').html('<option>Carregando...</option>');
-          $('#user_sivic_pessoa_id').attr('disabled', 'disabled');
+          $('#sivic_partevenrelacelula_sivic_participantecelula_id').empty();
+          $('#sivic_partevenrelacelula_sivic_participantecelula_id').html('<option>Carregando...</option>');
+          $('#sivic_partevenrelacelula_sivic_participantecelula_id').attr('disabled', 'disabled');
           var options = "<option value='"+id+"'>"+nome+"</option>";
-          $('#user_sivic_pessoa_id').html(options);
-          $('#user_sivic_pessoa_id').removeAttr('disabled');
-          $('#user_email').val(email);
+          $('#sivic_partevenrelacelula_sivic_participantecelula_id').html(options);
+          $('#sivic_partevenrelacelula_sivic_participantecelula_id').removeAttr('disabled');
+          $('#sivic_partevenrelacelula_DESC_SituacaoParticipante').val(situacao);
           $('#myModal2').modal('hide');
   } 
 

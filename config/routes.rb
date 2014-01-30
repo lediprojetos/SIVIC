@@ -33,11 +33,15 @@ SIVIC::Application.routes.draw do
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
 
+  match '/admin', to: 'static_pages#index', via: 'get'
+
   match '/listarCidade', to: 'sivic_igrejas#get_cities', via: 'get'
+
   match '/criarPessoa', to: 'sivic_pessoas#create_pessoa', via: 'get'
   match '/listarPessoa', to: 'sivic_pessoas#busca_pessoa', via: 'get'
-  match '/admin', to: 'static_pages#index', via: 'get'
+
   match '/listarParticipantesCelulas', to: 'sivic_participantecelulas#busca_participante', via: 'get'
+  match '/criarParticipantesCelulas', to: 'sivic_participantecelulas#create_participante', via: 'get'
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
