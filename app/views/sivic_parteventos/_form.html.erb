@@ -147,6 +147,7 @@
     </div>
     </div> 
 
+
  <script>
 
   function createPessoa(){
@@ -179,8 +180,7 @@
        })      
      }
 
-  function buscaPessoa(){
-       alert("entrou");
+  function buscaPessoa(){     
        $.ajax({
         url : '<%= listarPessoa_path %>',
         data :
@@ -191,7 +191,7 @@
           $('#tbodyid').empty();
           for (var i in data){
             var item = data[i];
-            $('#table_evento').append('<tr><td><a href="javascript:setaNome(\''+ item.NOME_pessoa+'\','+item.id+'\);">'+item.NOME_pessoa+'</a></td></tr>')
+            $('#table_user').append('<tr><td><a href="javascript:setaNome(\''+ item.NOME_pessoa+'\','+item.id+'\);">'+item.NOME_pessoa+'</a></td></tr>')
           };         
         }
        })
@@ -208,15 +208,14 @@
     }
 
   function buscaEvento(){
-       
        $.ajax({
-        url : '<%= sivic_eventos_path %>',
+        url : '<%=listarEvento_path %>',
         data :{},
         success: function(data){
           $('#tbodyeventos').empty();
           for (var i in data){
             var item = data[i];
-            $('#table_user').append('<tr><td><a href="javascript:setaEvento(\''+ item.sivic_tipo_evento.desc_tipoevento+'\','+item.id+'\);">'+item.DESC_evento+'</a></td></tr>')
+            $('#table_evento').append('<tr><td><a href="javascript:setaEvento(\''+ item.DESC_evento+'\','+item.id+'\);">'+item.DESC_evento+'</a></td> <td><a href="javascript:setaNome(\'' + item.id+'\','+item.DESC_tipoevento+'\');">'+item.DESC_tipoevento+'</a></td></tr>')
           };         
         }
        })
@@ -232,4 +231,7 @@
         $('#myModal2').modal('hide');         
     }
          
+
+   buscaEvento(); 
+
  </script>

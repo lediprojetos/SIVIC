@@ -43,6 +43,8 @@ SIVIC::Application.routes.draw do
   match '/listarParticipantesCelulas', to: 'sivic_participantecelulas#busca_participante', via: 'get'
   match '/criarParticipantesCelulas', to: 'sivic_participantecelulas#create_participante', via: 'get'
 
+   match '/listarEvento', to: 'sivic_parteventos#buscaEvento', via: 'get'
+
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
 end
