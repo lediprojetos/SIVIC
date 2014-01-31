@@ -39,12 +39,16 @@
     <%= movimento.text_field :VALR_movimento %>
    </div>
 
+    <!--DADOS AUTOMATICOS-->
+    <!--Adicionando valor padrão Debito-->
+   <%= movimento.hidden_field :sivic_tipmovfinanceiro_id, :value => 1 %>
+   <!--Descrição -->
+   <%= movimento.hidden_field :DESC_movimento, :value => "Inscrição de evento" %>
+    <!--usuario de inclusão do registro -->
+   <%= movimento.hidden_field :user_inclusao, :value => current_user.id %>
+
 <%end%>
 
-  <div class="field">
-    <%= f.label :sivic_movimentofinanceiro_id %><br>
-    <%= f.text_field :sivic_movimentofinanceiro_id %>
-  </div>
   <div class="field">
     <%= f.label :FLAG_naoparticipou %>
     <%= f.check_box :FLAG_naoparticipou %>
@@ -83,7 +87,6 @@
           <%= f.label :Observação %><br>
           <%= f.text_field :DESC_observacao %>
         </div>
-
           <!--Capturando igreja do usuaário logado -->
          <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja.id %>
       </div>
@@ -134,8 +137,8 @@
           <thead>
             <tr>
               <th>Evento</th>
-              <th>Dt Inicio</th>
-              <th>Dt Fim</th>
+              <th>Data Inicio</th>
+              <th>Data Fim</th>
             </tr>
           </thead>
           <tbody id="tbodyeventos" >
@@ -220,7 +223,7 @@
           $('#tbodyeventos').empty();
           for (var i in data){
             var item = data[i];
-            $('#table_evento').append('<tr><td><a href="javascript:setaEvento(\''+ item.DESC_evento+'\','+item.id+'\);">'+item.DESC_evento+'</a></td><td><a href="javascript:setaEvento(\'' + item.DESC_evento+'\','+item.id+'\);">'+item.DATA_Inicio+'</a></td><td><a href="javascript:setaEvento(\'' + item.DESC_evento+'\','+item.id+'\);">'+item.DATA_Fim+'</a></td></tr>')
+            $('#table_evento').append('<tr><td><a type=date href="javascript:setaEvento(\''+ item.DESC_evento+'\','+item.id+'\);">'+item.DESC_evento+'</a></td><td><a href="javascript:setaEvento(\'' + item.DESC_evento+'\','+item.id+'\);">'+item.DATA_Inicio+'</a></td><td><a href="javascript:setaEvento(\'' + item.DESC_evento+'\','+item.id+'\);">'+item.DATA_Fim+'</a></td></tr>')
           };         
         }
        })

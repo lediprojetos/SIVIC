@@ -24,7 +24,7 @@ class SivicParteventosController < ApplicationController
   #busca todos os eventos
   def buscaEvento 
     sivic_evento = SivicEvento.all
-    sivic_evento_json = sivic_evento.map {|item| {:id => item.id, :DESC_evento => item.DESC_evento, :DATA_Inicio => item.DATA_inicio, :DATA_Fim => item.DATA_fim}}
+    sivic_evento_json = sivic_evento.map {|item| {:id => item.id, :TipoEvento => item.sivic_tipo_evento.desc_tipoevento, :DESC_evento => item.DESC_evento, :DATA_Inicio => item.DATA_inicio, :DATA_Fim => item.DATA_fim}}
     render :json => sivic_evento_json
   end
   # POST /sivic_parteventos
@@ -75,6 +75,6 @@ class SivicParteventosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_partevento_params
-      params.require(:sivic_partevento).permit(:sivic_pessoa_id, :sivic_evento_id, :sivic_movimentofinanceiro_id, :FLAG_naoparticipou)
+      params.require(:sivic_partevento).permit(:sivic_pessoa_id, :sivic_evento_id, :sivic_movimentofinanceiro_attributes: [ id:, :VALR_movimento, :user_inclusao, :FLAG_baixa, :sivic_tipmovfinanceiro_id, :sivic_evento_id, :DATA_exclusao, :user_exclusao, :DESC_movimento], :FLAG_naoparticipou)
     end
 end
