@@ -123,7 +123,6 @@ ActiveRecord::Schema.define(version: 20140123153921) do
   add_index "sivic_movimentofinanceiros", ["sivic_tipmovfinanceiro_id"], name: "index_sivic_movimentofinanceiros_on_sivic_tipmovfinanceiro_id"
 
   create_table "sivic_partevenrelacelulas", force: true do |t|
-    t.string   "sivic_relatorioscelula"
     t.integer  "sivic_relatorioscelula_id"
     t.integer  "sivic_participantecelula_id"
     t.string   "DESC_SituacaoParticipante"

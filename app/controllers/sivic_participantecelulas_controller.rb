@@ -3,11 +3,12 @@ class SivicParticipantecelulasController < ApplicationController
 
 
   def create_participante
-    SivicParticipantecelula.create(:NOME_Participante => params[:NOME_Participante],:DESC_Email => params[:DESC_Email],:NUMR_Telefone => params[:NUMR_Telefone],:DESC_SituacaoParticipante => params[:DESC_SituacaoParticipante])
 
+    SivicParticipantecelula.create(:NOME_Participante => params[:NOME_Participante],:DESC_Email => params[:DESC_Email],:NUMR_Telefone => params[:NUMR_Telefone],:DESC_SituacaoParticipante => params[:DESC_SituacaoParticipante])
     sivic_participante = SivicParticipantecelula.find :all, :conditions => {:NOME_Participante => params[:NOME_Participante],:DESC_Email => params[:DESC_Email],:NUMR_Telefone => params[:NUMR_Telefone]}, :order => "NOME_Participante ASC"
     sivic_participante_json = sivic_participante.map {|item| {:id => item.id, :NOME_Participante => item.NOME_Participante, :DESC_SituacaoParticipante => item.DESC_SituacaoParticipante}}
     render :json => sivic_participante_json
+
   end
 
   def busca_participante
@@ -15,6 +16,7 @@ class SivicParticipantecelulasController < ApplicationController
     sivic_participante = SivicParticipantecelula.where("NOME_Participante like ?", "#{params[:NOME_Participante]}%")
     sivic_participante_json = sivic_participante.map {|item| {:id => item.id, :NOME_Participante => item.NOME_Participante, :DESC_SituacaoParticipante => item.DESC_SituacaoParticipante}}
     render :json => sivic_participante_json
+
   end     
 
   # GET /sivic_participantecelulas

@@ -112,16 +112,12 @@
 
 <input type="hidden" value="<%= @sivic_relatorioscelula.id%>" id="sivic_relatorioscelula_id"></input>
 
-<%= link_to 'Editar', edit_sivic_relatorioscelula_path(@sivic_relatorioscelula) %> |
-<%= link_to 'Voltar', sivic_relatorioscelulas_path %>
-
 <h2>Participantes</h2>
-<hr />
 
   <div class="field">
     <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Participante</a>
-    <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Novo Participante</a>
   </div>
+<hr />
 
 <table class="table table-hover" id="tlbparticipantes">
   <thead>
@@ -133,7 +129,6 @@
       <th></th>     
     </tr>
   </thead>
-
   <tbody>
     <% @sivic_relatorioscelula.sivic_partevenrelacelula.each do |sivic_partevenrelacelula| %>
       <tr>
@@ -148,53 +143,19 @@
   </tbody>
 </table>
 
+
+<%= link_to 'Editar', edit_sivic_relatorioscelula_path(@sivic_relatorioscelula) %> |
+<%= link_to 'Voltar', sivic_relatorioscelulas_path %>
+
 <br />
 <br />
 
-
-
-<fieldset>
 
 <%
   @sivic_participantecelula = SivicParticipantecelula.new
   @sivic_igreja = SivicIgreja.all
 %>
 
-
- <div id="myModal" class="modal fade" style="display: none;">  
-
-    <%= form_for(@sivic_participantecelula) do |f| %>
-      <div class="modal-header">  
-        <a class="close" data-dismiss="modal">×</a>  
-        <h3>Cadastro de Participantes de Células</h3>  
-      </div>  
-      <div class="modal-body">
-        <div class="field">
-          <%= f.label :NOME %><br>
-          <%= f.text_field :NOME_Participante %>
-        </div>
-        <div class="field">
-          <%= f.label :Email %><br>
-          <%= f.text_field :DESC_Email %>
-        </div>
-        <div class="field">
-          <%= f.label :Telefone %><br>
-          <%= f.text_field :NUMR_Telefone %>
-        </div>
-        <div class="field">
-          <%= f.label :Situação %><br>
-          <%= f.text_field :DESC_SituacaoParticipante %>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <div class="field">
-          <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
-        </div>        
-      </div>  
-      </div>  
-    <% end %>
-
-</fieldset>
 
   <div id="myModal2" class="modal fade" style="display: none;">
 
@@ -213,7 +174,7 @@
                 <div class="modal-body">
                   <div class="input-group input-group-lg">
                     <label >Nome</label><br>
-                    <input id="NOME_participante_buscar" name="NOME_participante_buscar" onchange="buscaPessoa()"type="text" class="form-control" placeholder="Username" style="width: 300px;">
+                    <input id="NOME_participante_buscar" name="NOME_participante_buscar" onchange="buscaPessoa()" onkeypress="buscaPessoa()" type="text" class="form-control" placeholder="Username" style="width: 300px;">
                     <a data-toggle="modal" href="javascript:buscaPessoa();" class="btn btn-success" style="margin-bottom: 10px;">Buscar</a>
                   </div>
                   <table id="table_user" name="table_user" class="table table-hover">
@@ -238,7 +199,7 @@
           <%= form_for(@sivic_participantecelula) do |f| %>
             <div class="modal-header">  
               <a class="close" data-dismiss="modal">×</a>  
-              <h3>Cadastro de Participantes de Células</h3>  
+              <h3>Cadastro de Participantes</h3>  
             </div>  
             <div class="modal-body">
               <div class="field">
@@ -258,6 +219,7 @@
                 <%= f.text_field :DESC_SituacaoParticipante %>
               </div>
             </div>
+
             <div class="modal-footer">
               <div class="field">
                 <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
@@ -269,10 +231,6 @@
         </div>
       </div>
     </div>     
-
-      
-      <div class="modal-footer">
-      </div>
   </div>  
 
 </fieldset>
@@ -292,22 +250,18 @@
             ,DESC_SituacaoParticipante : $('#sivic_participantecelula_DESC_SituacaoParticipante').val()
         },
         success: function(data){
-          $('#sivic_partevenrelacelula_sivic_participantecelula_id').empty();
-          $('#sivic_partevenrelacelula_sivic_participantecelula_id').html('<option>Carregando...</option>');
-          $('#sivic_partevenrelacelula_sivic_participantecelula_id').attr('disabled', 'disabled');
           var options = "";
           var DESC_SituacaoParticipante
           for (var i in data) {
             var item = data[i];
-            options += "<option value='"+item.id+"'>"+item.NOME_Participante+"</option>";
-            DESC_SituacaoParticipante = item.DESC_SituacaoParticipante
-          };
- 
-          $('#sivic_partevenrelacelula_sivic_participantecelula_id').html(options);
-          $('#sivic_partevenrelacelula_sivic_participantecelula_id').removeAttr('disabled');
-          $('#sivic_partevenrelacelula_DESC_SituacaoParticipante').val(DESC_SituacaoParticipante);
-          $('#myModal').modal('hide');
+            setaNome(item.NOME_Participante,item.id,item.DESC_SituacaoParticipante);
 
+            $('#sivic_participantecelula_NOME_Participante').val("");
+            $('#sivic_participantecelula_DESC_Email').val("");
+            $('#sivic_participantecelula_NUMR_Telefone').val("");
+            $('#sivic_participantecelula_DESC_SituacaoParticipante').val("");
+
+          };
         }
       })
   }
@@ -350,6 +304,10 @@
         }
       })
     }
+
+
+$(".alert-message").alert();
+window.setTimeout(function() { $(".alert-message").alert('close'); }, 2000);
 
 
 
