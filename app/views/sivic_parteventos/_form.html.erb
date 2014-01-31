@@ -33,6 +33,14 @@
         <a data-toggle="modal" href="#myModal3" class="btn btn-primary btn-small btn-signup">Buscar Evento</a>
   </div>
 
+<%=  f.fields_for :sivic_movimentofinanceiro do |movimento| %>
+  <div class="field">
+    <%= movimento.label :Valor_Pago %><br>
+    <%= movimento.text_field :VALR_movimento %>
+   </div>
+
+<%end%>
+
   <div class="field">
     <%= f.label :sivic_movimentofinanceiro_id %><br>
     <%= f.text_field :sivic_movimentofinanceiro_id %>
@@ -125,15 +133,12 @@
         <table id="table_evento" name="table_evento" class="table table-hover" onload="buscaEvento()">
           <thead>
             <tr>
-              <th>Tipo Evento</th>
               <th>Evento</th>
               <th>Dt Inicio</th>
               <th>Dt Fim</th>
             </tr>
           </thead>
           <tbody id="tbodyeventos" >
-              <tr>
-              </tr>
               <tr>
               </tr>
               <tr>
@@ -215,20 +220,20 @@
           $('#tbodyeventos').empty();
           for (var i in data){
             var item = data[i];
-            $('#table_evento').append('<tr><td><a href="javascript:setaEvento(\''+ item.DESC_evento+'\','+item.id+'\);">'+item.DESC_evento+'</a></td> <td><a href="javascript:setaNome(\'' + item.id+'\','+item.DESC_tipoevento+'\');">'+item.DESC_tipoevento+'</a></td></tr>')
+            $('#table_evento').append('<tr><td><a href="javascript:setaEvento(\''+ item.DESC_evento+'\','+item.id+'\);">'+item.DESC_evento+'</a></td><td><a href="javascript:setaEvento(\'' + item.DESC_evento+'\','+item.id+'\);">'+item.DATA_Inicio+'</a></td><td><a href="javascript:setaEvento(\'' + item.DESC_evento+'\','+item.id+'\);">'+item.DATA_Fim+'</a></td></tr>')
           };         
         }
        })
      }
      function setaEvento(nome,id){
 
-      $('#sivic_partevento_sivic_pessoa_id').empty();
-      $('#sivic_partevento_sivic_pessoa_id').html('<option>Carregando...</option>');
-      $('#sivic_partevento_sivic_pessoa_id').attr('disabled', 'disabled');
+      $('#sivic_partevento_sivic_evento_id').empty();
+      $('#sivic_partevento_sivic_evento_id').html('<option>Carregando...</option>');
+      $('#sivic_partevento_sivic_evento_id').attr('disabled', 'disabled');
       var options = "<option value='"+id+"'>"+nome+"</option>";
-        $('#sivic_partevento_sivic_pessoa_id').html(options);
-        $('#sivic_partevento_sivic_pessoa_id').removeAttr('disabled');
-        $('#myModal2').modal('hide');         
+        $('#sivic_partevento_sivic_evento_id').html(options);
+        $('#sivic_partevento_sivic_evento_id').removeAttr('disabled');
+        $('#myModal3').modal('hide');         
     }
          
 

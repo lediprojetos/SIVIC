@@ -22,10 +22,9 @@ class SivicParteventosController < ApplicationController
   end
 
   #busca todos os eventos
-  def buscaEvento
-  
+  def buscaEvento 
     sivic_evento = SivicEvento.all
-    sivic_evento_json = sivic_evento.map {|item| {:id => item.id, :DESC_tipoevento => item.sivic_tipo_evento_desc_tipoevento :DESC_evento => item.DESC_evento}}
+    sivic_evento_json = sivic_evento.map {|item| {:id => item.id, :DESC_evento => item.DESC_evento, :DATA_Inicio => item.DATA_inicio, :DATA_Fim => item.DATA_fim}}
     render :json => sivic_evento_json
   end
   # POST /sivic_parteventos
