@@ -25,8 +25,8 @@ class SivicEventosController < ApplicationController
   def new
     @sivic_evento = SivicEvento.new
     @sivic_evento.build_sivic_endereco
-	@user = User.new
-	@sivic_pessoa = SivicPessoa.new
+	  @user = User.new
+	  @sivic_pessoa = SivicPessoa.new
   end
 
   # GET /sivic_eventos/1/edit

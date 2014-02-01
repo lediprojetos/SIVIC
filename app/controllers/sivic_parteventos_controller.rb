@@ -15,6 +15,7 @@ class SivicParteventosController < ApplicationController
   # GET /sivic_parteventos/new
   def new
     @sivic_partevento = SivicPartevento.new
+    @sivic_partevento.build_sivic_movimentofinanceiro
   end
 
   # GET /sivic_parteventos/1/edit
@@ -75,6 +76,6 @@ class SivicParteventosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_partevento_params
-      params.require(:sivic_partevento).permit(:sivic_pessoa_id, :sivic_evento_id, :sivic_movimentofinanceiro_attributes: [ id:, :VALR_movimento, :user_inclusao, :FLAG_baixa, :sivic_tipmovfinanceiro_id, :sivic_evento_id, :DATA_exclusao, :user_exclusao, :DESC_movimento], :FLAG_naoparticipou)
+      params.require(:sivic_partevento).permit(:sivic_pessoa_id, :sivic_evento_id, :FLAG_naoparticipou, sivic_movimentofinanceiro_attributes: [ :id, :VALR_movimento, :user_inclusao, :FLAG_baixa, :sivic_tipmovfinanceiro_id, :sivic_evento_id, :DATA_exclusao, :user_exclusao, :DESC_movimento ])
     end
 end

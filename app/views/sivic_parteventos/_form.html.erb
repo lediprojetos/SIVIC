@@ -39,7 +39,7 @@
     <%= movimento.text_field :VALR_movimento %>
    </div>
 
-    <!--DADOS AUTOMATICOS-->
+   <!--DADOS AUTOMATICOS-->
     <!--Adicionando valor padrão Debito-->
    <%= movimento.hidden_field :sivic_tipmovfinanceiro_id, :value => 1 %>
    <!--Descrição -->
@@ -47,16 +47,13 @@
     <!--usuario de inclusão do registro -->
    <%= movimento.hidden_field :user_inclusao, :value => current_user.id %>
 
+
 <%end%>
 
-  <div class="field">
-    <%= f.label :FLAG_naoparticipou %>
-    <%= f.check_box :FLAG_naoparticipou %>
-  </div>
   <div class="actions">
     <%= f.submit%>
   </div>
-
+<%end%>
   <fieldset>
   <%
     @sivic_pessoa = SivicPessoa.new
@@ -125,7 +122,6 @@
       <div class="modal-footer">
     </div>
     </div>      
-  <%end%>
 
  <div id="myModal3" class="modal fade" style="display: none;" >  
       <div class="modal-header">  
