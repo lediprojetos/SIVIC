@@ -3,10 +3,9 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Sivic pessoa</th>
-      <th>Sivic evento</th>
-      <th>Sivic movimentofinanceiro</th>
-      <th>Flag naoparticipou</th>
+      <th>Nome</th>
+      <th>Evento</th>
+      <th>Valor Pago</th>
       <th></th>
       <th></th>
       <th></th>
@@ -16,13 +15,12 @@
   <tbody>
     <% @sivic_parteventos.each do |sivic_partevento| %>
       <tr>
-        <td><%= sivic_partevento.sivic_pessoa %></td>
-        <td><%= sivic_partevento.sivic_evento %></td>
-        <td><%= sivic_partevento.sivic_movimentofinanceiro %></td>
-        <td><%= sivic_partevento.FLAG_naoparticipou %></td>
-        <td><%= link_to 'Show', sivic_partevento %></td>
-        <td><%= link_to 'Edit', edit_sivic_partevento_path(sivic_partevento) %></td>
-        <td><%= link_to 'Destroy', sivic_partevento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= sivic_partevento.sivic_pessoa.NOME_pessoa %></td>
+        <td><%= sivic_partevento.sivic_evento.DESC_evento %></td>
+        <td><%= sivic_partevento.sivic_movimentofinanceiro.VALR_movimento %></td>
+        <td><%= link_to 'Exibir', sivic_partevento %></td>
+        <td><%= link_to 'Editar', edit_sivic_partevento_path(sivic_partevento) %></td>
+        <td><%= link_to 'Deletar', sivic_partevento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,9 +1,8 @@
 SIVIC::Application.routes.draw do
 
-  resources :sivic_parteventos
+  resources :sivic_movimentofinanceiros 
   resources :sivic_partevenrelacelulas
   resources :sivic_participantecelulas
-  resources :sivic_movimentofinanceiros
   resources :sivic_relatorioscelulas
   resources :sivic_celulas
   resources :sivic_escolaridades
@@ -26,6 +25,10 @@ SIVIC::Application.routes.draw do
 
   resources :sivic_relatorioscelulas do
     resources :sivic_partevenrelacelulas
+  end
+
+  resources :sivic_parteventos do
+    resources :sivic_movimentofinanceiros 
   end
 
   root  'static_pages#home'

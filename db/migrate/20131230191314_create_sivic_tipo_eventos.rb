@@ -6,5 +6,9 @@ class CreateSivicTipoEventos < ActiveRecord::Migration
 
       t.timestamps
       end
+
+      SivicTipoEvento.create(:desc_tipoevento => "Resgate")
+      SivicTipoEvento.create(:desc_tipoevento => "Encontro")
+
   end
 end

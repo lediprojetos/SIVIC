@@ -46,7 +46,8 @@
    <%= movimento.hidden_field :DESC_movimento, :value => "Inscrição de evento" %>
     <!--usuario de inclusão do registro -->
    <%= movimento.hidden_field :user_inclusao, :value => current_user.id %>
-
+   
+   <%= movimento.hidden_field :sivic_evento_id, :value => @sivic_partevento_sivic_evento_id %>
 
 <%end%>
 

@@ -6,6 +6,10 @@ class User < ActiveRecord::Base
 
   belongs_to :sivic_pessoa
 
+ has_many :inclusao, :class_name => "SivicMovimentofinanceiro"
+ has_many :exclusao, :class_name => "SivicMovimentofinanceiro"
+   
+   
    #Perfis de Permissão
   ROLES = %w[ADMINISTRADOR LIDER_DE_CELULAS LIDER_DE_GERACAO]
 

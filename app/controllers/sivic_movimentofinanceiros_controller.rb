@@ -69,6 +69,6 @@ class SivicMovimentofinanceirosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_movimentofinanceiro_params
-      params.require(:sivic_movimentofinanceiro).permit(:VALR_movimento, :User_id, :DATA_exclusao, :FLAG_baixa, :User_id, :sivic_tipmovfinanceiro_id, :sivic_evento_id)
+      params.require(:sivic_movimentofinanceiro).permit(:VALR_movimento, :user_inclusao, :DATA_exclusao, :FLAG_baixa, :user_exclusao, :sivic_tipmovfinanceiro_id, :sivic_evento_id)
     end
 end

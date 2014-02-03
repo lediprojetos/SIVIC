@@ -16,6 +16,7 @@ class SivicParteventosController < ApplicationController
   def new
     @sivic_partevento = SivicPartevento.new
     @sivic_partevento.build_sivic_movimentofinanceiro
+    
   end
 
   # GET /sivic_parteventos/1/edit
