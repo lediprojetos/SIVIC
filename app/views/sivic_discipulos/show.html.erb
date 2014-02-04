@@ -1,0 +1,189 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @sivic_discipulo.sivic_pessoa.NOME_pessoa %>
+</p>
+
+<p>
+  <strong>Endereço:</strong>
+  <%= @sivic_discipulo.sivic_endereco.DESC_Rua %>
+</p>
+
+<p>
+  <strong>Profissão:</strong>
+  <%= @sivic_discipulo.sivic_profissao.profissao %>
+</p>
+
+<p>
+  <strong>Escolaridade:</strong>
+  <%= @sivic_discipulo.sivic_escolaridade.NOME_escolaridade %>
+</p>
+
+<p>
+  <strong>Rede:</strong>
+  <%= @sivic_discipulo.sivic_rede.nome_rede %>
+</p>
+
+<p>
+  <strong>Célula:</strong>
+  <%= @sivic_discipulo.sivic_celula.NUMR_Dia %>
+</p>
+
+<p>
+  <strong>Profissão do Conjuge:</strong>
+  <%= @sivic_discipulo.ProfissaoConjuge.profissao %>
+</p>
+
+<p>
+  <strong>Usuário de Inclusão:</strong>
+  <%= @sivic_discipulo.UsuarioInclusao.email %>
+</p>
+
+<p>
+  <strong>Usuário de Bloqueio:</strong>
+  <%= @sivic_discipulo.UsuarioBloqueio.email %>
+</p>
+
+<p>
+  <strong>Orientação Sexual:</strong>
+  <%= @sivic_discipulo.DESC_Sexo %>
+</p>
+
+<p>
+  <strong>Data de Nascimento:</strong>
+  <%= @sivic_discipulo.DATA_Nascimento %>
+</p>
+
+<p>
+  <strong>Apelido:</strong>
+  <%= @sivic_discipulo.DESC_Apelido %>
+</p>
+
+<p>
+  <strong>Estado Civil:</strong>
+  <%= @sivic_discipulo.DESC_EstadoCivil %>
+</p>
+
+<p>
+  <strong>Nome do Conjuge:</strong>
+  <%= @sivic_discipulo.NOME_Conjuge %>
+</p>
+
+<p>
+  <strong>Data da Decisão:</strong>
+  <%= @sivic_discipulo.DATA_Decisao %>
+</p>
+
+<p>
+  <strong>Quantidade de Filhos:</strong>
+  <%= @sivic_discipulo.NUMR_QtdFilhos %>
+</p>
+
+<p>
+  <strong>Membro:</strong>
+  <%= @sivic_discipulo.FLAG_Membro %>
+</p>
+
+<p>
+  <strong>Recebeu Cristo:</strong>
+  <%= @sivic_discipulo.FLAG_RecebeuCristo %>
+</p>
+
+<p>
+  <strong>Reconciliação:</strong>
+  <%= @sivic_discipulo.FLAG_Reconciliacao %>
+</p>
+
+<p>
+  <strong>Ocasião Célula:</strong>
+  <%= @sivic_discipulo.FLAG_OcasiaoCelula %>
+</p>
+
+<p>
+  <strong>Ocasião Celebração Evento:</strong>
+  <%= @sivic_discipulo.FLAG_OcasiaoCelebracaoEvento %>
+</p>
+
+<p>
+  <strong>Ocasião Evangelismo Pessoal:</strong>
+  <%= @sivic_discipulo.FLAG_OcasiaoEvangelismoPessoal %>
+</p>
+
+<p>
+  <strong>Ocasião Culto Livre:</strong>
+  <%= @sivic_discipulo.FLAG_OcasiaoCultoLivre %>
+</p>
+
+<p>
+  <strong>Trabalhando:</strong>
+  <%= @sivic_discipulo.FLAG_Trabalhando %>
+</p>
+
+<p>
+  <strong>Momento Estudo Bíblico:</strong>
+  <%= @sivic_discipulo.DESC_MomentoEstudoBiblico %>
+</p>
+
+<p>
+  <strong>RG:</strong>
+  <%= @sivic_discipulo.NUMR_RG %>
+</p>
+
+<p>
+  <strong>Data de Expedição:</strong>
+  <%= @sivic_discipulo.DATA_EmissaoRG %>
+</p>
+
+<p>
+  <strong>CPF:</strong>
+  <%= @sivic_discipulo.NUMR_CPF %>
+</p>
+
+<p>
+  <strong>Nome do Pai:</strong>
+  <%= @sivic_discipulo.NOME_Pai %>
+</p>
+
+<p>
+  <strong>Nome da Mãe:</strong>
+  <%= @sivic_discipulo.NOME_Mae %>
+</p>
+
+<p>
+  <strong>Data de Nascimento do Conjuge:</strong>
+  <%= @sivic_discipulo.DATA_NascConjuge %>
+</p>
+
+<p>
+  <strong>Data de Casamento:</strong>
+  <%= @sivic_discipulo.DATA_Casamento %>
+</p>
+
+<p>
+  <strong>Titulo Eleitoral:</strong>
+  <%= @sivic_discipulo.NUMR_TituloEleitoral %>
+</p>
+
+<p>
+  <strong>Data Batismo:</strong>
+  <%= @sivic_discipulo.DATA_Batismo %>
+</p>
+
+<p>
+  <strong>Igreja de Batismo:</strong>
+  <%= @sivic_discipulo.DESC_IgrejaBatismo %>
+</p>
+
+<p>
+  <strong>Doador de Sangue:</strong>
+  <%= @sivic_discipulo.FLAG_DoadorSangue %>
+</p>
+
+<p>
+  <strong>Doador de Órgao:</strong>
+  <%= @sivic_discipulo.FLAG_DoadorOrgao %>
+</p>
+
+<%= link_to 'Editar', edit_sivic_discipulo_path(@sivic_discipulo) %> |
+<%= link_to 'Voltar', sivic_discipulos_path %>

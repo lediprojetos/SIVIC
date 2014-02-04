@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140123153921) do
+ActiveRecord::Schema.define(version: 20140204093508) do
 
   create_table "sivic_celulas", force: true do |t|
     t.integer  "sivic_pessoa_id"
@@ -33,6 +33,56 @@ ActiveRecord::Schema.define(version: 20140123153921) do
   end
 
   add_index "sivic_cidades", ["sivic_estado_id"], name: "index_sivic_cidades_on_sivic_estado_id"
+
+  create_table "sivic_discipulos", force: true do |t|
+    t.integer  "sivic_pessoa_id"
+    t.integer  "sivic_endereco_id"
+    t.integer  "sivic_profissao_id"
+    t.integer  "sivic_escolaridade_id"
+    t.integer  "sivic_rede_id"
+    t.integer  "sivic_celula_id"
+    t.integer  "NUMG_ProfissaoConjuge"
+    t.integer  "integer"
+    t.integer  "NUMG_UsuarioInclusao"
+    t.integer  "NUMG_UsuarioBloqueio"
+    t.string   "DESC_Sexo"
+    t.date     "DATA_Nascimento"
+    t.string   "DESC_Apelido"
+    t.string   "DESC_EstadoCivil"
+    t.string   "NOME_Conjuge"
+    t.date     "DATA_Decisao"
+    t.integer  "NUMR_QtdFilhos"
+    t.boolean  "FLAG_Membro"
+    t.boolean  "FLAG_RecebeuCristo"
+    t.boolean  "FLAG_Reconciliacao"
+    t.boolean  "FLAG_OcasiaoCelula"
+    t.boolean  "FLAG_OcasiaoCelebracaoEvento"
+    t.boolean  "FLAG_OcasiaoEvangelismoPessoal"
+    t.boolean  "FLAG_OcasiaoCultoLivre"
+    t.boolean  "FLAG_Trabalhando"
+    t.string   "DESC_MomentoEstudoBiblico"
+    t.string   "NUMR_RG"
+    t.date     "DATA_EmissaoRG"
+    t.string   "NUMR_CPF",                       limit: 11
+    t.string   "NOME_Pai"
+    t.string   "NOME_Mae"
+    t.date     "DATA_NascConjuge"
+    t.date     "DATA_Casamento"
+    t.string   "NUMR_TituloEleitoral"
+    t.date     "DATA_Batismo"
+    t.string   "DESC_IgrejaBatismo"
+    t.boolean  "FLAG_DoadorSangue"
+    t.boolean  "FLAG_DoadorOrgao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_discipulos", ["sivic_celula_id"], name: "index_sivic_discipulos_on_sivic_celula_id"
+  add_index "sivic_discipulos", ["sivic_endereco_id"], name: "index_sivic_discipulos_on_sivic_endereco_id"
+  add_index "sivic_discipulos", ["sivic_escolaridade_id"], name: "index_sivic_discipulos_on_sivic_escolaridade_id"
+  add_index "sivic_discipulos", ["sivic_pessoa_id"], name: "index_sivic_discipulos_on_sivic_pessoa_id"
+  add_index "sivic_discipulos", ["sivic_profissao_id"], name: "index_sivic_discipulos_on_sivic_profissao_id"
+  add_index "sivic_discipulos", ["sivic_rede_id"], name: "index_sivic_discipulos_on_sivic_rede_id"
 
   create_table "sivic_enderecos", force: true do |t|
     t.string   "DESC_Bairro"

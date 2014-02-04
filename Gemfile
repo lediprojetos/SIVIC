@@ -6,6 +6,7 @@ gem 'rails', '4.0.1'
 gem 'bootstrap-sass', '2.3.2.0'
 gem 'bcrypt-ruby', '3.1.2'
 gem 'bootstrap'
+gem 'validates_cpf_cnpj'
 
 #Autenticação
 gem 'devise'

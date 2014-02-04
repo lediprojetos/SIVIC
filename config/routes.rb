@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_discipulos
+
   resources :sivic_movimentofinanceiros 
   resources :sivic_partevenrelacelulas
   resources :sivic_participantecelulas

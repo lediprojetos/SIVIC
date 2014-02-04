@@ -12,12 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :Nome %><br>
+    <%= f.label :Rede %><br>
     <%= f.text_field :nome_rede %>
   </div>
   <div class="field">
-    <%= f.label :sivic_igreja_id %><br>
-    <%= f.text_field :sivic_igreja_id %>
+    <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja.id %>
   </div>
   <div class="actions">
     <%= f.submit %>
