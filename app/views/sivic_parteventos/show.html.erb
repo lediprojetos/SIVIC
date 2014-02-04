@@ -1,28 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Sivic pessoa:</strong>
-  <%= @sivic_partevento.sivic_pessoa %>
+  <strong>Nome:</strong>
+  <%= @sivic_partevento.sivic_pessoa.NOME_pessoa %>
 </p>
 
 <p>
-  <strong>Sivic evento:</strong>
-  <%= @sivic_partevento.sivic_evento %>
+  <strong>Evento:</strong>
+  <%= @sivic_partevento.sivic_evento.DESC_evento %>
 </p>
 
 <p>
-  <strong>Sivic movimentofinanceiro:</strong>
-  <%= @sivic_partevento.sivic_movimentofinanceiro %>
-</p>
-
-<p>
-  <strong>Flag naoparticipou:</strong>
-  <%= @sivic_partevento.FLAG_naoparticipou %>
-</p>
-
-<p>
-  <strong>Flag naoparticipou:</strong>
-  <%= @sivic_partevento.sivic_movimentofinanceiro.inclusao.email %>
+  <strong>Valor Pago: R$:</strong>
+  <%= @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento %>
 </p>
 
 <%= link_to 'Editar', edit_sivic_partevento_path(@sivic_partevento) %> |

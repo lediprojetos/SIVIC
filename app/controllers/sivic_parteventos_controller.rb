@@ -32,7 +32,22 @@ class SivicParteventosController < ApplicationController
   # POST /sivic_parteventos
   # POST /sivic_parteventos.json
   def create
+
+    
+    #começa aqui teste
+
     @sivic_partevento = SivicPartevento.new(sivic_partevento_params)
+
+    #@sivic_partevento[sivic_partevento_params[sivic_movimentofinanceiro_attributes: [:sivic_evento_id]]] = SivicPartevento.new(sivic_partevento_params[:sivic_evento_id])
+
+    #@sivic_partevento.sivic_evento_id = SivicPartevento.new(sivic_partevento_params[sivic_movimentofinanceiro_attributes: [:sivic_evento_id])
+    
+    #@sivic_partevent{sivic_movimentofinanceiro_attributes[:sivic_evento_id]} = sivic_partevento_params[:sivic_evento_id]
+
+
+    # até aqui teste
+    
+    # @sivic_partevento = SivicPartevento.new(sivic_partevento_params)
 
     respond_to do |format|
       if @sivic_partevento.save

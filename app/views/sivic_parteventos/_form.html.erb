@@ -49,9 +49,7 @@
     <!--usuario de inclusão do registro -->
    <%= movimento.hidden_field :user_inclusao, :value => current_user.id %>
    
-   <%= movimento.hidden_field :sivic_evento_id%>
-
-
+   <%= movimento.hidden_field :sivic_evento_id, :id => "evento_id" %>
 
 <%end%>
 
@@ -126,6 +124,39 @@
       </div>
       <div class="modal-footer">
     </div>
+   <div class="tab-pane" id="tab2">
+    <%= form_for(@sivic_pessoa) do |f| %>
+      <div class="modal-header">  
+        <a class="close" data-dismiss="modal">×</a>  
+        <h3>Cadastro de Pessoa</h3>  
+      </div>  
+      <div class="modal-body">
+        <div class="field">
+          <%= f.label :Lider %><br>
+          <%= f.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',0),:include_blank => true%>
+        </div>  
+        <div class="field">
+          <%= f.label :Nome %><br>
+          <%= f.text_field :NOME_pessoa %>
+        </div>
+        <div class="field">
+          <%= f.label :Email %><br>
+          <%= f.text_field :DESC_email %>
+        </div>
+        <div class="field">
+          <%= f.label :Observação %><br>
+          <%= f.text_field :DESC_observacao %>
+        </div>
+          <!--Capturando igreja do usuaário logado -->
+         <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja.id %>
+      </div>
+      <div class="modal-footer">
+        <div class="field">
+          <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
+        </div>        
+      </div>  
+    <% end %>
+     </div>    
     </div>      
 
  <div id="myModal3" class="modal fade" style="display: none;" >  
@@ -237,7 +268,7 @@
       var options = "<option value='"+id+"'>"+nome+"</option>";
         $('#sivic_partevento_sivic_evento_id').html(options);
         $('#sivic_partevento_sivic_evento_id').removeAttr('disabled');
-        $('#sivic_evento_id').val(id);
+        $('#evento_id').val(id);
         $('#myModal3').modal('hide');         
     }
          
