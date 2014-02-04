@@ -39,6 +39,8 @@
     <%= movimento.text_field :VALR_movimento %>
    </div>
 
+   
+   <%=@evento%>
    <!--DADOS AUTOMATICOS-->
     <!--Adicionando valor padrão Debito-->
    <%= movimento.hidden_field :sivic_tipmovfinanceiro_id, :value => 1 %>
@@ -47,7 +49,9 @@
     <!--usuario de inclusão do registro -->
    <%= movimento.hidden_field :user_inclusao, :value => current_user.id %>
    
-   <%= movimento.hidden_field :sivic_evento_id, :value => @sivic_partevento_sivic_evento_id %>
+   <%= movimento.hidden_field :sivic_evento_id%>
+
+
 
 <%end%>
 
@@ -233,6 +237,7 @@
       var options = "<option value='"+id+"'>"+nome+"</option>";
         $('#sivic_partevento_sivic_evento_id').html(options);
         $('#sivic_partevento_sivic_evento_id').removeAttr('disabled');
+        $('#sivic_evento_id').val(id);
         $('#myModal3').modal('hide');         
     }
          
