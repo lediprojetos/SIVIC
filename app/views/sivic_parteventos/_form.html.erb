@@ -100,9 +100,19 @@
   </fieldset>
  
  <div id="myModal2" class="modal fade" style="display: none;">  
-      <div class="modal-header">  
-        <a class="close" data-dismiss="modal">×</a>  
-        <h3>Buscar Pessoas</h3>  
+     
+      <div class="tabbable">  
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#tab1" data-toggle="tab">Consultar</a></li>
+          <li><a href="#tab2" data-toggle="tab">Cadastrar</a></li>
+        </ul>
+      </div> 
+      <div class="tab-content">
+      <div class="tab-pane active" id="tab1">
+      
+     <div class="modal-header">  
+          <a class="close" data-dismiss="modal">×</a>  
+          <h3>Buscar Eventos</h3>  
       </div>  
       <div class="modal-body">
         <div class="input-group input-group-lg">
@@ -121,10 +131,10 @@
               </tr>
           </tbody>  
         </table>
-      </div>
-      <div class="modal-footer">
+      </div>  
     </div>
-   <div class="tab-pane" id="tab2">
+
+    <div class="tab-pane" id="tab2">
     <%= form_for(@sivic_pessoa) do |f| %>
       <div class="modal-header">  
         <a class="close" data-dismiss="modal">×</a>  
@@ -150,14 +160,17 @@
           <!--Capturando igreja do usuaário logado -->
          <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja.id %>
       </div>
+    
       <div class="modal-footer">
-        <div class="field">
-          <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
-        </div>        
-      </div>  
-    <% end %>
-     </div>    
-    </div>      
+          <div class="field">
+            <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
+          </div>        
+       </div>  
+     </div>  
+     <% end %>
+  </div>
+</div>  
+            
 
  <div id="myModal3" class="modal fade" style="display: none;" >  
       <div class="modal-header">  
@@ -215,7 +228,7 @@
          
          $('#sivic_partevento_sivic_pessoa_id').html(options);
          $('#sivic_partevento_sivic_pessoa_id').removeAttr('disabled');
-         $('#myModal').modal('hide');
+         $('#myModal2').modal('hide');
          } 
        })      
      }
