@@ -28,7 +28,7 @@ class SivicMinisteriosController < ApplicationController
 
     respond_to do |format|
       if @sivic_ministerio.save
-        format.html { redirect_to @sivic_ministerio, notice: 'Sivic ministerio was successfully created.' }
+        format.html { redirect_to @sivic_ministerio, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_ministerio }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class SivicMinisteriosController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_ministerio.update(sivic_ministerio_params)
-        format.html { redirect_to @sivic_ministerio, notice: 'Sivic ministerio was successfully updated.' }
+        format.html { redirect_to @sivic_ministerio, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

@@ -33,25 +33,10 @@ class SivicParteventosController < ApplicationController
   # POST /sivic_parteventos.json
   def create
 
-    
-    #começa aqui teste
-
     @sivic_partevento = SivicPartevento.new(sivic_partevento_params)
-
-    #@sivic_partevento[sivic_partevento_params[sivic_movimentofinanceiro_attributes: [:sivic_evento_id]]] = SivicPartevento.new(sivic_partevento_params[:sivic_evento_id])
-
-    #@sivic_partevento.sivic_evento_id = SivicPartevento.new(sivic_partevento_params[sivic_movimentofinanceiro_attributes: [:sivic_evento_id])
-    
-    #@sivic_partevent{sivic_movimentofinanceiro_attributes[:sivic_evento_id]} = sivic_partevento_params[:sivic_evento_id]
-
-
-    # até aqui teste
-    
-    # @sivic_partevento = SivicPartevento.new(sivic_partevento_params)
-
     respond_to do |format|
       if @sivic_partevento.save
-        format.html { redirect_to @sivic_partevento, notice: 'Sivic partevento was successfully created.' }
+        format.html { redirect_to @sivic_partevento, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_partevento }
       else
         format.html { render action: 'new' }
@@ -65,7 +50,7 @@ class SivicParteventosController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_partevento.update(sivic_partevento_params)
-        format.html { redirect_to @sivic_partevento, notice: 'Sivic partevento was successfully updated.' }
+        format.html { redirect_to @sivic_partevento, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
