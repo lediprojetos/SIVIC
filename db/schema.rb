@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140204093508) do
+ActiveRecord::Schema.define(version: 20140206022016) do
 
   create_table "sivic_celulas", force: true do |t|
     t.integer  "sivic_pessoa_id"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20140204093508) do
     t.integer  "sivic_tipo_evento_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "DATA_encerramento"
   end
 
   add_index "sivic_eventos", ["User_id"], name: "index_sivic_eventos_on_User_id"
