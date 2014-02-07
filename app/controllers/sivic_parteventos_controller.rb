@@ -21,11 +21,13 @@ class SivicParteventosController < ApplicationController
 
   # GET /sivic_parteventos/1/edit
   def edit
+    
   end
 
   #busca todos os eventos
   def buscaEvento 
-    sivic_evento = SivicEvento.all
+    #sivic_evento = SivicEvento.all
+    sivic_evento = SivicEvento.where("DATA_encerramento is null")
     sivic_evento_json = sivic_evento.map {|item| {:id => item.id, :TipoEvento => item.sivic_tipo_evento.desc_tipoevento, :DESC_evento => item.DESC_evento, :DATA_Inicio => item.DATA_inicio, :DATA_Fim => item.DATA_fim}}
     render :json => sivic_evento_json
   end

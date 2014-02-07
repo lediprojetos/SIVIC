@@ -13,6 +13,7 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -29,6 +30,7 @@
         <td><%= link_to 'Exibir', sivic_evento %></td>
         <td><%= link_to 'Editar', edit_sivic_evento_path(sivic_evento) %></td>
         <td><%= link_to 'Excluir', sivic_evento, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
+		<td><%= link_to 'Encerrar', encerraEvento_path%></td>
       </tr>
     <% end %>
   </tbody>

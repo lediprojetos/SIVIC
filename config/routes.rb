@@ -44,13 +44,16 @@ SIVIC::Application.routes.draw do
 
   match '/criarPessoa', to: 'sivic_pessoas#create_pessoa', via: 'get'
   match '/listarPessoa', to: 'sivic_pessoas#busca_pessoa', via: 'get'
-
+   
   match '/criarParticipantesRelatorios', to: 'sivic_partevenrelacelulas#create_participante', via: 'get'
 
   match '/listarParticipantesCelulas', to: 'sivic_participantecelulas#busca_participante', via: 'get'
   match '/criarParticipantesCelulas', to: 'sivic_participantecelulas#create_participante', via: 'get'
 
-   match '/listarEvento', to: 'sivic_parteventos#buscaEvento', via: 'get'
+  match '/listarEvento', to: 'sivic_parteventos#buscaEvento', via: 'get'
+  
+  match '/encerraEvento', to: 'sivic_eventos#encerrar', via: 'get'
+  
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 

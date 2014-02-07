@@ -1,5 +1,5 @@
 class SivicEventosController < ApplicationController
-  before_action :set_sivic_evento, only: [:show, :edit, :update, :destroy]
+  before_action :set_sivic_evento, only: [:show, :edit, :update, :destroy, :encerrar]
   before_action :authenticate_user!
   
   # GET /sivic_eventos
@@ -21,6 +21,21 @@ class SivicEventosController < ApplicationController
   def show
   end
 
+  # Metodo para encerrar o evento
+  def encerrar
+     @sivic_evento = SivicEvento.new(sivic_evento_params)
+     @sivic_evento.DATA_encerramentos = Time.now
+   respond_to do |format|
+      if @sivic_evento.update
+        format.html { redirect_to @sivic_evento, notice: 'Registro encerrado com sucesso.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @sivic_evento.errors, status: :unprocessable_entity }
+      end
+    end
+  end 
+  
   # GET /sivic_eventos/new
   def new
     @sivic_evento = SivicEvento.new
@@ -91,6 +106,6 @@ class SivicEventosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_evento_params
-      params.require(:sivic_evento).permit(:DESC_evento, :DESC_resumo, :VARL_inscricao, :DATA_inicio, :DATA_fim, :FLAG_ilimitado, :NUMR_qdtVagas, :User_id, :sivic_igreja_id, :sivic_tipo_evento_id, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
+      params.require(:sivic_evento).permit(:DESC_evento, :DESC_resumo, :VARL_inscricao, :DATA_inicio, :DATA_fim, :FLAG_ilimitado, :NUMR_qdtVagas, :User_id, :sivic_igreja_id, :sivic_tipo_evento_id, :DATA_encerramento, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
     end
 end
