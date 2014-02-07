@@ -15,4 +15,6 @@ class SivicDiscipulo < ActiveRecord::Base
   ESTADOCIVIL = %w[SOLTEIRO CASADO UNIAO_ESTAVEL OUTROS]
 
   validates :NUMR_CPF, :cpf => true
+
+  accepts_nested_attributes_for :sivic_pessoa, allow_destroy: true
 end
