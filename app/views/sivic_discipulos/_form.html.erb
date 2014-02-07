@@ -11,10 +11,34 @@
     </div>
   <% end %>
 
+  <%=  f.fields_for :sivic_pessoa do |pessoa| %>
+    <div class="field">
+      <%= pessoa.label :Nome %><br>
+      <%= pessoa.text_field :NOME_pessoa, :onclick => "$('#myModal2').modal('show')" %>
+    </div>
+    <div class="field">
+      <%= pessoa.label :Lider %><br>
+      <%= pessoa.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',@sivic_lider),:include_blank => true%>
+    </div>     
+    <div class="field">
+      <%= pessoa.label :Email %><br>
+      <%= pessoa.text_field :DESC_email %>
+    </div>
+    <div class="field">
+      <%= pessoa.label :Observação %><br>
+      <%= pessoa.text_field :DESC_observacao %>
+    </div>
+    <div class="field">
+      <%= pessoa.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja.id %>
+    </div>
+    <div class="field">
+      <%= pessoa.hidden_field :User_id, :value => current_user.id%>
+    </div>
+  <%end%>
+
+
   <div class="field">
-    <%= f.label :Pessoa %><br>
-    <%#= f.text_field :sivic_pessoa_id %>
-    <%= f.select :sivic_pessoa_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa')%>
+    <%= f.hidden_field :sivic_pessoa_id%>
   </div>
   <div class="field">
     <%= f.label :Endereço %><br>
@@ -191,3 +215,85 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+
+</fieldset>
+
+  <div id="myModal2" class="modal fade" style="display: none;">  
+      <div class="modal-header">  
+        <a class="close" data-dismiss="modal">×</a>  
+        <h3>Buscar Pessoas</h3>  
+      </div>  
+      <div class="modal-body">
+        <div class="input-group input-group-lg">
+          <label >Nome</label><br>
+          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onkeypress="buscaPessoa()" type="text" class="form-control" placeholder="Nome" style="width: 300px;">
+          <a data-toggle="modal" href="javascript:usaNome();" class="btn btn-success" style="margin-bottom: 10px;">Usar</a>
+        </div>
+        <table id="table_user" name="table_user" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyid">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+      </div>
+      <div class="modal-footer">
+      </div>
+  </div>  
+
+</fieldset>
+
+<script>
+  function buscaPessoa(){
+
+      $.ajax({
+        url: '<%= listarPessoa_path %>',
+        data : 
+        {
+            NOME_pessoa : $('#NOME_pessoa_buscar').val()
+        },
+        success: function(data){
+          $("#tbodyid").empty();
+          for (var i in data) {
+            var item = data[i];
+            $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.NOME_pessoa+'\','+item.id+',\'' + item.DESC_email+'\','+item.father_id+',\''+item.NOME_Lider+'\');">'+item.NOME_pessoa+'</a></td><td><a href="javascript:setaNome(\'' + item.NOME_pessoa+'\','+item.id+',\'' + item.DESC_email+'\');">'+item.DESC_email+'</a></td></tr>')
+          };
+ 
+        }
+      })
+    }
+
+  function setaNome(nome,id,email,idlider,nomelider){
+
+          $('#sivic_discipulo_sivic_pessoa_id').val(id)
+          $('#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa').val(nome)
+          $('#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa').attr('disabled', 'disabled');
+          $('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').val(email)
+          $('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').attr('disabled', 'disabled');
+          $('#sivic_discipulo_sivic_pessoa_attributes_DESC_observacao').attr('disabled', 'disabled');
+
+          $('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty();
+          $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html('<option>Carregando...</option>');
+          $('#sivic_discipulo_sivic_pessoa_attributes_father_id').attr('disabled', 'disabled');
+          var options = "<option value='"+idlider+"'>"+nomelider+"</option>";
+          $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html(options);
+                
+
+          $('#myModal2').modal('hide');
+  }
+
+  function usaNome(nome){
+
+          $('#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa').val($('#NOME_pessoa_buscar').val());
+          $('#myModal2').modal('hide');
+  }   
+
+</script>

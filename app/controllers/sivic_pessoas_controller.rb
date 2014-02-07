@@ -14,7 +14,7 @@ class SivicPessoasController < ApplicationController
   def busca_pessoa
 
     sivic_pessoa = SivicPessoa.where("NOME_pessoa like ?", "#{params[:NOME_pessoa]}%")
-    sivic_pessoa_json = sivic_pessoa.map {|item| {:id => item.id, :NOME_pessoa => item.NOME_pessoa, :DESC_email => item.DESC_email}}
+    sivic_pessoa_json = sivic_pessoa.map {|item| {:id => item.id, :NOME_pessoa => item.NOME_pessoa, :DESC_email => item.DESC_email, :father_id => item.father_id, :NOME_Lider => item.father.NOME_pessoa }}
     render :json => sivic_pessoa_json
   end   
 

@@ -15,6 +15,7 @@ class SivicDiscipulosController < ApplicationController
   # GET /sivic_discipulos/new
   def new
     @sivic_discipulo = SivicDiscipulo.new
+    @sivic_discipulo.build_sivic_pessoa
   end
 
   # GET /sivic_discipulos/1/edit
@@ -24,11 +25,16 @@ class SivicDiscipulosController < ApplicationController
   # POST /sivic_discipulos
   # POST /sivic_discipulos.json
   def create
-    @sivic_discipulo = SivicDiscipulo.new(sivic_discipulo_params)
+
+    if :sivic_pessoa_id?
+      @sivic_discipulo = SivicDiscipulo.new(sivic_discipulo_params_netested)
+    else
+      @sivic_discipulo = SivicDiscipulo.new(sivic_discipulo_params_normal)
+    end
 
     respond_to do |format|
       if @sivic_discipulo.save
-        format.html { redirect_to @sivic_discipulo, notice: 'Sivic discipulo was successfully created.' }
+        format.html { redirect_to @sivic_discipulo, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_discipulo }
       else
         format.html { render action: 'new' }
@@ -41,8 +47,8 @@ class SivicDiscipulosController < ApplicationController
   # PATCH/PUT /sivic_discipulos/1.json
   def update
     respond_to do |format|
-      if @sivic_discipulo.update(sivic_discipulo_params)
-        format.html { redirect_to @sivic_discipulo, notice: 'Sivic discipulo was successfully updated.' }
+      if @sivic_discipulo.update(sivic_discipulo_params_netested)
+        format.html { redirect_to @sivic_discipulo, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -68,7 +74,11 @@ class SivicDiscipulosController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def sivic_discipulo_params
-      params.require(:sivic_discipulo).permit(:sivic_pessoa_id, :sivic_endereco_id, :sivic_profissao_id, :sivic_escolaridade_id, :sivic_rede_id, :sivic_celula_id, :NUMG_ProfissaoConjuge, :NUMG_UsuarioInclusao, :NUMG_UsuarioBloqueio, :DESC_Sexo, :DATA_Nascimento, :DESC_Apelido, :DESC_EstadoCivil, :NOME_Conjuge, :DATA_Decisao, :NUMR_QtdFilhos, :FLAG_Membro, :FLAG_RecebeuCristo, :FLAG_Reconciliacao, :FLAG_OcasiaoCelula, :FLAG_OcasiaoCelebracaoEvento, :FLAG_OcasiaoEvangelismoPessoal, :FLAG_OcasiaoCultoLivre, :FLAG_Trabalhando, :DESC_MomentoEstudoBiblico, :NUMR_RG, :DATA_EmissaoRG, :NUMR_CPF, :NOME_Pai, :NOME_Mae, :DATA_NascConjuge, :DATA_Casamento, :NUMR_TituloEleitoral, :DATA_Batismo, :DESC_IgrejaBatismo, :FLAG_DoadorSangue, :FLAG_DoadorOrgao)
+    def sivic_discipulo_params_netested
+      params.require(:sivic_discipulo).permit(:sivic_endereco_id, :sivic_profissao_id, :sivic_escolaridade_id, :sivic_rede_id, :sivic_celula_id, :NUMG_ProfissaoConjuge, :NUMG_UsuarioInclusao, :NUMG_UsuarioBloqueio, :DESC_Sexo, :DATA_Nascimento, :DESC_Apelido, :DESC_EstadoCivil, :NOME_Conjuge, :DATA_Decisao, :NUMR_QtdFilhos, :FLAG_Membro, :FLAG_RecebeuCristo, :FLAG_Reconciliacao, :FLAG_OcasiaoCelula, :FLAG_OcasiaoCelebracaoEvento, :FLAG_OcasiaoEvangelismoPessoal, :FLAG_OcasiaoCultoLivre, :FLAG_Trabalhando, :DESC_MomentoEstudoBiblico, :NUMR_RG, :DATA_EmissaoRG, :NUMR_CPF, :NOME_Pai, :NOME_Mae, :DATA_NascConjuge, :DATA_Casamento, :NUMR_TituloEleitoral, :DATA_Batismo, :DESC_IgrejaBatismo, :FLAG_DoadorSangue, :FLAG_DoadorOrgao, sivic_pessoa_attributes: [:id, :NOME_pessoa, :DESC_email, :DESC_observacao, :User_id, :sivic_igreja_id, :father_id])
     end
+
+    def sivic_discipulo_params_normal
+      params.require(:sivic_discipulo).permit(:sivic_pessoa_id, :sivic_endereco_id, :sivic_profissao_id, :sivic_escolaridade_id, :sivic_rede_id, :sivic_celula_id, :NUMG_ProfissaoConjuge, :NUMG_UsuarioInclusao, :NUMG_UsuarioBloqueio, :DESC_Sexo, :DATA_Nascimento, :DESC_Apelido, :DESC_EstadoCivil, :NOME_Conjuge, :DATA_Decisao, :NUMR_QtdFilhos, :FLAG_Membro, :FLAG_RecebeuCristo, :FLAG_Reconciliacao, :FLAG_OcasiaoCelula, :FLAG_OcasiaoCelebracaoEvento, :FLAG_OcasiaoEvangelismoPessoal, :FLAG_OcasiaoCultoLivre, :FLAG_Trabalhando, :DESC_MomentoEstudoBiblico, :NUMR_RG, :DATA_EmissaoRG, :NUMR_CPF, :NOME_Pai, :NOME_Mae, :DATA_NascConjuge, :DATA_Casamento, :NUMR_TituloEleitoral, :DATA_Batismo, :DESC_IgrejaBatismo, :FLAG_DoadorSangue, :FLAG_DoadorOrgao)
+    end    
 end
