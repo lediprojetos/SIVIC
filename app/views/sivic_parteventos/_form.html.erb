@@ -195,7 +195,8 @@
        })      
      }
 
-  function buscaPessoa(){     
+  function buscaPessoa(){
+   
        $.ajax({
         url : '<%= listarPessoa_path %>',
         data :
@@ -203,6 +204,7 @@
           NOME_pessoa : $('#NOME_pessoa_buscar').val()
         },
         success: function(data){
+          alert(item.NOME_pessoa);
           $('#tbodyid').empty();
           for (var i in data){
             var item = data[i];

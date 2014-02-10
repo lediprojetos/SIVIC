@@ -23,18 +23,22 @@ class SivicEventosController < ApplicationController
 
   # Metodo para encerrar o evento
   def encerrar
-     @sivic_evento = SivicEvento.new(sivic_evento_params)
-     @sivic_evento.DATA_encerramentos = Time.now
-   respond_to do |format|
-      if @sivic_evento.update
-        format.html { redirect_to @sivic_evento, notice: 'Registro encerrado com sucesso.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @sivic_evento.errors, status: :unprocessable_entity }
-      end
-    end
-  end 
+
+     
+     @sivic_evento.update(sivic_evento_params)
+    #@sivic_evento.update(:DATA_encerramento => Time.now)
+
+   end
+
+   # @sivic_evento = SivicEvento.new(sivic_evento_params)
+   # @sivic_evento.DATA_encerramento => Time.now
+   # @sivic_evento.update
+   # respond_to do |format|
+   # format.html { redirect_to sivic_eventos_url }
+   # format.json { head :no_content }
+    
+
+ 
   
   # GET /sivic_eventos/new
   def new
