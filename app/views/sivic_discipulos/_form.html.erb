@@ -11,210 +11,300 @@
     </div>
   <% end %>
 
-  <%=  f.fields_for :sivic_pessoa do |pessoa| %>
-    <div class="field">
-      <%= pessoa.label :Nome %><br>
-      <%= pessoa.text_field :NOME_pessoa, :onclick => "$('#myModal2').modal('show')" %>
-    </div>
-    <div class="field">
-      <%= pessoa.label :Lider %><br>
-      <%= pessoa.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',@sivic_lider),:include_blank => true%>
-    </div>     
-    <div class="field">
-      <%= pessoa.label :Email %><br>
-      <%= pessoa.text_field :DESC_email %>
-    </div>
-    <div class="field">
-      <%= pessoa.label :Observação %><br>
-      <%= pessoa.text_field :DESC_observacao %>
-    </div>
-    <div class="field">
-      <%= pessoa.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja.id %>
-    </div>
-    <div class="field">
-      <%= pessoa.hidden_field :User_id, :value => current_user.id%>
-    </div>
-  <%end%>
+    <div class="tabbable">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a href="#tab1" data-toggle="tab">Dados Pessoais</a>
+        </li>
+        <li>
+          <a href="#tab2" data-toggle="tab">Novo Convertido</a>
+        </li>
+        <li>
+          <a href="#tab3" data-toggle="tab">Discípulo</a>
+        </li>        
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+          
+           <%=  f.fields_for :sivic_pessoa do |pessoa| %>
 
+              <div class="field">
+                <%= pessoa.label :Nome %><br>
+                <%= pessoa.text_field :NOME_pessoa, :onclick => "$('#myModal2').modal('show')" %>
+              </div>
+              <div class="field">
+                <%= pessoa.label :Lider %><br>
+                <%= pessoa.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',@sivic_lider),:include_blank => true%>
+              </div>     
+              <div class="field">
+                <%= pessoa.label :Email %><br>
+                <%= pessoa.text_field :DESC_email %>
+              </div>
+              <div class="field">
+                <%= pessoa.label :Observação %><br>
+                <%= pessoa.text_field :DESC_observacao %>
+              </div>
 
-  <div class="field">
-    <%= f.hidden_field :sivic_pessoa_id%>
-  </div>
-  <div class="field">
-    <%= f.label :Endereço %><br>
-    <%= f.text_field :sivic_endereco_id, :onclick => "$('#myModal').modal('show')"%>
-  </div>
-  <div class="field">
-    <%= f.label :Profissão %><br>
-    <%#= f.text_field :sivic_profissao_id %>
-    <%= f.select :sivic_profissao_id, options_from_collection_for_select(SivicProfissao.all, 'id', 'profissao')%>
-  </div>
-  <div class="field">
-    <%= f.label :Escolaridade %><br>
-    <%#= f.text_field :sivic_escolaridade_id %>
-    <%= f.select :sivic_escolaridade_id, options_from_collection_for_select(SivicEscolaridade.all, 'id', 'NOME_escolaridade')%>
-  </div>
-  <div class="field">
-    <%= f.label :Rede %><br>
-    <%#= f.text_field :sivic_rede_id %>
-    <%= f.select :sivic_rede_id, options_from_collection_for_select(SivicRede.all, 'id', 'nome_rede')%>
-  </div>
-  <div class="field">
-    <%= f.label :Célula %><br>
-    <%#= f.text_field :sivic_celula_id %>
-    <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.all, 'id', 'NUMR_Dia')%>
-  </div>
-  <div class="field">
-    <%= f.label :Profissão_do_Conjuge %><br>
-    <%#= f.number_field :NUMG_ProfissaoConjuge %>
-    <%= f.select :NUMG_ProfissaoConjuge, options_from_collection_for_select(SivicProfissao.all, 'id', 'profissao')%>
-  </div>
-  <div class="field">
-    <%= f.hidden_field :NUMG_UsuarioInclusao, :value => current_user.id %>
-  </div>
-  <div class="field">
-    <%= f.hidden_field :NUMG_UsuarioBloqueio, :value => current_user.id%>
-  </div>
-  <div class="field">
-    <%= f.label :Orientação_Sexual %><br>
-    <%#= f.text_field :DESC_Sexo %>
-    <%= f.collection_select :DESC_Sexo, SivicDiscipulo::SEXO, :to_s, :humanize %>
-  </div>
-  <div class="field">
-    <%= f.label :Data_de_Nascimento %><br>
-    <%= f.date_select :DATA_Nascimento %>
-  </div>
-  <div class="field">
-    <%= f.label :Apelido %><br>
-    <%= f.text_field :DESC_Apelido %>
-  </div>
-  <div class="field">
-    <%= f.label :Estado_Civil %><br>
-    <%#= f.text_field :DESC_EstadoCivil %>
-    <%= f.collection_select :DESC_EstadoCivil, SivicDiscipulo::ESTADOCIVIL, :to_s, :humanize %>
-  </div>
-  <div class="field">
-    <%= f.label :Nome_do_Conjuge %><br>
-    <%= f.text_field :NOME_Conjuge %>
-  </div>
-  <div class="field">
-    <%= f.label :Data_da_Decisao %><br>
-    <%= f.date_select :DATA_Decisao %>
-  </div>
-  <div class="field">
-    <%= f.label :Quantidade_de_Filhos %><br>
-    <%= f.number_field :NUMR_QtdFilhos %>
-  </div>
-  <table>
-    <tr>
-      <td>
-        <div class="field">
-          <%= f.label :Membro %><br>
-          <%= f.check_box :FLAG_Membro %>
+              <div class="field">
+                <%= pessoa.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja.id %>
+              </div>
+              <div class="field">
+                <%= pessoa.hidden_field :User_id, :value => current_user.id%>
+              </div>              
+
+              <div class="field">
+                <%= f.hidden_field :sivic_pessoa_id%>
+              </div>
+
+              <!--Endereço-->
+
+              <legend>Endereço</legend>
+
+              <%=  f.fields_for :sivic_endereco do |endereco| %>
+                <div class="field">
+                  <%= endereco.label :Bairro %><br>
+                  <%= endereco.text_field :DESC_Bairro %>
+                </div>
+                <div class="field">
+                  <%= endereco.label :Rua %><br>
+                  <%= endereco.text_field :DESC_Rua %>
+                </div>
+                <div class="field">
+                  <%= endereco.label :Complemento %><br>
+                  <%= endereco.text_field :DESC_Complemento %>
+                </div>
+                <div class="field">
+                  <%= endereco.label :Ponto_referência %><br>
+                  <%= endereco.text_field :DESC_Pontoreferencia %>
+                </div>
+                <div class="field">
+                  <%= endereco.label :CEP.capitalize %><br>
+                  <%= endereco.number_field :NUMR_Cep %>
+                </div>
+
+                <%=  f.fields_for :sivic_estado do |estado| %>
+
+                  <div class="field">
+                    <%= estado.label :Estado %><br>
+                    <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)',}%>
+                  </div>
+
+                <%end%>
+
+                <%if @sivic_cidade %>
+
+                  <div class="field">
+                    <%= endereco.label :Cidade %><br>
+                    <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada)%>
+                  </div>
+
+                <%else%>
+
+                  <div class="field">
+                    <%= endereco.label :Cidade   %><br>
+                    <%= endereco.select :sivic_cidade_id, [] %><br>
+                  </div> 
+
+                <%end%>
+                <% end %>
+            <%end%>
         </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= f.label :Recebeu_Cristo %><br>
-          <%= f.check_box :FLAG_RecebeuCristo %>
+
+        <div class="tab-pane" id="tab2">
+
+            <div class="field">
+              <%= f.label :Data_de_Nascimento %><br>
+              <%= f.date_select :DATA_Nascimento %>
+            </div>
+
+            <div class="field">
+              <%= f.label :Sexo %><br>
+              <%= f.collection_select :DESC_Sexo, SivicDiscipulo::SEXO, :to_s, :humanize %>
+            </div>
+
+            <div class="field">
+              <%= f.label :Profissão %><br>
+              <%= f.select :sivic_profissao_id, options_from_collection_for_select(SivicProfissao.all, 'id', 'profissao')%>
+            </div>
+
+            <div class="field">
+              <%= f.label :Escolaridade %><br>
+              <%= f.select :sivic_escolaridade_id, options_from_collection_for_select(SivicEscolaridade.all, 'id', 'NOME_escolaridade')%>
+            </div>
+
+            <div class="field">
+              <%= f.label :Quantidade_de_Filhos %><br>
+              <%= f.number_field :NUMR_QtdFilhos %>
+            </div>
+
+            <div class="field">
+              <%= f.label :Apelido %><br>
+              <%= f.text_field :DESC_Apelido %>
+            </div>
+
+            <div class="field">
+              <%= f.label :Estado_Civil %><br>
+              <%= f.collection_select :DESC_EstadoCivil, SivicDiscipulo::ESTADOCIVIL, :to_s, :humanize %>
+            </div>   
+
+            <div class="field">
+              <%= f.label :Rede %><br>
+              <%= f.select :sivic_rede_id, options_from_collection_for_select(SivicRede.all, 'id', 'nome_rede')%>
+            </div>
+
+            <div class="field">
+              <%= f.label :Célula %><br>
+              <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.all, 'id', 'NUMR_Dia')%>
+            </div>
+
+            <div class="field">
+              <%= f.label :Data_da_Decisao %><br>
+              <%= f.date_select :DATA_Decisao %>
+            </div>
+
+          <table>
+              <tr>
+                <td>
+                  <div class="field">
+                    <%= f.label :Membro %><br>
+                    <%= f.check_box :FLAG_Membro %>
+                  </div>
+                </td>
+                <td>
+                  <div class="field">
+                    <%= f.label :Recebeu_Cristo %><br>
+                    <%= f.check_box :FLAG_RecebeuCristo %>
+                  </div>
+                </td>
+                <td>
+                  <div class="field">
+                    <%= f.label :Reconciliacao %><br>
+                    <%= f.check_box :FLAG_Reconciliacao %>
+                  </div>
+                </td>
+                <td>
+                  <div class="field">
+                    <%= f.label :Ocasiao_Celula %><br>
+                    <%= f.check_box :FLAG_OcasiaoCelula %>
+                  </div>
+                </td>
+              </tr>
+              <tr>      
+                <td>
+                  <div class="field">
+                    <%= f.label :Ocasiao_Celebração_Evento %><br>
+                    <%= f.check_box :FLAG_OcasiaoCelebracaoEvento %>
+                  </div>
+                </td>
+                <td>
+                  <div class="field">
+                    <%= f.label :Ocasiao_Evangelismo_Pessoal %><br>
+                    <%= f.check_box :FLAG_OcasiaoEvangelismoPessoal %>
+                  </div>
+                </td>
+                <td>
+                  <div class="field">
+                    <%= f.label :Ocasiao_Culto_Livre %><br>
+                    <%= f.check_box :FLAG_OcasiaoCultoLivre %>
+                  </div>
+                </td>
+                <td>
+                  <div class="field">
+                    <%= f.label :Trabalhando %><br>
+                    <%= f.check_box :FLAG_Trabalhando %>
+                  </div>
+                </td>
+              </tr>
+            </table>
+
+            <div class="field">
+              <%= f.label :Momento_Estudo_Biblico %><br>
+              <%= f.text_field :DESC_MomentoEstudoBiblico %>
+            </div>
+
+              <div class="field">
+                <%= f.label :Nome_do_Conjuge %><br>
+                <%= f.text_field :NOME_Conjuge %>
+              </div>
+
+              <div class="field">
+                <%= f.hidden_field :NUMG_UsuarioInclusao, :value => current_user.id %>
+              </div>
+              <div class="field">
+                <%= f.hidden_field :NUMG_UsuarioBloqueio, :value => current_user.id%>
+              </div>
+
         </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= f.label :Reconciliacao %><br>
-          <%= f.check_box :FLAG_Reconciliacao %>
+        <div class="tab-pane" id="tab3">
+
+            <div class="field">
+              <%= f.label :RG %><br>
+              <%= f.text_field :NUMR_RG %>
+            </div>
+            <div class="field">
+              <%= f.label :Data_Emissao_RG %><br>
+              <%= f.date_select :DATA_EmissaoRG %>
+            </div>
+            <div class="field">
+              <%= f.label :CPF %><br>
+              <%= f.text_field :NUMR_CPF %>
+            </div>
+
+            <div class="field">
+              <%= f.label :Nome_do_Pai %><br>
+              <%= f.text_field :NOME_Pai %>
+            </div>
+            <div class="field">
+              <%= f.label :Nome_da_Mae %><br>
+              <%= f.text_field :NOME_Mae %>
+            </div> 
+
+            <div class="field">
+              <%= f.label :Titulo_Eleitoral %><br>
+              <%= f.text_field :NUMR_TituloEleitoral %>
+            </div>
+
+            <div class="field">
+              <%= f.label :DATA_de_Batismo %><br>
+              <%= f.date_select :DATA_Batismo %>
+            </div>
+            <div class="field">
+              <%= f.label :Igreja_de_Batismo %><br>
+              <%= f.text_field :DESC_IgrejaBatismo %>
+            </div>                
+
+            <div class="field">
+              <%= f.label :Doador_de_Sangue %><br>
+              <%= f.check_box :FLAG_DoadorSangue %>
+            </div>
+            <div class="field">
+              <%= f.label :Doador_de_Orgao %><br>
+              <%= f.check_box :FLAG_DoadorOrgao %>
+            </div> 
+
+            <div class="field">
+              <%= f.label :Data_de_Casamento %><br>
+              <%= f.date_select :DATA_Casamento %>
+            </div>
+
+              <div class="field">
+                <%= f.label :Data_de_Nascimneto_do_Conjuge %><br>
+                <%= f.date_select :DATA_NascConjuge %>
+              </div>
+
+              <div class="field">
+                <%= f.label :Profissão_do_Conjuge %><br>
+                <%= f.select :NUMG_ProfissaoConjuge, options_from_collection_for_select(SivicProfissao.all, 'id', 'profissao')%>
+              </div>            
         </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= f.label :Ocasiao_Celula %><br>
-          <%= f.check_box :FLAG_OcasiaoCelula %>
-        </div>
-      </td>
-    </tr>
-    <tr>      
-      <td>
-        <div class="field">
-          <%= f.label :Ocasiao_Celebração_Evento %><br>
-          <%= f.check_box :FLAG_OcasiaoCelebracaoEvento %>
-        </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= f.label :Ocasiao_Evangelismo_Pessoal %><br>
-          <%= f.check_box :FLAG_OcasiaoEvangelismoPessoal %>
-        </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= f.label :Ocasiao_Culto_Livre %><br>
-          <%= f.check_box :FLAG_OcasiaoCultoLivre %>
-        </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= f.label :Trabalhando %><br>
-          <%= f.check_box :FLAG_Trabalhando %>
-        </div>
-      </td>
-    </tr>
-  </table>
-  <div class="field">
-    <%= f.label :Momento_Estudo_Biblico %><br>
-    <%= f.text_field :DESC_MomentoEstudoBiblico %>
-  </div>
-  <div class="field">
-    <%= f.label :RG %><br>
-    <%= f.text_field :NUMR_RG %>
-  </div>
-  <div class="field">
-    <%= f.label :Data_Emissao_RG %><br>
-    <%= f.date_select :DATA_EmissaoRG %>
-  </div>
-  <div class="field">
-    <%= f.label :CPF %><br>
-    <%= f.text_field :NUMR_CPF %>
-  </div>
-  <div class="field">
-    <%= f.label :Nome_do_Pai %><br>
-    <%= f.text_field :NOME_Pai %>
-  </div>
-  <div class="field">
-    <%= f.label :Nome_da_Mae %><br>
-    <%= f.text_field :NOME_Mae %>
-  </div>
-  <div class="field">
-    <%= f.label :Data_de_Nascimneto_do_Conjuge %><br>
-    <%= f.date_select :DATA_NascConjuge %>
-  </div>
-  <div class="field">
-    <%= f.label :Data_de_Casamento %><br>
-    <%= f.date_select :DATA_Casamento %>
-  </div>
-  <div class="field">
-    <%= f.label :Titulo_Eleitoral %><br>
-    <%= f.text_field :NUMR_TituloEleitoral %>
-  </div>
-  <div class="field">
-    <%= f.label :DATA_de_Batismo %><br>
-    <%= f.date_select :DATA_Batismo %>
-  </div>
-  <div class="field">
-    <%= f.label :Igreja_de_Batismo %><br>
-    <%= f.text_field :DESC_IgrejaBatismo %>
-  </div>
-  <div class="field">
-    <%= f.label :Doador_de_Sangue %><br>
-    <%= f.check_box :FLAG_DoadorSangue %>
-  </div>
-  <div class="field">
-    <%= f.label :Doador_de_Orgao %><br>
-    <%= f.check_box :FLAG_DoadorOrgao %>
-  </div>
-  <div class="actions">
+      </div>
+    </div>
+
+   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
 
 
 </fieldset>
@@ -227,7 +317,7 @@
       <div class="modal-body">
         <div class="input-group input-group-lg">
           <label >Nome</label><br>
-          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onkeypress="buscaPessoa()" type="text" class="form-control" placeholder="Nome" style="width: 300px;">
+          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onkeypress="buscaPessoa();" type="text" class="form-control" placeholder="Nome" style="width: 300px;">
           <a data-toggle="modal" href="javascript:usaNome();" class="btn btn-success" style="margin-bottom: 10px;">Usar</a>
         </div>
         <table id="table_user" name="table_user" class="table table-hover">
@@ -251,79 +341,6 @@
 
 </fieldset>
 
-</fieldset>
-
-<fieldset>
-
-<%
-  @sivic_endereco = SivicEndereco.new
-%>
-
-
- <div id="myModal" class="modal fade" style="display: none;">  
-
-    <%= form_for(@sivic_endereco) do |f| %>
-      <div class="modal-header">  
-        <a class="close" data-dismiss="modal">×</a>  
-        <h3>Endereço</h3>  
-      </div>  
-      <div class="modal-body">
-        <div class="field">
-          <%= f.label :Bairro %><br>
-          <%= f.text_field :DESC_Bairro %>
-        </div>
-        <div class="field">
-          <%= f.label :Rua %><br>
-          <%= f.text_field :DESC_Rua %>
-        </div>
-        <div class="field">
-          <%= f.label :Complemento %><br>
-          <%= f.text_field :DESC_Complemento %>
-        </div>
-        <div class="field">
-          <%= f.label :Ponto_de_referencia %><br>
-          <%= f.text_field :DESC_Pontoreferencia %>
-        </div>
-        <div class="field">
-          <%= f.label :CEP %><br>
-          <%= f.number_field :NUMR_Cep %>
-        </div>
-
-            <%=  f.fields_for :sivic_estado do |estado| %> 
-            <div class="field">
-              <%= estado.label :Estado %><br>
-              <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)',}%>
-            </div>
-            <%end%>
-
-            <%if @sivic_cidade %>
-
-              <div class="field">
-                <%= f.label :Cidade %><br>
-                <%= f.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada)%>
-              </div>
-
-            <%else%>
-
-              <div class="field">
-                <%= f.label :Cidade   %><br>
-                <%= f.select :sivic_cidade_id, [] %><br>
-              </div> 
-
-            <%end%>
-
-      </div>
-      <div class="modal-footer">
-        <div class="field">
-          <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
-        </div>        
-      </div>  
-      </div>  
-    <% end %>
-
-</fieldset>
-
-
 <script>
 
   function changeState(state){
@@ -331,17 +348,17 @@
         url: '<%= listarCidade_path %>',
         data : {id : state.value},
         success: function(data){
-          $('#sivic_endereco_sivic_cidade_id').empty();
-          $('#sivic_endereco_sivic_cidade_id').html('<option>Carregando...</option>');
-          $('#sivic_endereco_sivic_cidade_id').attr('disabled', 'disabled');
+          $('#sivic_discipulo_sivic_endereco_attributes_sivic_cidade_id').empty();
+          $('#sivic_discipulo_sivic_endereco_attributes_sivic_cidade_id').html('<option>Carregando...</option>');
+          $('#sivic_discipulo_sivic_endereco_attributes_sivic_cidade_id').attr('disabled', 'disabled');
           var options = "";
           for (var i in data) {
             var item = data[i];
             options += "<option value='"+item.id+"'>"+item.name+"</option>"
           };
  
-          $('#sivic_endereco_sivic_cidade_id').html(options);
-          $('#sivic_endereco_sivic_cidade_id').removeAttr('disabled');          
+          $('#sivic_discipulo_sivic_endereco_attributes_sivic_cidade_id').html(options);
+          $('#sivic_discipulo_sivic_endereco_attributes_sivic_cidade_id').removeAttr('disabled');          
         }
       })
     }
@@ -368,46 +385,41 @@
 
   function setaNome(nome,id,email,idlider,nomelider){
 
-          $('#sivic_discipulo_sivic_pessoa_id').val(id)
-          $('#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa').val(nome)
-          $('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').val(email)
-          $('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty();
-          $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html('<option>Carregando...</option>');
+      $('#sivic_discipulo_sivic_pessoa_id').val(id)
+      $('#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa').val(nome)
+      $('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').val(email)
+      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty();
+      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html('<option>Carregando...</option>');
 
-          var options = "<option value='"+idlider+"'>"+nomelider+"</option>";
-          $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html(options);
-          $('#sivic_discipulo_sivic_pessoa_attributes_father_id').attr('disabled', 'disabled');
+      var options = "<option value='"+idlider+"'>"+nomelider+"</option>";
+      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html(options);
 
-          disablePessoaForm();
-
-          $('#myModal2').modal('hide');
-  }
-
-  function disablePessoaForm(){
-    $('#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa').attr('disabled', 'disabled');
-    $('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').attr('disabled', 'disabled');
-    $('#sivic_discipulo_sivic_pessoa_attributes_DESC_observacao').attr('disabled', 'disabled');
-    //$('#sivic_discipulo_sivic_pessoa_attributes_father_id').attr('disabled', 'disabled');
+      $('#myModal2').modal('hide');
   }
 
   function usaNome(nome){
 
-          $('#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa').val($('#NOME_pessoa_buscar').val());
-          $('#myModal2').modal('hide');
+      $('#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa').val($('#NOME_pessoa_buscar').val());
+      $('#sivic_discipulo_sivic_pessoa_id').val("");
+      $('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').val("")
+      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty("");      
+      $('#myModal2').modal('hide');
+
   }   
 
   <% if @sivic_discipulo.sivic_pessoa.id %>
 
-    disablePessoaForm();
+    //disablePessoaForm();
     $('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty();
     $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html('<option>Carregando...</option>');
-
-    //var options2 = '<option value="'+<%=@sivic_discipulo.sivic_pessoa.father_id%>+'">'+<%#=@sivic_discipulo.sivic_pessoa.father.NOME_pessoa%>+'</option>';
-
-
     $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html('<option value="<%=@sivic_discipulo.sivic_pessoa.father.id%>"><%=@sivic_discipulo.sivic_pessoa.father.NOME_pessoa%></option>');
-
-    $('#sivic_discipulo_sivic_pessoa_attributes_father_id').attr('disabled', 'disabled');
+    //$('#sivic_discipulo_sivic_pessoa_attributes_father_id').attr('disabled', 'disabled');
 
   <% end %>
+
 </script>
+
+
+
+
+

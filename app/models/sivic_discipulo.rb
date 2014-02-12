@@ -13,6 +13,7 @@ class SivicDiscipulo < ActiveRecord::Base
 
   # - STRONG ATRIBUTES
   accepts_nested_attributes_for :sivic_pessoa, allow_destroy: true
+  accepts_nested_attributes_for :sivic_endereco, allow_destroy: true
 
   # - Domínio
   SEXO = %w[FEMININO MASCULINO OUTROS]
@@ -23,7 +24,7 @@ class SivicDiscipulo < ActiveRecord::Base
   validates :sivic_profissao_id, :presence => { :message => ' - Escolha uma profissao' }
   #validates :sivic_pessoa_id, :presence => { :message => ' - Escolha um lider' }
   #validates :NUMR_CPF, uniqueness: true, uniqueness: {message: ' - CPF ja esta sendo utlizado'}
-  validates :sivic_endereco_id, :presence => { :message => ' - Informe um endereco' }
+  #validates :sivic_endereco_id, :presence => { :message => ' - Informe um endereco' }
   validates :sivic_escolaridade_id, :presence => { :message => ' - Informe a escolaridade' }
   validates :sivic_rede_id, :presence => { :message => ' - Informe uma rede' }
   #validates :DATA_Nascimento, :presence => { :message => ' - Informe a data de nascimento' }
