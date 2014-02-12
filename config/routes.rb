@@ -54,6 +54,7 @@ SIVIC::Application.routes.draw do
   
   match '/encerraEvento', to: 'sivic_eventos#encerrar', via: 'get'
   
+  map.resources :sivic_eventos, :controllers => {:encerrar => :post}
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
