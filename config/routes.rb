@@ -56,8 +56,6 @@ SIVIC::Application.routes.draw do
 
   match '/criarEndereco', to: 'sivic_enderecos#create_endereco', via: 'get'
   
-  map.resources :sivic_eventos, :controllers => {:encerrar => :post}
-
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
 end
