@@ -26,10 +26,13 @@ class SivicDiscipulosController < ApplicationController
   # POST /sivic_discipulos.json
   def create
 
-    if :sivic_pessoa_id?
-      @sivic_discipulo = SivicDiscipulo.new(sivic_discipulo_params_netested)
-    else
+    pessoa = SivicPessoa.find params[:sivic_discipulo][:sivic_pessoa_id] rescue nil
+
+    if pessoa
       @sivic_discipulo = SivicDiscipulo.new(sivic_discipulo_params_normal)
+      @sivic_discipulo.sivic_pessoa = pessoa
+    else
+      @sivic_discipulo = SivicDiscipulo.new(sivic_discipulo_params_netested)      
     end
 
     respond_to do |format|

@@ -42,7 +42,7 @@
   </div>
   <div class="field">
     <%= f.label :Endereço %><br>
-    <%= f.text_field :sivic_endereco_id,  :value => 1 %>
+    <%= f.text_field :sivic_endereco_id, :onclick => "$('#myModal').modal('show')"%>
   </div>
   <div class="field">
     <%= f.label :Profissão %><br>
@@ -251,7 +251,102 @@
 
 </fieldset>
 
+</fieldset>
+
+<fieldset>
+
+<%
+  @sivic_endereco = SivicEndereco.new
+%>
+
+
+ <div id="myModal" class="modal fade" style="display: none;">  
+
+    <%= form_for(@sivic_endereco) do |f| %>
+      <div class="modal-header">  
+        <a class="close" data-dismiss="modal">×</a>  
+        <h3>Endereço</h3>  
+      </div>  
+      <div class="modal-body">
+        <div class="field">
+          <%= f.label :Bairro %><br>
+          <%= f.text_field :DESC_Bairro %>
+        </div>
+        <div class="field">
+          <%= f.label :Rua %><br>
+          <%= f.text_field :DESC_Rua %>
+        </div>
+        <div class="field">
+          <%= f.label :Complemento %><br>
+          <%= f.text_field :DESC_Complemento %>
+        </div>
+        <div class="field">
+          <%= f.label :Ponto_de_referencia %><br>
+          <%= f.text_field :DESC_Pontoreferencia %>
+        </div>
+        <div class="field">
+          <%= f.label :CEP %><br>
+          <%= f.number_field :NUMR_Cep %>
+        </div>
+
+            <%=  f.fields_for :sivic_estado do |estado| %> 
+            <div class="field">
+              <%= estado.label :Estado %><br>
+              <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)',}%>
+            </div>
+            <%end%>
+
+            <%if @sivic_cidade %>
+
+              <div class="field">
+                <%= f.label :Cidade %><br>
+                <%= f.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada)%>
+              </div>
+
+            <%else%>
+
+              <div class="field">
+                <%= f.label :Cidade   %><br>
+                <%= f.select :sivic_cidade_id, [] %><br>
+              </div> 
+
+            <%end%>
+
+      </div>
+      <div class="modal-footer">
+        <div class="field">
+          <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
+        </div>        
+      </div>  
+      </div>  
+    <% end %>
+
+</fieldset>
+
+
 <script>
+
+  function changeState(state){
+      $.ajax({
+        url: '<%= listarCidade_path %>',
+        data : {id : state.value},
+        success: function(data){
+          $('#sivic_endereco_sivic_cidade_id').empty();
+          $('#sivic_endereco_sivic_cidade_id').html('<option>Carregando...</option>');
+          $('#sivic_endereco_sivic_cidade_id').attr('disabled', 'disabled');
+          var options = "";
+          for (var i in data) {
+            var item = data[i];
+            options += "<option value='"+item.id+"'>"+item.name+"</option>"
+          };
+ 
+          $('#sivic_endereco_sivic_cidade_id').html(options);
+          $('#sivic_endereco_sivic_cidade_id').removeAttr('disabled');          
+        }
+      })
+    }
+
+
   function buscaPessoa(){
 
       $.ajax({
@@ -275,19 +370,24 @@
 
           $('#sivic_discipulo_sivic_pessoa_id').val(id)
           $('#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa').val(nome)
-          $('#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa').attr('disabled', 'disabled');
           $('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').val(email)
-          $('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').attr('disabled', 'disabled');
-          $('#sivic_discipulo_sivic_pessoa_attributes_DESC_observacao').attr('disabled', 'disabled');
-
           $('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty();
           $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html('<option>Carregando...</option>');
-          $('#sivic_discipulo_sivic_pessoa_attributes_father_id').attr('disabled', 'disabled');
+
           var options = "<option value='"+idlider+"'>"+nomelider+"</option>";
           $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html(options);
-                
+          $('#sivic_discipulo_sivic_pessoa_attributes_father_id').attr('disabled', 'disabled');
+
+          disablePessoaForm();
 
           $('#myModal2').modal('hide');
+  }
+
+  function disablePessoaForm(){
+    $('#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa').attr('disabled', 'disabled');
+    $('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').attr('disabled', 'disabled');
+    $('#sivic_discipulo_sivic_pessoa_attributes_DESC_observacao').attr('disabled', 'disabled');
+    //$('#sivic_discipulo_sivic_pessoa_attributes_father_id').attr('disabled', 'disabled');
   }
 
   function usaNome(nome){
@@ -296,4 +396,18 @@
           $('#myModal2').modal('hide');
   }   
 
+  <% if @sivic_discipulo.sivic_pessoa.id %>
+
+    disablePessoaForm();
+    $('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty();
+    $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html('<option>Carregando...</option>');
+
+    //var options2 = '<option value="'+<%=@sivic_discipulo.sivic_pessoa.father_id%>+'">'+<%#=@sivic_discipulo.sivic_pessoa.father.NOME_pessoa%>+'</option>';
+
+
+    $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html('<option value="<%=@sivic_discipulo.sivic_pessoa.father.id%>"><%=@sivic_discipulo.sivic_pessoa.father.NOME_pessoa%></option>');
+
+    $('#sivic_discipulo_sivic_pessoa_attributes_father_id').attr('disabled', 'disabled');
+
+  <% end %>
 </script>

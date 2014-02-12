@@ -16,7 +16,8 @@ SIVIC::Application.routes.draw do
   resources :sivic_tipo_eventos
   resources :sivic_escolaridades
   resources :sivic_profissaos
-
+  resources :sivic_enderecos
+  
   resources :sivic_igrejas do 
     resources :sivic_enderecos
   end
