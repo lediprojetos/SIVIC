@@ -23,6 +23,23 @@ class SivicEnderecosController < ApplicationController
   def edit
   end
 
+  # AJAX /criarEndereco
+  def create_endereco
+    id = SivicEndereco.create(:DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id)
+
+    sivic_endereco = SivicEndereco.find :all, :conditions => {:id => id}
+    sivic_endereco_json = sivic_endereco.map {|item| {:id => item.id, :DESC_Bairro => item.DESC_Bairro, :DESC_Rua => item.DESC_Rua, :DESC_Complemento => item.DESC_Complemento, :DESC_Pontoreferencia => item.DESC_Pontoreferencia, :NUMR_Cep => item.NUMR_Cep, :sivic_cidade_id => item.sivic_cidade_id, :nome_cidade => item.sivic_cidade.nome_cidade}}
+    render :json => sivic_endereco_json
+  end
+
+  # AJAX /
+  def busca_endereco
+
+    sivic_pessoa = SivicPessoa.where("NOME_pessoa like ?", "#{params[:NOME_pessoa]}%")
+    sivic_pessoa_json = sivic_pessoa.map {|item| {:id => item.id, :NOME_pessoa => item.NOME_pessoa, :DESC_email => item.DESC_email, :father_id => item.father_id, :NOME_Lider => item.father.NOME_pessoa }}
+    render :json => sivic_pessoa_json
+  end   
+
   # POST /sivic_enderecos
   # POST /sivic_enderecos.json
   def create

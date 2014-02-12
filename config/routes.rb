@@ -16,7 +16,8 @@ SIVIC::Application.routes.draw do
   resources :sivic_tipo_eventos
   resources :sivic_escolaridades
   resources :sivic_profissaos
-
+  resources :sivic_enderecos
+  
   resources :sivic_igrejas do 
     resources :sivic_enderecos
   end
@@ -51,8 +52,9 @@ SIVIC::Application.routes.draw do
   match '/criarParticipantesCelulas', to: 'sivic_participantecelulas#create_participante', via: 'get'
 
   match '/listarEvento', to: 'sivic_parteventos#buscaEvento', via: 'get'
-  
   match '/encerraEvento', to: 'sivic_eventos#encerrar', via: 'get'
+
+  match '/criarEndereco', to: 'sivic_enderecos#create_endereco', via: 'get'
   
   map.resources :sivic_eventos, :controllers => {:encerrar => :post}
 
