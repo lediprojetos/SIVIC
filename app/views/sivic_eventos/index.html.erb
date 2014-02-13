@@ -30,7 +30,7 @@
         <td><%= link_to 'Exibir', sivic_evento %></td>
         <td><%= link_to 'Editar', edit_sivic_evento_path(sivic_evento) %></td>
         <td><%= link_to 'Excluir', sivic_evento, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
-        <td><%= link_to_function  'Encerrar',"encerrar('#{sivic_evento.id}')"%></td>          
+        <td><%= link_to_function  'Encerrar',"var r = confirm('Deseja encerrar o evento?'); if (r == true){encerrar('#{sivic_evento.id}')}else{}"%></td>                  
       </tr>
     <% end %>
   </tbody>
@@ -51,10 +51,12 @@ function encerrar(evento_id){
           id : evento_id
         },
         success: function(data){
-            
+          
+            document.location.reload();
         }
-       })
-  
+       })  
   }
 
 </script>
+
+

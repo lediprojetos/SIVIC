@@ -73,7 +73,7 @@
       
      <div class="modal-header">  
           <a class="close" data-dismiss="modal">×</a>  
-          <h3>Buscar Eventos</h3>  
+          <h5>Buscar Pessoas</h5>  
       </div>  
       <div class="modal-body">
         <div class="input-group input-group-lg">
@@ -99,7 +99,7 @@
     <%= form_for(@sivic_pessoa) do |f| %>
       <div class="modal-header">  
         <a class="close" data-dismiss="modal">×</a>  
-        <h3>Cadastro de Pessoa</h3>  
+        <h5>Cadastro de Pessoa</h5>  
       </div>  
       <div class="modal-body">
         <div class="field">
@@ -203,8 +203,7 @@
         {
           NOME_pessoa : $('#NOME_pessoa_buscar').val()
         },
-        success: function(data){
-          alert(item.NOME_pessoa);
+        success: function(data){        
           $('#tbodyid').empty();
           for (var i in data){
             var item = data[i];
