@@ -41,21 +41,15 @@ textarea {
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
+  margin-bottom: 30px;
 }
 
 h1 {
-  font-size: 3em;
-  letter-spacing: -2px;
-  margin-bottom: 30px;
   text-align: center;
 }
 
 h2 {
-  font-size: 1.2em;
-  letter-spacing: -1px;
-  margin-bottom: 30px;
   text-align: center;
-  font-weight: normal;
   
 }
 
@@ -152,12 +146,35 @@ aside {
 
 /* forms */
 
-input, textarea, select, .uneditable-input {
-  border: 1px solid #bbb;
-  width: 100%;
-  margin-bottom: 15px;
-  @include box_sizing;
+.form-control-5 {
+  width: 500px;
 }
+
+.form-control-4 {
+  width: 400px;
+}
+
+.form-control-3 {
+  width: 300px;
+}
+
+.form-control-100 {
+  width: 95%;
+}
+
+.field-l {
+  float:left;
+}
+
+.field-r {
+  float:right;
+}
+
+.field-p-l {
+  margin-left: 600px;
+}
+
+
 
 input {
   height: auto !important;

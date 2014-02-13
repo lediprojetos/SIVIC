@@ -4,7 +4,7 @@ class SivicDiscipulosController < ApplicationController
   # GET /sivic_discipulos
   # GET /sivic_discipulos.json
   def index
-    @sivic_discipulos = SivicDiscipulo.find_by_id(1)
+    @sivic_discipulos = SivicDiscipulo.all
   end
 
   # GET /sivic_discipulos/1
