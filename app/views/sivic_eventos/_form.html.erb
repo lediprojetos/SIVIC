@@ -11,62 +11,84 @@
     </div>
   <% end %>
  
-  <div class="field">
-    <%= f.label :Tipo_do_Evento %><br>
-    <%= f.select :sivic_tipo_evento_id, options_from_collection_for_select(SivicTipoEvento.all, 'id', 'desc_tipoevento',@sivic_evento.sivic_tipo_evento_id),:include_blank => true%>
+
+<div class="tabbable">
+      <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#tab1" data-toggle="tab">Dados Evento</a>
+          </li>
+          <li>
+            <a href="#tab2" data-toggle="tab">Endereço</a>
+          </li>        
+      </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+
+<table style="width:95%;">
+  <tr>
+    <td>
+        <div class="field">
+          <%= f.label :Tipo_do_Evento %>
+          <%= f.select :sivic_tipo_evento_id, options_from_collection_for_select(SivicTipoEvento.all, 'id', 'desc_tipoevento',@sivic_evento.sivic_tipo_evento_id),:include_blank => true, :class =>  'form-control-2'%>
+        </div>
+    </td>
+    <td>    
+        <div class="field">
+          <%= f.label :Evento %>
+          <%= f.text_field :DESC_evento %>
+        </div>
+    </td>   
+  </tr>
+ </table>      
+        <div class="field">
+          <%= f.label :Resumo %>
+          <%= f.text_area :DESC_resumo %>
+        </div>
+        <div class="field">
+          <%= f.label :Valor_inscricao %>
+          <%= f.text_field :VARL_inscricao %>
+        </div>
+        <div class="field">
+          <%= f.label :DATA_inicio %>
+          <%= f.text_field :DATA_inicio %>
+        </div>  
+        <div class="field">
+          <%= f.label :DATA_fim %>
+          <%= f.text_field :DATA_fim %>
+        </div>
+        <div class="field">
+          <%= f.label :Vagas_limitado %>
+          <%= f.number_field :FLAG_ilimitado %>
+        </div>
+        <div class="field">
+          <%= f.label :Qtd_Vagas %>
+          <%= f.number_field :NUMR_qdtVagas %>
+        </div>
   </div>
   
-  <div class="field">
-    <%= f.label :Evento %><br>
-    <%= f.text_field :DESC_evento %>
-  </div>
-  <div class="field">
-    <%= f.label :Resumo %><br>
-    <%= f.text_area :DESC_resumo %>
-  </div>
-  <div class="field">
-    <%= f.label :Valor_inscricao %><br>
-    <%= f.text_field :VARL_inscricao %>
-  </div>
-  <div class="field">
-    <%= f.label :DATA_inicio %><br>
-    <%= f.text_field :DATA_inicio %>
-  </div>  
-  <div class="field">
-    <%= f.label :DATA_fim %><br>
-    <%= f.text_field :DATA_fim %>
-  </div>
-  <div class="field">
-    <%= f.label :Vagas_limitado %><br>
-    <%= f.number_field :FLAG_ilimitado %>
-  </div>
-  <div class="field">
-    <%= f.label :Qtd_Vagas %><br>
-    <%= f.number_field :NUMR_qdtVagas %>
-  </div>
-    
-  <legend>Endereço</legend>
+  <div class="tab-pane" id="tab2">
+    <legend>Endereço</legend>
 
 
   <%=  f.fields_for :sivic_endereco do |endereco| %>
   <div class="field">
-    <%= endereco.label :Bairro %><br>
+    <%= endereco.label :Bairro %>
     <%= endereco.text_field :DESC_Bairro %>
   </div>
   <div class="field">
-    <%= endereco.label :Rua %><br>
+    <%= endereco.label :Rua %>
     <%= endereco.text_field :DESC_Rua %>
   </div>
   <div class="field">
-    <%= endereco.label :Complemento %><br>
+    <%= endereco.label :Complemento %>
     <%= endereco.text_field :DESC_Complemento %>
   </div>
   <div class="field">
-    <%= endereco.label :Ponto_referência %><br>
+    <%= endereco.label :Ponto_referência %>
     <%= endereco.text_field :DESC_Pontoreferencia %>
   </div>
   <div class="field">
-    <%= endereco.label :CEP.capitalize %><br>
+    <%= endereco.label :CEP.capitalize %>
     <%= endereco.number_field :NUMR_Cep %>
   </div>
 
@@ -80,14 +102,14 @@
   <%if @sivic_cidade %>
 
     <div class="field">
-      <%= endereco.label :Cidade %><br>
+      <%= endereco.label :Cidade %>
       <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada)%>
     </div>
 
   <%else%>
 
     <div class="field">
-      <%= endereco.label :Cidade   %><br>
+      <%= endereco.label :Cidade   %>
       <%= endereco.select :sivic_cidade_id, [] %><br>
     </div> 
 
@@ -105,12 +127,13 @@
 <% end %>
 
 
- <!-- Implementação do calendário -->
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css">
+         <!-- Implementação do calendário -->
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+        <link rel="stylesheet" href="/resources/demos/style.css">
 
+</div>
 
 <script>
   function changeState(state){
