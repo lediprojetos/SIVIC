@@ -44,11 +44,17 @@
 
 function encerrar(evento_id){
         
-    alert(evento_id);
+     $.ajax({
+        url : '<%= encerraEvento_path %>',
+        data :
+        {
+          id : evento_id
+        },
+        success: function(data){
+            
+        }
+       })
   
   }
 
 </script>
-
-<!--Para teste-->
-<!--<td><%= link_to_function  'Encerrar',"encerrar('#{sivic_evento.id}')"%></td> -->
