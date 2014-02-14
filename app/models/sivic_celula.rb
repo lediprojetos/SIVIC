@@ -6,6 +6,8 @@ class SivicCelula < ActiveRecord::Base
 
   has_many :sivic_relatorioscelula
 
+  # - Domínios
   DIAS = %w[SEGUNDA-FEIRA TERCA-FEIRA QUARTA-FEIRA QUINTA-FEIRA SEXTA-FEIRA SABADO DOMINGO]
+  SEXO = %w[FEMININO MASCULINO OUTROS]
 
 end

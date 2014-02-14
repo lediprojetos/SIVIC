@@ -22,6 +22,11 @@
     <%= f.label :Dia_da_Semana %><br>
     <%= f.collection_select :NUMR_Dia, SivicCelula::DIAS, :to_s, :humanize %>
   </div>
+
+  <div class="field">
+    <%= f.label :Sexo %>
+    <%= f.collection_select :DESC_sexo, SivicCelula::SEXO, :to_s, :humanize,{},{ :class => 'form-control-1' }%>
+  </div>
   <!--
   Data Bloqueio
   =============
