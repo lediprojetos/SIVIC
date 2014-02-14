@@ -44,14 +44,10 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 30px;
 }
 
-h1 {
+h1, h2, h3 {
   text-align: center;
 }
 
-h2 {
-  text-align: center;
-  
-}
 
 p {
   font-size: 1.1em;
@@ -158,21 +154,18 @@ aside {
   width: 300px;
 }
 
+.form-control-2 {
+  width: 200px;
+}
+
+.form-control-1 {
+  width: 100px;
+}
+
 .form-control-100 {
   width: 95%;
 }
 
-.field-l {
-  float:left;
-}
-
-.field-r {
-  float:right;
-}
-
-.field-p-l {
-  margin-left: 600px;
-}
 
 
 
