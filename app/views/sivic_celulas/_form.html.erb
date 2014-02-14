@@ -11,17 +11,25 @@
     </div>
   <% end %>
 
-  <legend>Dados Principais</legend>
-
-  <div class="field">
-    <%= f.label :Lider %><br>
-    <%= f.select :sivic_pessoa_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',@sivic_celula.sivic_pessoa_id)%>
-  </div>
-
-  <div class="field">
-    <%= f.label :Dia_da_Semana %><br>
-    <%= f.collection_select :NUMR_Dia, SivicCelula::DIAS, :to_s, :humanize %>
-  </div>
+  <h5>Dados Principais</h5>
+  <hr>
+    <table style="width:100%;" align="center">
+      <tr>
+        <td>
+          <div class="field">
+            <%= f.label :Lider %>
+            <a data-toggle="modal" href="#myModal" class="btn btn-default" style='margin-bottom:10px;'>Buscar</a>
+            <%= f.select :sivic_pessoa_id, {},{},{ :class => 'form-control-4' } %>
+          </div>
+        </td>
+        <td>    
+          <div class="field">
+            <%= f.label :Dia_da_Semana %><br>
+            <%= f.collection_select :NUMR_Dia, SivicCelula::DIAS, :to_s, :humanize %>
+          </div>
+        </td>
+      </tr>
+    </table>
   <!--
   Data Bloqueio
   =============
@@ -31,7 +39,8 @@
   </div>
 -->
 
-<legend>Endereço</legend>
+<h5>Endereço</h5>
+<hr>
 
 
   <%=  f.fields_for :sivic_endereco do |endereco| %>
@@ -86,8 +95,78 @@
   </div>
 <% end %>
 
+<fieldset>
+  <div id="myModal" class="modal fade" style="display: none;">  
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>  
+        <h3>Buscar Líder</h3>
+      </div>
+      <div class="modal-body">
+        <div class="input-group input-group-lg">
+          <label >Nome</label><br>
+          <input id="NOME_lider_buscar" name="NOME_lider_buscar" onkeypress="buscaPessoa();" type="text" class="form-control" placeholder="Nome" style="width: 85%;">
+          <a data-toggle="modal" href="javascript:usaNome();" class="btn btn-success" style="margin-bottom: 10px;">Usar</a>
+        </div>
+        <table id="table_lider" name="table_lider" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyid2">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+      </div>
+      <div class="modal-footer">
+      </div>
+  </div>  
+</fieldset>
+
 
 <script>
+
+  function buscaPessoa(){
+
+      var pesquisa;
+
+        pesquisa = $('#NOME_lider_buscar').val();
+
+      $.ajax({
+        url: '<%= listarPessoa_path %>',
+        data : 
+        {
+            NOME_pessoa : pesquisa
+        },
+        success: function(data){
+          $("#tbodyid").empty();
+          $("#tbodyid2").empty();
+          for (var i in data) {
+            var item = data[i];
+
+              $('#table_lider').append('<tr><td><a href="javascript:setaLider(\'' + item.NOME_pessoa+'\','+item.id+');">'+item.NOME_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.NOME_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
+
+          };
+ 
+        }
+      })
+    }
+
+  function setaLider(nome,id){
+
+      $('#sivic_celula_sivic_pessoa_id').empty();
+      $('#sivic_celula_sivic_pessoa_id').html('<option>Carregando...</option>');
+
+      var options = "<option value='"+id+"'>"+nome+"</option>";
+      $('#sivic_celula_sivic_pessoa_id').html(options);
+
+      $('#myModal').modal('hide');
+  }  
+
   function changeState(state){
       $.ajax({
         url: '<%= listarCidade_path %>',

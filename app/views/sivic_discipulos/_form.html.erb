@@ -1,3 +1,7 @@
+<h1><%#=t :hello_world %></h1>
+<p><%= flash[:notice] %></p>
+<p><%= l Time.now, format: :regular %></p>
+
 <%= form_for(@sivic_discipulo) do |f| %>
   <% if @sivic_discipulo.errors.any? %>
     <div id="error_explanation">
@@ -147,7 +151,8 @@
             <td>
               <div class="field">
                 <%= f.label :Data_de_Nascimento %>
-                <%= f.text_field :DATA_Nascimento %>
+                <%= f.text_field :DATA_Nascimento, format: :regular %>
+                <p><%#= l Time.now, format: :regular %></p>
               </div>
             </td>
             <td>
