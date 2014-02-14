@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 30px;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
   text-align: center;
 }
 
@@ -166,8 +166,32 @@ aside {
   width: 95%;
 }
 
+.containermininmo {
+  height: 400px;
+  background-color: #FAFAFA;
+  border-left: solid 1px;
+  border-right: solid 1px;
+  border-color:#eeeeee;
+}
 
+.titulos {
+  width:100%;
+  height:30px;
+  background-color:#eeeeee;
+  color:#006983;
+}
 
+.lblForms{
+  color:#006983;
+}
+
+.divBotoes {
+
+  width: 100%;
+  height: 40px;
+  background-color:#EEEEEE;
+  text-align:right;
+}
 
 input {
   height: auto !important;
