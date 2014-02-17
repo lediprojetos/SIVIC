@@ -11,9 +11,18 @@
     </div>
   <% end %>
 
-  <h5>Dados Principais</h5>
-  <hr>
-    <table style="width:100%;" align="center">
+<div class="tabbable">
+      <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#tab1" data-toggle="tab">Dados Evento</a>
+          </li>
+          <li>
+            <a href="#tab2" data-toggle="tab">Endereço</a>
+          </li>        
+      </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+       <table style="width:100%;" align="center">      
       <tr>
         <td>
           <div class="field">
@@ -30,27 +39,39 @@
         </td>
       </tr>
     </table>
-   
- 
-    <div class="field">
-    <%= f.label :Sexo %>
-    <%= f.collection_select :DESC_sexo, SivicCelula::SEXO, :to_s, :humanize,{},{ :class => 'form-control-1' }%>
-    </div>
+    
+    <hr>
+    <table style="width:100%;">
+      <tr>   
+    <td> 
+      <div class="field">
+      <%= f.label :Sexo %>
+      <%= f.collection_select :DESC_sexo, SivicCelula::SEXO, :to_s, :humanize,{},{ :class => 'form-control-1' }%>
+      </div>
+    </td>
+    <td>
+      <div class="checkbox">
+      <%= f.check_box :FLAG_crianca %>
+      <%= f.label :Criança %>
+      </div>
+    </td>
+    <td>
+      <div class="checkbox">
+      <%= f.check_box :FLAG_jovem %>
+      <%= f.label :Jovem %>
+      </div>
+    </td>
+    <td>
+      <div class="checkbox">
+      <%= f.check_box :FLAG_adulto %>
+      <%= f.label :Adulto %>
+      </div>
+    </td>
+   </table>
+</div>
 
-  <!--
-  Data Bloqueio
-  =============
-  <div class="field">
-    <%#= f.label :DATA_Bloqueio %><br>
-    <%#= f.datetime_select :DATA_Bloqueio %>
-  </div>
--->
-
-<h5>Endereço</h5>
-<hr>
-
-
-  <%=  f.fields_for :sivic_endereco do |endereco| %>
+  <div class="tab-pane active" id="tab2">
+     <%=  f.fields_for :sivic_endereco do |endereco| %>
   <div class="field">
     <%= endereco.label :Bairro %><br>
     <%= endereco.text_field :DESC_Bairro %>
@@ -95,12 +116,29 @@
 
   <%end%>
 
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <% end %>
+   </div>
+       
+</div>
+
+   
+
+  <!--
+  Data Bloqueio
+  =============
+  <div class="field">
+    <%#= f.label :DATA_Bloqueio %><br>
+    <%#= f.datetime_select :DATA_Bloqueio %>
   </div>
-<% end %>
+-->
+
+ 
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+   <% end %>
 
 <fieldset>
   <div id="myModal" class="modal fade" style="display: none;">  
