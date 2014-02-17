@@ -17,7 +17,7 @@
     <% @sivic_discipulos.each do |sivic_discipulo| %>
       <tr>
         <td><%= sivic_discipulo.sivic_pessoa.NOME_pessoa %></td>
-        <td><%= sivic_discipulo.DATA_Nascimento %></td>
+        <td><%= sivic_discipulo.DATA_Nascimento.strftime("%d/%m/%Y")  %></td>
         <td><%= sivic_discipulo.NUMR_CPF %></td>
         <td><%= sivic_discipulo.DATA_Batismo %></td>
         <td><%= link_to 'Exibir', sivic_discipulo %></td>
@@ -31,3 +31,4 @@
 <br>
 
 <%= link_to 'Novo Discípulo', new_sivic_discipulo_path %>
+

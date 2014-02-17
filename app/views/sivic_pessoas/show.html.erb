@@ -1,36 +1,61 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Nome:</strong>
-  <%= @sivic_pessoa.NOME_pessoa %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @sivic_pessoa.DESC_email %>
-</p>
-
-<p>
-  <strong>Observação:</strong>
-  <%= @sivic_pessoa.DESC_observacao %>
-</p>
-
-<p>
-  <strong>Lider:</strong>
-  <% @lider = @sivic_pessoa.father %>
-  <% if @lider != nil %>
-    <%= @sivic_pessoa.father.NOME_pessoa%>
-  <%else%>
-      <%= nil%>
-  <%end%>
-</p>
-
-<p>
-  <strong>Operador de Inclusão:</strong>
-  <%= User.find_by_id(@sivic_pessoa.User_id).email %>
-</p>
 
 
+<div class="containermininmo">
+  <table class="table table-hover" >
+    <tr>
+      <td>
+        <strong>Nome:</strong>
+        <%= @sivic_pessoa.NOME_pessoa %>
+      </td>
+    </tr>
+    <tr>      
+      <td>
+        <strong>Email:</strong>
+        <%= @sivic_pessoa.DESC_email %>
+      </td>
+    </tr>
+    <tr>      
+      <td>
+        <strong>Observação:</strong>
+        <%= @sivic_pessoa.DESC_observacao %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Lider:</strong>
+        <% @lider = @sivic_pessoa.father %>
+        <% if @lider != nil %>
+          <%= @sivic_pessoa.father.NOME_pessoa%>
+        <%else%>
+            <%= nil%>
+        <%end%>
+      </td>
+    </tr>
+    <tr>      
+      <td>
+        <strong>Operador de Inclusão:</strong>
+        <%= User.find_by_id(@sivic_pessoa.User_id).email %>
+      </td>
+    </tr>
 
-<%= link_to 'Editar', edit_sivic_pessoa_path(@sivic_pessoa) %> |
-<%= link_to 'Voltar', sivic_pessoas_path %>
+  </table>
+</div>
+
+<table style="margin-top:10px;"> 
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('edit.png', title: "Editar") , edit_sivic_pessoa_path(@sivic_pessoa) %>
+    </td>
+    <td align="center" style="width:20px;">
+      <%= link_to image_tag('back.png', title: "Voltar") , sivic_pessoas_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Editar</label>
+    </td>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Voltar</label>
+    </td>
+  </tr> 
+</table>

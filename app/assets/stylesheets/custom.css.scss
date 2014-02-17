@@ -41,11 +41,11 @@ textarea {
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
-  margin-bottom: 30px;
 }
 
 h1, h2, h3, h4 {
   text-align: center;
+  color:#006983
 }
 
 
@@ -167,33 +167,32 @@ aside {
 }
 
 .containermininmo {
-  height: 400px;
-  background-color: #FAFAFA;
-  border-left: solid 1px;
-  border-right: solid 1px;
+  height: 600px;
+  background-color: #EEEEEE;
+  border: solid 1px;
   border-color:#eeeeee;
+  overflow:auto;
 }
 
-.titulos {
-  width:100%;
-  height:30px;
-  background-color:#eeeeee;
-  color:#006983;
+.altBotoes{
+  font-size: 1em;  
+  color: gray;
 }
 
 .lblForms{
   color:#006983;
 }
 
-.divBotoes {
-
-  width: 100%;
-  height: 40px;
-  background-color:#EEEEEE;
-  text-align:right;
-}
 
 input {
   height: auto !important;
 }
 
+a:hover img {
+border: none !important;
+display: block;
+}
+
+.titleTable {
+  color:#006983;
+}

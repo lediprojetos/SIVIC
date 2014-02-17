@@ -1,6 +1,24 @@
-<h3>Editar Pessoa</h3>
+<div class="titulos">
+	<h4 style="padding-top:5px;">Editar Pessoas</h4>
+</div>
 
 <%= render 'form' %>
 
-<%= link_to 'Exibir', @sivic_pessoa %> |
-<%= link_to 'Voltar', sivic_pessoas_path %>
+<table>
+	<tr>
+		<td align="center" style="width:50px;">
+			<%= link_to image_tag('folder_blue_open.png', title: "Exibir") , @sivic_pessoa %>
+		</td>
+		<td align="center" style="width:20px;">
+			<%= link_to image_tag('back.png', title: "Voltar") , @sivic_pessoa %>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" style="width:20px;">
+			<label class="altBotoes">Exibir</label>
+		</td>
+		<td align="center" style="width:20px;">
+			<label class="altBotoes">Voltar</label>
+		</td>
+	</tr>	
+</table>

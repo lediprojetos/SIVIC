@@ -1,12 +1,15 @@
-<h3>Lista de Pessoas</h3>
+<div class="titulos">
+  <h4 style="padding-top:5px;">Lista de Pessoas</h4>
+</div>
 
+<div class="containermininmo">
 <table class="table table-hover">
   <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Email</th>
-      <th>Observacao</th>
-      <th>Lider</th>
+    <tr align="center">
+      <th><strong class='titleTable'>Nome</strong></th>
+      <th><strong class='titleTable'>Email</strong></th>
+      <th><strong class='titleTable'>Observacao</strong></th>
+      <th><strong class='titleTable'>Lider</strong></th>
       <th></th>
       <th></th>
       <th></th>
@@ -25,14 +28,30 @@
           <%else%>
             <td><%= nil%></td>
           <%end%>
-        <td><%= link_to 'Exibir', sivic_pessoa %></td>
-        <td><%= link_to 'Editar', edit_sivic_pessoa_path(sivic_pessoa) %></td>
-        <td><%= link_to 'Excluir', sivic_pessoa, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
+        <%#= link_to 'Exibir', sivic_pessoa %>
+        <td><%= link_to image_tag('folder_blue_open.png', :title => 'Exibir') , sivic_pessoa %></td>
+        <%#= link_to 'Editar', edit_sivic_pessoa_path(sivic_pessoa) %>
+        <td><%= link_to image_tag('edit.png', :title => 'Editar') , edit_sivic_pessoa_path(sivic_pessoa) %></td>
+        <%#= link_to 'Excluir', sivic_pessoa, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %>
+        <%#= link_to image_tag('trash.png', data: { confirm: 'Deseja excluir o registro?' })%>
+        <td><%= link_to image_tag('trash.png', :title => 'Excluir'), sivic_pessoa , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+</div>
 
-<%= link_to 'Novo Cadastro', new_sivic_pessoa_path %>
+<table style="margin-top:10px;">
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('folder_new.png', :title => 'Novo') , new_sivic_pessoa_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Novo</label>
+    </td>
+  </tr> 
+</table>
