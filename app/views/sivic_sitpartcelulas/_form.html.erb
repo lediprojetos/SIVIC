@@ -1,0 +1,25 @@
+<%= form_for(@sivic_sitpartcelula) do |f| %>
+  <% if @sivic_sitpartcelula.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_sitpartcelula.errors.count, "error") %> prohibited this sivic_sitpartcelula from being saved:</h2>
+
+      <ul>
+      <% @sivic_sitpartcelula.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :DESC_situacao %><br>
+    <%= f.text_field :DESC_situacao %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_igreja_id %><br>
+    <%= f.text_field :sivic_igreja_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
