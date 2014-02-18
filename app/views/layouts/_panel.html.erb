@@ -1,11 +1,5 @@
-<div style='width:1170px; height:40px;'>
-	<div style='height:40px; width:9px; background-image:url("/assets/panel/left.png"); float:left;'>
-	</div>
-	<div style=' background-image:url("/assets/panel/center.png"); height:40px; width:1152px;float:left;text-align:center;'>
-		<div style='margin-top:10px;'>
-			<strong style='color:white;'><%= yield(:titlePage)%></strong>
-		</div>
-	</div>
-	<div style='height:40px; width:9px; background-image:url("/assets/panel/right.png");float:right;'> 
-	</div>
-</div>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= yield(:titlePage)%></h3>
+  </div>
+  <div class="panel-footer">
