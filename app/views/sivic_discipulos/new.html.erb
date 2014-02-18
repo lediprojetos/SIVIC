@@ -1,5 +1,13 @@
-<h3>Novo Discípulo</h3>
+<% content_for :titlePage do %>
+  <strong class='titlepage'>Novo Discípulo</strong>
+<% end %>
+
+<%=render '/layouts/panel' %>
 
 <%= render 'form' %>
 
-<%= link_to 'Voltar', sivic_discipulos_path %>
+<% content_for :pathback do %>
+  <%= sivic_discipulos_path%>
+<% end %>
+
+<%= render '/layouts/iconvoltar' %>

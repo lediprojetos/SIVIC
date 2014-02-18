@@ -1,18 +1,15 @@
-<div class="titulos">
-	<h4 style="padding-top:5px;">Cadastro de Pessoas</h4>
-</div>
+
+<% content_for :titlePage do %>
+  <strong class='titlepage'>Cadastro de  Pessoas</strong>
+<% end %>
+
+<%=render '/layouts/panel' %>
 
 <%= render 'form' %>
 
-<table>
-	<tr>
-		<td align="center">
-			<%= link_to image_tag('back.png', title: 'Voltar') , sivic_pessoas_path %>
-		</td>
-	</tr>
-	<tr>
-		<td align="center">
-			<label class="altBotoes">Voltar</label>
-		</td>
-	</tr>
-</table>
+<% content_for :pathback do %>
+  <%= sivic_pessoas_path%>
+<% end %>
+
+<%= render '/layouts/iconvoltar' %>
+

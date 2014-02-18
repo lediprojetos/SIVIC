@@ -167,10 +167,11 @@ aside {
 }
 
 .containermininmo {
-  height: 600px;
-  background-color: #EEEEEE;
+  width:1168px;
+  height: 550px;
+  background-color: #F2F2F2;
   border: solid 1px;
-  border-color:#eeeeee;
+  border-color:#428BCA;
   overflow:auto;
 }
 
@@ -195,4 +196,9 @@ display: block;
 
 .titleTable {
   color:#006983;
+}
+
+.titlepage{
+  
+  color:white;
 }

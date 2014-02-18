@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="containermininmo">
-  <hr>
+    <br />
     <table style="width:60%;" align="center">
       <tr>
         <td>
@@ -55,30 +55,9 @@
     <%=f.hidden_field :User_id, :value => current_user.id%>
     <!--Campos ocultos -->
 
+    <%=render '/layouts/iconsalvar' %>
+
 <% end %>
-    
-    <div style='width:100%; margin-top: 250px;'>
-    <hr>
-    <table align="right" style="margin-right:10px;">
-      <tr>
-        <td>
-          <table align="right">
-            <tr>
-              <td align="center" style='width:50px;'>
-                <%= image_submit_tag('save.png', title: "Salvar")%><br/>
-              </td>
-            </tr>
-            <tr>
-              <td align="center">
-                <label class="altBotoes">Salvar</label>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-  </div>
-  </div>
 
 <fieldset>
   <div id="myModal" class="modal fade" style="display: none;">  

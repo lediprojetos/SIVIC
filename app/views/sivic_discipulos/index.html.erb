@@ -1,34 +1,52 @@
-<h1>Listar Discípulos</h1>
+<% content_for :titlePage do %>
+  <strong class='titlepage'>Listar Discípulos</strong>
+<% end %>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Data de Nascimento</th>
-      <th>CPF</th>
-      <th>Data batismo</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<%=render '/layouts/panel' %>
 
-  <tbody>
-    <% @sivic_discipulos.each do |sivic_discipulo| %>
+<div class="containermininmo">
+  <table class="table table-hover">
+    <thead>
       <tr>
-        <td><%= sivic_discipulo.sivic_pessoa.NOME_pessoa %></td>
-        <td><%= sivic_discipulo.DATA_Nascimento.strftime("%d/%m/%Y")  %></td>
-        <td><%= sivic_discipulo.NUMR_CPF %></td>
-        <td><%= sivic_discipulo.DATA_Batismo %></td>
-        <td><%= link_to 'Exibir', sivic_discipulo %></td>
-        <td><%= link_to 'Editar', edit_sivic_discipulo_path(sivic_discipulo) %></td>
-        <td><%= link_to 'Excluir', sivic_discipulo, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
+        <th><strong class='titleTable'>Nome</strong></th>
+        <th><strong class='titleTable'>Data de Nascimento</strong></th>
+        <th><strong class='titleTable'>CPF</strong></th>
+        <th><strong class='titleTable'>Data batismo</strong></th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
+    </thead>
+
+    <tbody>
+      <% @sivic_discipulos.each do |sivic_discipulo| %>
+        <tr>
+          <td><%= sivic_discipulo.sivic_pessoa.NOME_pessoa %></td>
+          <td><%= sivic_discipulo.DATA_Nascimento.strftime("%d/%m/%Y")  %></td>
+          <td><%= sivic_discipulo.NUMR_CPF %></td>
+          <td><%= sivic_discipulo.DATA_Batismo %></td>
+          <td><%= link_to image_tag('folder_blue_open.png', :title => 'Exibir') , sivic_discipulo %></td>
+          <td><%= link_to image_tag('edit.png', :title => 'Editar') , edit_sivic_discipulo_path(sivic_discipulo) %></td>
+          <td><%= link_to image_tag('trash.png', :title => 'Excluir'), sivic_discipulo , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>
+                  
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+
+<table style="margin-top:10px;">
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('folder_new.png', :title => 'Novo') , new_sivic_discipulo_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Novo</label>
+    </td>
+  </tr> 
 </table>
 
-<br>
-
-<%= link_to 'Novo Discípulo', new_sivic_discipulo_path %>
 

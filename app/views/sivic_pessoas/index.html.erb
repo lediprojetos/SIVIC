@@ -1,6 +1,9 @@
-<div class="titulos">
-  <h4 style="padding-top:5px;">Lista de Pessoas</h4>
-</div>
+
+<% content_for :titlePage do %>
+  <strong class='titlepage'>Lista de Pessoas</strong>
+<% end %>
+
+<%=render '/layouts/panel' %>
 
 <div class="containermininmo">
 <table class="table table-hover">
@@ -28,12 +31,8 @@
           <%else%>
             <td><%= nil%></td>
           <%end%>
-        <%#= link_to 'Exibir', sivic_pessoa %>
         <td><%= link_to image_tag('folder_blue_open.png', :title => 'Exibir') , sivic_pessoa %></td>
-        <%#= link_to 'Editar', edit_sivic_pessoa_path(sivic_pessoa) %>
         <td><%= link_to image_tag('edit.png', :title => 'Editar') , edit_sivic_pessoa_path(sivic_pessoa) %></td>
-        <%#= link_to 'Excluir', sivic_pessoa, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %>
-        <%#= link_to image_tag('trash.png', data: { confirm: 'Deseja excluir o registro?' })%>
         <td><%= link_to image_tag('trash.png', :title => 'Excluir'), sivic_pessoa , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>
       </tr>
     <% end %>
