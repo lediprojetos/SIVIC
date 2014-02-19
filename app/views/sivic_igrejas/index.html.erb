@@ -1,37 +1,51 @@
-<h1>Lista de Igrejas</h1>
-
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>Nome </th>
-      <th>Telefone</th>
-      <th>Nome responsável</th>
-      <th>CNPJ</th>
-      
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @sivic_igrejas.each do |sivic_igreja| %>
-      <tr>
-        <td><%= sivic_igreja.NOME_igreja %></td>
-        <td><%= sivic_igreja.NUMR_telefone %></td>
-        <td><%= sivic_igreja.NOME_responsavel %></td>
-        <td><%= sivic_igreja.NUMR_cnpj %></td>
-        <td><%= link_to 'Exibir', sivic_igreja %></td>
-        <td><%= link_to 'Editar', edit_sivic_igreja_path(sivic_igreja) %></td>
-        <td><%= link_to 'Excluir', sivic_igreja, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<% if can? :create, SivicIgreja %>
-  <%= link_to 'Cadastrar nova Igreja', new_sivic_igreja_path %>
+<% content_for :titlePage do %>
+  Lista de Igrejas
 <% end %>
+
+<%=render '/layouts/panel' %>
+
+<div class="containermininmo">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Nome </th>
+        <th>Telefone</th>
+        <th>Nome responsável</th>
+        <th>CNPJ</th>
+        
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @sivic_igrejas.each do |sivic_igreja| %>
+        <tr>
+          <td><%= sivic_igreja.NOME_igreja %></td>
+          <td><%= sivic_igreja.NUMR_telefone %></td>
+          <td><%= sivic_igreja.NOME_responsavel %></td>
+          <td><%= sivic_igreja.NUMR_cnpj %></td>
+          <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_igreja %></td>
+          <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_igreja_path(sivic_igreja) %></td>
+          <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_igreja , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>            
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+</div></div>
+<table style="margin-top:10px;">
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('new.png', :title => 'Novo', class: 'exibirico') , new_sivic_igreja_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Novo</label>
+    </td>
+  </tr> 
+</table>
 

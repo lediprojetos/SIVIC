@@ -1,9 +1,9 @@
 
 <% content_for :titlePage do %>
-  <strong class='titlepage'>Exibir Pessoa</strong>
+  Exibir Pessoa
 <% end %>
 
-<%=render '/layouts/panel' %>
+<%= render 'layouts/panel' %>
 
 
 <div class="containermininmo">
@@ -47,13 +47,14 @@
   </table>
 </div>
 
+</div></div>
 <table style="margin-top:10px;"> 
   <tr>
     <td align="center" style="width:50px;">
-      <%= link_to image_tag('edit.png', title: "Editar") , edit_sivic_pessoa_path(@sivic_pessoa) %>
+      <%= link_to image_tag('edit.png', title: 'Editar', class: 'exibirico') , edit_sivic_pessoa_path(@sivic_pessoa) %>
     </td>
     <td align="center" style="width:20px;">
-      <%= link_to image_tag('back.png', title: "Voltar") , sivic_pessoas_path %>
+      <%= link_to image_tag('back.png', title: 'Voltar',class: 'exibirico') , sivic_pessoas_path %>
     </td>
   </tr>
   <tr>

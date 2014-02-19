@@ -1,6 +1,6 @@
 
 <% content_for :titlePage do %>
-  <strong class='titlepage'>Lista de Pessoas</strong>
+  Lista de Pessoas
 <% end %>
 
 <%=render '/layouts/panel' %>
@@ -31,21 +31,21 @@
           <%else%>
             <td><%= nil%></td>
           <%end%>
-        <td><%= link_to image_tag('folder_blue_open.png', :title => 'Exibir') , sivic_pessoa %></td>
-        <td><%= link_to image_tag('edit.png', :title => 'Editar') , edit_sivic_pessoa_path(sivic_pessoa) %></td>
-        <td><%= link_to image_tag('trash.png', :title => 'Excluir'), sivic_pessoa , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>
+            <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_pessoa %></td>
+            <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_pessoa_path(sivic_pessoa) %></td>
+            <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_pessoa , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>        
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
 </div>
+</div></div>
 
 <table style="margin-top:10px;">
   <tr>
     <td align="center" style="width:50px;">
-      <%= link_to image_tag('folder_new.png', :title => 'Novo') , new_sivic_pessoa_path %>
+      <%= link_to image_tag('new.png', :title => 'Novo', class: 'exibirico') , new_sivic_pessoa_path %>
     </td>
   </tr>
   <tr>

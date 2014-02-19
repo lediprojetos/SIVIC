@@ -1,9 +1,15 @@
-
 <p id="notice"><%= notice %></p>
 
+
+<% content_for :titlePage do %>
+  Exibir Igreja
+<% end %>
+
+<%= render 'layouts/panel' %>
+
+
+<div class="containermininmo">
 <legend>Dados Principais</legend>
-
-
 <p>
   <strong>Igreja Sede:</strong>
   <% @sede = SivicIgreja.find_by_id(@sivic_igreja.father_id) %>
@@ -36,7 +42,6 @@
 </p>
 
 <legend>Endereço</legend>
-
 
 <p>
   <strong>Bairro:</strong>
@@ -73,8 +78,26 @@
   <%= @sivic_igreja.sivic_endereco.sivic_cidade.sivic_estado.nome_estado %>
 </p>
 
+</div>
 
 
+</div></div>
+<table style="margin-top:10px;"> 
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('edit.png', title: 'Editar', class: 'exibirico') , edit_sivic_igreja_path(@sivic_igreja) %>
+    </td>
+    <td align="center" style="width:20px;">
+      <%= link_to image_tag('back.png', title: 'Voltar',class: 'exibirico') , sivic_igrejas_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Editar</label>
+    </td>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Voltar</label>
+    </td>
+  </tr> 
+</table>
 
-<%= link_to 'Editar', edit_sivic_igreja_path(@sivic_igreja) %> |
-<%= link_to 'Voltar', sivic_igrejas_path %>

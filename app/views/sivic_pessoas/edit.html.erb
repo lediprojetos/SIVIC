@@ -1,19 +1,19 @@
 
 <% content_for :titlePage do %>
-  <strong class='titlepage'>Editar Pessoa</strong>
+  Editar Pessoas
 <% end %>
 
-<%=render '/layouts/panel' %>
+<%= render 'layouts/panel' %>
 
 <%= render 'form' %>
 
 <table>
 	<tr>
 		<td align="center" style="width:50px;">
-			<%= link_to image_tag('folder_blue_open.png', title: "Exibir") , @sivic_pessoa %>
+			<%= link_to image_tag('show.png', title: 'Exibir', class: 'exibirico') , @sivic_pessoa %>
 		</td>
 		<td align="center" style="width:20px;">
-			<%= link_to image_tag('back.png', title: "Voltar") , sivic_pessoas_path %>
+			<%= link_to image_tag('back.png', title: 'Voltar', class: 'exibirico') , sivic_pessoas_path %>
 		</td>
 	</tr>
 	<tr>
@@ -25,3 +25,4 @@
 		</td>
 	</tr>	
 </table>
+

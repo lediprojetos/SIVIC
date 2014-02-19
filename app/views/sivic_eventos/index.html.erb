@@ -1,4 +1,10 @@
-<h1>Lista de Eventos</h1>
+<% content_for :titlePage do %>
+  Lista de Eventos
+<% end %>
+
+<%=render '/layouts/panel' %>
+
+<div class="containermininmo">
 
 <table class="table table-hover">
   <thead>
@@ -27,18 +33,29 @@
         <td><%= sivic_evento.DATA_inicio %></td>
         <td><%= sivic_evento.DATA_fim %></td>
         <td><%= sivic_evento.NUMR_qdtVagas %></td>
-        <td><%= link_to 'Exibir', sivic_evento %></td>
-        <td><%= link_to 'Editar', edit_sivic_evento_path(sivic_evento) %></td>
-        <td><%= link_to 'Excluir', sivic_evento, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
-        <td><%= link_to_function  'Encerrar',"var r = confirm('Deseja encerrar o evento?'); if (r == true){encerrar('#{sivic_evento.id}')}else{}"%></td>                  
+          <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_evento %></td>
+          <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_evento_path(sivic_evento) %></td>
+          <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_evento , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td> 
+        <td><%= link_to_function image_tag('minus.png', :title => 'Encerrar',  class: 'exibirico'),"var r = confirm('Deseja encerrar o evento?'); if (r == true){encerrar('#{sivic_evento.id}')}else{}"%></td>                  
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>
 
-<br>
-
-<%= link_to 'Novo Registro', new_sivic_evento_path %>
+</div></div>
+<table style="margin-top:10px;">
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('new.png', :title => 'Novo', class: 'exibirico') , new_sivic_evento_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Novo</label>
+    </td>
+  </tr> 
+</table>
 
 <script>
 

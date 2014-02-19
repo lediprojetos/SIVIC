@@ -1,3 +1,10 @@
+
+<% content_for :titlePage do %>
+  Exibir Discípulo
+<% end %>
+
+<%= render 'layouts/panel' %>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -185,5 +192,23 @@
   <%= @sivic_discipulo.FLAG_DoadorOrgao %>
 </p>
 
-<%= link_to 'Editar', edit_sivic_discipulo_path(@sivic_discipulo) %> |
-<%= link_to 'Voltar', sivic_discipulos_path %>
+</div></div>
+<table style="margin-top:10px;"> 
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('edit.png', title: 'Editar', class: 'exibirico') , edit_sivic_discipulo_path(@sivic_discipulo) %>
+    </td>
+    <td align="center" style="width:20px;">
+      <%= link_to image_tag('back.png', title: 'Voltar',class: 'exibirico') , sivic_discipulos_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Editar</label>
+    </td>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Voltar</label>
+    </td>
+  </tr> 
+</table>
+

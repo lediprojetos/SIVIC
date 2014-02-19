@@ -1,5 +1,15 @@
 <p id="notice"><%= notice %></p>
 
+
+<% content_for :titlePage do %>
+  Exibir Evento
+<% end %>
+
+<%= render 'layouts/panel' %>
+
+
+<div class="containermininmo">
+
 <legend>Dados Principais</legend>
 
 <p>
@@ -74,5 +84,24 @@
   <%= @sivic_evento.sivic_endereco.sivic_cidade.sivic_estado.nome_estado %>
 </p>
 
-<%= link_to 'Editar', edit_sivic_evento_path(@sivic_evento) %> |
-<%= link_to 'Voltar', sivic_eventos_path %>
+</div>
+
+</div></div>
+<table style="margin-top:10px;"> 
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('edit.png', title: 'Editar', class: 'exibirico') , edit_sivic_evento_path(@sivic_evento) %>
+    </td>
+    <td align="center" style="width:20px;">
+      <%= link_to image_tag('back.png', title: 'Voltar',class: 'exibirico') , sivic_eventos_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Editar</label>
+    </td>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Voltar</label>
+    </td>
+  </tr> 
+</table>

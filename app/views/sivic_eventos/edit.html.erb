@@ -1,7 +1,33 @@
-<h1>Editing sivic_evento</h1>
+
+<% content_for :titlePage do %>
+	Editar Evento
+<% end %>
+
+<%= render 'layouts/panel' %>
 
 <%= render 'form' %>
 
-<%= link_to 'Abrir', @sivic_evento %> |
-<%= link_to 'Voltar', sivic_eventos_path %>
-<%= link_to 'Encerrar', encerraEvento_path %> |
+<table>
+	<tr>
+		<td align="center" style="width:50px;">
+			<%= link_to image_tag('show.png', title: 'Exibir', class: 'exibirico') , @sivic_evento %>
+		</td>
+		<td align="center" style="width:50px;">
+			<%= link_to image_tag('back.png', title: 'Voltar', class: 'exibirico') , sivic_eventos_path %>
+		</td>		
+		<td align="center" style="width:50px;">
+			<%= link_to image_tag('minus.png', title: 'Encerrar', class: 'exibirico') , encerraEvento_path %>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" style="width:20px;">
+			<label class="altBotoes">Exibir</label>
+		</td>
+		<td align="center" style="width:20px;">
+			<label class="altBotoes">Voltar</label>
+		</td>
+		<td align="center" style="width:20px;">
+			<label class="altBotoes">Encerrar</label>
+		</td>		
+	</tr>	
+</table>

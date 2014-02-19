@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <div class="containermininmo">
+
   <h6>Dados Principais</h6>
   <hr>
 
@@ -124,12 +126,18 @@
   </tr>
   </table>
 
-  <div class="actions" >
-    <%= f.submit "Salvar" ,class: "btn btn-mediun btn-primary"%>
-  </div>
+  <%=render '/layouts/iconsalvar' %>
+  
 <% end %>
 
 <script>
+
+jQuery(function($){
+   $("#sivic_igreja_NUMR_cnpj").mask("99.999.999/9999-99");
+   $("#sivic_igreja_NUMR_telefone").mask("(99)9999-9999");
+   $("#sivic_igreja_sivic_endereco_attributes_NUMR_Cep").mask("99.999-999");
+});
+
   function changeState(state){
       $.ajax({
         url: '<%= listarCidade_path %>',

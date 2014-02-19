@@ -1,5 +1,13 @@
-<h3>Cadastro de Igrejas</h3>
+<% content_for :titlePage do %>
+  Cadastro de  Igrejas
+<% end %>
+
+<%=render '/layouts/panel' %>
 
 <%= render 'form' %>
 
-<%= link_to '<< Voltar', sivic_igrejas_path %>
+<% content_for :pathback do %>
+  <%= sivic_igrejas_path%>
+<% end %>
+
+<%= render '/layouts/iconvoltar' %>
