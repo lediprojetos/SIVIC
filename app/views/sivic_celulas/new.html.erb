@@ -1,5 +1,15 @@
-<h3>Nova Célula</h3>
+
+<% content_for :titlePage do %>
+  Cadastro de  Célula
+<% end %>
+
+<%=render '/layouts/panel' %>
 
 <%= render 'form' %>
 
-<%= link_to 'voltar', sivic_celulas_path %>
+<% content_for :pathback do %>
+  <%= sivic_celulas_path%>
+<% end %>
+
+<%= render '/layouts/iconvoltar' %>
+

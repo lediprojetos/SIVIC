@@ -1,42 +1,74 @@
-<h2>Registrar</h2>
 
-<div class="row">
-  <div class="span6 offset3">
+<% content_for :titlePage do %>
+  Registrar
+<% end %>
+
+<%=render '/layouts/panel' %>
 
 
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
       <%= devise_error_messages! %>
 
-      <div class="field">
-        <%= f.label :Pessoa %><br>
-        <%#= f.select :sivic_pessoa_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa')%>
-        <select id="user_sivic_pessoa_id" name="user[sivic_pessoa_id]" disabled="disabled">
-        </select>
-      </div>
+    <div class="containermininmo">
+      <table style="width:100%;">
+        <tr>
+          <td>
+            <div class="field">
+              <%= f.label :Pessoa %><br>
+              <%#= f.select :sivic_pessoa_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa')%>
+              <select id="user_sivic_pessoa_id" name="user[sivic_pessoa_id]" disabled="disabled">
+              </select>
+            </div>
 
-      <div class="field">
-        <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Pessoa</a>
-        <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Nova Pessoa</a>
-      </div>
+            <div class="field">
+              <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Pessoa</a>
+              <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Nova Pessoa</a>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :Email %>
+            <%= f.email_field :email%>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :Senha %>
+            <%= f.password_field :password %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :Confirmação_de_Senha %>
+            <%= f.password_field :password_confirmation %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= f.label :Permissão %>
+            <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
+          </tr>
+        </tr>
+      </table>
 
-      <%= f.label :Email %>
-      <%= f.email_field :email%>
 
-      <%= f.label :Senha %>
-      <%= f.password_field :password %>
-
-      <%= f.label :Confirmação_de_Senha %>
-      <%= f.password_field :password_confirmation %>
-
-      <%= f.label :Permissão %>
-      <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
-
-      <%= f.submit "Registrar" ,class: "btn btn-mediun btn-primary"%>
+    </div></div>
     <% end %>
-    <%= render "devise/shared/links" %>
-    
-  </div>
-</div>  
+    <%=render '/layouts/iconsalvar' %>
+
+    <table style="margin-top:10px;"> 
+      <tr>
+        <td align="center" style="width:20px;">
+          <%= link_to  image_tag('login.png', title: 'Login',class: 'exibirico'), new_session_path(resource_name) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <label class="altBotoes">Login</label>
+        </td>
+      </tr>
+    </table>
 
 <fieldset>
 

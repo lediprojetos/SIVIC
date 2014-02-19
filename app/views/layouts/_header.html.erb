@@ -1,7 +1,7 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div style="background-color:#414141;">
     <div class="container">
-      <%= link_to "SIVIC", root_path, id: "logo" %>
+      <%= link_to image_tag('logo.png'), root_path, id: "logo" %>
       <nav>
         <% if user_signed_in? %>
         <ul class="nav pull-left">
