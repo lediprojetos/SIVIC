@@ -1,10 +1,32 @@
 <p id="notice"><%= notice %></p>
 
+<% content_for :titlePage do %>
+  Exibir Tipo de Evento
+<% end %>
+
+<%= render 'layouts/panel' %>
+
 <p>
   <strong>Tipo Evento:</strong>
   <%= @sivic_tipo_evento.desc_tipoevento %>
 </p>
 
-
-<%= link_to 'Editar', edit_sivic_tipo_evento_path(@sivic_tipo_evento) %> |
-<%= link_to 'Voltar', sivic_tipo_eventos_path %>
+</div></div>
+<table style="margin-top:10px;"> 
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('edit.png', title: 'Editar', class: 'exibirico') , edit_sivic_tipo_evento_path(@sivic_tipo_evento) %>
+    </td>
+    <td align="center" style="width:20px;">
+      <%= link_to image_tag('back.png', title: 'Voltar',class: 'exibirico') , sivic_tipo_eventos_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Editar</label>
+    </td>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Voltar</label>
+    </td>
+  </tr> 
+</table>

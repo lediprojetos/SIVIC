@@ -22,7 +22,7 @@
       <% @sivic_discipulos.each do |sivic_discipulo| %>
         <tr>
           <td><%= sivic_discipulo.sivic_pessoa.NOME_pessoa %></td>
-          <td><%= sivic_discipulo.DATA_Nascimento.strftime("%d/%m/%Y")  %></td>
+          <td><%= sivic_discipulo.DATA_Nascimento.blank? ? '' : sivic_discipulo.DATA_Nascimento.strftime("%d/%m/%Y")  %></td>
           <td><%= sivic_discipulo.NUMR_CPF %></td>
           <td><%= sivic_discipulo.DATA_Batismo %></td>
           <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_discipulo %></td>

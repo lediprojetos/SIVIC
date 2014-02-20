@@ -1,6 +1,28 @@
-<h1>Editar Escolaridade</h1>
+<% content_for :titlePage do %>
+  Editar Escolaridade
+<% end %>
 
+<%= render 'layouts/panel' %>
 <%= render 'form' %>
 
-<%= link_to 'Abrir', @sivic_escolaridade %> |
-<%= link_to 'Voltar', sivic_escolaridades_path %>
+
+<table>
+	<tr>
+		<td align="center" style="width:50px;">
+			<%= link_to image_tag('show.png', title: 'Exibir', class: 'exibirico') , @sivic_escolaridade %>
+		</td>
+		<td align="center" style="width:20px;">
+			<%= link_to image_tag('back.png', title: 'Voltar', class: 'exibirico') , sivic_escolaridades_path %>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" style="width:20px;">
+			<label class="altBotoes">Exibir</label>
+		</td>
+		<td align="center" style="width:20px;">
+			<label class="altBotoes">Voltar</label>
+		</td>
+	</tr>	
+</table>
+
+

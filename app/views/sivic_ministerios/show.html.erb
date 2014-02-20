@@ -1,5 +1,10 @@
 <p id="notice"><%= notice %></p>
 
+<% content_for :titlePage do %>
+  Exibir Ministério
+<% end %>
+
+<%= render 'layouts/panel' %>
 <p>
   <strong>Nome:</strong>
   <%= @sivic_ministerio.nome_ministerio %>
@@ -10,7 +15,23 @@
   <%= @sivic_ministerio.sigl_ministerio %>
 </p>
 
+</div></div>
+<table style="margin-top:10px;"> 
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('edit.png', title: 'Editar', class: 'exibirico') , edit_sivic_ministerio_path(@sivic_ministerio) %>
+    </td>
+    <td align="center" style="width:20px;">
+      <%= link_to image_tag('back.png', title: 'Voltar',class: 'exibirico') , sivic_ministerios_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Editar</label>
+    </td>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Voltar</label>
+    </td>
+  </tr> 
+</table>
 
-
-<%= link_to 'Editar', edit_sivic_ministerio_path(@sivic_ministerio) %> |
-<%= link_to 'Voltar', sivic_ministerios_path %>

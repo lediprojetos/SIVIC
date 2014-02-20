@@ -11,23 +11,35 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :NOME %><br>
-    <%= f.text_field :NOME_Participante %>
-  </div>
-  <div class="field">
-    <%= f.label :Email %><br>
-    <%= f.text_field :DESC_Email %>
-  </div>
-  <div class="field">
-    <%= f.label :Telefone %><br>
-    <%= f.text_field :NUMR_Telefone %>
-  </div>
-  <div class="field">
-    <%= f.label :Situação %><br>
-    <%= f.text_field :DESC_SituacaoParticipante %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <div class="containermininmo">
+    <table style="width:30%" align='center'>
+      <tr>
+        <td>
+          <div class="field">
+            <%= f.label :NOME %>
+            <%= f.text_field :NOME_Participante, :class => 'form-control-100' %>
+          </div>
+          <div class="field">
+            <%= f.label :Email %>
+            <%= f.text_field :DESC_Email, :class => 'form-control-100' %>
+          </div>
+          <div class="field">
+            <%= f.label :Telefone %>
+            <%= f.text_field :NUMR_Telefone %>
+          </div>
+          <div class="field">
+            <%= f.label :Situação %>
+            <%= f.text_field :DESC_SituacaoParticipante, :class => 'form-control-100' %>
+          </div>
+        </td>
+      </tr>
+    </table>
+  <%=render '/layouts/iconsalvar' %>
 <% end %>
+
+<script>
+jQuery(function($){
+   $("#sivic_participantecelula_NUMR_Telefone").mask("(99)9999-9999");
+
+});
+</script>

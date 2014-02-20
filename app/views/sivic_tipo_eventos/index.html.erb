@@ -1,9 +1,15 @@
-<h1>Lista de Tipo de Eventos</h1>
+<% content_for :titlePage do %>
+  Lista de Tipos de Eventos
+<% end %>
 
+<%=render '/layouts/panel' %>
+
+<div class="containermininmo">
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Tipo Evento</th>
+      <th style='width:500px;'></th>
       <th></th>
       <th></th>
       <th></th>
@@ -14,14 +20,28 @@
     <% @sivic_tipo_eventos.each do |sivic_tipo_evento| %>
       <tr>
         <td><%= sivic_tipo_evento.desc_tipoevento %></td>
-        <td><%= link_to 'Exibir', sivic_tipo_evento %></td>
-        <td><%= link_to 'Editar', edit_sivic_tipo_evento_path(sivic_tipo_evento) %></td>
-        <td><%= link_to 'Excluir', sivic_tipo_evento, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
+        <td></td>
+        <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_tipo_evento %></td>
+        <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_tipo_evento_path(sivic_tipo_evento) %></td>
+        <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_tipo_evento , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>        
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+</div>
 
-<%= link_to 'Cadastrar novo Tipo Evento', new_sivic_tipo_evento_path %>
+</div></div>
+
+<table style="margin-top:10px;">
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('new.png', :title => 'Novo', class: "exibirico") , new_sivic_tipo_evento_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Novo</label>
+    </td>
+  </tr> 
+</table>

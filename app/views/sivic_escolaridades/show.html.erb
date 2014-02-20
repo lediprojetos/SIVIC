@@ -1,9 +1,31 @@
 <p id="notice"><%= notice %></p>
 
+<% content_for :titlePage do %>
+  Exibir Escolaridade
+<% end %>
+
+<%= render 'layouts/panel' %>
 <p>
   <strong>Nome escolaridade:</strong>
   <%= @sivic_escolaridade.NOME_escolaridade %>
 </p>
 
-<%= link_to 'Editar', edit_sivic_escolaridade_path(@sivic_escolaridade) %> |
-<%= link_to 'Voltar', sivic_escolaridades_path %>
+</div></div>
+<table style="margin-top:10px;"> 
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('edit.png', title: 'Editar', class: 'exibirico') , edit_sivic_escolaridade_path(@sivic_escolaridade) %>
+    </td>
+    <td align="center" style="width:20px;">
+      <%= link_to image_tag('back.png', title: 'Voltar',class: 'exibirico') , sivic_escolaridades_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Editar</label>
+    </td>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Voltar</label>
+    </td>
+  </tr> 
+</table>

@@ -1,5 +1,15 @@
-<h1>Cadastro de Escolaridade</h1>
+<% content_for :titlePage do %>
+	Cadastro de Escolaridade
+<% end %>
+
+<%=render '/layouts/panel' %>
 
 <%= render 'form' %>
 
-<%= link_to 'Voltar', sivic_escolaridades_path %>
+<% content_for :pathback do %>
+  <%= sivic_escolaridades_path%>
+<% end %>
+
+<%= render '/layouts/iconvoltar' %>
+
+

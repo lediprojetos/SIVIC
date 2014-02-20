@@ -3,33 +3,33 @@
   Registrar
 <% end %>
 
-<%=render '/layouts/panel' %>
-
-
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
       <%= devise_error_messages! %>
 
+      <%=render '/layouts/panel' %>
+
     <div class="containermininmo">
-      <table style="width:100%;">
+
+      <table style="width:40%;" align="center">
         <tr>
           <td>
             <div class="field">
-              <%= f.label :Pessoa %><br>
+              <%= f.label :Pessoa %>
               <%#= f.select :sivic_pessoa_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa')%>
-              <select id="user_sivic_pessoa_id" name="user[sivic_pessoa_id]" disabled="disabled">
+              <select id="user_sivic_pessoa_id" name="user[sivic_pessoa_id]" disabled="disabled" class='form-control-100'>
               </select>
             </div>
 
             <div class="field">
               <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Pessoa</a>
-              <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Nova Pessoa</a>
+              <!--<a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Nova Pessoa</a>-->
             </div>
           </td>
         </tr>
-        <tr>
+        <tr >
           <td>
             <%= f.label :Email %>
-            <%= f.email_field :email%>
+            <%= f.email_field :email, :class => "form-control-100"%>
           </td>
         </tr>
         <tr>
@@ -38,34 +38,33 @@
             <%= f.password_field :password %>
           </td>
         </tr>
-        <tr>
+        <tr >
           <td>
             <%= f.label :Confirmação_de_Senha %>
             <%= f.password_field :password_confirmation %>
           </td>
         </tr>
-        <tr>
+        <tr >
           <td>
             <%= f.label :Permissão %>
-            <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
-          </tr>
+            <%= f.collection_select :role, User::ROLES, :to_s, :humanize, {}, {:class => "form-control-100"}%>
+          </td>
         </tr>
       </table>
 
-
-    </div></div>
-    <% end %>
+    
     <%=render '/layouts/iconsalvar' %>
+    <% end %>
 
     <table style="margin-top:10px;"> 
-      <tr>
+      <tr>     
         <td align="center" style="width:20px;">
-          <%= link_to  image_tag('login.png', title: 'Login',class: 'exibirico'), new_session_path(resource_name) %>
+          <%= link_to  image_tag('back.png', title: 'Login',class: 'exibirico'), admin_path %>
         </td>
       </tr>
-      <tr>
+      <tr>       
         <td>
-            <label class="altBotoes">Login</label>
+            <label class="altBotoes">Voltar</label>
         </td>
       </tr>
     </table>
@@ -125,7 +124,7 @@
       <div class="modal-body">
         <div class="input-group input-group-lg">
           <label >Nome</label><br>
-          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onchange="buscaPessoa()" onkeypress="buscaPessoa()" type="text" class="form-control" placeholder="Username" style="width: 300px;">
+          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onkeypress="buscaPessoa()" type="text" class="form-control" placeholder="Username" style="width: 80%;">
           <a data-toggle="modal" href="javascript:buscaPessoa();" class="btn btn-success" style="margin-bottom: 10px;">Buscar</a>
         </div>
         <table id="table_user" name="table_user" class="table table-hover">

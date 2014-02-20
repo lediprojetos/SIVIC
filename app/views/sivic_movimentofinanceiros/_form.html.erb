@@ -11,29 +11,32 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :Evento %><br>
-    <%= f.select :sivic_evento_id, options_from_collection_for_select(SivicEvento.all, 'id', 'DESC_evento',@sivic_movimentofinanceiro.sivic_evento_id), :include_blank => true%>
-  </div>
-  <div class="field">
-    <%= f.label :Tipo_Movimento %><br>
-    <%= f.select :sivic_tipmovfinanceiro_id, options_from_collection_for_select(SivicTipmovfinanceiro.all, 'id', 'DESC_movimento',@sivic_movimentofinanceiro.sivic_tipmovfinanceiro_id),:include_blank => true%>
-  </div>
-  <div class="field">
-    <%= f.label :Valor %><br>
-    <%= f.text_field :VALR_movimento %>
-  </div>
-    <div class="field">
-    <%= f.label :Descricão_Movimento %><br>
-    <%= f.text_area :DESC_movimento %>
-  </div>
+  <div class="containermininmo">
+    <table style="width:40%" align='center'>
+      <tr>
+        <td>
+          <div class="field">
+            <%= f.label :Evento %>
+            <%= f.select :sivic_evento_id, options_from_collection_for_select(SivicEvento.all, 'id', 'DESC_evento',@sivic_movimentofinanceiro.sivic_evento_id), {:include_blank => true},{:class => 'form-control-100'}%>
+          </div>
+          <div class="field">
+            <%= f.label :Tipo_Movimento %>
+            <%= f.select :sivic_tipmovfinanceiro_id, options_from_collection_for_select(SivicTipmovfinanceiro.all, 'id', 'DESC_movimento',@sivic_movimentofinanceiro.sivic_tipmovfinanceiro_id),{:include_blank => true}, {:class => 'form-control-100'}%>
+          </div>
+          <div class="field">
+            <%= f.label :Valor %>
+            <%= f.text_field :VALR_movimento %>
+          </div>
+            <div class="field">
+            <%= f.label :Descricão_Movimento %>
+            <%= f.text_area :DESC_movimento, :class => 'form-control-100' %>
+          </div>
+        </td>
+      </tr>
+    </table>
 
 <!--Capturando Usuario logado-->
   <%=f.hidden_field :user_inclusao, :value => current_user.id%>  
 
-
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%=render '/layouts/iconsalvar' %>
 <% end %>

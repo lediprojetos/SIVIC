@@ -11,30 +11,29 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :Pessoa %><br>
-    <%= f.text_field :sivic_pessoa_id%>
-  </div>
+  <div class="containermininmo">
+    <div class="field">
+      <%= f.label :Pessoa %><br>
+      <%= f.text_field :sivic_pessoa_id%>
+    </div>
 
-  <div class="field">
-    <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Pessoa</a>
-    <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Nova Pessoa</a>
-  </div>
+    <div class="field">
+      <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Pessoa</a>
+      <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-small btn-signup">Nova Pessoa</a>
+    </div>
 
-  <%= f.label :Email %>
-  <%= f.email_field :email%>
+    <%= f.label :Email %>
+    <%= f.email_field :email%>
 
-  <%= f.label :Senha %>
-  <%= f.password_field :password %>
+    <%= f.label :Senha %>
+    <%= f.password_field :password %>
 
-  <%= f.label :Confirmação_de_Senha %>
-  <%= f.password_field :password_confirmation %>
+    <%= f.label :Confirmação_de_Senha %>
+    <%= f.password_field :password_confirmation %>
 
-  <%= f.label :Permissão %>
-  <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
+    <%= f.label :Permissão %>
+    <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%=render '/layouts/iconsalvar' %>
 
 <% end %>
