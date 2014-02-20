@@ -1,5 +1,14 @@
-<h1>Novo Relatório</h1>
+<% content_for :titlePage do %>
+  Novo Relatório
+<% end %>
+
+<%=render '/layouts/panel' %>
 
 <%= render 'form' %>
 
-<%= link_to 'Voltar', sivic_relatorioscelulas_path %>
+<% content_for :pathback do %>
+  <%= sivic_relatorioscelulas_path%>
+<% end %>
+
+<%= render '/layouts/iconvoltar' %>
+
