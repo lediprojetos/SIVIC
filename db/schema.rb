@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140218164324) do
+ActiveRecord::Schema.define(version: 20140220160757) do
 
   create_table "sivic_celulas", force: true do |t|
     t.integer  "sivic_pessoa_id"
@@ -208,7 +208,10 @@ ActiveRecord::Schema.define(version: 20140218164324) do
     t.string   "DESC_SituacaoParticipante"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sivic_sitpartcelula_id"
   end
+
+  add_index "sivic_participantecelulas", ["sivic_sitpartcelula_id"], name: "index_sivic_participantecelulas_on_sivic_sitpartcelula_id"
 
   create_table "sivic_pessoas", force: true do |t|
     t.integer  "father_id"
