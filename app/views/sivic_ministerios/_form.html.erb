@@ -11,19 +11,28 @@
     </div>
   <% end %>
 
+<div class="containermininmo">
+  <table style="width:20%" align='center'>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label :nome_ministerio %>
+          <%= f.text_field :nome_ministerio, :class => 'form-control-2' %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label :sigl_ministerio %>
+          <%= f.text_field :sigl_ministerio, :class => 'form-control-2' %>
+        </div>
+      </td>
+    </tr>
+  </table>
+
   <div class="field">
-    <%= f.label :nome_ministerio %><br>
-    <%= f.text_field :nome_ministerio %>
+    <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
   </div>
-  <div class="field">
-    <%= f.label :sigl_ministerio %><br>
-    <%= f.text_field :sigl_ministerio %>
-  </div>
-  <div class="field">
-    <%= f.label :sivic_igreja_id %><br>
-    <%= f.text_field :sivic_igreja_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%=render '/layouts/iconsalvar' %>
 <% end %>

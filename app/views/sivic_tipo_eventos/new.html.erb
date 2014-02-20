@@ -1,5 +1,14 @@
-<h1>Cadastro de Tipo Evento</h1>
+<% content_for :titlePage do %>
+	Cadastro de Tipo Evento
+<% end %>
+
+<%=render '/layouts/panel' %>
 
 <%= render 'form' %>
 
-<%= link_to 'Voltar', sivic_tipo_eventos_path %>
+<% content_for :pathback do %>
+  <%= sivic_tipo_eventos_path%>
+<% end %>
+
+<%= render '/layouts/iconvoltar' %>
+

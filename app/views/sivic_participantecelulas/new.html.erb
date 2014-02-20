@@ -1,5 +1,14 @@
-<h1>New sivic_participantecelula</h1>
+<% content_for :titlePage do %>
+	Participante de Células
+<% end %>
+
+<%=render '/layouts/panel' %>
 
 <%= render 'form' %>
 
-<%= link_to 'Back', sivic_participantecelulas_path %>
+<% content_for :pathback do %>
+  <%= sivic_participantecelulas_path%>
+<% end %>
+
+<%= render '/layouts/iconvoltar' %>
+

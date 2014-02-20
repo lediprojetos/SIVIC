@@ -1,44 +1,92 @@
-<h2>Editar Usuario <%#= resource_name.to_s.humanize %></h2>
+<% content_for :titlePage do %>
+  Editar Usuário
+<% end %>
 
-<div class="row">
-  <div class="span6 offset3">
 
     <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
       <%= devise_error_messages! %>
 
-      <div class="field">
-        <%= f.label :Pessoa %><br>
-        <%= f.select :sivic_pessoa_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa')%>
-      </div>      
+      <%=render '/layouts/panel' %>
 
-      <%= f.label :email %>
-      <%= f.email_field :email, :autofocus => true %>
+      <div class="containermininmo">  
 
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        Currently waiting confirmation for: <%= resource.unconfirmed_email %>
-      <% end %>
+        <div class="tabbable">
+              <ul class="nav nav-tabs">
+                  <li class="active">
+                    <a href="#tab1" data-toggle="tab">Editar</a>
+                  </li>
+                  <li>
+                    <a href="#tab2" data-toggle="tab">Encerrar</a>
+                  </li>        
+              </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab1">
 
-      <%= f.label :Senha %> <i>(Deixe em branco caso não queira editar a senha)</i>
-      <%= f.password_field :password, :autocomplete => "off" %>
+              <table style="width:60%;" align='center'>
+                <tr>
+                  <td>
+                    <div class="field">
+                      <%= f.hidden_field :sivic_pessoa_id, :value => current_user.sivic_pessoa_id%>
+                      <%= f.label :email %>
+                      <%= f.email_field :email, :autofocus => true, :class => 'form-control-100' %>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <table style="width:60%;" align='center'>
+                <tr>
+                  <td>
 
-      <%= f.label :Confirmação_de_Senha %>
-      <%= f.password_field :password_confirmation %>
+                    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                      Currently waiting confirmation for: <%= resource.unconfirmed_email %>
+                    <% end %>
 
-      <%= f.label :Senha_Atual %> <i>(Você precisa de sua senha atual para confirmar a alteração)</i>
-      <%= f.password_field :current_password %>
+                    <%= f.label :Senha %> <i>(Deixe em branco caso não queira editar a senha)</i></br>
+                    <%= f.password_field :password, :autocomplete => "off" %>
+                  </td>
+                  <td>
+                    <%= f.label :Confirmação_de_Senha %>
+                    <%= f.password_field :password_confirmation %>
+                  </td>
+                </tr>
+              </table>
+              <table style="width:60%;" align='center'>
+                <tr>
+                  <td>
+                    <%= f.label :Senha_Atual %> <i>(Você precisa de sua senha atual para confirmar a alteração)</i>
+                    <%= f.password_field :current_password %>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <%= f.label :Permissão %>
+                    <%= f.collection_select :role, User::ROLES, :to_s, :humanize, {}, {:class => 'form-control-100'} %>  
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <%= f.submit "Atualizar", class: "btn btn-mediun btn-primary" %>
+                  </td>
+                </tr>
+              </table>
+            <% end %>
 
-      <%= f.label :Permissão %>
-      <%= f.collection_select :role, User::ROLES, :to_s, :humanize %>  
 
-      <%= f.submit "Atualizar", class: "btn btn-mediun btn-primary" %>
-    <% end %>
+        </div>
+        <div class="tab-pane" id="tab2">
+          <table style="width:20%;" align='center'>
+            <tr align='center'>
+              <td>
+                <p> Deseja Encerrar sua conta? <%= button_to "Encerrar conta", registration_path(resource_name), :data => { :confirm => "Realmente deseja encerrar sua conta?" }, :method => :delete , class: "btn btn-mediun btn-primary"%></p>
+              </td>
+            </tr>
+          </table>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
 
 
-
-<h2>Encerrar conta <%#= resource_name.to_s.humanize %></h2>
-
-<p> Deseja Encerrar sua conta? <%= button_to "Encerrar conta", registration_path(resource_name), :data => { :confirm => "Confirma ação?" }, :method => :delete , class: "btn btn-mediun btn-primary"%></p>
-
-<%= link_to "Voltar", :back %>
-  </div>
-</div>  

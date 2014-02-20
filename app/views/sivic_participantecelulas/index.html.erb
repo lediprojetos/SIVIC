@@ -1,5 +1,10 @@
-<h1>Participantes de Células</h1>
+<% content_for :titlePage do %>
+  Participantes de Células
+<% end %>
 
+<%=render '/layouts/panel' %>
+
+<div class="containermininmo">
 <table class="table table-hover">
   <thead>
     <tr>
@@ -20,14 +25,27 @@
         <td><%= sivic_participantecelula.DESC_Email %></td>
         <td><%= sivic_participantecelula.NUMR_Telefone %></td>
         <td><%= sivic_participantecelula.DESC_SituacaoParticipante %></td>
-        <td><%= link_to 'Exibir', sivic_participantecelula %></td>
-        <td><%= link_to 'Editar', edit_sivic_participantecelula_path(sivic_participantecelula) %></td>
-        <td><%= link_to 'Excluír', sivic_participantecelula, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
+        <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_participantecelula %></td>
+        <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_participantecelula_path(sivic_participantecelula) %></td>
+        <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_participantecelula , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>        
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+</div>
 
-<%= link_to 'New Sivic participantecelula', new_sivic_participantecelula_path %>
+</div></div>
+
+<table style="margin-top:10px;">
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('new.png', :title => 'Novo', class: "exibirico") , new_sivic_participantecelula_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Novo</label>
+    </td>
+  </tr> 
+</table>

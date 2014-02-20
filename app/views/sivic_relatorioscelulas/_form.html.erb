@@ -11,6 +11,7 @@
     </div>
   <% end %>
 
+<div class="containermininmo">
  <div class="field">
     <%= f.label :Célula %><br>
     <%#= f.text_field :sivic_celula_id %>
@@ -97,9 +98,7 @@
     <%= f.number_field :NUMR_QtdLidCelula %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%=render '/layouts/iconsalvar' %>
 <% end %>
 
  

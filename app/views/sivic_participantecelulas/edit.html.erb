@@ -1,6 +1,28 @@
-<h1>Editar Participantes de Células</h1>
 
+<% content_for :titlePage do %>
+  Editar Participantes de Células
+<% end %>
+
+<%= render 'layouts/panel' %>
 <%= render 'form' %>
 
-<%= link_to 'Exibir', @sivic_participantecelula %> |
-<%= link_to 'Voltar', sivic_participantecelulas_path %>
+
+<table>
+	<tr>
+		<td align="center" style="width:50px;">
+			<%= link_to image_tag('show.png', title: 'Exibir', class: 'exibirico') , @sivic_participantecelula %>
+		</td>
+		<td align="center" style="width:20px;">
+			<%= link_to image_tag('back.png', title: 'Voltar', class: 'exibirico') , sivic_participantecelulas_path %>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" style="width:20px;">
+			<label class="altBotoes">Exibir</label>
+		</td>
+		<td align="center" style="width:20px;">
+			<label class="altBotoes">Voltar</label>
+		</td>
+	</tr>	
+</table>
+

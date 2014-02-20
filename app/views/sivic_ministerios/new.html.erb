@@ -1,5 +1,14 @@
-<h1>Cadastro de Ministerio</h1>
+<% content_for :titlePage do %>
+	Cadastro de Ministerio
+<% end %>
+
+<%=render '/layouts/panel' %>
 
 <%= render 'form' %>
 
-<%= link_to 'Voltar', sivic_ministerios_path %>
+<% content_for :pathback do %>
+  <%= sivic_ministerios_path%>
+<% end %>
+
+<%= render '/layouts/iconvoltar' %>
+
