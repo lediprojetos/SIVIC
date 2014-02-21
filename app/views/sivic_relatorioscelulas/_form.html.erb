@@ -12,97 +12,168 @@
   <% end %>
 
 <div class="containermininmo">
- <div class="field">
-    <%= f.label :Célula %><br>
-    <%#= f.text_field :sivic_celula_id %>
-    <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.all, 'id', 'NUMR_Dia',@sivic_sede),:include_blank => true%>
-  </div>
-  <div class="field">
-    <%= f.label :DATA_da_Reuniao %><br>
-    <%= f.text_field :DATA_Reuniao %> 
-  </div>
-  <div class="field">
-    <%= f.label :Horário_de_início %><br>
-    <%= f.time_select :DATA_Horainicio %>
-  </div>
-  <div class="field">
-    <%= f.label :Horário_de_término %><br>
-    <%= f.time_select :DATA_HoraTermino %>
-  </div>
-  <div class="field">
-    <%= f.label :Número_de_visitantes %><br>
-    <%= f.number_field :NUMR_NumVisitante %>
-  </div>
-  <div class="field">
-    <%= f.label :Número_de_participantes %><br>
-    <%= f.number_field :NUMR_NumParticipante %>
-  </div>
-  <div class="field">
-    <%= f.label :Assunto_do_estudo %><br>
-    <%= f.text_field :DESC_AssuntoEstudo %>
-  </div>
-  <div class="field">
-    <%= f.label :Texto_Bíblico %><br>
-    <%= f.text_field :DESC_TextoBiblico %>
-  </div>
-  <div class="field">
-    <%= f.label :Valor_de_oferta %><br>
-    <%= f.text_field :VALR_Oferta %>
-  </div>
-  <div class="field">
-    <%= f.label :Decisões %><br>
-    <%= f.number_field :NUMR_Decisoes %>
-  </div>
-  <div class="field">
-    <%= f.label :Outras_informações %><br>
-    <%= f.text_area :DESC_OutrasInformacoes %>
-  </div>
-  <div class="field">
-    <%= f.label :Situação %><br>
-    <%= f.number_field :FLAG_Situacao %>
-  </div>
-  <div class="field">
-    <%= f.label :Novos_convertidos %><br>
-    <%= f.number_field :NUMR_QtdNovoConvertido %>
-  </div>
-  <div class="field">
-    <%= f.label :Resgate %><br>
-    <%= f.number_field :NUMR_QtdResgate %>
-  </div>
-  <div class="field">
-    <%= f.label :Pre_Encontro %><br>
-    <%= f.number_field :NUMR_QtdPreEncontro %>
-  </div>
-  <div class="field">
-    <%= f.label :Encontro %><br>
-    <%= f.number_field :NUMR_QtdEncontro %>
-  </div>
-  <div class="field">
-    <%= f.label :Pos_encontro %><br>
-    <%= f.number_field :NUMR_QtdPosEncontro %>
-  </div>
-  <div class="field">
-    <%= f.label :Escola_de_líderes %><br>
-    <%= f.number_field :NUMR_QtdEscoLid1 %>
-  </div>
-  <div class="field">
-    <%= f.label :Escola_de_líderes_2 %><br>
-    <%= f.number_field :NUMR_EscoLid2 %>
-  </div>
-  <div class="field">
-    <%= f.label :Escola_de_líderes_3 %><br>
-    <%= f.number_field :NUMR_EscoLid3 %>
-  </div>
-  <div class="field">
-    <%= f.label :Líderes_de_células %><br>
-    <%= f.number_field :NUMR_QtdLidCelula %>
-  </div>
+  <table style="width:95%;" align="center">
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label :Célula %>
+          <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.all, 'id', 'NUMR_Dia',@sivic_sede),{:include_blank => true},{:class => 'form-control-4'}%>
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= f.label :DATA_da_Reuniao %>
+          <%= f.text_field :DATA_Reuniao, :class => 'form-control-1' %> 
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= f.label :Horário_de_início %>
+          <%= f.text_field :DATA_Horainicio, :class => 'form-control-1' %>
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= f.label :Horário_de_término %>
+          <%= f.text_field :DATA_HoraTermino, :class => 'form-control-1' %>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <table style="width:95%;" align="center">
+    <tr>
+      <td>
+        <div class="field">
+          <label>Nº Visitantes</label>
+          <%= f.number_field :NUMR_NumVisitante, :class => 'form-control-1' %>
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <label>Nº Participantes</label>
+          <%= f.number_field :NUMR_NumParticipante, :class => 'form-control-1' %>
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= f.label :Assunto_do_estudo %>
+          <%= f.text_field :DESC_AssuntoEstudo, :class => 'form-control-3' %>
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= f.label :Texto_Bíblico %>
+          <%= f.text_field :DESC_TextoBiblico, :class => 'form-control-3' %>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <table style="width:95%;" align="center">
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label :Valor_de_oferta %>
+          <%= f.text_field :VALR_Oferta %>
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= f.label :Decisões %>
+          <%= f.number_field :NUMR_Decisoes %>
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= f.label :Situação %>
+          <%= f.number_field :FLAG_Situacao %>
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= f.label :Novos_convertidos %>
+          <%= f.number_field :NUMR_QtdNovoConvertido %>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <table style="width:95%;" align="center">
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label :Outras_informações %>
+          <%= f.text_area :DESC_OutrasInformacoes, :class => 'form-control-100' %>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <table style="width:95%;" align="center">
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label :Resgate %>
+          <%= f.number_field :NUMR_QtdResgate %>
+        </div>
+      </td>
+      <td>
+        <div class="field">
+          <%= f.label :Pre_Encontro %>
+          <%= f.number_field :NUMR_QtdPreEncontro %>
+        </div>
+      </td>
+      <td>        
+        <div class="field">
+          <%= f.label :Encontro %>
+          <%= f.number_field :NUMR_QtdEncontro %>
+        </div>
+      </td>
+      <td>        
+        <div class="field">
+          <%= f.label :Pos_encontro %>
+          <%= f.number_field :NUMR_QtdPosEncontro %>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <table style="width:95%;" align="center">
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label :Escola_de_líderes %>
+          <%= f.number_field :NUMR_QtdEscoLid1 %>
+        </div>
+      </td>
+      <td>         
+        <div class="field">
+          <%= f.label :Escola_de_líderes_2 %>
+          <%= f.number_field :NUMR_EscoLid2 %>
+        </div>
+      </td>
+      <td>         
+        <div class="field">
+          <%= f.label :Escola_de_líderes_3 %>
+          <%= f.number_field :NUMR_EscoLid3 %>
+        </div>
+      </td>
+      <td>         
+        <div class="field">
+          <%= f.label :Líderes_de_células %>
+          <%= f.number_field :NUMR_QtdLidCelula %>
+        </div>
+      </td>
+    </tr>
+  </table>
 
   <%=render '/layouts/iconsalvar' %>
 <% end %>
 
  
-
+<script>
+jQuery(function($){
+   $("#sivic_relatorioscelula_DATA_Reuniao").mask("99/99/9999");
+   $("#sivic_relatorioscelula_DATA_Horainicio").mask("99:99");
+   $("#sivic_relatorioscelula_DATA_HoraTermino").mask("99:99");
+});
+</script>
 
 
 

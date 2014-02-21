@@ -1,24 +1,48 @@
-<h2>Login</h2>
-
-<div class="row">
-  <div class="span6 offset3">
-  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-    <%= f.label :email %>
-    <%= f.email_field :email, :autofocus => true %>
-
-    <%= f.label :Senha %>
-    <%= f.password_field :password %>
-
-    <% if devise_mapping.rememberable? -%>
-      
-      	<%= f.check_box :remember_me %>
-      	<%= f.label :Lembrar_Senha %>
-  	
-    <% end -%>
-
-    <%= f.submit "Fazer Login" , class: "btn btn-mediun btn-primary"%>
-  <% end %>
-  <%= render "devise/shared/links" %>
-  </div>
-</div>  
+<table align='center'>
+  <tr>
+    <td>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Login</h3>
+        </div>
+        <div class="panel-body">
+          <table>
+            <tr>
+              <td>
+                <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+                  <%= f.label :email %>
+                  <%= f.email_field :email, :autofocus => true %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                  <%= f.label :Senha %>
+                  <%= f.password_field :password %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                  <% if devise_mapping.rememberable? -%>
+                    <div class="checkbox">
+                      <%= f.check_box :remember_me %>
+                    	<%= f.label :Lembrar_Senha %>
+                	   </div>
+                  <% end -%>
+              </td>
+            </tr>
+            <tr align='center'>
+              <td>
+                  <br />
+                  <%= f.submit "Fazer Login" , class: "btn btn-mediun btn-primary"%>
+                  <% end %>
+              </td>
+            </tr>
+          </table>
+          <%#= render "devise/shared/links" %>
+          </div>
+        </div> 
+      </div> 
+    </td>
+  </tr>
+</table>
 
