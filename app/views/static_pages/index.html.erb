@@ -25,7 +25,7 @@
       <tr>
         <td><%= sivic_user.id %></td>
         <td><%= sivic_user.email %></td>
-        <td><%= sivic_user.sivic_pessoa.NOME_pessoa %></td>
+        <td><%= sivic_user.sivic_pessoa.blank? ? '' : sivic_user.sivic_pessoa.NOME_pessoa  %></td>
         <td><%= sivic_user.role %></td>
         <td><%= sivic_user.last_sign_in_at %></td>
         <td><%#= link_to 'Exibir', User %></td>

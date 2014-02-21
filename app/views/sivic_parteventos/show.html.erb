@@ -1,5 +1,13 @@
 <p id="notice"><%= notice %></p>
 
+<% content_for :titlePage do %>
+  Exibir Inscrição
+<% end %>
+
+<%= render 'layouts/panel' %>
+
+
+<div class="containermininmo">
 <p>
   <strong>Nome:</strong>
   <%= @sivic_partevento.sivic_pessoa.NOME_pessoa %>
@@ -15,5 +23,25 @@
   <%= @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento %>
 </p>
 
-<%= link_to 'Editar', edit_sivic_partevento_path(@sivic_partevento) %> |
-<%= link_to 'Voltar', sivic_parteventos_path %>
+</div>
+
+
+</div></div>
+<table style="margin-top:10px;"> 
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('edit.png', title: 'Editar', class: 'exibirico') , edit_sivic_partevento_path(@sivic_partevento) %>
+    </td>
+    <td align="center" style="width:20px;">
+      <%= link_to image_tag('back.png', title: 'Voltar',class: 'exibirico') , sivic_parteventos_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Editar</label>
+    </td>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Voltar</label>
+    </td>
+  </tr> 
+</table>

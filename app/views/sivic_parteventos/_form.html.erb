@@ -11,32 +11,43 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :Nome %><br>
-    <%#= f.text_field :sivic_pessoa_id, disabled="disabled" %>
-    <select id="sivic_partevento_sivic_pessoa_id" name="sivic_partevento[sivic_pessoa_id]" disabled="disabled">
-    </select>
-  </div>
- 
-  <div class="field">
-        <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Pessoa</a>
-  </div>
-
-  <div class="field">
-    <%= f.label :Evento %><br>
-    <%#= f.text_field :sivic_evento_id %>
-    <select id="sivic_partevento_sivic_evento_id" name="sivic_partevento[sivic_evento_id]" disabled="disabled">
-    </select>
-  </div>
-  <div class="field">
-        <a data-toggle="modal" href="#myModal3" class="btn btn-primary btn-small btn-signup">Buscar Evento</a>
-  </div>
-
+  <div class="containermininmo">
+  <table style="width:50%;" align='center'>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label :Nome %>
+          <%#= f.text_field :sivic_pessoa_id, disabled="disabled" %>
+          <select id="sivic_partevento_sivic_pessoa_id" name="sivic_partevento[sivic_pessoa_id]" disabled="disabled" class="form-control-5">
+          </select>
+        </div>
+        <div class="field">
+          <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Pessoa</a>
+        </div>
+      </td>
+    </tr>
+    <tr>      
+      <td>
+        <div class="field">
+          <%= f.label :Evento %>
+          <select id="sivic_partevento_sivic_evento_id" name="sivic_partevento[sivic_evento_id]" disabled="disabled" class="form-control-5">
+          </select>
+        </div>
+        <div class="field">
+              <a data-toggle="modal" href="#myModal3" class="btn btn-primary btn-small btn-signup">Buscar Evento</a>
+        </div>
+      </td>
+    </tr>
+    <tr>      
 <%=  f.fields_for :sivic_movimentofinanceiro do |movimento| %>
-  <div class="field">
-    <%= movimento.label :Valor_Pago %><br>
-    <%= movimento.text_field :VALR_movimento %>
-   </div>
+      <td>
+        <div class="field">
+          <%= movimento.label :Valor_Pago %>
+          <%= movimento.text_field :VALR_movimento, :class => "form-control-1" %>
+        </div>
+      </td>
+    </tr>
+  </table>
 
    <%=@evento%>
    <!--DADOS AUTOMATICOS-->
@@ -51,9 +62,7 @@
 
 <%end%>
 
-  <div class="actions">
-    <%= f.submit%>
-  </div>
+<%=render '/layouts/iconsalvar' %>
 <%end%>
 
   <%
@@ -73,12 +82,12 @@
       
      <div class="modal-header">  
           <a class="close" data-dismiss="modal">×</a>  
-          <h5>Buscar Pessoas</h5>  
+          <h4>Buscar Pessoas</h4>  
       </div>  
       <div class="modal-body">
         <div class="input-group input-group-lg">
           <label >Nome</label><br>
-          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onchange="buscaPessoa()"type="text" class="form-control" placeholder="Username" style="width: 300px;">
+          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onkeypress="buscaPessoa()"type="text" class="form-control" placeholder="Username" style="width: 80%;">
           <a data-toggle="modal" href="javascript:buscaPessoa();" class="btn btn-success" style="margin-bottom: 10px;">Buscar</a>
         </div>
         <table id="table_user" name="table_user" class="table table-hover">
@@ -103,20 +112,20 @@
       </div>  
       <div class="modal-body">
         <div class="field">
-          <%= f.label :Lider %><br>
-          <%= f.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',0),:include_blank => true%>
+          <%= f.label :Lider %>
+          <%= f.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',0),{:include_blank => true},{:class => "form-control-100" }%>
         </div>  
         <div class="field">
-          <%= f.label :Nome %><br>
-          <%= f.text_field :NOME_pessoa %>
+          <%= f.label :Nome %>
+          <%= f.text_field :NOME_pessoa, :class => "form-control-100"  %>
         </div>
         <div class="field">
-          <%= f.label :Email %><br>
-          <%= f.text_field :DESC_email %>
+          <%= f.label :Email %>
+          <%= f.text_field :DESC_email, :class => "form-control-100"  %>
         </div>
         <div class="field">
-          <%= f.label :Observação %><br>
-          <%= f.text_field :DESC_observacao %>
+          <%= f.label :Observação %>
+          <%= f.text_field :DESC_observacao, :class => "form-control-100"  %>
         </div>
           <!--Capturando igreja do usuaário logado -->
          <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja.id %>
@@ -135,7 +144,7 @@
  <div id="myModal3" class="modal fade" style="display: none;" >  
       <div class="modal-header">  
         <a class="close" data-dismiss="modal">×</a>  
-        <h3 class="center">Eventos</h3>  
+        <h4 class="center">Eventos</h4>  
       </div>  
       <div class="modal-body">
         <table id="table_evento" name="table_evento" class="table table-hover" onload="buscaEvento()">
