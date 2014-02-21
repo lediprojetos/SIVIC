@@ -246,11 +246,12 @@
               <div class="field">
                 <%= f.label :Telefone %>
                 <%= f.text_field :NUMR_Telefone, :class => 'form-control-100' %>
-              </div>
+             </div>          
               <div class="field">
                 <%= f.label :Situação %>
-                <%= f.text_field :DESC_SituacaoParticipante, :class => 'form-control-100' %>
-              </div>
+                <%= f.select :sivic_sitpartcelula_id, options_from_collection_for_select(SivicSitpartcelula.where("sivic_igreja_id = ?", current_user.sivic_pessoa.sivic_igreja.id), 'id', 'DESC_situacao',@sivic_participantecelula.sivic_sitpartcelula_id),:include_blank => true, :class => 'form-control-100'%>
+              </div>         
+
             </div>
 
             <div class="modal-footer">
@@ -259,8 +260,7 @@
               </div>        
             </div>  
             </div>  
-          <% end %>
-              
+          <% end %>            
         </div>
       </div>
     </div>      
