@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140220160757) do
+ActiveRecord::Schema.define(version: 20140222194315) do
 
   create_table "sivic_celulas", force: true do |t|
     t.integer  "sivic_pessoa_id"
@@ -183,10 +183,12 @@ ActiveRecord::Schema.define(version: 20140220160757) do
     t.string   "DESC_SituacaoParticipante"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sivic_sitpartcelula_id"
   end
 
   add_index "sivic_partevenrelacelulas", ["sivic_participantecelula_id"], name: "index_sivic_partevenrelacelulas_on_sivic_participantecelula_id"
   add_index "sivic_partevenrelacelulas", ["sivic_relatorioscelula_id"], name: "index_sivic_partevenrelacelulas_on_sivic_relatorioscelula_id"
+  add_index "sivic_partevenrelacelulas", ["sivic_sitpartcelula_id"], name: "index_sivic_partevenrelacelulas_on_sivic_sitpartcelula_id"
 
   create_table "sivic_parteventos", force: true do |t|
     t.integer  "sivic_pessoa_id"

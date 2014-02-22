@@ -284,7 +284,7 @@ jQuery(function($){
             NOME_Participante : $('#sivic_participantecelula_NOME_Participante').val()
             ,DESC_Email : $('#sivic_participantecelula_DESC_Email').val()
             ,NUMR_Telefone : $('#sivic_participantecelula_NUMR_Telefone').val()
-            ,DESC_SituacaoParticipante : $('#sivic_participantecelula_DESC_SituacaoParticipante').val()
+            ,sivic_sitpartcelula_id : $('#sivic_participantecelula_sivic_sitpartcelula_id').val()
         },
         success: function(data){
           var options = "";
@@ -314,14 +314,14 @@ jQuery(function($){
           $("#tbodyid").empty();
           for (var i in data) {
             var item = data[i];
-            $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.NOME_Participante+'\','+item.id+',\'' + item.DESC_SituacaoParticipante+'\');">'+item.NOME_Participante+'</a></td><td><a href="javascript:setaNome(\'' + item.NOME_Participante+'\','+item.id+',\'' + item.DESC_SituacaoParticipante+'\');">'+item.DESC_SituacaoParticipante+'</a></td></tr>')
+            $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.NOME_Participante+'\','+item.id+',\ '+ item.id_Situacao+'\);">'+item.NOME_Participante+'</a></td><td><a href="javascript:setaNome(\'' + item.NOME_Participante+'\','+item.id+',\ ' + item.id_Situacao+'\);">'+item.DESC_SituacaoParticipante+'</a></td></tr>')
           };
  
         }
       })
     }
 
-  function setaNome(nome,id,situacao){
+  function setaNome(nome,id,id_situacao){
 
       $.ajax({
         url: '<%= criarParticipantesRelatorios_path %>',
@@ -329,7 +329,7 @@ jQuery(function($){
         {
             sivic_relatorioscelula_id : $('#sivic_relatorioscelula_id').val()
             ,sivic_participantecelula_id : id
-            ,DESC_SituacaoParticipante : situacao
+            ,sivic_sitpartcelula_id : id_situacao
         },
         success: function(data){
           for (var i in data) {

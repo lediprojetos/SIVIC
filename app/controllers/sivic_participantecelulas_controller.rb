@@ -4,17 +4,19 @@ class SivicParticipantecelulasController < ApplicationController
 
   def create_participante
 
-    SivicParticipantecelula.create(:NOME_Participante => params[:NOME_Participante],:DESC_Email => params[:DESC_Email],:NUMR_Telefone => params[:NUMR_Telefone],:DESC_SituacaoParticipante => params[:DESC_SituacaoParticipante])
+    SivicParticipantecelula.create(:NOME_Participante => params[:NOME_Participante],:DESC_Email => params[:DESC_Email],:NUMR_Telefone => params[:NUMR_Telefone],:sivic_sitpartcelula_id => params[:sivic_sitpartcelula_id])
     sivic_participante = SivicParticipantecelula.find :all, :conditions => {:NOME_Participante => params[:NOME_Participante],:DESC_Email => params[:DESC_Email],:NUMR_Telefone => params[:NUMR_Telefone]}, :order => "NOME_Participante ASC"
-    sivic_participante_json = sivic_participante.map {|item| {:id => item.id, :NOME_Participante => item.NOME_Participante, :DESC_SituacaoParticipante => item.DESC_SituacaoParticipante}}
+    sivic_participante_json = sivic_participante.map {|item| {:id => item.id, :NOME_Participante => item.NOME_Participante, :DESC_SituacaoParticipante => item.sivic_sitpartcelula.DESC_situacao}}
     render :json => sivic_participante_json
 
   end
 
   def busca_participante
 
+   #debugger
+   
     sivic_participante = SivicParticipantecelula.where("NOME_Participante like ?", "#{params[:NOME_Participante]}%")
-    sivic_participante_json = sivic_participante.map {|item| {:id => item.id, :NOME_Participante => item.NOME_Participante, :DESC_SituacaoParticipante => item.DESC_SituacaoParticipante}}
+    sivic_participante_json = sivic_participante.map {|item| {:id => item.id, :NOME_Participante => item.NOME_Participante, :id_Situacao => item.sivic_sitpartcelula_id, :DESC_SituacaoParticipante => item.sivic_sitpartcelula.DESC_situacao}}
     render :json => sivic_participante_json
 
   end     
@@ -42,6 +44,7 @@ class SivicParticipantecelulasController < ApplicationController
   # POST /sivic_participantecelulas
   # POST /sivic_participantecelulas.json
   def create
+
     @sivic_participantecelula = SivicParticipantecelula.new(sivic_participantecelula_params)
 
     respond_to do |format|
@@ -87,6 +90,6 @@ class SivicParticipantecelulasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_participantecelula_params
-      params.require(:sivic_participantecelula).permit(:NOME_Participante, :DESC_Email, :NUMR_Telefone, :DESC_SituacaoParticipante)
+      params.require(:sivic_participantecelula).permit(:NOME_Participante, :DESC_Email, :NUMR_Telefone, :DESC_SituacaoParticipante, :sivic_sitpartcelula_id)
     end
 end
