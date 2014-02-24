@@ -75,6 +75,9 @@ class SivicEventosController < ApplicationController
   # PATCH/PUT /sivic_eventos/1.json
   def update
     respond_to do |format|
+      
+      #debugger
+      
       if @sivic_evento.update(sivic_evento_params)
         format.html { redirect_to @sivic_evento, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
@@ -103,6 +106,7 @@ class SivicEventosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_evento_params
+      debugger
       params.require(:sivic_evento).permit(:DESC_evento, :DESC_resumo, :VARL_inscricao, :DATA_inicio, :DATA_fim, :FLAG_ilimitado, :NUMR_qdtVagas, :User_id, :sivic_igreja_id, :sivic_tipo_evento_id, :DATA_encerramento, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
     end
 end
