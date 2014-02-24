@@ -9,4 +9,17 @@ module ApplicationHelper
       "#{base_title} | #{page_title}"
     end
   end
+
+  def buscaFilhos(id)
+
+  	@pessoa = SivicPessoa.all
+
+  	#debugger
+	    @pessoa.each do |sivic_pessoas|
+	      sivic_pessoas.NOME_pessoa
+	    end
+
+	  
+  end
+
 end

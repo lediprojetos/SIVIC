@@ -33,7 +33,7 @@
 
 <p>
   <strong>Célula:</strong>
-  <%= @sivic_discipulo.sivic_celula.NUMR_Dia %>
+  <%= @sivic_discipulo.sivic_celula.blank? ? '' : @sivic_discipulo.sivic_celula.NUMR_Dia%>
 </p>
 
 <p>

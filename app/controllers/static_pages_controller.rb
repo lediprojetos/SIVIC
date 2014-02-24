@@ -1,4 +1,5 @@
 class StaticPagesController < ApplicationController
+
   def home
   end
 
@@ -13,6 +14,11 @@ class StaticPagesController < ApplicationController
 
   def index
     @sivic_users = User.all
+  end
+
+  def relDiscipulos
+
+    @sivic_pessoas = SivicPessoa.all
   end
 
 end

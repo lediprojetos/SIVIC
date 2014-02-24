@@ -1,0 +1,20 @@
+<ul>
+<%@sivic_pessoas.each do |sivic_pessoas|%>
+    <li>
+    <%= sivic_pessoas.NOME_pessoa%>
+    <%= teste(1)%>
+    </li>
+<%end%>
+<ul>
+
+
+
+
+<%
+
+def teste(teste)
+    teste = SivicPessoa.find_by_id(id)
+
+    teste.NOME_pessoa
+end
+%>
