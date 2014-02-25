@@ -25,7 +25,7 @@ module SivicDiscipulosHelper
 		end
 
 		#debugger
-
+		html = html.gsub('<ul></ul>', '')
 		html.html_safe
 	end
 

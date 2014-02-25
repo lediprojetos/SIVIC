@@ -1,5 +1,10 @@
 class SivicDiscipulosController < ApplicationController
-  before_action :set_sivic_discipulo, only: [:show, :edit, :update, :destroy]
+  before_action :set_sivic_discipulo, only: [:show, :edit, :update, :destroy, :relDiscipulos]
+
+  def relDiscipulos
+    @sivic_discipulo = SivicDiscipulo.find(params[:id])
+    
+  end
 
   # GET /sivic_discipulos
   # GET /sivic_discipulos.json

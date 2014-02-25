@@ -40,7 +40,8 @@ SIVIC::Application.routes.draw do
   match '/help',    to: 'static_pages#help',    via: 'get'
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
-  match '/relDiscipulos', to: 'static_pages#relDiscipulos', via: 'get'
+  #match '/relDiscipulos', to: 'sivic_discipulos#relDiscipulos', via: 'get'
+  get '/relDiscipulos/:id', to: 'sivic_discipulos#relDiscipulos', as: 'relDiscipulos'
 
   match '/admin', to: 'static_pages#index', via: 'get'
 
@@ -56,6 +57,8 @@ SIVIC::Application.routes.draw do
 
   match '/listarEvento', to: 'sivic_parteventos#buscaEvento', via: 'get'
   match '/encerraEvento', to: 'sivic_eventos#encerrar', via: 'get'
+
+  match '/buscaDiagrama', to: 'sivic_discipulos#buscaDiagrama', via: 'get'
 
   match '/criarEndereco', to: 'sivic_enderecos#create_endereco', via: 'get'
   

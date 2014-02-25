@@ -128,7 +128,7 @@
           <%= f.text_field :DESC_observacao, :class => "form-control-100"  %>
         </div>
           <!--Capturando igreja do usuaário logado -->
-         <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja.id %>
+         <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
       </div>
     
       <div class="modal-footer">

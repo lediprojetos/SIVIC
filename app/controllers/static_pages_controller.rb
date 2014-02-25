@@ -16,8 +16,4 @@ class StaticPagesController < ApplicationController
     @sivic_users = User.all
   end
 
-  def relDiscipulos
-
-  end
-
 end
