@@ -18,7 +18,6 @@ class StaticPagesController < ApplicationController
 
   def relDiscipulos
 
-    @sivic_pessoas = SivicPessoa.all
   end
 
 end

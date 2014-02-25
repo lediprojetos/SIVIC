@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20140222194315) do
     t.datetime "DATA_fim"
     t.integer  "FLAG_ilimitado"
     t.integer  "NUMR_qdtVagas"
-    t.integer  "User_id"
+    t.integer  "sivic_user_id"
     t.integer  "sivic_igreja_id"
     t.integer  "sivic_endereco_id"
     t.integer  "sivic_tipo_evento_id"
@@ -131,10 +131,10 @@ ActiveRecord::Schema.define(version: 20140222194315) do
     t.datetime "DATA_encerramento"
   end
 
-  add_index "sivic_eventos", ["User_id"], name: "index_sivic_eventos_on_User_id"
   add_index "sivic_eventos", ["sivic_endereco_id"], name: "index_sivic_eventos_on_sivic_endereco_id"
   add_index "sivic_eventos", ["sivic_igreja_id"], name: "index_sivic_eventos_on_sivic_igreja_id"
   add_index "sivic_eventos", ["sivic_tipo_evento_id"], name: "index_sivic_eventos_on_sivic_tipo_evento_id"
+  add_index "sivic_eventos", ["sivic_user_id"], name: "index_sivic_eventos_on_sivic_user_id"
 
   create_table "sivic_igrejas", force: true do |t|
     t.integer  "father_id"
