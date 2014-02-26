@@ -10,4 +10,7 @@ class SivicCelula < ActiveRecord::Base
   DIAS = %w[SEGUNDA-FEIRA TERCA-FEIRA QUARTA-FEIRA QUINTA-FEIRA SEXTA-FEIRA SABADO DOMINGO]
   SEXO = %w[MASCULINO FEMININO OUTROS]
 
+
+  validates :sivic_pessoa_id, :presence => { :message => ' - Escolha o lider de celula' }
+
 end

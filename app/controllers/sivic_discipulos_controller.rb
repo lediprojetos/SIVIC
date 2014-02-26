@@ -26,6 +26,15 @@ class SivicDiscipulosController < ApplicationController
 
   # GET /sivic_discipulos/1/edit
   def edit
+
+    @sivic_estado = SivicDiscipulo.find(params[:id])
+    @sivic_estado = @sivic_estado.sivic_endereco.sivic_cidade.sivic_estado.id
+
+    @sivic_cidade = SivicCidade.find :all, :conditions => {:sivic_estado_id => @sivic_estado}
+
+    @sivic_cidade_setada = SivicDiscipulo.find(params[:id])
+    @sivic_cidade_setada = @sivic_cidade_setada.sivic_endereco.sivic_cidade.id
+
   end
 
   # POST /sivic_discipulos

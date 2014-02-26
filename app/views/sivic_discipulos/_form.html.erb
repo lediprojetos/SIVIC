@@ -572,7 +572,7 @@ jQuery(function($){
 
   }   
 
-  <% if @sivic_discipulo.sivic_pessoa.id %>
+  <% if @sivic_discipulo.sivic_pessoa.id && @sivic_discipulo.sivic_pessoa.father%>
 
     //disablePessoaForm();
     $('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty();

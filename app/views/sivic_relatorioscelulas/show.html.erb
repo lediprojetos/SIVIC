@@ -249,7 +249,7 @@
              </div>          
               <div class="field">
                 <%= f.label :Situação %>
-                <%= f.select :sivic_sitpartcelula_id, options_from_collection_for_select(SivicSitpartcelula.where("sivic_igreja_id = ?", current_user.sivic_pessoa.sivic_igreja.id), 'id', 'DESC_situacao',@sivic_participantecelula.sivic_sitpartcelula_id),:include_blank => true, :class => 'form-control-100'%>
+                <%= f.select :sivic_sitpartcelula_id, options_from_collection_for_select(SivicSitpartcelula.where("sivic_igreja_id = ?", current_user.sivic_pessoa.sivic_igreja.id), 'id', 'DESC_situacao',@sivic_participantecelula.sivic_sitpartcelula_id),{}, :class => 'form-control-100'%>
               </div>         
 
             </div>
@@ -291,12 +291,12 @@ jQuery(function($){
           var DESC_SituacaoParticipante
           for (var i in data) {
             var item = data[i];
-            setaNome(item.NOME_Participante,item.id,item.DESC_SituacaoParticipante);
+            setaNome(item.NOME_Participante,item.id,item.sivic_sitpartcelula_id);
 
             $('#sivic_participantecelula_NOME_Participante').val("");
             $('#sivic_participantecelula_DESC_Email').val("");
             $('#sivic_participantecelula_NUMR_Telefone').val("");
-            $('#sivic_participantecelula_DESC_SituacaoParticipante').val("");
+            //$('#sivic_participantecelula_DESC_SituacaoParticipante').val("");
 
           };
         }
@@ -334,8 +334,10 @@ jQuery(function($){
         success: function(data){
           for (var i in data) {
             var item = data[i];
-            $('#tlbparticipantes').append('<tr><td>'+item.NOME_Participante+'</td><td>'+item.DESC_Email+'</td><td>'+item.NUMR_Telefone+'</td><td>'+item.DESC_SituacaoParticipante+'</td><td><a data-confirm="Deseja excluir o registro?" data-method="delete" href="/sivic_relatorioscelulas/'+$('#sivic_relatorioscelula_id').val()+'/sivic_partevenrelacelulas/'+item.id+'" rel="nofollow">Excluir</a></td></tr>');
+            //$('#tlbparticipantes').append('<tr><td>'+item.NOME_Participante+'</td><td>'+item.DESC_Email+'</td><td>'+item.NUMR_Telefone+'</td><td>'+item.DESC_SituacaoParticipante+'</td><td><a data-confirm="Deseja excluir o registro?" data-method="delete" href="/sivic_relatorioscelulas/'+$('#sivic_relatorioscelula_id').val()+'/sivic_partevenrelacelulas/'+item.id+'" rel="nofollow">Excluir</a></td></tr>');
             //alert(item.id);
+
+            $('#tlbparticipantes').append('<tr><td>'+item.NOME_Participante+'</td><td>'+item.DESC_Email+'</td><td>'+item.NUMR_Telefone+'</td><td>'+item.DESC_SituacaoParticipante+'</td><td><a data-confirm="Deseja excluir o registro?" data-method="delete" href="/sivic_relatorioscelulas/'+$('#sivic_relatorioscelula_id').val()+'/sivic_partevenrelacelulas/'+item.id+'" rel="nofollow"><img alt="Trash" class="exibirico" src="/assets/trash.png" title="Excluir" /></a>')
           };
  
         }

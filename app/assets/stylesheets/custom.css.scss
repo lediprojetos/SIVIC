@@ -445,7 +445,6 @@ aside {
 
 .containermininmo {
   width:100%;
-  
   overflow:auto;
 }
 
@@ -464,8 +463,8 @@ input {
 }
 
 a:hover img {
-border: none !important;
-display: block;
+  border: none !important;
+  display: block;
 }
 
 .titleTable {
@@ -479,13 +478,14 @@ display: block;
 
 .exibirico
 {
-opacity:0.4;
-filter:alpha(opacity=40); /* For IE8 and earlier */
+  opacity:0.4;
+  filter:alpha(opacity=40); /* For IE8 and earlier */
 }
+
 .exibirico:hover
 {
-opacity:1.0;
-filter:alpha(opacity=100); /* For IE8 and earlier */
+  opacity:1.0;
+  filter:alpha(opacity=100); /* For IE8 and earlier */
 }
 
 #scroll {
