@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140222194315) do
+ActiveRecord::Schema.define(version: 20140227164145) do
+
+  create_table "observacoesrelatorios", force: true do |t|
+    t.integer  "sivic_relatorioscelula_id"
+    t.integer  "sivic_pessoa_id"
+    t.string   "DESC_Observacao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "observacoesrelatorios", ["sivic_pessoa_id"], name: "index_observacoesrelatorios_on_sivic_pessoa_id"
+  add_index "observacoesrelatorios", ["sivic_relatorioscelula_id"], name: "index_observacoesrelatorios_on_sivic_relatorioscelula_id"
 
   create_table "sivic_celulas", force: true do |t|
     t.integer  "sivic_pessoa_id"
@@ -37,6 +48,15 @@ ActiveRecord::Schema.define(version: 20140222194315) do
   end
 
   add_index "sivic_cidades", ["sivic_estado_id"], name: "index_sivic_cidades_on_sivic_estado_id"
+
+  create_table "sivic_contdiscipulos", force: true do |t|
+    t.integer  "NUMR_Contador"
+    t.integer  "sivic_igreja_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_contdiscipulos", ["sivic_igreja_id"], name: "index_sivic_contdiscipulos_on_sivic_igreja_id"
 
   create_table "sivic_discipulos", force: true do |t|
     t.integer  "sivic_pessoa_id"
@@ -79,6 +99,7 @@ ActiveRecord::Schema.define(version: 20140222194315) do
     t.boolean  "FLAG_DoadorOrgao"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "NUMR_Codigo"
   end
 
   add_index "sivic_discipulos", ["sivic_celula_id"], name: "index_sivic_discipulos_on_sivic_celula_id"
@@ -281,6 +302,12 @@ ActiveRecord::Schema.define(version: 20140222194315) do
   end
 
   add_index "sivic_sitpartcelulas", ["sivic_igreja_id"], name: "index_sivic_sitpartcelulas_on_sivic_igreja_id"
+
+  create_table "sivic_situacoesrelatorios", force: true do |t|
+    t.string   "DESC_Situacao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sivic_tipmovfinanceiros", force: true do |t|
     t.string   "DESC_movimento"

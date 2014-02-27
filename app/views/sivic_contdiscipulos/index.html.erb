@@ -1,0 +1,29 @@
+<h1>Listing sivic_contdiscipulos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Numr contador</th>
+      <th>Sivic igreja</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_contdiscipulos.each do |sivic_contdiscipulo| %>
+      <tr>
+        <td><%= sivic_contdiscipulo.NUMR_Contador %></td>
+        <td><%= sivic_contdiscipulo.sivic_igreja %></td>
+        <td><%= link_to 'Show', sivic_contdiscipulo %></td>
+        <td><%= link_to 'Edit', edit_sivic_contdiscipulo_path(sivic_contdiscipulo) %></td>
+        <td><%= link_to 'Destroy', sivic_contdiscipulo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic contdiscipulo', new_sivic_contdiscipulo_path %>
