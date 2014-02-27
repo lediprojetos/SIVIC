@@ -39,6 +39,7 @@ class SivicRelatorioscelulasController < ApplicationController
 
   # GET /sivic_relatorioscelulas/1/edit
   def edit
+    @sivic_Observacoesrelatorios = Observacoesrelatorio.where(:sivic_relatorioscelula_id => params[:id])
   end
 
   # POST /sivic_relatorioscelulas

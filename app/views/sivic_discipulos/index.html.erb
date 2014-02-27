@@ -2,7 +2,14 @@
   Listar Discípulos
 <% end %>
 
+
 <%=render '/layouts/panel' %>
+
+          <label >Nome</label>
+          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" type="text" class="form-control" placeholder="Nome do Discípulo" style="width: 20%;">
+          <a data-toggle="modal" href="javascript:usaNome();" class="btn btn-info" style="margin-bottom: 10px;">Buscar</a>
+
+  <hr>
 
 <div class="containermininmo">
   <table class="table table-hover">

@@ -50,12 +50,24 @@
           </div>
         </td>
       </tr>
+      <tr>
+        <td>
+          <div class="field">
+            <!--Campos ocultos -->
+            <%if current_user.sivic_pessoa.sivic_igreja_id%>
+              <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id%>
+            <%else%>
+              <%= f.label :Igreja, :class => 'lblForms'  %>
+              <%= f.select :sivic_igreja_id, options_from_collection_for_select(SivicIgreja.all, 'id', 'NOME_igreja'),:include_blank => true%>
+            <%end%>
+            <%=f.hidden_field :User_id, :value => current_user.id%>
+            <!--Campos ocultos -->
+          </div>
+        </td>
+      </tr>      
     </table>
 
-    <!--Campos ocultos -->
-    <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id%>
-    <%=f.hidden_field :User_id, :value => current_user.id%>
-    <!--Campos ocultos -->
+
 
     <%=render '/layouts/iconsalvar' %>
 
