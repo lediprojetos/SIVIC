@@ -493,3 +493,23 @@ a:hover img {
   height:600px;
   overflow:auto;
 }
+
+.divchat{
+  margin-top:20px;
+  margin-button:10px;
+  border-radius: 5px; 
+  width:500px;
+  background-color:#E1FFDB;
+  border: solid 1px;
+  border-color:#5AD043;
+  div{
+    margin-left:10px;
+    margin-top:5px;
+  }
+}
+
+.txtareachat {
+  width:80%; 
+  float:left;
+
+}

@@ -6,6 +6,14 @@
 
 <%= render 'layouts/panel' %>
 
+<%if @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 3 %>
+  <div class="alert alert-success"><strong>Situacao:</strong> Recebido</div>
+<%elsif @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 1 %>
+  <div class="alert alert-warning"><strong>Situacao:</strong> Enviado</div>
+<%elsif @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 2 %>
+  <div class="alert alert-danger"><strong>Situacao:</strong> Pendente</div>
+<%end%>
+
 <div class="tabbable">
   <ul class="nav nav-tabs">
     <li >
@@ -17,6 +25,9 @@
   </ul>
   <div class="tab-content">
     <div class="tab-pane" id="tab3">
+
+<input type='hidden' id='sivic_relatorioscelula_id' name='sivic_relatorioscelula_id' class='sivic_relatorioscelula_id' value='<%= @sivic_relatorioscelula.id%>'>
+<input type='hidden' id='sivic_pessoa_id' name='sivic_pessoa_id' class='sivic_pessoa_id' value='<%= current_user.id%>'>
 
 <p>
   <strong>Responsável:</strong>
@@ -80,7 +91,7 @@
 
 <p>
   <strong>Situação:</strong>
-  <%= @sivic_relatorioscelula.FLAG_Situacao %>
+  <%= @sivic_relatorioscelula.sivic_situacoesrelatorio.DESC_Situacao %>
 </p>
 
 <p>
@@ -172,6 +183,10 @@
     </td>
     <td align="center" style="width:20px;">
       <%= link_to image_tag('back.png', title: 'Voltar',class: 'exibirico') , sivic_relatorioscelulas_path %>
+    </td>    
+    <td align="center" style="width:20px;">
+      <%#= link_to image_tag('back.png', title: 'Avaliar',class: 'exibirico') , 'onclick="alert(0);"' %>
+      <input type='image' src='/assets/find.png' onclick='$("#myModal3").modal("show")' class='exibirico'>
     </td>
   </tr>
   <tr>
@@ -180,6 +195,9 @@
     </td>
     <td align="center" style="width:20px;">
       <label class="altBotoes">Voltar</label>
+    </td>    
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Avaliar</label>
     </td>
   </tr> 
 </table>
@@ -190,91 +208,170 @@
 %>
 
 <fieldset>
-  <div id="myModal2" class="modal fade" style="display: none;">
-
-    <div class="tabbable"> <!-- Only required for left/right tabs -->
-      <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab1" data-toggle="tab">Consultar</a></li>
-        <li><a href="#tab2" data-toggle="tab">Cadastrar</a></li>
-      </ul>
-      <div class="tab-content">
-        <div class="tab-pane active" id="tab1">
-          <!--Conteúdo Consulta -->
-          <div class="modal-header">  
+   <div id="myModal2" class="modal fade" style="display: none;">
+      <div class="tabbable">
+         <!-- Only required for left/right tabs -->
+         <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab1" data-toggle="tab">Consultar</a></li>
+            <li><a href="#tab2" data-toggle="tab">Cadastrar</a></li>
+         </ul>
+         <div class="tab-content">
+            <div class="tab-pane active" id="tab1">
+               <!--Conteúdo Consulta -->
+               <div class="modal-header">
                   <a class="close" data-dismiss="modal">×</a>  
-                  <h4>Buscar Participantes</h4>  
-                </div>   
-                <div class="modal-body">
+                  <h4>Buscar Participantes</h4>
+               </div>
+               <div class="modal-body">
                   <div class="input-group input-group-lg">
-                    <label >Nome</label>
-                    <input id="NOME_participante_buscar" name="NOME_participante_buscar" onkeypress="buscaPessoa()" type="text" class="form-control" placeholder="Username" style="width: 80%;">
-                    <a data-toggle="modal" href="javascript:buscaPessoa();" class="btn btn-success" style="margin-bottom: 10px;">Buscar</a>
+                     <label >Nome</label>
+                     <input id="NOME_participante_buscar" name="NOME_participante_buscar" onkeypress="buscaPessoa()" type="text" class="form-control" placeholder="Username" style="width: 80%;">
+                     <a data-toggle="modal" href="javascript:buscaPessoa();" class="btn btn-success" style="margin-bottom: 10px;">Buscar</a>
                   </div>
                   <table id="table_user" name="table_user" class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>Nome</th>
-                        <th>Situacão</th>
-                      </tr>
-                    </thead>
-                    <tbody id="tbodyid">
+                     <thead>
+                        <tr>
+                           <th>Nome</th>
+                           <th>Situacão</th>
+                        </tr>
+                     </thead>
+                     <tbody id="tbodyid">
                         <tr>
                         </tr>
                         <tr>
                         </tr>
-                    </tbody>  
+                     </tbody>
                   </table>
+               </div>
             </div>
-
-        </div>
-        <div class="tab-pane" id="tab2">
-          <!--Conteúdo Cadastro -->
-          <%= form_for(@sivic_participantecelula) do |f| %>
-            <div class="modal-header">  
-              <a class="close" data-dismiss="modal">×</a>  
-              <h4>Cadastro de Participantes</h4>  
-            </div>  
-            <div class="modal-body">
-              <div class="field">
-                <%= f.label :NOME %>
-                <%= f.text_field :NOME_Participante, :class => 'form-control-100' %>
-              </div>
-              <div class="field">
-                <%= f.label :Email %>
-                <%= f.text_field :DESC_Email, :class => 'form-control-100' %>
-              </div>
-              <div class="field">
-                <%= f.label :Telefone %>
-                <%= f.text_field :NUMR_Telefone, :class => 'form-control-100' %>
-             </div>          
-              <div class="field">
-                <%= f.label :Situação %>
-                <%= f.select :sivic_sitpartcelula_id, options_from_collection_for_select(SivicSitpartcelula.where("sivic_igreja_id = ?", current_user.sivic_pessoa.sivic_igreja.id), 'id', 'DESC_situacao',@sivic_participantecelula.sivic_sitpartcelula_id),{}, :class => 'form-control-100'%>
-              </div>         
-
+            <div class="tab-pane" id="tab2">
+               <!--Conteúdo Cadastro -->
+               <%= form_for(@sivic_participantecelula) do |f| %>
+               <div class="modal-header">
+                  <a class="close" data-dismiss="modal">×</a>  
+                  <h4>Cadastro de Participantes</h4>
+               </div>
+               <div class="modal-body">
+                  <div class="field">
+                     <%= f.label :NOME %>
+                     <%= f.text_field :NOME_Participante, :class => 'form-control-100' %>
+                  </div>
+                  <div class="field">
+                     <%= f.label :Email %>
+                     <%= f.text_field :DESC_Email, :class => 'form-control-100' %>
+                  </div>
+                  <div class="field">
+                     <%= f.label :Telefone %>
+                     <%= f.text_field :NUMR_Telefone, :class => 'form-control-100' %>
+                  </div>
+                  <div class="field">
+                     <%= f.label :Situação %>
+                     <%= f.select :sivic_sitpartcelula_id, options_from_collection_for_select(SivicSitpartcelula.where("sivic_igreja_id = ?", current_user.sivic_pessoa.sivic_igreja.id), 'id', 'DESC_situacao',@sivic_participantecelula.sivic_sitpartcelula_id),{}, :class => 'form-control-100'%>
+                  </div>
+               </div>
+               <div class="modal-footer">
+                  <div class="field">
+                     <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
+                  </div>
+               </div>
             </div>
-
-            <div class="modal-footer">
-              <div class="field">
-                <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
-              </div>        
-            </div>  
-            </div>  
-          <% end %>            
-        </div>
+            <% end %>            
+         </div>
       </div>
-    </div>      
-
+   </div>
 </fieldset>
 
+<fieldset>
+  <div id="myModal3" class="modal fade" style="display: none;">  
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>  
+        <h4>Avaliar Relório</h4>
+      </div>
+      <div class="modal-body">
+        <div class="input-group input-group-lg">
+        </div>
 
+        <table id='tlbchat'>
+          <% @sivic_Observacoesrelatorios.each do |sivic_obs| %>
+          <tr>
+            <td>
+              <div class='divchat'>
+                <div>
+                  <strong><%= sivic_obs.sivic_pessoa.NOME_pessoa + ':'%></strong>
+                  <label><%= sivic_obs.DESC_Observacao%></label>
+                </div>
+              </div>
+            </td>           
+          </tr>
+          <%end%>
+        </table>
+
+        <hr>
+
+        <div slyle='width:100%; height:100%; align:left'>
+          <textarea class='txtareachat' name='txtareachat' id='txtareachat'></textarea>
+          <a data-toggle="modal" class="btn btn-info" href="javascript:createObservacao();"  style='float:left;margin-left:10px;'>Enviar</a>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a data-toggle="modal" class="btn btn-danger" href="javascript:alteraSituacao(2);" >Negar</a>
+        <a data-toggle="modal" class="btn btn-success" href="javascript:alteraSituacao(3);" >Aceitar</a>
+      </div>
+  </div>  
+</fieldset>
 
 <script>
 
+
+//Aplicando Máscara
 jQuery(function($){
    $("#sivic_participantecelula_NUMR_Telefone").mask("(99)9999-9999");
 
 });
+
+  function alteraSituacao(situacao){
+
+      $.ajax({
+        url: '<%= alteraSituacao_path %>',
+        data : 
+        {
+            sivic_relatorioscelula_id : $('#sivic_relatorioscelula_id').val()
+            ,sivic_situacoesrelatorio_id : situacao
+        },
+        success: function(data){
+
+          location.reload();
+
+        }
+      })
+
+  }
+
+  function createObservacao(){
+
+      $.ajax({
+        url: '<%= criarObservacaorelatorio_path %>',
+        data : 
+        {
+            sivic_relatorioscelula_id : $('#sivic_relatorioscelula_id').val()
+            ,sivic_pessoa_id : $('#sivic_pessoa_id').val()
+            ,DESC_Observacao : $('#txtareachat').val()
+        },
+        success: function(data){
+          var options = "";
+          var DESC_SituacaoParticipante
+          for (var i in data) {
+            var item = data[i];
+
+            $('#tlbchat').append('<tr><td><div class="divchat"><div><strong>'+item.NOME_pessoa+'</strong><label>'+item.DESC_Observacao+'</label></div></div></td></tr>')
+            $('#txtareachat').val("")
+
+          };
+        }
+      })
+
+  }
+
   function createPessoa(){
 
       $.ajax({

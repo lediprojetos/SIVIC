@@ -1,6 +1,23 @@
 class SivicRelatorioscelulasController < ApplicationController
   before_action :set_sivic_relatorioscelula, only: [:show, :edit, :update, :destroy]
 
+
+  def altera_situacao
+    #sivic_relatorio = SivicRelatorioscelula.where(:id => params[:id])
+    #sivic_relatorio.update(:sivic_situacoesrelatorio_id => params[:sivic_situacoesrelatorio_id])
+
+    sivic_evento = SivicRelatorioscelula.find_by_id(params[:sivic_relatorioscelula_id])
+    sivic_evento.sivic_situacoesrelatorio_id = params[:sivic_situacoesrelatorio_id]
+    sivic_evento.save
+
+    respond_to do |format|
+    format.html { redirect_to sivic_relatorioscelulas_path }
+    format.json { head :no_content }
+    end    
+
+  end
+
+
   # GET /sivic_relatorioscelulas
   # GET /sivic_relatorioscelulas.json
   def index
@@ -11,6 +28,8 @@ class SivicRelatorioscelulasController < ApplicationController
   # GET /sivic_relatorioscelulas/1.json
   def show
     @sivic_partevenrelacelulas = SivicParticipantecelula.all
+
+    @sivic_Observacoesrelatorios = Observacoesrelatorio.where(:sivic_relatorioscelula_id => params[:id])
   end
 
   # GET /sivic_relatorioscelulas/new
@@ -70,6 +89,6 @@ class SivicRelatorioscelulasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_relatorioscelula_params
-      params.require(:sivic_relatorioscelula).permit(:sivic_celula_id, :DATA_Reuniao, :DATA_Horainicio, :DATA_HoraTermino, :NUMR_NumVisitante, :NUMR_NumParticipante, :DESC_AssuntoEstudo, :DESC_TextoBiblico, :VALR_Oferta, :NUMR_Decisoes, :DESC_OutrasInformacoes, :FLAG_Situacao, :NUMR_QtdNovoConvertido, :NUMR_QtdResgate, :NUMR_QtdPreEncontro, :NUMR_QtdEncontro, :NUMR_QtdPosEncontro, :NUMR_QtdEscoLid1, :NUMR_EscoLid2, :NUMR_EscoLid3, :NUMR_QtdLidCelula)
+      params.require(:sivic_relatorioscelula).permit(:sivic_celula_id, :DATA_Reuniao, :DATA_Horainicio, :DATA_HoraTermino, :NUMR_NumVisitante, :NUMR_NumParticipante, :DESC_AssuntoEstudo, :DESC_TextoBiblico, :VALR_Oferta, :NUMR_Decisoes, :DESC_OutrasInformacoes, :sivic_situacoesrelatorio_id, :NUMR_QtdNovoConvertido, :NUMR_QtdResgate, :NUMR_QtdPreEncontro, :NUMR_QtdEncontro, :NUMR_QtdPosEncontro, :NUMR_QtdEscoLid1, :NUMR_EscoLid2, :NUMR_EscoLid3, :NUMR_QtdLidCelula)
     end
 end

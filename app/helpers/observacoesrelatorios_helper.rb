@@ -1,0 +1,2 @@
+module ObservacoesrelatoriosHelper
+end

@@ -1,0 +1,29 @@
+<%= form_for(@observacoesrelatorio) do |f| %>
+  <% if @observacoesrelatorio.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@observacoesrelatorio.errors.count, "error") %> prohibited this observacoesrelatorio from being saved:</h2>
+
+      <ul>
+      <% @observacoesrelatorio.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :sivic_relatorioscelulas_id %><br>
+    <%= f.text_field :sivic_relatorioscelulas_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_pessoas_id %><br>
+    <%= f.text_field :sivic_pessoas_id %>
+  </div>
+  <div class="field">
+    <%= f.label :DESC_Observacao %><br>
+    <%= f.text_field :DESC_Observacao %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

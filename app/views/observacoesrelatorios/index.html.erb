@@ -1,0 +1,31 @@
+<h1>Listing observacoesrelatorios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sivic relatorioscelulas</th>
+      <th>Sivic pessoas</th>
+      <th>Desc observacao</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @observacoesrelatorios.each do |observacoesrelatorio| %>
+      <tr>
+        <td><%= observacoesrelatorio.sivic_relatorioscelulas %></td>
+        <td><%= observacoesrelatorio.sivic_pessoas %></td>
+        <td><%= observacoesrelatorio.DESC_Observacao %></td>
+        <td><%= link_to 'Show', observacoesrelatorio %></td>
+        <td><%= link_to 'Edit', edit_observacoesrelatorio_path(observacoesrelatorio) %></td>
+        <td><%= link_to 'Destroy', observacoesrelatorio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Observacoesrelatorio', new_observacoesrelatorio_path %>

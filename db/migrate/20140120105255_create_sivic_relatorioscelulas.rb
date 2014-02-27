@@ -12,7 +12,7 @@ class CreateSivicRelatorioscelulas < ActiveRecord::Migration
       t.decimal :VALR_Oferta
       t.integer :NUMR_Decisoes
       t.text :DESC_OutrasInformacoes
-      t.integer :FLAG_Situacao
+      t.references :sivic_situacoesrelatorio, index: true
       t.integer :NUMR_QtdNovoConvertido
       t.integer :NUMR_QtdResgate
       t.integer :NUMR_QtdPreEncontro
