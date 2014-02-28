@@ -40,8 +40,11 @@ SIVIC::Application.routes.draw do
   match '/help',    to: 'static_pages#help',    via: 'get'
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
+
   get '/relDiscipulos/:id', to: 'sivic_discipulos#relDiscipulos', as: 'relDiscipulos'
-  get '/filtradiscipulos/:NOME_pessoa', to: 'sivic_discipulos#filtradiscipulos', as: 'filtradiscipulos'
+
+  get '/filtradiscipulos/:NOME_pessoa', to: 'sivic_discipulos#index', as: 'filtradiscipulos'
+
   match '/admin', to: 'static_pages#index', via: 'get'
   match '/listarCidade', to: 'sivic_igrejas#get_cities', via: 'get'
   match '/criarPessoa', to: 'sivic_pessoas#create_pessoa', via: 'get'

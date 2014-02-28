@@ -6,13 +6,18 @@ class SivicDiscipulosController < ApplicationController
     
   end
 
-
-  #def filtradiscipulos
-
   # GET /sivic_discipulos
   # GET /sivic_discipulos.json
   def index
-    @sivic_discipulos = SivicDiscipulo.all
+    #debugger
+    if params[:NOME_pessoa]
+      #@sivic_discipulos = SivicDiscipulo.where(:id => params[:NOME_pessoa])
+      #@sivic_discipulos = SivicDiscipulo.where(:id => params[:NOME_pessoa])
+      @sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id where sp.NOME_pessoa like"' + params[:NOME_pessoa] +'%"')
+
+    else
+      @sivic_discipulos = SivicDiscipulo.all
+    end
   end
 
   # GET /sivic_discipulos/1

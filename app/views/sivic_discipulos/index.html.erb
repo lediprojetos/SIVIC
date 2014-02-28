@@ -7,7 +7,8 @@
 
           <label >Nome</label>
           <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" type="text" class="form-control" placeholder="Nome do Discípulo" style="width: 20%;">
-          <a data-toggle="modal" href="javascript:usaNome();" class="btn btn-info" style="margin-bottom: 10px;">Buscar</a>
+          <a data-toggle="modal" href="javascript:chamaPesquisa();" class="btn btn-info" style="margin-bottom: 10px;">Buscar</a><br/>
+          
 
   <hr>
 
@@ -64,20 +65,16 @@
 
 <script>
 
-function buscaDiagrama(evento_id){
+  function chamaPesquisa(){
 
-    alert('lol');
-        
-     $.ajax({
-        url : '<%= buscaDiagrama_path %>',
-        data :
-        {
-          id : evento_id
-        },
-        success: function(data){
-            document.location.reload();
-          }
-     })  
+
+    if ($('#NOME_pessoa_buscar').val().trim() == ""){
+      window.location='/sivic_discipulos/'
+      return false
+    }
+
+    window.location='/filtradiscipulos/'+ $('#NOME_pessoa_buscar').val();
+
   }
 
 </script>
