@@ -49,6 +49,10 @@ class SivicDiscipulosController < ApplicationController
     else
       @sivic_discipulo = SivicDiscipulo.new(sivic_discipulo_params_netested)      
     end
+   
+    @sivic_contador = SivicContdiscipulo.where(@sivic_discipulo.sivic_pessoa.sivic_igreja_id)
+
+   debugger     
 
     respond_to do |format|
       if @sivic_discipulo.save
