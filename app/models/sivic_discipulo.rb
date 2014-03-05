@@ -30,4 +30,8 @@ class SivicDiscipulo < ActiveRecord::Base
   #validates :DATA_Nascimento, :presence => { :message => ' - Informe a data de nascimento' }
   #validates :NUMR_RG, :presence => { :message => ' - Informe o RG' }
   #validates :NUMR_RG, uniqueness: true, uniqueness: {message: ' - RG ja esta sendo utlizado'}
+
+
+
+  
 end
