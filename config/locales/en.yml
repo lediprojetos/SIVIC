@@ -1,4 +1,12 @@
 pt:
+  will_paginate:
+    next_label: Próximo
+    previous_label: Anterior
+
+  devise:
+    sessions:
+      user:
+        signed_in: Usuário logado
   date:
     abbr_day_names:
     - Dom

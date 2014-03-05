@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140222194315) do
+ActiveRecord::Schema.define(version: 20140226220113) do
+
+  create_table "observacoesrelatorios", force: true do |t|
+    t.integer  "sivic_relatorioscelula_id"
+    t.integer  "sivic_pessoa_id"
+    t.string   "DESC_Observacao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "observacoesrelatorios", ["sivic_pessoa_id"], name: "index_observacoesrelatorios_on_sivic_pessoa_id"
+  add_index "observacoesrelatorios", ["sivic_relatorioscelula_id"], name: "index_observacoesrelatorios_on_sivic_relatorioscelula_id"
 
   create_table "sivic_celulas", force: true do |t|
     t.integer  "sivic_pessoa_id"
@@ -257,7 +268,7 @@ ActiveRecord::Schema.define(version: 20140222194315) do
     t.decimal  "VALR_Oferta"
     t.integer  "NUMR_Decisoes"
     t.text     "DESC_OutrasInformacoes"
-    t.integer  "FLAG_Situacao"
+    t.integer  "sivic_situacoesrelatorio_id"
     t.integer  "NUMR_QtdNovoConvertido"
     t.integer  "NUMR_QtdResgate"
     t.integer  "NUMR_QtdPreEncontro"
@@ -272,6 +283,7 @@ ActiveRecord::Schema.define(version: 20140222194315) do
   end
 
   add_index "sivic_relatorioscelulas", ["sivic_celula_id"], name: "index_sivic_relatorioscelulas_on_sivic_celula_id"
+  add_index "sivic_relatorioscelulas", ["sivic_situacoesrelatorio_id"], name: "index_sivic_relatorioscelulas_on_sivic_situacoesrelatorio_id"
 
   create_table "sivic_sitpartcelulas", force: true do |t|
     t.string   "DESC_situacao"
@@ -281,6 +293,12 @@ ActiveRecord::Schema.define(version: 20140222194315) do
   end
 
   add_index "sivic_sitpartcelulas", ["sivic_igreja_id"], name: "index_sivic_sitpartcelulas_on_sivic_igreja_id"
+
+  create_table "sivic_situacoesrelatorios", force: true do |t|
+    t.string   "DESC_Situacao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sivic_tipmovfinanceiros", force: true do |t|
     t.string   "DESC_movimento"

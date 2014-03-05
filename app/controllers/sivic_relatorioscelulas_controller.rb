@@ -21,7 +21,24 @@ class SivicRelatorioscelulasController < ApplicationController
   # GET /sivic_relatorioscelulas
   # GET /sivic_relatorioscelulas.json
   def index
-    @sivic_relatorioscelulas = SivicRelatorioscelula.all
+
+    if params[:sivic_situacoesrelatorio_id] == nil
+      params[:sivic_situacoesrelatorio_id] = '0'
+    end
+
+    if params[:NOME_pessoa] == nil
+      params[:NOME_pessoa] = '0'
+    end
+
+    if params[:sivic_situacoesrelatorio_id] != '0' && params[:NOME_pessoa] != '0'
+      @sivic_relatorioscelulas = SivicRelatorioscelula.joins('INNER JOIN sivic_celulas sp on sivic_celula_id = sp.id  INNER JOIN sivic_pessoas p on sp.sivic_pessoa_id = p.id where p.NOME_pessoa like"' + params[:NOME_pessoa] +'%" and sivic_situacoesrelatorio_id ='+ params[:sivic_situacoesrelatorio_id]).paginate(:page => params[:page], :per_page => 10)
+    elsif params[:sivic_situacoesrelatorio_id] != '0'
+      @sivic_relatorioscelulas = SivicRelatorioscelula.where(:sivic_situacoesrelatorio_id => params[:sivic_situacoesrelatorio_id]).paginate(:page => params[:page], :per_page => 10)
+    elsif params[:NOME_pessoa] != '0'
+      @sivic_relatorioscelulas = SivicRelatorioscelula.joins('INNER JOIN sivic_celulas sp on sivic_celula_id = sp.id  INNER JOIN sivic_pessoas p on sp.sivic_pessoa_id = p.id where p.NOME_pessoa like"' + params[:NOME_pessoa] +'%"').paginate(:page => params[:page], :per_page => 10)
+    elsif
+      @sivic_relatorioscelulas = SivicRelatorioscelula.paginate(:page => params[:page], :per_page => 10)
+    end
   end
 
   # GET /sivic_relatorioscelulas/1
@@ -39,6 +56,7 @@ class SivicRelatorioscelulasController < ApplicationController
 
   # GET /sivic_relatorioscelulas/1/edit
   def edit
+    @sivic_Observacoesrelatorios = Observacoesrelatorio.where(:sivic_relatorioscelula_id => params[:id])
   end
 
   # POST /sivic_relatorioscelulas
