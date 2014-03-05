@@ -22,7 +22,7 @@ class SivicPessoasController < ApplicationController
   # GET /sivic_pessoas.json
   def index
     #@sivic_pessoas = SivicPessoa.all
-    @sivic_pessoas = SivicPessoa.paginate(:page => params[:page], :per_page => 10)
+    @sivic_pessoas = SivicPessoa.paginate(:page => params[:page], :per_page => 5)
     
   end
 
