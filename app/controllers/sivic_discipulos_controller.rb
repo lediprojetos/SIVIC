@@ -50,8 +50,8 @@ class SivicDiscipulosController < ApplicationController
       @sivic_discipulo = SivicDiscipulo.new(sivic_discipulo_params_netested)      
     end
       
-    codigo = geracodigo(@sivic_discipulo.sivic_pessoa.sivic_igreja_id)
-    @sivic_discipulo.NUMR_Codigo = codigo 
+   #codigo = geracodigo(@sivic_discipulo.sivic_pessoa.sivic_igreja_id)
+   #@sivic_discipulo.NUMR_Codigo = codigo 
    
    respond_to do |format|
 
@@ -60,7 +60,7 @@ class SivicDiscipulosController < ApplicationController
       if @sivic_discipulo.save
        
        SivicContdiscipulo.transaction do        
-         @sivic_contdiscipulo.update(:NUMR_Contador => codigo)
+      #   @sivic_contdiscipulo.update(:NUMR_Contador => codigo)
          raise ActiveRecord::Rollback, "Erro!"
        end
 
@@ -78,14 +78,14 @@ class SivicDiscipulosController < ApplicationController
   end
 
  #Gera código do discipulo...Código muito importante não alterar.
-  def geracodigo(igreja)
+  #def geracodigo(igreja)
   
-      @sivic_contdiscipulo = SivicContdiscipulo.find_by! sivic_igreja_id: igreja
+  #    @sivic_contdiscipulo = SivicContdiscipulo.find_by! sivic_igreja_id: igreja
 
-      id_discipulo = @sivic_contdiscipulo.NUMR_Contador
-      id_discipulo + 1
+  #    id_discipulo = @sivic_contdiscipulo.NUMR_Contador
+  #    id_discipulo + 1
            
-  end
+  #end
 
   # PATCH/PUT /sivic_discipulos/1
   # PATCH/PUT /sivic_discipulos/1.json
