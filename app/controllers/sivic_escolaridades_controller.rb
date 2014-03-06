@@ -4,7 +4,7 @@ class SivicEscolaridadesController < ApplicationController
   # GET /sivic_escolaridades
   # GET /sivic_escolaridades.json
   def index
-    @sivic_escolaridades = SivicEscolaridade.all
+    @sivic_escolaridades = SivicEscolaridade.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /sivic_escolaridades/1

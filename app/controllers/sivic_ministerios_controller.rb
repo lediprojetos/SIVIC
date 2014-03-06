@@ -4,7 +4,7 @@ class SivicMinisteriosController < ApplicationController
   # GET /sivic_ministerios
   # GET /sivic_ministerios.json
   def index
-    @sivic_ministerios = SivicMinisterio.all
+    @sivic_ministerios = SivicMinisterio.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /sivic_ministerios/1

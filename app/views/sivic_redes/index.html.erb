@@ -1,9 +1,15 @@
-<h1>Listagem de Redes</h1>
+<% content_for :titlePage do %>
+  Lista de Redes
+<% end %>
 
+<%=render '/layouts/panel' %>
+
+<div class="containermininmo">
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Nome rede</th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -14,9 +20,10 @@
     <% @sivic_redes.each do |sivic_rede| %>
       <tr>
         <td><%= sivic_rede.nome_rede %></td>
-        <td><%= link_to 'Exibir', sivic_rede %></td>
-        <td><%= link_to 'Editar', edit_sivic_rede_path(sivic_rede) %></td>
-        <td><%= link_to 'Excluir', sivic_rede, method: :delete, data: { confirm: 'Deseja excluir o registro?' } %></td>
+        <td style='width:500px;'></td>
+        <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_rede %></td>
+        <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_rede_path(sivic_rede) %></td>
+        <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_rede , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>        
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +31,23 @@
 
 <br>
 
-<%= link_to 'Cadastrar nova Rede', new_sivic_rede_path %>
+</div>
+
+<div class="apple_pagination">
+<%= will_paginate @sivic_redes %>
+</div>
+
+</div></div>
+
+<table style="margin-top:10px;">
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('new.png', :title => 'Novo', class: 'exibirico') , new_sivic_rede_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Novo</label>
+    </td>
+  </tr> 
+</table>

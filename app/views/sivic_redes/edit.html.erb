@@ -1,6 +1,27 @@
-<h1>Editing sivic_rede</h1>
+<% content_for :titlePage do %>
+  Editar Rede
+<% end %>
+
+<%= render 'layouts/panel' %>
 
 <%= render 'form' %>
 
-<%= link_to 'Abrir', @sivic_rede %> |
-<%= link_to 'Voltar', sivic_redes_path %>
+<table>
+	<tr>
+		<td align="center" style="width:50px;">
+			<%= link_to image_tag('show.png', title: 'Exibir', class: 'exibirico') , @sivic_rede %>
+		</td>
+		<td align="center" style="width:20px;">
+			<%= link_to image_tag('back.png', title: 'Voltar', class: 'exibirico') , sivic_redes_path %>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" style="width:20px;">
+			<label class="altBotoes">Exibir</label>
+		</td>
+		<td align="center" style="width:20px;">
+			<label class="altBotoes">Voltar</label>
+		</td>
+	</tr>	
+</table>
+

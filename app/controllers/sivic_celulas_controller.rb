@@ -4,7 +4,7 @@ class SivicCelulasController < ApplicationController
   # GET /sivic_celulas
   # GET /sivic_celulas.json
   def index
-    @sivic_celulas = SivicCelula.all
+    @sivic_celulas = SivicCelula.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /sivic_celulas/1

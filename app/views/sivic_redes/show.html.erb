@@ -1,5 +1,13 @@
 <p id="notice"><%= notice %></p>
 
+<% content_for :titlePage do %>
+  Exibir Rede
+<% end %>
+
+<%= render 'layouts/panel' %>
+
+
+<div class="containermininmo">
 <p>
   <strong>Nome:</strong>
   <%= @sivic_rede.nome_rede %>
@@ -7,8 +15,27 @@
 
 <p>
   <strong>Sivic igreja:</strong>
-  <%= @sivic_rede.sivic_igreja %>
+  <%= @sivic_rede.sivic_igreja.NOME_igreja %>
 </p>
 
-<%= link_to 'Editar', edit_sivic_rede_path(@sivic_rede) %> |
-<%= link_to 'Voltar', sivic_redes_path %>
+</div>
+
+</div></div>
+<table style="margin-top:10px;"> 
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('edit.png', title: 'Editar', class: 'exibirico') , edit_sivic_rede_path(@sivic_rede) %>
+    </td>
+    <td align="center" style="width:20px;">
+      <%= link_to image_tag('back.png', title: 'Voltar',class: 'exibirico') , sivic_redes_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Editar</label>
+    </td>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Voltar</label>
+    </td>
+  </tr> 
+</table>

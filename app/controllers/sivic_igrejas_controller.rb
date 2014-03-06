@@ -5,7 +5,7 @@ class SivicIgrejasController < ApplicationController
   # GET /sivic_igrejas
   # GET /sivic_igrejas.json
   def index
-    @sivic_igrejas = SivicIgreja.all
+    @sivic_igrejas = SivicIgreja.paginate(:page => params[:page], :per_page => 10)
 
   end
 

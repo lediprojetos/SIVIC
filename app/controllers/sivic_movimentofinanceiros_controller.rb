@@ -4,7 +4,7 @@ class SivicMovimentofinanceirosController < ApplicationController
   # GET /sivic_movimentofinanceiros
   # GET /sivic_movimentofinanceiros.json
   def index
-    @sivic_movimentofinanceiros = SivicMovimentofinanceiro.all
+    @sivic_movimentofinanceiros = SivicMovimentofinanceiro.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /sivic_movimentofinanceiros/1

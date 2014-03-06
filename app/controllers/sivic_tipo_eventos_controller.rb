@@ -5,7 +5,7 @@ class SivicTipoEventosController < ApplicationController
   # GET /sivic_tipo_eventos
   # GET /sivic_tipo_eventos.json
   def index
-    @sivic_tipo_eventos = SivicTipoEvento.all
+    @sivic_tipo_eventos = SivicTipoEvento.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /sivic_tipo_eventos/1

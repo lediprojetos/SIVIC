@@ -24,7 +24,7 @@ class SivicParticipantecelulasController < ApplicationController
   # GET /sivic_participantecelulas
   # GET /sivic_participantecelulas.json
   def index
-    @sivic_participantecelulas = SivicParticipantecelula.all
+    @sivic_participantecelulas = SivicParticipantecelula.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /sivic_participantecelulas/1

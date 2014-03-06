@@ -11,14 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :Rede %><br>
-    <%= f.text_field :nome_rede %>
-  </div>
-  <div class="field">
-    <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <div class="containermininmo">
+  <table style="width:100%;" align="center">
+    <tr>
+      <td>   
+        <div class="field">
+          <%= f.label :Rede %>
+          <%= f.text_field :nome_rede %>
+        </div>
+        <div class="field">
+          <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
+        </div>
+    </td>
+  </tr>
+</table>
+<%=render '/layouts/iconsalvar' %>
 <% end %>

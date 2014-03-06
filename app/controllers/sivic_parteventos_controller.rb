@@ -4,7 +4,7 @@ class SivicParteventosController < ApplicationController
   # GET /sivic_parteventos
   # GET /sivic_parteventos.json
   def index
-    @sivic_parteventos = SivicPartevento.all
+    @sivic_parteventos = SivicPartevento.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /sivic_parteventos/1

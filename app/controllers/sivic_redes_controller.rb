@@ -5,7 +5,7 @@ class SivicRedesController < ApplicationController
   # GET /sivic_redes
   # GET /sivic_redes.json
   def index
-    @sivic_redes = SivicRede.all
+    @sivic_redes = SivicRede.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /sivic_redes/1
