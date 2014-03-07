@@ -12,7 +12,11 @@
     <%= render 'layouts/header' %>
     <div class="container" style="height:800px;">
       <%= yield %>
-      <%= render 'layouts/footer' %>
+      <!-- Retira o rodapé, caso esteja na tela de login-->
+      <% if request.original_fullpath != '/users/sign_in' %>
+        <%= render 'layouts/footer' %>
+      <%end%>
+
     </div>
   </body>
 </html>
