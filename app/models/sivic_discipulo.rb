@@ -32,6 +32,7 @@ class SivicDiscipulo < ActiveRecord::Base
   #validates :NUMR_RG, uniqueness: true, uniqueness: {message: ' - RG ja esta sendo utlizado'}
 
 
+  #Gera codigo de discipulo 
   before_create  :geraCodigo
   after_create   :atualizaContador
 
@@ -49,7 +50,6 @@ class SivicDiscipulo < ActiveRecord::Base
    end 
    
    def  atualizaContador
-    debugger
       @@sivic_contdiscipulo.update(:NUMR_Contador => @@codigo)
    end
   

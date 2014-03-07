@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140227164145) do
+ActiveRecord::Schema.define(version: 20140307162317) do
 
   create_table "observacoesrelatorios", force: true do |t|
     t.integer  "sivic_relatorioscelula_id"
@@ -25,9 +25,14 @@ ActiveRecord::Schema.define(version: 20140227164145) do
   add_index "observacoesrelatorios", ["sivic_relatorioscelula_id"], name: "index_observacoesrelatorios_on_sivic_relatorioscelula_id"
 
   create_table "sivic_celulas", force: true do |t|
+    t.string   "NOME_Celula"
     t.integer  "sivic_pessoa_id"
     t.integer  "sivic_endereco_id"
+    t.integer  "user_inclusao"
+    t.integer  "integer"
     t.string   "NUMR_Dia"
+    t.string   "DESC_Bloqueio"
+    t.integer  "user_bloqueio"
     t.datetime "DATA_Bloqueio"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -35,6 +40,7 @@ ActiveRecord::Schema.define(version: 20140227164145) do
     t.boolean  "FLAG_crianca"
     t.boolean  "FLAG_jovem"
     t.boolean  "FLAG_adulto"
+    t.integer  "NUMR_Codigo"
   end
 
   add_index "sivic_celulas", ["sivic_endereco_id"], name: "index_sivic_celulas_on_sivic_endereco_id"
@@ -48,6 +54,15 @@ ActiveRecord::Schema.define(version: 20140227164145) do
   end
 
   add_index "sivic_cidades", ["sivic_estado_id"], name: "index_sivic_cidades_on_sivic_estado_id"
+
+  create_table "sivic_contcelulas", force: true do |t|
+    t.integer  "NUMR_Contador"
+    t.integer  "sivic_igreja_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_contcelulas", ["sivic_igreja_id"], name: "index_sivic_contcelulas_on_sivic_igreja_id"
 
   create_table "sivic_contdiscipulos", force: true do |t|
     t.integer  "NUMR_Contador"
@@ -201,7 +216,6 @@ ActiveRecord::Schema.define(version: 20140227164145) do
   create_table "sivic_partevenrelacelulas", force: true do |t|
     t.integer  "sivic_relatorioscelula_id"
     t.integer  "sivic_participantecelula_id"
-    t.string   "DESC_SituacaoParticipante"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sivic_sitpartcelula_id"
@@ -228,7 +242,6 @@ ActiveRecord::Schema.define(version: 20140227164145) do
     t.string   "NOME_Participante"
     t.string   "DESC_Email"
     t.string   "NUMR_Telefone"
-    t.string   "DESC_SituacaoParticipante"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sivic_sitpartcelula_id"
@@ -278,7 +291,7 @@ ActiveRecord::Schema.define(version: 20140227164145) do
     t.decimal  "VALR_Oferta"
     t.integer  "NUMR_Decisoes"
     t.text     "DESC_OutrasInformacoes"
-    t.integer  "FLAG_Situacao"
+    t.integer  "sivic_situacoesrelatorio_id"
     t.integer  "NUMR_QtdNovoConvertido"
     t.integer  "NUMR_QtdResgate"
     t.integer  "NUMR_QtdPreEncontro"
@@ -293,6 +306,7 @@ ActiveRecord::Schema.define(version: 20140227164145) do
   end
 
   add_index "sivic_relatorioscelulas", ["sivic_celula_id"], name: "index_sivic_relatorioscelulas_on_sivic_celula_id"
+  add_index "sivic_relatorioscelulas", ["sivic_situacoesrelatorio_id"], name: "index_sivic_relatorioscelulas_on_sivic_situacoesrelatorio_id"
 
   create_table "sivic_sitpartcelulas", force: true do |t|
     t.string   "DESC_situacao"

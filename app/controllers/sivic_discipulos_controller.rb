@@ -55,15 +55,8 @@ class SivicDiscipulosController < ApplicationController
    
    respond_to do |format|
 
-    SivicDiscipulo.transaction do
-
       if @sivic_discipulo.save
-       
-       SivicContdiscipulo.transaction do        
-      #   @sivic_contdiscipulo.update(:NUMR_Contador => codigo)
-         raise ActiveRecord::Rollback, "Erro!"
-       end
-
+      
         format.html { redirect_to @sivic_discipulo, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_discipulo }
       else
@@ -73,19 +66,7 @@ class SivicDiscipulosController < ApplicationController
       end     
     end
 
-    end
-
   end
-
- #Gera código do discipulo...Código muito importante não alterar.
-  #def geracodigo(igreja)
-  
-  #    @sivic_contdiscipulo = SivicContdiscipulo.find_by! sivic_igreja_id: igreja
-
-  #    id_discipulo = @sivic_contdiscipulo.NUMR_Contador
-  #    id_discipulo + 1
-           
-  #end
 
   # PATCH/PUT /sivic_discipulos/1
   # PATCH/PUT /sivic_discipulos/1.json
