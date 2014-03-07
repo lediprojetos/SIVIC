@@ -18,6 +18,8 @@ class SivicCelula < ActiveRecord::Base
 
 
  #Gera codigo de celula
+ 
+
   before_create  :geraCodigo
   after_create   :atualizaContador
 
@@ -26,8 +28,7 @@ class SivicCelula < ActiveRecord::Base
   private
 
    def  geraCodigo
-    
-    @@sivic_contcelula = SivicContcelula.find_by! sivic_igreja_id: self.sivic_pessoa.sivic_igreja_id
+    @@sivic_contcelula = SivicContcelula.find_by! sivic_igreja_id: self.inclusao.sivic_pessoa.sivic_igreja_id
     @@codigo = @@sivic_contcelula.NUMR_Contador 
     @@codigo += 1
     self.NUMR_Codigo  = @@codigo
