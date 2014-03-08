@@ -1,5 +1,9 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_contcelulas
+
+  resources :sivic_contdiscipulos
+
   resources :observacoesrelatorios
   resources :sivic_situacoesrelatorios
   resources :sivic_sitpartcelulas

@@ -30,4 +30,27 @@ class SivicDiscipulo < ActiveRecord::Base
   #validates :DATA_Nascimento, :presence => { :message => ' - Informe a data de nascimento' }
   #validates :NUMR_RG, :presence => { :message => ' - Informe o RG' }
   #validates :NUMR_RG, uniqueness: true, uniqueness: {message: ' - RG ja esta sendo utlizado'}
+
+
+  #Gera codigo de discipulo 
+  before_create  :geraCodigo
+  after_create   :atualizaContador
+
+  @@codigo 
+
+  private
+
+   def  geraCodigo
+    
+    @@sivic_contdiscipulo = SivicContdiscipulo.find_by! sivic_igreja_id: self.sivic_pessoa.sivic_igreja_id
+    @@codigo = @@sivic_contdiscipulo.NUMR_Contador 
+    @@codigo += 1
+    self.NUMR_Codigo  = @@codigo
+
+   end 
+   
+   def  atualizaContador
+      @@sivic_contdiscipulo.update(:NUMR_Contador => @@codigo)
+   end
+  
 end
