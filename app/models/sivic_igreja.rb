@@ -9,4 +9,6 @@ class SivicIgreja < ActiveRecord::Base
 
 #  validates :sivic_cidade_id, :presence => { :message => ' - Escolha uma Cidade' }
 
+
+
 end

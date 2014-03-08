@@ -23,7 +23,7 @@
       </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="tab1">
-       <table style="width:100%;" align="center">      
+       <table style="width:100%;" align="center">
       <tr>
         <td>
           <div class="field">
@@ -32,24 +32,33 @@
             <%= f.select :sivic_pessoa_id, {},{},{ :class => 'form-control-4' } %>
           </div>
         </td>
+      </tr>      
+      <tr>
         <td>    
           <div class="field">
-            <%= f.label :Dia_da_Semana %><br>
+            <%= f.label :Nome_da_Celula %>
+            <%= f.text_field :NOME_Celula, :class =>  'form-control-4' %>
+          </div>
+        </td>
+        <td> 
+          <div class="field">
+          <%= f.label :Sexo %>
+          <%= f.collection_select :DESC_sexo, SivicCelula::SEXO, :to_s, :humanize%>
+          </div>
+        </td>
+        <td>    
+          <div class="field">
+            <%= f.label :Dia_da_Semana %>
             <%= f.collection_select :NUMR_Dia, SivicCelula::DIAS, :to_s, :humanize %>
           </div>
         </td>
+
       </tr>
     </table>
     
     <hr>
     <table style="width:100%;">
-      <tr>   
-    <td> 
-      <div class="field">
-      <%= f.label :Sexo %>
-      <%= f.collection_select :DESC_sexo, SivicCelula::SEXO, :to_s, :humanize,{},{ :class => 'form-control-1' }%>
-      </div>
-    </td>
+      <tr>       
     <td>
       <div class="checkbox">
       <%= f.check_box :FLAG_crianca %>
@@ -124,10 +133,7 @@
    </div>
        
  </div>
-</div>
-
-   
-
+</div> 
   <!--
   Data Bloqueio
   =============
@@ -136,9 +142,6 @@
     <%#= f.datetime_select :DATA_Bloqueio %>
   </div>
 -->
-
- 
-
   <%=render '/layouts/iconsalvar' %>
    <% end %>
 
