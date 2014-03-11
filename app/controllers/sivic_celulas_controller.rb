@@ -60,6 +60,13 @@ class SivicCelulasController < ApplicationController
     end
   end
 
+  def bloquea
+
+    @sivic_celula = SivicCelula.find("#{params[:id]}%")
+    @sivic_celula.update(:DATA_Bloqueio => Time.now, :DESC_bloqueio => "#{params[:DESC_bloqueio]}%" )
+
+  end 
+
   # DELETE /sivic_celulas/1
   # DELETE /sivic_celulas/1.json
   def destroy
