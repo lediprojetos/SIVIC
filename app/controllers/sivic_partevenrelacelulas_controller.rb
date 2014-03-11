@@ -31,7 +31,7 @@ class SivicPartevenrelacelulasController < ApplicationController
       sivic_relatorioparticipante = SivicPartevenrelacelula.find :all, :conditions => {:sivic_relatorioscelula_id => params[:sivic_relatorioscelula_id],:sivic_participantecelula_id => params[:sivic_participantecelula_id]}
       
       if sivic_relatorioparticipante.empty?
-        SivicPartevenrelacelula.create(:sivic_relatorioscelula_id => params[:sivic_relatorioscelula_id],:sivic_participantecelula_id => params[:sivic_participantecelula_id],:DESC_SituacaoParticipante => params[:DESC_SituacaoParticipante], :sivic_sitpartcelula_id => params[:sivic_sitpartcelula_id])
+        SivicPartevenrelacelula.create(:sivic_relatorioscelula_id => params[:sivic_relatorioscelula_id],:sivic_participantecelula_id => params[:sivic_participantecelula_id], :sivic_sitpartcelula_id => params[:sivic_sitpartcelula_id])
         
         sivic_relatorioparticipante = SivicPartevenrelacelula.find :all, :conditions => {:sivic_relatorioscelula_id => params[:sivic_relatorioscelula_id],:sivic_participantecelula_id => params[:sivic_participantecelula_id]}
         sivic_relatorioparticipante_json = sivic_relatorioparticipante.map {|item| {:id => item.id, :NOME_Participante => item.sivic_participantecelula.NOME_Participante, :DESC_Email => item.sivic_participantecelula.DESC_Email, :NUMR_Telefone => item.sivic_participantecelula.NUMR_Telefone, :DESC_SituacaoParticipante => item.sivic_participantecelula.sivic_sitpartcelula.DESC_situacao}}  
