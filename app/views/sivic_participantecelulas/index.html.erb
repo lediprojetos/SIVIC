@@ -24,7 +24,6 @@
         <td><%= sivic_participantecelula.NOME_Participante %></td>
         <td><%= sivic_participantecelula.DESC_Email %></td>
         <td><%= sivic_participantecelula.NUMR_Telefone %></td>
-        <td><%= sivic_participantecelula.DESC_SituacaoParticipante %></td>
         <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_participantecelula %></td>
         <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_participantecelula_path(sivic_participantecelula) %></td>
         <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_participantecelula , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>        

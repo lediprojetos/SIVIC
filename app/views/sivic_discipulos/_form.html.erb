@@ -336,13 +336,25 @@
               <td>
                 <div class="field">
                   <%= f.label :Nome_do_Pai %>
-                  <%= f.text_field :NOME_Pai, :class => 'form-control-4' %>
+                  <%= f.text_field :NOME_Pai, :class => 'form-control-3' %>
                 </div>
               </td>
               <td>
                 <div class="field">
                   <%= f.label :Nome_da_Mae %>
-                  <%= f.text_field :NOME_Mae, :class => 'form-control-4' %>
+                  <%= f.text_field :NOME_Mae, :class => 'form-control-3' %>
+                </div> 
+              </td>              
+              <td>
+                <div class="field">
+                  <%= f.label :Telefone_Fixo %>
+                  <%= f.text_field :DESC_TelefoneFixo, :class => 'form-control-2' %>
+                </div> 
+              </td>              
+              <td>
+                <div class="field">
+                  <%= f.label :Telefone_Celular %>
+                  <%= f.text_field :DESC_TelefoneCelular, :class => 'form-control-2' %>
                 </div> 
               </td>
             </tr>
@@ -478,6 +490,8 @@ jQuery(function($){
    $("#sivic_discipulo_DATA_Batismo").mask("99/99/9999");
    $("#sivic_discipulo_DATA_Decisao").mask("99/99/9999");
    $("#sivic_discipulo_NUMR_CPF").mask("999.999.999.99");
+   $("#sivic_discipulo_DESC_TelefoneFixo").mask("(99)9999-9999");
+   $("#sivic_discipulo_DESC_TelefoneCelular").mask("(99)9999-9999");
 
 });
 

@@ -15,6 +15,8 @@ class CreateSivicDiscipulos < ActiveRecord::Migration
       t.string :DESC_Apelido
       t.string :DESC_EstadoCivil
       t.string :NOME_Conjuge
+      t.string :DESC_TelefoneFixo
+      t.string :DESC_TelefoneCelular
       t.date :DATA_Decisao
       t.integer :NUMR_QtdFilhos
       t.boolean :FLAG_Membro
