@@ -37,7 +37,7 @@
           <div class="field">
             <%= f.label :Lider, :class => 'lblForms'  %>
             <a data-toggle="modal" href="#myModal" class="btn btn-default" style='margin-bottom:10px;'><labeL class="lblForms">Buscar</label></a>
-            <%= f.select :father_id, :value => 0,:class => 'form-control-4'%>
+            <%= f.select :father_id, :value => 0%>
           </div>
         </td>
         <td>
@@ -60,6 +60,7 @@
               <%= f.label :Igreja, :class => 'lblForms'  %>
               <%= f.select :sivic_igreja_id, options_from_collection_for_select(SivicIgreja.all, 'id', 'NOME_igreja'),:include_blank => true%>
             <%end%>
+            
             <%=f.hidden_field :User_id, :value => current_user.id%>
             <!--Campos ocultos -->
           </div>

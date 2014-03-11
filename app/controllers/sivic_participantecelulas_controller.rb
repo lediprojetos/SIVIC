@@ -15,7 +15,7 @@ class SivicParticipantecelulasController < ApplicationController
 
    #debugger
    
-    sivic_participante = SivicParticipantecelula.where("NOME_Participante like ?", "#{params[:NOME_Participante]}%")
+    sivic_participante = SivicParticipantecelula.where("sivic_celula_id = #{params[:sivic_celula_id]} and NOME_Participante like ?", "#{params[:NOME_Participante]}%")
     sivic_participante_json = sivic_participante.map {|item| {:id => item.id, :NOME_Participante => item.NOME_Participante, :id_Situacao => item.sivic_sitpartcelula_id, :DESC_SituacaoParticipante => item.sivic_sitpartcelula.DESC_situacao}}
     render :json => sivic_participante_json
 

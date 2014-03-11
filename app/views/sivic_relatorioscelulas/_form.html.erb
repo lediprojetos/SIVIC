@@ -18,7 +18,7 @@
         <div class="field">
           <%= f.label :Célula %>
             <%if current_user.role == 'LIDER_DE_CELULAS'%>
-              <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.where(:sivic_pessoa_id => current_user.sivic_pessoa_id), 'id', 'NOME_Celula'),:include_blank => true%>
+              <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.where(:sivic_pessoa_id => current_user.sivic_pessoa_id), 'id', 'NOME_Celula')%>
             <%else%>
               <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.all, 'id', 'NOME_Celula'),:include_blank => true%>
             <%end%>          

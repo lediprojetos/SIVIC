@@ -1,6 +1,6 @@
 class SivicIgrejasController < ApplicationController
   before_action :set_sivic_igreja, only: [:show, :edit, :update, :destroy]
-  #before_action :authenticate_user!
+  before_action :authenticate_user!
 
   # GET /sivic_igrejas
   # GET /sivic_igrejas.json
@@ -43,6 +43,8 @@ class SivicIgrejasController < ApplicationController
 
     respond_to do |format|
       if @sivic_igreja.save
+        SivicContcelula.create(:NUMR_Contador => 1, :sivic_igreja_id => @sivic_igreja.id)
+        SivicContdiscipulo.create(:NUMR_Contador => 1, :sivic_igreja_id => @sivic_igreja.id)
         format.html { redirect_to @sivic_igreja, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_igreja }
       else
