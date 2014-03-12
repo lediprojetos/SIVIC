@@ -7,11 +7,15 @@ module SivicDiscipulosHelper
 
 		if sivic_pessoas
 
-			html = '<ul>'
+				html = '<ul>'
 
 			sivic_pessoas.each do |sivic_pessoas|
 
-			html += '<li>'
+			if @tipo_relatorio == '0'
+				html += '<li>'
+			else
+				html += '<li class="list-group-item">'
+			end
 
 				html += '<a href="#">' + sivic_pessoas.NOME_pessoa + '</a>'
 
@@ -25,7 +29,13 @@ module SivicDiscipulosHelper
 		end
 
 		#debugger
-		html = html.gsub('<ul></ul>', '')
+		if @tipo_relatorio == '0'
+			html = html.gsub('<ul></ul>', '')
+		else
+			html = html.gsub('<ul></ul>', '')
+			html = html.gsub('<ul>', '')
+			html = html.gsub('</ul>', '')
+		end
 		html.html_safe
 	end
 

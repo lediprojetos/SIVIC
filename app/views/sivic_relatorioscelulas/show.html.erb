@@ -145,9 +145,11 @@
 
   <div class="tab-pane active" id="tab4">
 
+  <%if not @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 3 %>
   <div class="field">
     <a data-toggle="modal" href="#myModal2" class="btn btn-success">Buscar Participante</a>
   </div>
+  <%end%>
 <hr />
 
 <table class="table table-hover" id="tlbparticipantes">
@@ -157,7 +159,9 @@
       <th>Email</th>
       <th>Telefone:</th>
       <th>Situação:</th>
+      <%if not @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 3 %>
       <th></th>     
+      <%end%>
     </tr>
   </thead>
   <tbody>
@@ -167,8 +171,10 @@
         <td><%= sivic_partevenrelacelula.sivic_participantecelula.DESC_Email %></td>
         <td><%= sivic_partevenrelacelula.sivic_participantecelula.NUMR_Telefone %></td>
         <td><%= sivic_partevenrelacelula.sivic_sitpartcelula.DESC_situacao %></td>
+        <%if not @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 3 %>
         <td><%= link_to image_tag('trash.png', :title => 'Excluir', class: 'exibirico'), [sivic_partevenrelacelula.sivic_relatorioscelula, sivic_partevenrelacelula],:confirm => 'Deseja excluir o registro?',:method => :delete %>
-         </td>          
+         </td>
+         <%end%>
       </tr>
     <% end %>
   </tbody>
@@ -178,26 +184,34 @@
 
 <table style="margin-top:10px;"> 
   <tr>
+    <%if @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 2 %>
     <td align="center" style="width:50px;">
       <%= link_to image_tag('edit.png', title: 'Editar', class: 'exibirico') , edit_sivic_relatorioscelula_path(@sivic_relatorioscelula) %>
     </td>
+    <%end%>
     <td align="center" style="width:50px;">
       <%= link_to image_tag('back.png', title: 'Voltar',class: 'exibirico') , sivic_relatorioscelulas_path %>
-    </td>    
+    </td>
+    <%if current_user.role == 'ADMINISTRADOR'%>
     <td align="center" style="width:50px;">
       <input type='image' src='/assets/right.png' onclick='$("#myModal3").modal("show")' class='exibirico'>
     </td>
+    <%end%>
   </tr>
   <tr>
+    <%if @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 2 %>
     <td align="center" style="width:20px;">
       <label class="altBotoes">Editar</label>
     </td>
+    <%end%>
     <td align="center" style="width:20px;">
       <label class="altBotoes">Voltar</label>
-    </td>    
+    </td>
+    <%if current_user.role == 'ADMINISTRADOR'%>
     <td align="center" style="width:20px;">
       <label class="altBotoes">Avaliar</label>
     </td>
+    <%end%>
   </tr> 
 </table>
 

@@ -1,20 +1,38 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Diagrama de Discípulos</h3>
+    <%if @tipo_relatorio == '0'%>
+      <h3 class="panel-title">Diagrama de Discípulos</h3>
+    <%elsif%>
+      <div style='height:60px; width:100%;'>
+      <h3 class="panel-title">Relatório de Discípulos</h3>
+      <h6>Data de Emissão: </h6>
+      </div>
+    <%end%>
   </div>
   <div class="panel-body">
-    <div id="scroll"> 
-      <div style='width:5000px;height:5000px;'>
+    <div id="scroll">
+
+      <%if @tipo_relatorio == '0'%>
+        <div style='width:5000px;height:5000px;'>
+      <%elsif%>
+        <div>
+      <%end%>
         <div class="tree">
+          <%if @tipo_relatorio == '0'%>
           <ul>
             <li><a href="#"><%= @sivic_discipulo.sivic_pessoa.NOME_pessoa%></a><%= BuscaPessoas(@sivic_discipulo.sivic_pessoa_id)%></li>
+          <%else%>
+          <ul  class="list-group">
+            <li class="list-group-item"><a href="#"><%= @sivic_discipulo.sivic_pessoa.NOME_pessoa%></a><%= BuscaPessoas(@sivic_discipulo.sivic_pessoa_id)%></li>
+          <%end%>
           </ul>	
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 <% content_for :pathback do %>
   <%= sivic_discipulos_path%>
@@ -23,10 +41,9 @@
 <%= render '/layouts/iconvoltar' %>
 
 
-
-
 <style type="text/css">
 
+<%if @tipo_relatorio == '0'%>
 
 * {margin: 0; padding: 0;}
 
@@ -128,4 +145,6 @@ right connector from last child*/
   border-color:  #94a0b4;
 }
 
-</style> 
+<%end%>
+
+</style>

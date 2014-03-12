@@ -24,6 +24,7 @@
         <th></th>
         <th></th>
         <th></th>
+        <th></th>
       </tr>
     </thead>
 
@@ -36,8 +37,9 @@
           <td><%= sivic_discipulo.DATA_Batismo %></td>
           <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_discipulo %></td>
           <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_discipulo_path(sivic_discipulo) %></td>
+          <td><%= link_to image_tag('flux.png', :title => 'Diagrama',  class: 'exibirico') , relDiscipulos_path(sivic_discipulo,0) %></td>
+          <td><%= link_to image_tag('rel.png', :title => 'Relatório de Geração',  class: 'exibirico') , relDiscipulos_path(sivic_discipulo,1) %></td>
           <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_discipulo , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>
-          <td><%= link_to image_tag('diagrama.png', :title => 'Diagrama',  class: 'exibirico') , relDiscipulos_path(sivic_discipulo) %></td>
                   
         </tr>
       <% end %>
