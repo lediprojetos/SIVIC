@@ -26,11 +26,13 @@
         <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_celula %></td>
         <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_celula_path(sivic_celula) %></td>
         <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_celula , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>
-        <td><%= link_to_function  image_tag('minus.png', :title => 'Exibir', class: 'exibirico'), onclick='$("#myModal3").modal("show")'%></td>                 
+        <td><%= link_to_function  image_tag('block.png', :title => 'Bloquear', class: 'exibirico'), "chamaModal('#{sivic_celula.id}') "%></td>                 
       </tr>
     <% end %>
   </tbody>
 </table>
+
+ <%= hidden_field :user_bloqueio, :value => current_user.id%> 
 
 <br>
 
@@ -39,7 +41,32 @@
 <%= will_paginate @sivic_celulas %>
 </div>
 
-</div></div>
+</div>
+</div>
+
+<fieldset>
+  <div id="myModal1" class="modal fade" style="display: none;">  
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>  
+        <h4>Bloquear Celula</h4>
+      </div>
+      <div class="modal-footer">
+        <div slyle='width:100%; height:100%'>
+          <textarea style='width:98%; float:left;' placeholder="Motivo do Bloqueio" name='txtareachat' id='txtareachat'></textarea>          
+        </div>
+  
+      </div>
+      <div class="modal-footer">
+        <table align='center'>
+          <tr>
+            <td>
+              <a data-toggle="modal" class="btn btn-danger" href="javascript:bloquear();" >Bloquear</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+  </div>  
+</fieldset>
 
 <table style="margin-top:10px;">
   <tr>
@@ -54,3 +81,34 @@
   </tr> 
 </table>
 
+<script>
+
+var idCelula;
+
+function bloquear(){
+
+     $.ajax({
+        url : '<%= bloqueaCelula_path %>',
+        data :
+        {
+           id : idCelula
+          ,DESC_Bloqueio : $('#txtareachat').val()
+          ,user_bloqueio : $('#current_user.id').val()
+        },
+        success: function(data){
+            //document.location.reload();
+          }
+      })  
+        
+   }
+
+function chamaModal(id){  
+   idCelula = id;
+   
+
+    alert($('#user_bloqueio').val());
+
+   $("#myModal1").modal("show").click();  
+  }
+
+</script>

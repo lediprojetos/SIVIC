@@ -63,7 +63,12 @@ class SivicCelulasController < ApplicationController
   def bloquea
 
     @sivic_celula = SivicCelula.find("#{params[:id]}%")
-    @sivic_celula.update(:DATA_Bloqueio => Time.now, :DESC_bloqueio => "#{params[:DESC_bloqueio]}%" )
+    @sivic_celula.update(:DATA_Bloqueio => Time.now, :user_bloqueio => "#{params[:user_bloqueio]}",  :DESC_Bloqueio => "#{params[:DESC_Bloqueio]}" )
+
+   respond_to do |format|
+      format.html { redirect_to sivic_celulas_url }
+      format.json { head :no_content }
+    end
 
   end 
 
@@ -85,6 +90,6 @@ class SivicCelulasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_celula_params
-      params.require(:sivic_celula).permit(:sivic_pessoa_id, :NUMR_Dia, :DATA_Bloqueio, :DESC_sexo, :FLAG_crianca, :FLAG_jovem, :FLAG_adulto, :user_inclusao, :user_bloqueio, :NOME_Celula, :DESC_bloqueio, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id])
+      params.require(:sivic_celula).permit(:sivic_pessoa_id, :NUMR_Dia, :DATA_Bloqueio, :DESC_sexo, :FLAG_crianca, :FLAG_jovem, :FLAG_adulto, :user_inclusao, :user_bloqueio, :NOME_Celula, :DESC_Bloqueio, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id])
     end
 end
