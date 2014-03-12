@@ -3,6 +3,7 @@ class SivicDiscipulosController < ApplicationController
 
   def relDiscipulos
     @sivic_discipulo = SivicDiscipulo.find(params[:id])
+    @tipo_relatorio = params[:tipo]
     
   end
 

@@ -63,7 +63,11 @@
           <td><b style='color:green;'><%= sivic_relatorioscelula.sivic_situacoesrelatorio.DESC_Situacao %></b></td>
         <%end%>
         <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_relatorioscelula %></td>
-        <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_relatorioscelula_path(sivic_relatorioscelula) %></td>
+        <td>
+        <%if sivic_relatorioscelula.sivic_situacoesrelatorio.DESC_Situacao == 'PENDENTE'%>
+          <%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_relatorioscelula_path(sivic_relatorioscelula) %>
+        <%end%>
+        </td>
             <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_relatorioscelula , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>            
       </tr>
     <% end %>
