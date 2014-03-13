@@ -27,12 +27,13 @@
         <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_celula_path(sivic_celula) %></td>
         <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_celula , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>
         <td><%= link_to_function  image_tag('block.png', :title => 'Bloquear', class: 'exibirico'), "chamaModal('#{sivic_celula.id}') "%></td>                 
-      </tr>
+      </tr> 
     <% end %>
   </tbody>
 </table>
 
- <%= hidden_field :user_bloqueio, :value => current_user.id%> 
+
+
 
 <br>
 
@@ -93,10 +94,12 @@ function bloquear(){
         {
            id : idCelula
           ,DESC_Bloqueio : $('#txtareachat').val()
-          ,user_bloqueio : $('#current_user.id').val()
+          ,user_bloqueio : '<%= current_user.id %>'
         },
         success: function(data){
             //document.location.reload();
+        $('#txtareachat').val("");
+        $('#myModal1').modal('hide');
           }
       })  
         
@@ -105,9 +108,6 @@ function bloquear(){
 function chamaModal(id){  
    idCelula = id;
    
-
-    alert($('#user_bloqueio').val());
-
    $("#myModal1").modal("show").click();  
   }
 
