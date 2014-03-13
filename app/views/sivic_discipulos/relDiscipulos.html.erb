@@ -22,11 +22,29 @@
           <%if @tipo_relatorio == '0'%>
           <ul>
             <li><a href="#"><%= @sivic_discipulo.sivic_pessoa.NOME_pessoa%></a><%= BuscaPessoas(@sivic_discipulo.sivic_pessoa_id)%></li>
-          <%else%>
-          <ul  class="list-group">
-            <li class="list-group-item"><a href="#"><%= @sivic_discipulo.sivic_pessoa.NOME_pessoa%></a><%= BuscaPessoas(@sivic_discipulo.sivic_pessoa_id)%></li>
-          <%end%>
           </ul>	
+          <%else%>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th><strong class='titleTable'>Nome</strong></th>
+                <th><strong class='titleTable'>Data de Nascimento</strong></th>
+                <th><strong class='titleTable'>CPF</strong></th>
+                <th><strong class='titleTable'>Data batismo</strong></th>
+                <th><strong class='titleTable'>Lider</strong></th>
+              </tr>
+            </thead> 
+            <tbody>
+            <tr>
+            <td><%= @sivic_discipulo.sivic_pessoa.NOME_pessoa%></td>
+            <td><%= @sivic_discipulo.DATA_Nascimento.blank? ? '' : @sivic_discipulo.DATA_Nascimento.strftime("%d/%m/%Y")%></td>
+            <td><%= @sivic_discipulo.NUMR_CPF%></td>
+            <td><%= @sivic_discipulo.DATA_Batismo.blank? ? '' : @sivic_discipulo.DATA_Batismo.strftime("%d/%m/%Y") %></td>
+            <td><%= @sivic_discipulo.sivic_pessoa.father.NOME_pessoa.to_s rescue nil%></td>
+            <%= BuscaPessoas(@sivic_discipulo.sivic_pessoa_id)%>
+            </tbody> 
+          </table>
+          <%end%>
         </div>
       </div>
     </div>

@@ -2,26 +2,41 @@ module SivicDiscipulosHelper
 
 	def BuscaPessoas(id)
 
+	#sivic_pessoas = SivicPessoa.where(:father_id => id) rescue nil
+	sivic_dados = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id where sp.father_id =' + id.to_s + '')
+	#debugger
 
-	sivic_pessoas = SivicPessoa.where(:father_id => id) rescue nil
-
-		if sivic_pessoas
+		if sivic_dados
 
 				html = '<ul>'
 
-			sivic_pessoas.each do |sivic_pessoas|
+			sivic_dados.each do |sivic_pessoas|
 
 			if @tipo_relatorio == '0'
 				html += '<li>'
 			else
-				html += '<li class="list-group-item">'
+				html += '<tr>'
 			end
 
-				html += '<a href="#">' + sivic_pessoas.NOME_pessoa + '</a>'
+				if @tipo_relatorio == '0'
+					html += '<a href="#">' + sivic_pessoas.sivic_pessoa.NOME_pessoa + '</a>'
+				else
+					html += '<td>' + sivic_pessoas.sivic_pessoa.NOME_pessoa + '</td>'
+					html += '<td>' + (sivic_pessoas.DATA_Nascimento.blank? ? '' : sivic_pessoas.DATA_Nascimento.strftime("%d/%m/%Y"))  + '</td>'
+					html += '<td>' + sivic_pessoas.NUMR_CPF.to_s + '</td>'
+					html += '<td>' + (sivic_pessoas.DATA_Batismo.blank? ? '' : sivic_pessoas.DATA_Batismo.strftime("%d/%m/%Y"))  + '</td>'
+					html += '<td>' + sivic_pessoas.sivic_pessoa.father.NOME_pessoa + '</td>'					
 
-				html +=BuscaPessoas(sivic_pessoas.id)
+				end
 
-			html += '</li>'
+				html +=BuscaPessoas(sivic_pessoas.sivic_pessoa.id)
+
+			if @tipo_relatorio == '0'
+				html += '</li>'
+			else
+				html += '</tr>'
+			end
+				
 
 			end
 
