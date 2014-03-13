@@ -4,6 +4,29 @@
 
 <%=render '/layouts/panel' %>
 
+<table style="width:50%;">
+  <tr>
+    <td>
+      <label >Pesquisa</label>
+      <select id='sivic_estado_sivic_situacoesrelatorio_id'>
+        <option value='0'></option>
+        <option value='1'>TODOS</option>
+        <option value='2'>ATIVAS</option>
+        <option value='3'>BLOQUEADAS</option>
+    </td>
+    <td>
+          <label >Líder</label>
+          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" type="text" placeholder="Nome do Líder" style="width: 90%;">
+    </td>
+    <td>
+      <div style='margin-top:15px;'>
+        <a data-toggle="modal" href="javascript:chamaPesquisa();" class="btn btn-info" style="">Buscar</a><br/>
+      </div>
+    </td>
+  </tr>
+</table>
+
+
 <div class="containermininmo">
 <table class="table table-hover">
   <thead>
@@ -31,10 +54,6 @@
     <% end %>
   </tbody>
 </table>
-
-
-
-
 <br>
 
 </div>
@@ -97,9 +116,10 @@ function bloquear(){
           ,user_bloqueio : '<%= current_user.id %>'
         },
         success: function(data){
-            //document.location.reload();
         $('#txtareachat').val("");
         $('#myModal1').modal('hide');
+        document.location.reload();
+
           }
       })  
         

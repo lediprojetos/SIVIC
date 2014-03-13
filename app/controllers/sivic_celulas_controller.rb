@@ -65,7 +65,8 @@ class SivicCelulasController < ApplicationController
     @sivic_celula = SivicCelula.find("#{params[:id]}%")
     @sivic_celula.update(:DATA_Bloqueio => Time.now, :user_bloqueio => "#{params[:user_bloqueio]}",  :DESC_Bloqueio => "#{params[:DESC_Bloqueio]}" )
 
-   respond_to do |format|
+  
+    respond_to do |format|
       format.html { redirect_to sivic_celulas_url }
       format.json { head :no_content }
     end
