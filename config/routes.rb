@@ -46,7 +46,6 @@ SIVIC::Application.routes.draw do
   match '/contact', to: 'static_pages#contact', via: 'get'
 
   get '/relDiscipulos/:id/:tipo', to: 'sivic_discipulos#relDiscipulos', as: 'relDiscipulos'
-  get '/relDiscipulos2/', to: 'sivic_discipulos#relDiscipulos2', as: 'relDiscipulos2'
 
 
   match '/admin', to: 'static_pages#index', via: 'get'

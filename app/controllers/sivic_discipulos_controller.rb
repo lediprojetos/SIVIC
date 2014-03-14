@@ -15,11 +15,7 @@ class SivicDiscipulosController < ApplicationController
   # GET /sivic_discipulos
   # GET /sivic_discipulos.json
   def index
-    if params[:NOME_pessoa]
-      @sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id where sp.NOME_pessoa like"' + params[:NOME_pessoa] +'%"').paginate(:page => params[:page], :per_page => 10)
-    else
-      @sivic_discipulos = SivicDiscipulo.paginate(:page => params[:page], :per_page => 10)
-    end
+    @sivic_discipulos = SivicDiscipulo.find_by_name_or_all(params[:q]).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /sivic_discipulos/1

@@ -38,6 +38,14 @@ class SivicDiscipulo < ActiveRecord::Base
 
   @@codigo 
 
+  def self.find_by_name_or_all(query)
+    if query
+      self.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('sp.NOME_pessoa like ?', "#{query}%")
+    else
+      self.all
+    end    
+  end
+
   private
 
    def  geraCodigo
