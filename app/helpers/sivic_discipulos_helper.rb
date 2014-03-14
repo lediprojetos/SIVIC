@@ -15,7 +15,7 @@ module SivicDiscipulosHelper
 			if @tipo_relatorio == '0'
 				html += '<li>'
 			else
-				html += '<tr>'
+				html += '<tr class="odd gradeA">'
 			end
 
 				if @tipo_relatorio == '0'

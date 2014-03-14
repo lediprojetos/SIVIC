@@ -7,6 +7,11 @@ class SivicDiscipulosController < ApplicationController
     
   end
 
+  def relDiscipulos2
+    
+    
+  end  
+
   # GET /sivic_discipulos
   # GET /sivic_discipulos.json
   def index
