@@ -45,7 +45,8 @@ SIVIC::Application.routes.draw do
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
 
-  get '/relDiscipulos/:id/:tipo', to: 'sivic_discipulos#relDiscipulos', as: 'relDiscipulos'
+  get '/relDiscipulos/:id', to: 'sivic_discipulos#relDiscipulos', as: 'relDiscipulos'
+  get '/relGeracoes/:id', to: 'sivic_discipulos#relGeracoes', as: 'relGeracoes'
 
 
   match '/admin', to: 'static_pages#index', via: 'get'
@@ -66,7 +67,6 @@ SIVIC::Application.routes.draw do
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
   #Rotas de filtragem
-  get '/filtradiscipulos/:NOME_pessoa', to: 'sivic_discipulos#index', as: 'filtradiscipulos'
   get '/filtrarelatorios/:sivic_situacoesrelatorio_id/:NOME_pessoa', to: 'sivic_relatorioscelulas#index', as: 'filtrarelatorios'
 
 end
