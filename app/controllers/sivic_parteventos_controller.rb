@@ -1,5 +1,6 @@
 class SivicParteventosController < ApplicationController
   before_action :set_sivic_partevento, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /sivic_parteventos
   # GET /sivic_parteventos.json

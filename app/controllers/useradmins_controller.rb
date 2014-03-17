@@ -1,6 +1,6 @@
 class UseradminsController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  #before_action :authenticate_user!
+  before_action :authenticate_user!
 
   # GET /sivic_estados
   # GET /sivic_estados.json

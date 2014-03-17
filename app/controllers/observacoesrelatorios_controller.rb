@@ -1,5 +1,6 @@
 class ObservacoesrelatoriosController < ApplicationController
   before_action :set_observacoesrelatorio, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def create_observacao
 

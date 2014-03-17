@@ -1,5 +1,6 @@
 class SivicRelatorioscelulasController < ApplicationController
   before_action :set_sivic_relatorioscelula, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
 
   def altera_situacao

@@ -1,5 +1,6 @@
 class SivicEscolaridadesController < ApplicationController
   before_action :set_sivic_escolaridade, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /sivic_escolaridades
   # GET /sivic_escolaridades.json

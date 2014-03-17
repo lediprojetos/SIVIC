@@ -1,5 +1,6 @@
 class SivicContcelulasController < ApplicationController
   before_action :set_sivic_contcelula, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /sivic_contcelulas
   # GET /sivic_contcelulas.json

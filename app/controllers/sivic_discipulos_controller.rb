@@ -1,5 +1,6 @@
 class SivicDiscipulosController < ApplicationController
   before_action :set_sivic_discipulo, only: [:show, :edit, :update, :destroy, :relDiscipulos]
+  before_action :authenticate_user!
 
   def relDiscipulos
     @sivic_discipulo = SivicDiscipulo.find(params[:id])

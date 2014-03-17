@@ -1,6 +1,6 @@
 class SivicPessoasController < ApplicationController
   before_action :set_sivic_pessoa, only: [:show, :edit, :update, :destroy]
-  #before_action :authenticate_user!
+  before_action :authenticate_user!
 
 
   def create_pessoa

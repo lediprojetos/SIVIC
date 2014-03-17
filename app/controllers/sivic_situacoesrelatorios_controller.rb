@@ -1,5 +1,6 @@
 class SivicSituacoesrelatoriosController < ApplicationController
   before_action :set_sivic_situacoesrelatorio, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /sivic_situacoesrelatorios
   # GET /sivic_situacoesrelatorios.json

@@ -13,22 +13,64 @@
                   <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
+
+                <% if can? :manage, User%>
                   <li><%= link_to "Cadastro de Usuários", '/admin' %></li>
+                <% end %>   
+
+                <% if can? :manage, SivicIgreja%>
                   <li><%= link_to 'Cadastro de Igreja', sivic_igrejas_path%></li>
+                <% end %>   
+
+                <% if can? :manage, SivicPessoa%>
                   <li><%= link_to 'Cadastro de Pessoas', sivic_pessoas_path%> </li>
+                <% end %>   
+
+                <% if can? :manage, SivicEvento%>
                   <li><%= link_to 'Cadastro de Eventos', sivic_eventos_path%> </li>
+                <% end %>   
+                
+                <% if can? :manage, SivicMinisterio%>
                   <li><%= link_to 'Cadastro de Ministerios', sivic_ministerios_path%> </li>
-                  <%#= link_to 'Cadastro de Cidades', sivic_estados_path%>
+                <% end %>   
+                
+                <% if can? :manage, SivicCelula%>
                   <li><%= link_to 'Cadastro de Células', sivic_celulas_path%> </li>
+                <% end %>   
+
+
+                <% if can? :manage, SivicRelatorioscelula%>
                   <li><%= link_to 'Cadastro de Relatório de Células', sivic_relatorioscelulas_path%> </li>
+                <% end %>   
+
+                <% if can? :manage, SivicEscolaridade%>
                   <li><%= link_to 'Cadastro de Escolaridade', sivic_escolaridades_path%> </li>
+                <% end %>   
+                
+                <% if can? :manage, SivicTipoEvento%>
                   <li><%= link_to 'Cadastro de Tipo Evento', sivic_tipo_eventos_path%> </li>
+                <% end %>
+                
+                <% if can? :manage, SivicDiscipulo%>
                   <li><%= link_to 'Cadastro de Discípulo', sivic_discipulos_path%> </li>
+                <% end %>
+
+                <% if can? :manage, SivicPartevento%>
                   <li><%= link_to 'Fazer Inscrição', sivic_parteventos_path%> </li>                  
+                <% end %>
+
+                <% if can? :manage, SivicMovimentofinanceiro%>
                   <li><%= link_to 'Movimento Financeiro', sivic_movimentofinanceiros_path%> </li>
+                <% end %>
+
+                <% if can? :manage, SivicParticipantecelula%>
                   <li><%= link_to 'Participante Celula', sivic_participantecelulas_path%> </li>
+                <% end %>
+
+                <% if can? :manage, SivicRede%>
                   <li><%= link_to 'Redes', sivic_redes_path%> </li>
-                  <li><%#= link_to 'Relatório de Discípulos', relDiscipulos_path%> </li>
+                <% end %>
+
                 </ul>
               </div>
             </div>

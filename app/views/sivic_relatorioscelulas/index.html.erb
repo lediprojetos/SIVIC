@@ -82,6 +82,8 @@
 
 </div></div>
 
+<%if not SivicCelula.where(:sivic_pessoa_id => current_user.sivic_pessoa_id).blank? %>
+
 <table style="margin-top:10px;">
   <tr>
     <td align="center" style="width:50px;">
@@ -94,6 +96,8 @@
     </td>
   </tr> 
 </table>
+
+<%end%>
 
 <script>
 

@@ -1,5 +1,6 @@
 class SivicParticipantecelulasController < ApplicationController
   before_action :set_sivic_participantecelula, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
 
   def create_participante

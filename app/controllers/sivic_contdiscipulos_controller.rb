@@ -1,5 +1,6 @@
 class SivicContdiscipulosController < ApplicationController
   before_action :set_sivic_contdiscipulo, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /sivic_contdiscipulos
   # GET /sivic_contdiscipulos.json

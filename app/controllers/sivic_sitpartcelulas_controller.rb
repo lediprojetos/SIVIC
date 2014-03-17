@@ -1,5 +1,6 @@
 class SivicSitpartcelulasController < ApplicationController
   before_action :set_sivic_sitpartcelula, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /sivic_sitpartcelulas
   # GET /sivic_sitpartcelulas.json

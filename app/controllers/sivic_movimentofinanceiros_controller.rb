@@ -1,5 +1,6 @@
 class SivicMovimentofinanceirosController < ApplicationController
   before_action :set_sivic_movimentofinanceiro, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /sivic_movimentofinanceiros
   # GET /sivic_movimentofinanceiros.json
