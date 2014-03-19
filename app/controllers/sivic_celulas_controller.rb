@@ -5,8 +5,15 @@ class SivicCelulasController < ApplicationController
   # GET /sivic_celulas
   # GET /sivic_celulas.json
   def index
-    @sivic_celulas = SivicCelula.paginate(:page => params[:page], :per_page => 10)
+    @sivic_celulas = SivicCelula.all #paginate(:page => params[:page], :per_page => 10)
+
+    respond_to do |format|
+      format.html
+      format.pdf { render_civic_celula_list(@sivic_celulas) }
+    end    
   end
+
+
 
   # GET /sivic_celulas/1
   # GET /sivic_celulas/1.json
@@ -94,4 +101,19 @@ class SivicCelulasController < ApplicationController
     def sivic_celula_params
       params.require(:sivic_celula).permit(:sivic_pessoa_id, :NUMR_Dia, :DATA_Bloqueio, :DESC_sexo, :FLAG_crianca, :FLAG_jovem, :FLAG_adulto, :user_inclusao, :user_bloqueio, :NOME_Celula, :DESC_Bloqueio, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id])
     end
+
+    def render_civic_celula_list(tasks)
+      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'index.tlf')
+
+      tasks.each do |task|
+        report.list.add_row do |row|
+          row.values id: task.id
+          row.values name: task.sivic_pessoa.NOME_pessoa
+        end
+      end
+      
+      send_data report.generate, filename: 'index.pdf', 
+                                 type: 'application/pdf', 
+                                 disposition: 'attachment'
+    end    
 end

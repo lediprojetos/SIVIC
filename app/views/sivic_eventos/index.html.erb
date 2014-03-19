@@ -30,8 +30,8 @@
         <td><%= sivic_evento.DESC_evento %></td>
         <td><%= sivic_evento.DESC_resumo %></td>
         <td><%= sivic_evento.VARL_inscricao %></td>
-        <td><%= sivic_evento.DATA_inicio %></td>
-        <td><%= sivic_evento.DATA_fim %></td>
+        <td><%= sivic_evento.DATA_inicio.blank? ? '' : sivic_evento.DATA_inicio.strftime("%d/%m/%Y") %></td>
+        <td><%= sivic_evento.DATA_fim.blank? ? '' : sivic_evento.DATA_fim.strftime("%d/%m/%Y") %></td>
         <td><%= sivic_evento.NUMR_qdtVagas %></td>
           <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_evento %></td>
           <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_evento_path(sivic_evento) %></td>

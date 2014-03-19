@@ -12,15 +12,19 @@ class SivicDiscipulosController < ApplicationController
     @tipo_relatorio = params[:tipo]
   end  
 
-  def relDiscipulos2
-    
-    
+  def busca_discipulos
+
+    sivic_discipulo = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('sp.NOME_pessoa like ?', "%#{params[:NOME_pessoa]}%")
+
+    sivic_pessoa_json = sivic_discipulo.map {|item| {:id => item.id, :NOME_pessoa => item.sivic_pessoa.NOME_pessoa, :DESC_email => item.sivic_pessoa.DESC_email, :father_id => item.sivic_pessoa.father_id,:NOME_Lider => item.sivic_pessoa.father.blank? ? '' : item.sivic_pessoa.father.NOME_pessoa}}
+    render :json => sivic_pessoa_json
   end  
+
 
   # GET /sivic_discipulos
   # GET /sivic_discipulos.json
   def index
-    @sivic_discipulos = SivicDiscipulo.find_by_name_or_all(params[:q]).paginate(:page => params[:page], :per_page => 10)
+    @sivic_discipulos = SivicDiscipulo.find_by_name_or_all(params[:q]).paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /sivic_discipulos/1

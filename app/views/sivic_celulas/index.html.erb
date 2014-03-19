@@ -45,7 +45,7 @@
       <tr>
         <td><%= sivic_celula.sivic_pessoa.NOME_pessoa %></td>
         <td><%= sivic_celula.NUMR_Dia %></td>
-        <td><%= sivic_celula.DATA_Bloqueio %></td>
+        <td><%= sivic_celula.DATA_Bloqueio.blank? ? '' : sivic_celula.DATA_Bloqueio.strftime("%d/%m/%Y") %></td>
         <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_celula %></td>
         <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_celula_path(sivic_celula) %></td>
         <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_celula , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>
@@ -58,7 +58,7 @@
 
 </div>
 <div class="apple_pagination">
-<%= will_paginate @sivic_celulas %>
+<%#= will_paginate @sivic_celulas %>
 </div>
 
 </div>
@@ -132,3 +132,8 @@ function chamaModal(id){
   }
 
 </script>
+
+
+
+
+<%= link_to 'Print Tasks', sivic_celulas_path(format: 'pdf') %>

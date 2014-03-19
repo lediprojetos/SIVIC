@@ -36,7 +36,7 @@
                   <td>
                     <div class="field">
                       <%= pessoa.label :Nome %>
-                      <%= pessoa.text_field :NOME_pessoa, :onclick => "$('#myModal2').modal('show')", :class => "form-control-3"%>
+                      <%= pessoa.text_field :NOME_pessoa, :class => "form-control-3"%>
                     </div>
                   </td>
                   <td>
@@ -481,6 +481,17 @@
 
 <script>
 
+$("#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa" ).click(function() {
+  $('#myModal2').modal('show');
+});
+
+$('#myModal2').on('shown', function () {
+    
+    $('#NOME_pessoa_buscar').val($("#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa" ).val());
+    $("#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa" ).val("");
+    $('#NOME_pessoa_buscar').focus();
+})
+
 jQuery(function($){
    $("#sivic_discipulo_DATA_Nascimento").mask("99/99/9999");
    $("#sivic_discipulo_DATA_Nascimento").mask("99/99/9999");
@@ -528,7 +539,7 @@ jQuery(function($){
       }
 
       $.ajax({
-        url: '<%= listarPessoa_path %>',
+        url: '<%= listarDiscipulos_path %>',
         data : 
         {
             NOME_pessoa : pesquisa
@@ -542,7 +553,7 @@ jQuery(function($){
             if (fonte == 'lider' ) {
               $('#table_lider').append('<tr><td><a href="javascript:setaLider(\'' + item.NOME_pessoa+'\','+item.id+');">'+item.NOME_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.NOME_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
             }else{
-              $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.NOME_pessoa+'\','+item.id+',\'' + item.DESC_email+'\','+item.father_id+',\''+item.NOME_Lider+'\');">'+item.NOME_pessoa+'</a></td><td><a href="javascript:setaNome(\'' + item.NOME_pessoa+'\','+item.id+',\'' + item.DESC_email+'\');">'+item.DESC_email+'</a></td></tr>');
+              $('#table_user').append('<tr><td><a href="javascript:window.location.replace(\'http://localhost:3000/sivic_discipulos/' +item.id+ '/edit\')";">'+item.NOME_pessoa+'</a></td><td><a href="javascript:window.location.replace(\'http://localhost:3000/sivic_discipulos/' +item.id+ '/edit\')";">'+item.DESC_email+'</a></td></tr>');
 
             }
           };
@@ -564,16 +575,18 @@ jQuery(function($){
 
   function setaNome(nome,id,email,idlider,nomelider){
 
-      $('#sivic_discipulo_sivic_pessoa_id').val(id)
-      $('#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa').val(nome)
-      $('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').val(email)
-      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty();
-      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html('<option>Carregando...</option>');
+      //$('#sivic_discipulo_sivic_pessoa_id').val(id)
+      //$('#sivic_discipulo_sivic_pessoa_attributes_NOME_pessoa').val(nome)
+      //$('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').val(email)
+      //$('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty();
+      //$('#sivic_discipulo_sivic_pessoa_attributes_father_id').html('<option>Carregando...</option>');
 
-      var options = "<option value='"+idlider+"'>"+nomelider+"</option>";
-      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html(options);
+      //var options = "<option value='"+idlider+"'>"+nomelider+"</option>";
+      //$('#sivic_discipulo_sivic_pessoa_attributes_father_id').html(options);
 
-      $('#myModal2').modal('hide');
+      //$('#myModal2').modal('hide');
+
+      window.location.replace("http://localhost:3000/sivic_discipulos/" + id + "/edit");
   }
 
   function usaNome(nome){

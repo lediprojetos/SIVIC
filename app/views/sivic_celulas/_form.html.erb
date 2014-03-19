@@ -83,29 +83,29 @@
   <div class="tab-pane" id="tab2">
      <%=  f.fields_for :sivic_endereco do |endereco| %>
   <div class="field">
-    <%= endereco.label :Bairro %><br>
+    <%= endereco.label :Bairro %>
     <%= endereco.text_field :DESC_Bairro %>
   </div>
   <div class="field">
-    <%= endereco.label :Rua %><br>
+    <%= endereco.label :Rua %>
     <%= endereco.text_field :DESC_Rua %>
   </div>
   <div class="field">
-    <%= endereco.label :Complemento %><br>
+    <%= endereco.label :Complemento %>
     <%= endereco.text_field :DESC_Complemento %>
   </div>
   <div class="field">
-    <%= endereco.label :Ponto_referência %><br>
+    <%= endereco.label :Ponto_referência %>
     <%= endereco.text_field :DESC_Pontoreferencia %>
   </div>
   <div class="field">
-    <%= endereco.label :CEP.capitalize %><br>
+    <%= endereco.label :CEP.capitalize %>
     <%= endereco.number_field :NUMR_Cep %>
   </div>
 
   <%=  f.fields_for :sivic_estado do |estado| %>
   <div class="field">
-    <%= estado.label :Estado %><br>
+    <%= estado.label :Estado %>
     <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)',}%>
   </div>
   <%end%>
@@ -113,15 +113,15 @@
   <%if @sivic_cidade %>
 
     <div class="field">
-      <%= endereco.label :Cidade %><br>
+      <%= endereco.label :Cidade %>
       <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada)%>
     </div>
 
   <%else%>
 
     <div class="field">
-      <%= endereco.label :Cidade   %><br>
-      <%= endereco.select :sivic_cidade_id, [] %><br>
+      <%= endereco.label :Cidade   %>
+      <%= endereco.select :sivic_cidade_id, [] %>
     </div> 
 
   <%end%>
@@ -187,7 +187,7 @@
         pesquisa = $('#NOME_lider_buscar').val();
 
       $.ajax({
-        url: '<%= listarPessoa_path %>',
+        url: '<%= listarDiscipulos_path %>',
         data : 
         {
             NOME_pessoa : pesquisa
