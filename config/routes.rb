@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_professors
+
   resources :sivic_contcelulas
 
   resources :sivic_contdiscipulos

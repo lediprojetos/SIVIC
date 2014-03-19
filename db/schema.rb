@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140307162317) do
+ActiveRecord::Schema.define(version: 20140319161854) do
 
   create_table "observacoesrelatorios", force: true do |t|
     t.integer  "sivic_relatorioscelula_id"
@@ -89,8 +89,6 @@ ActiveRecord::Schema.define(version: 20140307162317) do
     t.string   "DESC_Apelido"
     t.string   "DESC_EstadoCivil"
     t.string   "NOME_Conjuge"
-    t.string   "DESC_TelefoneFixo"
-    t.string   "DESC_TelefoneCelular"
     t.date     "DATA_Decisao"
     t.integer  "NUMR_QtdFilhos"
     t.boolean  "FLAG_Membro"
@@ -244,13 +242,11 @@ ActiveRecord::Schema.define(version: 20140307162317) do
     t.string   "NOME_Participante"
     t.string   "DESC_Email"
     t.string   "NUMR_Telefone"
-    t.integer  "sivic_celula_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sivic_sitpartcelula_id"
   end
 
-  add_index "sivic_participantecelulas", ["sivic_celula_id"], name: "index_sivic_participantecelulas_on_sivic_celula_id"
   add_index "sivic_participantecelulas", ["sivic_sitpartcelula_id"], name: "index_sivic_participantecelulas_on_sivic_sitpartcelula_id"
 
   create_table "sivic_pessoas", force: true do |t|
@@ -267,6 +263,17 @@ ActiveRecord::Schema.define(version: 20140307162317) do
 
   add_index "sivic_pessoas", ["User_id"], name: "index_sivic_pessoas_on_User_id"
   add_index "sivic_pessoas", ["sivic_igreja_id"], name: "index_sivic_pessoas_on_sivic_igreja_id"
+
+  create_table "sivic_professors", force: true do |t|
+    t.integer  "sivic_pessoa_id"
+    t.integer  "user_id"
+    t.datetime "DATA_bloqueio"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_professors", ["sivic_pessoa_id"], name: "index_sivic_professors_on_sivic_pessoa_id"
+  add_index "sivic_professors", ["user_id"], name: "index_sivic_professors_on_user_id"
 
   create_table "sivic_profissaos", force: true do |t|
     t.string   "profissao"

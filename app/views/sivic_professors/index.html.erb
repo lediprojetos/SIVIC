@@ -1,0 +1,51 @@
+<% content_for :titlePage do %>
+  Professores
+<% end %>
+
+<%=render '/layouts/panel' %>
+
+<div class="containermininmo">
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Professor</th>
+      <th>User</th>
+      <th>User</th>
+      <th>Data bloqueio</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_professors.each do |sivic_professor| %>
+      <tr>
+        <td><%= sivic_professor.sivic_pessoa %></td>
+        <td><%= sivic_professor.user %></td>
+        <td><%= sivic_professor.user %></td>
+        <td><%= sivic_professor.DATA_bloqueio %></td>
+        <td><%= link_to 'Show', sivic_professor %></td>
+        <td><%= link_to 'Edit', edit_sivic_professor_path(sivic_professor) %></td>
+        <td><%= link_to 'Destroy', sivic_professor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+
+
+</div></div>
+<table style="margin-top:10px;">
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('new.png', :title => 'Novo', class: "exibirico") , new_sivic_professor_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Novo</label>
+    </td>
+  </tr> 
+</table>
