@@ -19,13 +19,9 @@ class CreateSivicDiscipulos < ActiveRecord::Migration
       t.string :DESC_TelefoneCelular
       t.date :DATA_Decisao
       t.integer :NUMR_QtdFilhos
-      t.boolean :FLAG_Membro
-      t.boolean :FLAG_RecebeuCristo
+      t.boolean :FLAG_Discipulo
       t.boolean :FLAG_Reconciliacao
-      t.boolean :FLAG_OcasiaoCelula
-      t.boolean :FLAG_OcasiaoCelebracaoEvento
-      t.boolean :FLAG_OcasiaoEvangelismoPessoal
-      t.boolean :FLAG_OcasiaoCultoLivre
+      t.integer :FLAG_OcasiaoRecebeuCristo
       t.boolean :FLAG_Trabalhando
       t.string :DESC_MomentoEstudoBiblico
       t.string :NUMR_RG
@@ -40,6 +36,8 @@ class CreateSivicDiscipulos < ActiveRecord::Migration
       t.string :DESC_IgrejaBatismo
       t.boolean :FLAG_DoadorSangue
       t.boolean :FLAG_DoadorOrgao
+      t.boolean :FLAG_Discipulador
+      t.boolean :FLAG_Consolidador
 
       t.timestamps
     end

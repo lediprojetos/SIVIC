@@ -22,9 +22,9 @@
                   <li><%= link_to 'Cadastro de Igreja', sivic_igrejas_path%></li>
                 <% end %>   
 
-                <% if can? :manage, SivicPessoa%>
-                  <li><%= link_to 'Cadastro de Pessoas', sivic_pessoas_path%> </li>
-                <% end %>   
+                <%# if can? :manage, SivicPessoa%>
+                  <%#= link_to 'Cadastro de Pessoas', sivic_pessoas_path%> 
+                <%# end %>   
 
                 <% if can? :manage, SivicEvento%>
                   <li><%= link_to 'Cadastro de Eventos', sivic_eventos_path%> </li>

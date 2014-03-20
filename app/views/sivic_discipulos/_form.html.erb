@@ -233,78 +233,59 @@
               </div>              
             </td>
             <td>
-            </td>
-          </tr>
-        </table>
-          <hr>
-          <table style="width:95%;" align='center'>
-              <tr>
-                <td>
-                  <div class="checkbox">
-                    <%= f.check_box :FLAG_Membro %>
-                    <%= f.label :Membro %>
-                  </div>
-                </td>
-                <td>
-                  <div class="checkbox">
-                    <%= f.check_box :FLAG_RecebeuCristo %>
-                    <%= f.label :Recebeu_Cristo %>
-                  </div>
-                </td>
-                <td>
-                  <div class="checkbox">
-                    <%= f.check_box :FLAG_Reconciliacao %>
-                    <%= f.label :Reconciliacao %>
-                  </div>
-                </td>
-                <td>
-                  <div class="checkbox">
-                    <%= f.check_box :FLAG_OcasiaoCelula %>
-                    <%= f.label :Ocasiao_Celula %>
-                  </div>
-                </td>
-              </tr>
-              <tr>      
-                <td>
-                  <div class="checkbox">
-                    <%= f.check_box :FLAG_OcasiaoCelebracaoEvento %>
-                    <%= f.label :Ocasiao_Celebração_Evento %>
-                  </div>
-                </td>
-                <td>
-                  <div class="checkbox">
-                    <%= f.check_box :FLAG_OcasiaoEvangelismoPessoal %>
-                    <%= f.label :Ocasiao_Evangelismo_Pessoal %>
-                  </div>
-                </td>
-                <td>
-                  <div class="checkbox">
-                    <%= f.check_box :FLAG_OcasiaoCultoLivre %>
-                    <%= f.label :Ocasiao_Culto_Livre %>
-                  </div>
-                </td>
-                <td>
                   <div class="checkbox">
                     <%= f.check_box :FLAG_Trabalhando %>
                     <%= f.label :Trabalhando %>
                   </div>
-                </td>
-              </tr>
-            </table>
-            <hr>
+                  <div class="checkbox">
+                    <%= f.check_box :FLAG_Reconciliacao %>
+                    <%= f.label :Reconciliacao %>
+                  </div>
+            </td>
+          </tr>
+        </table>
+        <hr>
+          <b>Ocasião em que recebeu Cristo?</b>
+          <p>
+          <div class="radio">
+            <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" value="0" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 0 ? 'checked = "checked"' : '' %>>Célula
+          </div>
 
-              <div class="field">
-                <%= f.hidden_field :NUMG_UsuarioInclusao, :value => current_user.id %>
-              </div>
-              <div class="field">
-                <%= f.hidden_field :NUMG_UsuarioBloqueio, :value => current_user.id%>
-              </div>
+          <div class="radio">
+                  <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" value="1" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 1 ? 'checked = "checked"' : '' %>>Celebração Evento
+          </div>
 
+          <div class="radio">
+                  <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" value="2" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 2 ? 'checked = "checked"' : '' %>>Evangelismo Pessoal
+          </div>
+
+          <div class="radio">
+                  <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" value="3" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 3 ? 'checked = "checked"' : '' %>>Culto Livre
+          </div>
         </div>
-        <div class="tab-pane" id="tab3">
 
+      <%= f.hidden_field :NUMG_UsuarioInclusao, :value => current_user.id %>
+      <%= f.hidden_field :NUMG_UsuarioBloqueio, :value => current_user.id%>
+
+        <div class="tab-pane" id="tab3">
+          <div class="checkbox">
+            <%= f.check_box :FLAG_Discipulo %>
+            <%= f.label :Discipulo %>
+          </div>  
+          <div class="checkbox">
+            <%= f.check_box :FLAG_Discipulador %>
+            <%= f.label :Discipulador %>
+          </div>  
+          <div class="checkbox">
+            <%= f.check_box :FLAG_Consolidador %>
+            <%= f.label :Consolidador %>
+          </div>                      
+          <hr>
           <table style="width:95%;" align='center'>
             <tr>
+              <td>
+            
+              </td>
               <td>
                 <div class="field">
                   <label>CPF</label>

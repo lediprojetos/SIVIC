@@ -87,38 +87,21 @@
 </p>
 
 <p>
-  <strong>Membro:</strong>
-  <%= @sivic_discipulo.FLAG_Membro %>
+  <strong>Discípulo:</strong>
+  <%= @sivic_discipulo.FLAG_Discipulo %>
 </p>
 
 <p>
-  <strong>Recebeu Cristo:</strong>
-  <%= @sivic_discipulo.FLAG_RecebeuCristo %>
-</p>
-
-<p>
-  <strong>Reconciliação:</strong>
-  <%= @sivic_discipulo.FLAG_Reconciliacao %>
-</p>
-
-<p>
-  <strong>Ocasião Célula:</strong>
-  <%= @sivic_discipulo.FLAG_OcasiaoCelula %>
-</p>
-
-<p>
-  <strong>Ocasião Celebração Evento:</strong>
-  <%= @sivic_discipulo.FLAG_OcasiaoCelebracaoEvento %>
-</p>
-
-<p>
-  <strong>Ocasião Evangelismo Pessoal:</strong>
-  <%= @sivic_discipulo.FLAG_OcasiaoEvangelismoPessoal %>
-</p>
-
-<p>
-  <strong>Ocasião Culto Livre:</strong>
-  <%= @sivic_discipulo.FLAG_OcasiaoCultoLivre %>
+  <strong>Ocasião em que recebeu Cristo:</strong>
+  <%if @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 0%>
+    Célula
+  <%elsif @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 1%>
+    Celebração Evento
+  <%elsif @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 2%>
+    Evangelismo Pessoal
+  <%elsif @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 3%>
+    Culto Livre
+  <%end%>
 </p>
 
 <p>
