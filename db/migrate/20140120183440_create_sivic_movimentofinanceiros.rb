@@ -8,7 +8,6 @@ class CreateSivicMovimentofinanceiros < ActiveRecord::Migration
       t.references :sivic_evento, index: true
       t.datetime :DATA_exclusao
       t.integer :user_exclusao, :integer, :references => :User, index: true
-
       t.timestamps
     end
   end

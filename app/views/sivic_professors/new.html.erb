@@ -1,5 +1,13 @@
-<h1>New sivic_professor</h1>
+<% content_for :titlePage do %>
+	Cadastro de Professores
+<% end %>
 
+
+<%=render '/layouts/panel' %>
 <%= render 'form' %>
 
-<%= link_to 'Back', sivic_professors_path %>
+<% content_for :pathback do %>
+<%= sivic_professors_path %>
+<% end %>
+
+<%= render '/layouts/iconvoltar' %>

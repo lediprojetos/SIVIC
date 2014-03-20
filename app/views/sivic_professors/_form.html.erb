@@ -11,23 +11,20 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :sivic_pessoa_id %><br>
-    <%= f.text_field :sivic_pessoa_id %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :DATA_bloqueio %><br>
-    <%= f.datetime_select :DATA_bloqueio %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="containermininmo">
+  <table style="width:40%" align='center'>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label :sivic_pessoa_id %>
+          <%= f.text_field :sivic_pessoa_id %>
+        </div>
+      </td>
+    </tr>
+  </table>
+    <!--Capturando Usuario logado-->
+    <%=f.hidden_field :user_inclusao, :value => current_user.id%>  
+
+    <%=render '/layouts/iconsalvar' %>
+
 <% end %>
