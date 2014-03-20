@@ -114,6 +114,6 @@ class SivicCelulasController < ApplicationController
       
       send_data report.generate, filename: 'index.pdf', 
                                  type: 'application/pdf', 
-                                 disposition: 'attachment'
+                                 disposition: ''
     end    
 end

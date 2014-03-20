@@ -43,4 +43,4 @@ gem 'debugger'
 gem 'will_paginate', '~> 3.0.5'
 gem 'pdfkit'
 
-gem 'thinreports-rails'
+gem 'thinreports'
