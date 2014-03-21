@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140307162317) do
+ActiveRecord::Schema.define(version: 20140319161854) do
 
   create_table "observacoesrelatorios", force: true do |t|
     t.integer  "sivic_relatorioscelula_id"
@@ -265,6 +265,18 @@ ActiveRecord::Schema.define(version: 20140307162317) do
 
   add_index "sivic_pessoas", ["User_id"], name: "index_sivic_pessoas_on_User_id"
   add_index "sivic_pessoas", ["sivic_igreja_id"], name: "index_sivic_pessoas_on_sivic_igreja_id"
+
+  create_table "sivic_professors", force: true do |t|
+    t.integer  "user_inclusao"
+    t.integer  "integer"
+    t.integer  "sivic_pessoa_id"
+    t.integer  "user_bloqueio"
+    t.datetime "DATA_bloqueio"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_professors", ["sivic_pessoa_id"], name: "index_sivic_professors_on_sivic_pessoa_id"
 
   create_table "sivic_profissaos", force: true do |t|
     t.string   "profissao"
