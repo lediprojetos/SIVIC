@@ -9,8 +9,6 @@
   <thead>
     <tr>
       <th>Professor</th>
-      <th>User</th>
-      <th>User</th>
       <th>Data bloqueio</th>
       <th></th>
       <th></th>
@@ -21,13 +19,11 @@
   <tbody>
     <% @sivic_professors.each do |sivic_professor| %>
       <tr>
-        <td><%= sivic_professor.sivic_pessoa %></td>
-        <td><%= sivic_professor.user %></td>
-        <td><%= sivic_professor.user %></td>
+        <td><%= sivic_professor.sivic_pessoa.NOME_pessoa %></td>  
         <td><%= sivic_professor.DATA_bloqueio %></td>
-        <td><%= link_to 'Show', sivic_professor %></td>
-        <td><%= link_to 'Edit', edit_sivic_professor_path(sivic_professor) %></td>
-        <td><%= link_to 'Destroy', sivic_professor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_professor %></td>
+        <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') ,  edit_sivic_professor_path(sivic_professor) %></td>
+        <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_professor , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>
       </tr>
     <% end %>
   </tbody>

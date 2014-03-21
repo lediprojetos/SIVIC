@@ -13,18 +13,100 @@
 
 <div class="containermininmo">
   <table style="width:40%" align='center'>
+
     <tr>
       <td>
         <div class="field">
-          <%= f.label :sivic_pessoa_id %>
-          <%= f.text_field :sivic_pessoa_id %>
+          <%= f.label :Nome %>
+          <select id="sivic_professor_sivic_pessoa_id" name="sivic_professor[sivic_pessoa_id]" disabled="disabled" class="form-control-5">
+          </select>
+        </div>
+        <div class="field">
+          <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Pessoa</a>
         </div>
       </td>
     </tr>
+
   </table>
     <!--Capturando Usuario logado-->
-    <%=f.hidden_field :user_inclusao, :value => current_user.id%>  
+    <%=f.hidden_field :user_inclusao, :value => current_user.id%> 
+    <%=f.hidden_field :sivic_pessoa_id%>   
 
     <%=render '/layouts/iconsalvar' %>
 
 <% end %>
+
+
+ <%
+    @sivic_pessoa = SivicPessoa.new
+    @sivic_igreja = SivicIgreja.all
+  %> 
+
+
+ <div id="myModal2" class="modal fade" style="display: none;">  
+     
+      <div class="tabbable">  
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#tab1" data-toggle="tab">Consultar</a></li>
+        </ul>
+      </div> 
+      <div class="tab-content">
+      <div class="tab-pane active" id="tab1">
+    
+     <div class="modal-header">  
+          <a class="close" data-dismiss="modal">×</a>  
+          <h4>Buscar Pessoas</h4>  
+      </div>  
+      <div class="modal-body">
+        <div class="input-group input-group-lg">
+          <label >Nome</label><br>
+          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onkeypress="buscaPessoa()"type="text" class="form-control" placeholder="Username" style="width: 80%;">
+          <a data-toggle="modal" href="javascript:buscaPessoa();" class="btn btn-success" style="margin-bottom: 10px;">Buscar</a>
+        </div>
+        <table id="table_user" name="table_user" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyid">
+              <tr>
+              </tr>   
+          </tbody>  
+        </table>
+      </div>  
+    </div>
+  </div>
+</div>  
+
+
+ <script>
+ function buscaPessoa(){
+   
+       $.ajax({
+        url : '<%= listarPessoa_path %>',
+        data :
+        {
+          NOME_pessoa : $('#NOME_pessoa_buscar').val()
+        },
+        success: function(data){        
+          $('#tbodyid').empty();
+          for (var i in data){
+            var item = data[i];
+            $('#table_user').append('<tr><td><a href="javascript:setaNome(\''+ item.NOME_pessoa+'\','+item.id+'\);">'+item.NOME_pessoa+'</a></td></tr>')
+          };         
+        }
+       })
+     }
+     function setaNome(nome,id){
+      $('#sivic_professor_sivic_pessoa_id').empty();
+      $('#sivic_professor_sivic_pessoa_id').html('<option>Carregando...</option>');
+      $('#sivic_professor_sivic_pessoa_id').attr('disabled', 'disabled');
+      var options = "<option value='"+id+"'>"+nome+"</option>";
+        $('#sivic_professor_sivic_pessoa_id').html(options);
+        $('#sivic_professor_sivic_pessoa_id').removeAttr('disabled');
+        $('#sivic_professor_sivic_pessoa_id').val(id);
+        $('#myModal2').modal('hide');         
+    }
+
+</script>
