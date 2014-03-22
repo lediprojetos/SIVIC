@@ -89,18 +89,20 @@ ActiveRecord::Schema.define(version: 20140319161854) do
     t.string   "DESC_Apelido"
     t.string   "DESC_EstadoCivil"
     t.string   "NOME_Conjuge"
-    t.string   "DESC_TelefoneFixo"
-    t.string   "DESC_TelefoneCelular"
     t.date     "DATA_Decisao"
     t.integer  "NUMR_QtdFilhos"
-    t.boolean  "FLAG_Discipulo"
+    t.boolean  "FLAG_Membro"
+    t.boolean  "FLAG_RecebeuCristo"
     t.boolean  "FLAG_Reconciliacao"
-    t.integer  "FLAG_OcasiaoRecebeuCristo"
+    t.boolean  "FLAG_OcasiaoCelula"
+    t.boolean  "FLAG_OcasiaoCelebracaoEvento"
+    t.boolean  "FLAG_OcasiaoEvangelismoPessoal"
+    t.boolean  "FLAG_OcasiaoCultoLivre"
     t.boolean  "FLAG_Trabalhando"
     t.string   "DESC_MomentoEstudoBiblico"
     t.string   "NUMR_RG"
     t.date     "DATA_EmissaoRG"
-    t.string   "NUMR_CPF",                  limit: 11
+    t.string   "NUMR_CPF",                       limit: 11
     t.string   "NOME_Pai"
     t.string   "NOME_Mae"
     t.date     "DATA_NascConjuge"
@@ -110,8 +112,6 @@ ActiveRecord::Schema.define(version: 20140319161854) do
     t.string   "DESC_IgrejaBatismo"
     t.boolean  "FLAG_DoadorSangue"
     t.boolean  "FLAG_DoadorOrgao"
-    t.boolean  "FLAG_Discipulador"
-    t.boolean  "FLAG_Consolidador"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "NUMR_Codigo"
@@ -242,13 +242,11 @@ ActiveRecord::Schema.define(version: 20140319161854) do
     t.string   "NOME_Participante"
     t.string   "DESC_Email"
     t.string   "NUMR_Telefone"
-    t.integer  "sivic_celula_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sivic_sitpartcelula_id"
   end
 
-  add_index "sivic_participantecelulas", ["sivic_celula_id"], name: "index_sivic_participantecelulas_on_sivic_celula_id"
   add_index "sivic_participantecelulas", ["sivic_sitpartcelula_id"], name: "index_sivic_participantecelulas_on_sivic_sitpartcelula_id"
 
   create_table "sivic_pessoas", force: true do |t|

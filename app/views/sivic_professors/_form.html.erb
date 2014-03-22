@@ -34,7 +34,7 @@
 
     <%=render '/layouts/iconsalvar' %>
 
-<% end %>
+
 
 
  <%
@@ -79,8 +79,8 @@
   </div>
 </div>  
 
-
  <script>
+
  function buscaPessoa(){
    
        $.ajax({
@@ -99,14 +99,25 @@
        })
      }
      function setaNome(nome,id){
+
+
       $('#sivic_professor_sivic_pessoa_id').empty();
       $('#sivic_professor_sivic_pessoa_id').html('<option>Carregando...</option>');
       $('#sivic_professor_sivic_pessoa_id').attr('disabled', 'disabled');
       var options = "<option value='"+id+"'>"+nome+"</option>";
         $('#sivic_professor_sivic_pessoa_id').html(options);
         $('#sivic_professor_sivic_pessoa_id').removeAttr('disabled');
-        $('#sivic_professor_sivic_pessoa_id').val(id);
         $('#myModal2').modal('hide');         
     }
 
+function enviarId () {
+
+
+ 
+}
+
+
 </script>
+
+
+<% end %>
