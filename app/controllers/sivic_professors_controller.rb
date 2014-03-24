@@ -28,7 +28,7 @@ class SivicProfessorsController < ApplicationController
 
     respond_to do |format|
       if @sivic_professor.save
-        format.html { redirect_to @sivic_professor, notice: 'Sivic professor was successfully created.' }
+        format.html { redirect_to @sivic_professor, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_professor }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class SivicProfessorsController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_professor.update(sivic_professor_params)
-        format.html { redirect_to @sivic_professor, notice: 'Sivic professor was successfully updated.' }
+        format.html { redirect_to @sivic_professor, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

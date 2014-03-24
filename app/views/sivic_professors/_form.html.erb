@@ -19,6 +19,9 @@
         <div class="field">
           <%= f.label :Nome %>
           <select id="sivic_professor_sivic_pessoa_id" name="sivic_professor[sivic_pessoa_id]" disabled="disabled" class="form-control-5">
+            <% if @sivic_professor.id? %>
+           <option value="<%=@sivic_professor.sivic_pessoa.id%>"><%=@sivic_professor.sivic_pessoa.NOME_pessoa%></option>
+           <%end%>
           </select>
         </div>
         <div class="field">
@@ -30,11 +33,9 @@
   </table>
     <!--Capturando Usuario logado-->
     <%=f.hidden_field :user_inclusao, :value => current_user.id%> 
-    <%=f.hidden_field :sivic_pessoa_id%>   
+    <%=f.hidden_field :sivic_pessoa_id, :id => "pessoa_id" %>   
 
     <%=render '/layouts/iconsalvar' %>
-
-
 
 
  <%
@@ -107,6 +108,7 @@
       var options = "<option value='"+id+"'>"+nome+"</option>";
         $('#sivic_professor_sivic_pessoa_id').html(options);
         $('#sivic_professor_sivic_pessoa_id').removeAttr('disabled');
+        $('#pessoa_id').val(id);
         $('#myModal2').modal('hide');         
     }
 
