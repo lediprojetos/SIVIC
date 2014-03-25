@@ -4,6 +4,26 @@
 
 <%=render '/layouts/panel' %>
 
+<table style="width:26%;">
+  <tr>
+    <td>
+      <label >Situação</label>
+      <select id='sivic_estado_sivic_situacoesrelatorio_id'>
+        <option value='0'>TODOS</option>
+        <option value='1'>ATIVO</option>
+        <option value='2'>BLOQUEADO</option>        
+    </td>
+    <td>
+      <div style='margin-top:15px;'>
+        <a data-toggle="modal" href="javascript:chamaPesquisa();" class="btn btn-info" style="">Buscar</a><br/>
+      </div>
+    </td>
+  </tr>
+</table>
+
+ <hr>
+
+
 <div class="containermininmo">
 <table class="table table-hover">
   <thead>
@@ -20,10 +40,12 @@
     <% @sivic_professors.each do |sivic_professor| %>
       <tr>
         <td><%= sivic_professor.sivic_pessoa.NOME_pessoa %></td>  
-        <td><%= sivic_professor.DATA_bloqueio %></td>
+        <td><%= sivic_professor.DATA_bloqueio.blank? ? '' : sivic_professor.DATA_bloqueio.strftime("%d/%m/%Y") %></td>
         <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_professor %></td>
         <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') ,  edit_sivic_professor_path(sivic_professor) %></td>
         <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_professor , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>
+
+         <td> <%= link_to_function  image_tag('block.png', :title => 'Bloquear', class: 'exibirico'), "var r = confirm('Deseja bloquear o professor?'); if (r == true){encerrar('#{sivic_professor.id}')}else{}"%></td>
       </tr>
     <% end %>
   </tbody>
@@ -45,3 +67,22 @@
     </td>
   </tr> 
 </table>
+
+
+<script>
+function encerrar(id){
+      
+
+     $.ajax({
+        url : '<%= bloqueaProfessor_path %>',
+        data :
+        {
+          id : id
+        },
+        success: function(data){
+            document.location.reload();
+          }
+     })  
+  }
+
+</script>

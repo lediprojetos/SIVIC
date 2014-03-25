@@ -67,6 +67,7 @@ SIVIC::Application.routes.draw do
   match '/criarObservacaorelatorio', to: 'observacoesrelatorios#create_observacao', via: 'get'
   match '/alteraSituacao', to: 'sivic_relatorioscelulas#altera_situacao', via: 'get'
   match '/bloqueaCelula', to: 'sivic_celulas#bloquea', via: 'get'
+  match '/bloqueaProfessor', to: 'sivic_professors#bloquea', via: 'get'
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 

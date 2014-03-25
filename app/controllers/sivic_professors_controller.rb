@@ -4,7 +4,19 @@ class SivicProfessorsController < ApplicationController
   # GET /sivic_professors
   # GET /sivic_professors.json
   def index
-    @sivic_professors = SivicProfessor.all
+   
+  @sivic_professors = SivicProfessor.all
+   if params[:sivic_situacoesrelatorio_id] == 0
+      @sivic_professors = SivicProfessor.all
+   end
+
+   if params[:sivic_situacoesrelatorio_id] == 1
+      @sivic_professors = SivicProfessor.where("DATA_encerramento is null")
+    end
+
+    if params[:sivic_situacoesrelatorio_id] == 2
+      @sivic_professors = SivicProfessor.where("DATA_encerramento is not null")
+    end    
   end
 
   # GET /sivic_professors/1
@@ -34,6 +46,17 @@ class SivicProfessorsController < ApplicationController
         format.html { render action: 'new' }
         format.json { render json: @sivic_professor.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # Metodo para encerrar o evento
+  def bloquea 
+    @sivic_professor = SivicProfessor.find("#{params[:id]}%")
+    @sivic_professor.update(:DATA_bloqueio => Time.now)
+
+    respond_to do |format|
+    format.html { redirect_to sivic_professors_path }
+    format.json { head :no_content }
     end
   end
 
