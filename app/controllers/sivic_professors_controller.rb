@@ -4,19 +4,22 @@ class SivicProfessorsController < ApplicationController
   # GET /sivic_professors
   # GET /sivic_professors.json
   def index
-   
-  @sivic_professors = SivicProfessor.all
-   if params[:sivic_situacoesrelatorio_id] == 0
-      @sivic_professors = SivicProfessor.all
-   end
+      
+   # debugger
 
-   if params[:sivic_situacoesrelatorio_id] == 1
-      @sivic_professors = SivicProfessor.where("DATA_encerramento is null")
+    if params[:sivic_professor_situacao_id] == nil
+      params[:sivic_professor_situacao_id] = '0'
     end
 
-    if params[:sivic_situacoesrelatorio_id] == 2
-      @sivic_professors = SivicProfessor.where("DATA_encerramento is not null")
-    end    
+   if params[:sivic_professor_situacao_id] == '0'
+      @sivic_professors = SivicProfessor.all
+   elsif params[:sivic_professor_situacao_id] == '1'
+      @sivic_professors = SivicProfessor.where("DATA_bloqueio is null")
+   elsif params[:sivic_professor_situacao_id] == '2'
+      @sivic_professors = SivicProfessor.where("DATA_bloqueio is not null")
+   elsif
+    @sivic_relatorioscelulas = SivicProfessor.all
+   end    
   end
 
   # GET /sivic_professors/1

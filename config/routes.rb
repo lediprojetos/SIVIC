@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_turmas
+
   resources :sivic_professors
 
   resources :sivic_contcelulas
@@ -73,5 +75,6 @@ SIVIC::Application.routes.draw do
 
   #Rotas de filtragem
   get '/filtrarelatorios/:sivic_situacoesrelatorio_id/:NOME_pessoa', to: 'sivic_relatorioscelulas#index', as: 'filtrarelatorios'
+  get '/filtraprofessor/:sivic_professor_situacao_id', to: 'sivic_professors#index', as: 'filtraprofessor'
 
 end

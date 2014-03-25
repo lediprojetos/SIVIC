@@ -8,10 +8,10 @@
   <tr>
     <td>
       <label >Situação</label>
-      <select id='sivic_estado_sivic_situacoesrelatorio_id'>
+      <select id='sivic_professor_situacao_id'>
         <option value='0'>TODOS</option>
-        <option value='1'>ATIVO</option>
-        <option value='2'>BLOQUEADO</option>        
+        <option value='1'>ATIVOS</option>
+        <option value='2'>BLOQUEADOS</option>        
     </td>
     <td>
       <div style='margin-top:15px;'>
@@ -68,8 +68,30 @@
   </tr> 
 </table>
 
-
 <script>
+
+function chamaPesquisa(){
+
+    nome = $('#NOME_pessoa_buscar').val()
+    situacao = $('#sivic_professor_situacao_id').val().trim();
+
+    if (situacao == "0" && situacao == ""){
+      window.location = '/sivic_professors/';
+      return false;
+    }
+
+    if (situacao == ""){
+        situacao = 0;
+    }
+
+    if (nome == ""){
+      nome = 0;
+    }    
+
+    window.location = '/filtraprofessor/' + situacao;
+
+  }
+
 function encerrar(id){
       
 

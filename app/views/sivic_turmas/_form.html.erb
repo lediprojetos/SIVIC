@@ -1,0 +1,49 @@
+<%= form_for(@sivic_turma) do |f| %>
+  <% if @sivic_turma.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_turma.errors.count, "error") %> prohibited this sivic_turma from being saved:</h2>
+
+      <ul>
+      <% @sivic_turma.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :sivic_igreja_id %><br>
+    <%= f.text_field :sivic_igreja_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :DESC_turma %><br>
+    <%= f.text_field :DESC_turma %>
+  </div>
+  <div class="field">
+    <%= f.label :DATA_Inicio %><br>
+    <%= f.date_select :DATA_Inicio %>
+  </div>
+  <div class="field">
+    <%= f.label :DATA_Fim %><br>
+    <%= f.date_select :DATA_Fim %>
+  </div>
+  <div class="field">
+    <%= f.label :NUMR_QdtVagas %><br>
+    <%= f.number_field :NUMR_QdtVagas %>
+  </div>
+  <div class="field">
+    <%= f.label :DATA_bloqueio %><br>
+    <%= f.date_select :DATA_bloqueio %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
