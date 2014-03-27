@@ -11,21 +11,21 @@
     </div>
   <% end %>
 
+<div class="containermininmo">
 
-<div class="row">
-  <div class="col-xs-2">
+  <div  class="field">
     <%= f.label :sivic_igreja_id %><br>
     <%= f.text_field :sivic_igreja_id %>
   </div>
-  <div class="col-xs-3">
+  <div  class="field">
     <%= f.label :DESC_turma %><br>
     <%= f.text_field :DESC_turma %>
   </div>
-  <div class="field">
+  <div  class="field">
     <%= f.label :DATA_Inicio %><br>
     <%= f.date_select :DATA_Inicio %>
   </div>
-  <div class="field">
+  <div  class="field">
     <%= f.label :DATA_Fim %><br>
     <%= f.date_select :DATA_Fim %>
   </div>
@@ -37,10 +37,7 @@
     <%= f.label :DATA_bloqueio %><br>
     <%= f.date_select :DATA_bloqueio %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-</div>
 
- 
+ <%=render '/layouts/iconsalvar' %>
+
 <% end %>

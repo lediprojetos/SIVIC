@@ -89,8 +89,6 @@ ActiveRecord::Schema.define(version: 20140325215510) do
     t.string   "DESC_Apelido"
     t.string   "DESC_EstadoCivil"
     t.string   "NOME_Conjuge"
-    t.string   "DESC_TelefoneFixo"
-    t.string   "DESC_TelefoneCelular"
     t.date     "DATA_Decisao"
     t.integer  "NUMR_QtdFilhos"
     t.boolean  "FLAG_Membro"
@@ -244,13 +242,11 @@ ActiveRecord::Schema.define(version: 20140325215510) do
     t.string   "NOME_Participante"
     t.string   "DESC_Email"
     t.string   "NUMR_Telefone"
-    t.integer  "sivic_celula_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sivic_sitpartcelula_id"
   end
 
-  add_index "sivic_participantecelulas", ["sivic_celula_id"], name: "index_sivic_participantecelulas_on_sivic_celula_id"
   add_index "sivic_participantecelulas", ["sivic_sitpartcelula_id"], name: "index_sivic_participantecelulas_on_sivic_sitpartcelula_id"
 
   create_table "sivic_pessoas", force: true do |t|

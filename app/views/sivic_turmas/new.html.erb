@@ -1,5 +1,13 @@
-<h1>New sivic_turma</h1>
+<% content_for :titlePage do %>
+	Cadastro de Turmas
+<% end %>
 
+<%=render '/layouts/panel' %>
 <%= render 'form' %>
 
-<%= link_to 'Back', sivic_turmas_path %>
+
+<% content_for :pathback do %>
+<%= sivic_turmas_path %>
+<% end %>
+
+<%= render '/layouts/iconvoltar' %>

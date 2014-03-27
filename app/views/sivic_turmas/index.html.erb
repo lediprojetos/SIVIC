@@ -4,16 +4,14 @@
 
 <%=render '/layouts/panel' %>
 
-<table>
+<div class="containermininmo">
+<table class="table table-hover">
   <thead>
     <tr>
-      <th>Sivic igreja</th>
-      <th>User</th>
-      <th>User</th>
-      <th>Desc turma</th>
-      <th>Data inicio</th>
-      <th>Data fim</th>
-      <th>Numr qdtvagas</th>
+      <th>Turma</th>
+      <th>Data Inicio</th>
+      <th>Data Fim</th>
+      <th>Vagas</th>
       <th>Data bloqueio</th>
       <th></th>
       <th></th>
@@ -40,6 +38,18 @@
   </tbody>
 </table>
 
-<br>
+</div>
 
-<%= link_to 'New Sivic turma', new_sivic_turma_path %>
+</div></div>
+<table style="margin-top:10px;">
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('new.png', :title => 'Novo', class: "exibirico") , new_sivic_turma_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Novo</label>
+    </td>
+  </tr> 
+</table>
