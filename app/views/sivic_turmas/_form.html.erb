@@ -14,30 +14,43 @@
 <div class="containermininmo">
 
   <div  class="field">
-    <%= f.label :sivic_igreja_id %><br>
-    <%= f.text_field :sivic_igreja_id %>
-  </div>
-  <div  class="field">
-    <%= f.label :DESC_turma %><br>
+    <%= f.label :DESC_turma %>
     <%= f.text_field :DESC_turma %>
   </div>
   <div  class="field">
-    <%= f.label :DATA_Inicio %><br>
-    <%= f.date_select :DATA_Inicio %>
+    <%= f.label :DATA_Inicio %>
+    <%= f.text_field :DATA_Inicio, :value => (@sivic_turma.DATA_Inicio.blank? ? '' : @sivic_turma.DATA_Inicio.strftime("%d/%m/%Y")), :class => 'form-control-1' %>
   </div>
   <div  class="field">
-    <%= f.label :DATA_Fim %><br>
-    <%= f.date_select :DATA_Fim %>
+    <%= f.label :DATA_Fim %>
+    <%= f.text_field :DATA_Fim :value => (@sivic_turma.DATA_Inicio.blank? ? '' : @sivic_turma.DATA_Inicio.strftime("%d/%m/%Y")), :class => 'form-control-1' %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_QdtVagas %><br>
+    <%= f.label :NUMR_QdtVagas %>
     <%= f.number_field :NUMR_QdtVagas %>
   </div>
   <div class="field">
-    <%= f.label :DATA_bloqueio %><br>
-    <%= f.date_select :DATA_bloqueio %>
+    <%= f.label :DATA_bloqueio %>
+    <%= f.text_field :DATA_bloqueio %>
   </div>
+
+
+    <!--Capturando dados automaticos-->
+    <%=f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id%> 
+ 
+
 
  <%=render '/layouts/iconsalvar' %>
 
 <% end %>
+
+
+<script>
+
+jQuery(function($){
+   $("#sivic_turma_DATA_Inicio").mask("99/99/9999");
+   $("#sivic_turma_DATA_Fim").mask("99/99/9999");
+   $("#sivic_turma_DATA_bloqueio").mask("99/99/9999");
+});
+
+</script>
