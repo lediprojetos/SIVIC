@@ -14,7 +14,7 @@
 <div class="containermininmo">
 
   <div  class="field">
-    <%= f.label :DESC_turma %>
+    <%= f.label :Descrição_Turma %>
     <%= f.text_field :DESC_turma %>
   </div>
   <div  class="field">
@@ -23,22 +23,17 @@
   </div>
   <div  class="field">
     <%= f.label :DATA_Fim %>
-    <%= f.text_field :DATA_Fim :value => (@sivic_turma.DATA_Inicio.blank? ? '' : @sivic_turma.DATA_Inicio.strftime("%d/%m/%Y")), :class => 'form-control-1' %>
+    <%= f.text_field :DATA_Fim, :value => (@sivic_turma.DATA_Inicio.blank? ? '' : @sivic_turma.DATA_Inicio.strftime("%d/%m/%Y")), :class => 'form-control-1' %>
   </div>
   <div class="field">
-    <%= f.label :NUMR_QdtVagas %>
+    <%= f.label :Número_de_Vagas %> 
     <%= f.number_field :NUMR_QdtVagas %>
   </div>
-  <div class="field">
-    <%= f.label :DATA_bloqueio %>
-    <%= f.text_field :DATA_bloqueio %>
-  </div>
-
 
     <!--Capturando dados automaticos-->
-    <%=f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id%> 
- 
-
+   <%=f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id%>  
+   <%=f.hidden_field :user_inclusao, :value => current_user.id%>
+   
 
  <%=render '/layouts/iconsalvar' %>
 

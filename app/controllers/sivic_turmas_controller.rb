@@ -28,7 +28,7 @@ class SivicTurmasController < ApplicationController
 
     respond_to do |format|
       if @sivic_turma.save
-        format.html { redirect_to @sivic_turma, notice: 'Sivic turma was successfully created.' }
+        format.html { redirect_to @sivic_turma, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_turma }
       else
         format.html { render action: 'new' }
@@ -42,12 +42,23 @@ class SivicTurmasController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_turma.update(sivic_turma_params)
-        format.html { redirect_to @sivic_turma, notice: 'Sivic turma was successfully updated.' }
+        format.html { redirect_to @sivic_turma, notice: 'Registro alterado com sucesso.'  }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
         format.json { render json: @sivic_turma.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # Metodo para bloquar turma
+  def bloquea 
+    @sivic_professor = SivicTurma.find("#{params[:id]}%")
+    @sivic_professor.update(:DATA_bloqueio => Time.now)
+
+    respond_to do |format|
+    format.html {  redirect_to sivic_turmas_url }
+    format.json { head :no_content }
     end
   end
 
@@ -69,6 +80,6 @@ class SivicTurmasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_turma_params
-      params.require(:sivic_turma).permit(:sivic_igreja_id, :user_id, :user_id, :DESC_turma, :DATA_Inicio, :DATA_Fim, :NUMR_QdtVagas, :DATA_bloqueio)
+      params.require(:sivic_turma).permit(:sivic_igreja_id, :user_inclusao, :user_bloqueio, :DESC_turma, :DATA_Inicio, :DATA_Fim, :NUMR_QdtVagas, :DATA_bloqueio)
     end
 end

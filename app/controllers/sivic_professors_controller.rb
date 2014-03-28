@@ -95,6 +95,6 @@ class SivicProfessorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_professor_params
-      params.require(:sivic_professor).permit(:sivic_pessoa_id, :user_id, :user_id, :DATA_bloqueio)
+      params.require(:sivic_professor).permit(:sivic_pessoa_id, :user_inclusao, :user_bloqueio, :DATA_bloqueio)
     end
 end

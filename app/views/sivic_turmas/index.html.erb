@@ -22,17 +22,14 @@
   <tbody>
     <% @sivic_turmas.each do |sivic_turma| %>
       <tr>
-        <td><%= sivic_turma.sivic_igreja %></td>
-        <td><%= sivic_turma.user %></td>
-        <td><%= sivic_turma.user %></td>
         <td><%= sivic_turma.DESC_turma %></td>
         <td><%= sivic_turma.DATA_Inicio %></td>
         <td><%= sivic_turma.DATA_Fim %></td>
         <td><%= sivic_turma.NUMR_QdtVagas %></td>
         <td><%= sivic_turma.DATA_bloqueio %></td>
-        <td><%= link_to 'Show', sivic_turma %></td>
-        <td><%= link_to 'Edit', edit_sivic_turma_path(sivic_turma) %></td>
-        <td><%= link_to 'Destroy', sivic_turma, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_turma %></td>
+        <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') ,  edit_sivic_turma_path(sivic_turma) %></td>
+        <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_turma , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>
       </tr>
     <% end %>
   </tbody>
