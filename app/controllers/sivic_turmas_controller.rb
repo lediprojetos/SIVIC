@@ -4,7 +4,22 @@ class SivicTurmasController < ApplicationController
   # GET /sivic_turmas
   # GET /sivic_turmas.json
   def index
-    @sivic_turmas = SivicTurma.all
+
+   
+    if params[:sivic_turma_situacao_id] == nil
+      params[:sivic_turma_situacao_id] = '0'
+    end
+
+    if params[:sivic_turma_situacao_id] == '2'
+      @sivic_turmas = SivicTurma.all 
+    elsif params[:sivic_turma_situacao_id] == '0'
+      @sivic_turmas = SivicTurma.where("DATA_bloqueio is null")
+    elsif  params[:sivic_turma_situacao_id] == '1'
+      @sivic_turmas = SivicTurma.where("DATA_bloqueio is not null")
+    elsif 
+      @sivic_turmas = SivicTurma.all
+    end
+
   end
 
   # GET /sivic_turmas/1
@@ -14,6 +29,7 @@ class SivicTurmasController < ApplicationController
 
   # GET /sivic_turmas/new
   def new
+
     @sivic_turma = SivicTurma.new
   end
 
@@ -53,8 +69,8 @@ class SivicTurmasController < ApplicationController
 
   # Metodo para bloquar turma
   def bloquea 
-    @sivic_professor = SivicTurma.find("#{params[:id]}%")
-    @sivic_professor.update(:DATA_bloqueio => Time.now)
+    @sivic_turma = SivicTurma.find("#{params[:id]}%")
+    @sivic_turma.update(:DATA_bloqueio => Time.now, :user_bloqueio => params[:user_bloqueio])
 
     respond_to do |format|
     format.html {  redirect_to sivic_turmas_url }

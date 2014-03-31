@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_muduloescolas
+
   resources :sivic_turmas
 
   resources :sivic_professors
@@ -70,11 +72,14 @@ SIVIC::Application.routes.draw do
   match '/alteraSituacao', to: 'sivic_relatorioscelulas#altera_situacao', via: 'get'
   match '/bloqueaCelula', to: 'sivic_celulas#bloquea', via: 'get'
   match '/bloqueaProfessor', to: 'sivic_professors#bloquea', via: 'get'
+  match '/bloqueaTurma', to: 'sivic_turmas#bloquea', via: 'get'
+
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
   #Rotas de filtragem
   get '/filtrarelatorios/:sivic_situacoesrelatorio_id/:NOME_pessoa', to: 'sivic_relatorioscelulas#index', as: 'filtrarelatorios'
   get '/filtraprofessor/:sivic_professor_situacao_id', to: 'sivic_professors#index', as: 'filtraprofessor'
+  get '/filtraturma/:sivic_turma_situacao_id', to: 'sivic_turmas#index', as: 'filtraturma'
 
 end

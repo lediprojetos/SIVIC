@@ -9,9 +9,10 @@
     <td>
       <label >Situação</label>
       <select id='sivic_professor_situacao_id'>
-        <option value='0'>TODOS</option>
-        <option value='1'>ATIVOS</option>
-        <option value='2'>BLOQUEADOS</option>        
+        <option value='0'></option>
+        <option value='0'>ATIVOS</option>
+        <option value='1'>BLOQUEADOS</option>
+        <option value='2'>TODOS</option>        
     </td>
     <td>
       <div style='margin-top:15px;'>
@@ -100,6 +101,7 @@ function encerrar(id){
         data :
         {
           id : id
+          ,user_bloqueio : '<%= current_user.id %>'
         },
         success: function(data){
             document.location.reload();

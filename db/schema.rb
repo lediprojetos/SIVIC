@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140325215510) do
+ActiveRecord::Schema.define(version: 20140331164835) do
 
   create_table "observacoesrelatorios", force: true do |t|
     t.integer  "sivic_relatorioscelula_id"
@@ -89,6 +89,8 @@ ActiveRecord::Schema.define(version: 20140325215510) do
     t.string   "DESC_Apelido"
     t.string   "DESC_EstadoCivil"
     t.string   "NOME_Conjuge"
+    t.string   "DESC_TelefoneFixo"
+    t.string   "DESC_TelefoneCelular"
     t.date     "DATA_Decisao"
     t.integer  "NUMR_QtdFilhos"
     t.boolean  "FLAG_Membro"
@@ -213,6 +215,17 @@ ActiveRecord::Schema.define(version: 20140325215510) do
   add_index "sivic_movimentofinanceiros", ["sivic_evento_id"], name: "index_sivic_movimentofinanceiros_on_sivic_evento_id"
   add_index "sivic_movimentofinanceiros", ["sivic_tipmovfinanceiro_id"], name: "index_sivic_movimentofinanceiros_on_sivic_tipmovfinanceiro_id"
 
+  create_table "sivic_muduloescolas", force: true do |t|
+    t.integer  "sivic_igreja_id"
+    t.integer  "user_inclusao"
+    t.integer  "integer"
+    t.string   "nome_modulo"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_muduloescolas", ["sivic_igreja_id"], name: "index_sivic_muduloescolas_on_sivic_igreja_id"
+
   create_table "sivic_partevenrelacelulas", force: true do |t|
     t.integer  "sivic_relatorioscelula_id"
     t.integer  "sivic_participantecelula_id"
@@ -242,11 +255,13 @@ ActiveRecord::Schema.define(version: 20140325215510) do
     t.string   "NOME_Participante"
     t.string   "DESC_Email"
     t.string   "NUMR_Telefone"
+    t.integer  "sivic_celula_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sivic_sitpartcelula_id"
   end
 
+  add_index "sivic_participantecelulas", ["sivic_celula_id"], name: "index_sivic_participantecelulas_on_sivic_celula_id"
   add_index "sivic_participantecelulas", ["sivic_sitpartcelula_id"], name: "index_sivic_participantecelulas_on_sivic_sitpartcelula_id"
 
   create_table "sivic_pessoas", force: true do |t|

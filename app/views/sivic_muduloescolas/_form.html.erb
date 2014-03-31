@@ -1,0 +1,29 @@
+<%= form_for(@sivic_muduloescola) do |f| %>
+  <% if @sivic_muduloescola.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_muduloescola.errors.count, "error") %> prohibited this sivic_muduloescola from being saved:</h2>
+
+      <ul>
+      <% @sivic_muduloescola.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :sivic_igreja_id %><br>
+    <%= f.text_field :sivic_igreja_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :nome_modulo %><br>
+    <%= f.text_field :nome_modulo %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

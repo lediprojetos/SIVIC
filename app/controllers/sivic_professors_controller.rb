@@ -11,11 +11,11 @@ class SivicProfessorsController < ApplicationController
       params[:sivic_professor_situacao_id] = '0'
     end
 
-   if params[:sivic_professor_situacao_id] == '0'
+   if params[:sivic_professor_situacao_id] == '2'
       @sivic_professors = SivicProfessor.all
-   elsif params[:sivic_professor_situacao_id] == '1'
+   elsif params[:sivic_professor_situacao_id] == '0'
       @sivic_professors = SivicProfessor.where("DATA_bloqueio is null")
-   elsif params[:sivic_professor_situacao_id] == '2'
+   elsif params[:sivic_professor_situacao_id] == '1'
       @sivic_professors = SivicProfessor.where("DATA_bloqueio is not null")
    elsif
     @sivic_relatorioscelulas = SivicProfessor.all
@@ -55,7 +55,9 @@ class SivicProfessorsController < ApplicationController
   # Metodo para encerrar o evento
   def bloquea 
     @sivic_professor = SivicProfessor.find("#{params[:id]}%")
-    @sivic_professor.update(:DATA_bloqueio => Time.now)
+
+    @sivic_professor.update(:DATA_bloqueio => Time.now, :user_bloqueio => params[:user_bloqueio])
+
 
     respond_to do |format|
     format.html { redirect_to sivic_professors_path }
