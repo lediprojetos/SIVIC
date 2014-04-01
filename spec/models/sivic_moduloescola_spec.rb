@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe SivicMuduloescola do
+describe SivicModuloescola do
   pending "add some examples to (or delete) #{__FILE__}"
 end

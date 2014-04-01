@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe "sivic_muduloescolas/show" do
+describe "sivic_moduloescolas/show" do
   before(:each) do
-    @sivic_muduloescola = assign(:sivic_muduloescola, stub_model(SivicMuduloescola,
+    @sivic_moduloescola = assign(:sivic_moduloescola, stub_model(SivicModuloescola,
       :sivic_igreja => nil,
       :user => nil,
-      :nome_modulo => ""
+      :nome_modulo => "Nome Modulo"
     ))
   end
 
@@ -14,6 +14,6 @@ describe "sivic_muduloescolas/show" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(//)
     rendered.should match(//)
-    rendered.should match(//)
+    rendered.should match(/Nome Modulo/)
   end
 end

@@ -1,0 +1,45 @@
+<% content_for :titlePage do %>
+  Lista de Modulos
+<% end %>
+
+<%=render '/layouts/panel' %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sivic igreja</th>
+      <th>User</th>
+      <th>Nome modulo</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_moduloescolas.each do |sivic_moduloescola| %>
+      <tr>
+        <td><%= sivic_moduloescola.sivic_igreja %></td>
+        <td><%= sivic_moduloescola.user %></td>
+        <td><%= sivic_moduloescola.nome_modulo %></td>
+        <td><%= link_to 'Show', sivic_moduloescola %></td>
+        <td><%= link_to 'Edit', edit_sivic_moduloescola_path(sivic_moduloescola) %></td>
+        <td><%= link_to 'Destroy', sivic_moduloescola, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div></div>
+<table style="margin-top:10px;">
+  <tr>
+    <td align="center" style="width:50px;">
+      <%= link_to image_tag('new.png', :title => 'Novo', class: "exibirico") , new_sivic_moduloescola_path %>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" style="width:20px;">
+      <label class="altBotoes">Novo</label>
+    </td>
+  </tr> 
+</table>

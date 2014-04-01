@@ -1,10 +1,10 @@
-<%= form_for(@sivic_muduloescola) do |f| %>
-  <% if @sivic_muduloescola.errors.any? %>
+<%= form_for(@sivic_moduloescola) do |f| %>
+  <% if @sivic_moduloescola.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@sivic_muduloescola.errors.count, "error") %> prohibited this sivic_muduloescola from being saved:</h2>
+      <h2><%= pluralize(@sivic_moduloescola.errors.count, "error") %> prohibited this sivic_moduloescola from being saved:</h2>
 
       <ul>
-      <% @sivic_muduloescola.errors.full_messages.each do |msg| %>
+      <% @sivic_moduloescola.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>

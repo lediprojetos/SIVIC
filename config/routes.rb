@@ -1,6 +1,6 @@
 SIVIC::Application.routes.draw do
 
-  resources :sivic_muduloescolas
+  resources :sivic_moduloescolas
 
   resources :sivic_turmas
 
