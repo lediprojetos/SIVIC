@@ -1,3 +1,9 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= 'Cadastro de  Igrejas'%></h3>
+  </div>
+  <div class="panel-footer">
+
 <%= form_for(@sivic_igreja) do |f| %>
   <% if @sivic_igreja.errors.any? %>
     <div id="error_explanation">
@@ -11,124 +17,97 @@
     </div>
   <% end %>
 
-  <div class="containermininmo">
 
-  <h6>Dados Principais</h6>
-  <hr>
-
-  <table style="width:100%;">
-    <tr>
-      <td>
-        <div class="field">
+<div class="row">
+  <div class="col-xs-4">
           <%= f.label :Sede %>
-          <%= f.select :father_id, options_from_collection_for_select(SivicIgreja.all, 'id', 'NOME_igreja',@sivic_sede),:include_blank => true%>
-        </div>
-      </td>
-      <td>
-        <div class="field">
+          <%= f.select :father_id, options_from_collection_for_select(SivicIgreja.all, 'id', 'NOME_igreja',@sivic_sede),{:include_blank => true}, {:class => "form-control"}%>
+  </div>
+  <div class="col-xs-4">
           <%= f.label :NOME %>
-          <%= f.text_field :NOME_igreja, :class => "form-control-4"  %>
-        </div>
-      </td>
-      <td>
-        <div class="field">
+          <%= f.text_field :NOME_igreja, :class => "form-control"  %>
+  </div>
+  <div class="col-xs-2">
           <%= f.label :Telefone %>
-          <%= f.text_field :NUMR_telefone %>
-        </div>
-      </td>
-    </tr>
-  </table>
-  <table style="width:100%;">
-    <tr>
-      <td>
-        <div class="field">
-          <%= f.label :Nome_do_Responsável %>
-          <%= f.text_field :NOME_responsavel, :class => "form-control-5" %>
-        </div>
-      </td>
-      <td>
-        <div class="field">
-          <label>CNPJ</label>
-          <%= f.text_field :NUMR_cnpj %>
-        </div>  
-      </td>
-    </tr>
-  </table>
+          <%= f.text_field :NUMR_telefone, :class => "form-control"  %>
+  </div>
+</div>
 
+<br />
+<div class="row">
+  <div class="col-xs-4">
+      <%= f.label :Nome_do_Responsável %>
+      <%= f.text_field :NOME_responsavel, :class => "form-control" %>
+  </div>
+  <div class="col-xs-3">
+      <%= f.label :CNPJ %>
+      <%= f.text_field :NUMR_cnpj,:class => "form-control" %>
+  </div>
+</div>
 
-  <h6>Endereço</h6>
-  <hr>
+<br />
 
+<hr>
 
 <%=  f.fields_for :sivic_endereco do |endereco| %>
-  <table style="width:100%;">
-    <tr>
-      <td>
-        <div class="field">
+<div class="row">
+        <div class="col-xs-3">
           <%= endereco.label :Rua %>
-          <%= endereco.text_field :DESC_Rua, :class =>  'form-control-3' %>
+          <%= endereco.text_field :DESC_Rua, :class =>  'form-control' %>
         </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= endereco.label :Complemento %>
-          <%= endereco.text_field :DESC_Complemento, :class =>  'form-control-3' %>
-        </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= endereco.label :Ponto_de_referência %>
-          <%= endereco.text_field :DESC_Pontoreferencia, :class =>  'form-control-3' %>
-        </div>
-      </td>
-    </tr>
-  </table>
 
-  <table style="width:100%;">
-    <tr>
-      <td>
-        <div class="field">
+        <div class="col-xs-3">
+          <%= endereco.label :Complemento %>
+          <%= endereco.text_field :DESC_Complemento, :class =>  'form-control' %>
+        </div>
+        <div class="col-xs-4">
+          <%= endereco.label :Ponto_de_referência %>
+          <%= endereco.text_field :DESC_Pontoreferencia, :class =>  'form-control' %>
+        </div>
+
+</div>
+<br />
+<div class="row">
+
+        <div class="col-xs-3">
           <%= endereco.label :Bairro %>
-          <%= endereco.text_field :DESC_Bairro %>
+          <%= endereco.text_field :DESC_Bairro,  :class =>  'form-control' %>
         </div>
-      </td>
-      <td>
-        <div class="field">
+
+        <div class="col-xs-2">
           <label>CEP</label>
-          <%= endereco.number_field :NUMR_Cep %>
+          <%= endereco.number_field :NUMR_Cep, :class =>  'form-control' %>
         </div>
-      </td>
 
     <%=  f.fields_for :sivic_estado do |estado| %>
-      <td>
-        <div class="field">
+
+        <div class="col-xs-3">
           <%= estado.label :Estado %>
-          <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)'}%>
+          <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)',  :class =>  'form-control'}%>
         </div>
-      </td>
+
     <%end%>
     <%if @sivic_cidade %>
-      <td>
-        <div class="field">
-          <%= endereco.label :Cidade %>
-          <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada)%>
-        </div>
-      </td>
-    <%else%>
-      <td>
-        <div class="field">
-          <%= endereco.label :Cidade   %>
-          <%= endereco.select :sivic_cidade_id, [] %>
-        </div> 
-      </td>
-    <%end%>
-  <% end %>
-  </tr>
-  </table>
 
-  <%=render '/layouts/iconsalvar' %>
-  
+        <div class="col-xs-3">
+          <%= endereco.label :Cidade %>
+          <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada),{},{ :class =>  'form-control'}%>
+        </div>
+
+    <%else%>
+
+        <div class="col-xs-3">
+          <%= endereco.label :Cidade   %>
+          <%= endereco.select :sivic_cidade_id, [], {}, :class =>  'form-control' %>
+        </div> 
+
+    <%end%>    
+  <% end %>
+</div>
 <% end %>
+</div>
+</div>
+<%=render '/layouts/iconsalvar' %>
 
 <script>
 

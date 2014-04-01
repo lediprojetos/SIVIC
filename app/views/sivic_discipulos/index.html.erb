@@ -53,18 +53,11 @@
 <div class="apple_pagination">
 <%= will_paginate @sivic_discipulos %>
 </div>
-
 </div></div>
 
-<table style="margin-top:10px;">
-  <tr>
-    <td align="center" style="width:50px;">
-      <%= link_to image_tag('new.png', :title => 'Novo', class: "exibirico") , new_sivic_discipulo_path %>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" style="width:20px;">
-      <label class="altBotoes">Novo</label>
-    </td>
-  </tr> 
-</table>
+<div class="btn-group">
+  <%= link_to new_sivic_discipulo_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>
+
