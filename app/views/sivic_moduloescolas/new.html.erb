@@ -1,5 +1,13 @@
-<h1>New sivic_moduloescola</h1>
+<% content_for :titlePage do %>
+	Cadastro de Modulos
+<% end %>
 
+<%=render '/layouts/panel' %>
 <%= render 'form' %>
 
-<%= link_to 'Back', sivic_moduloescolas_path %>
+
+<% content_for :pathback do %>
+<%= sivic_moduloescolas_path %>
+<% end %>
+
+<%= render '/layouts/iconvoltar' %>
