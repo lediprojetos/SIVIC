@@ -1,17 +1,12 @@
 <p id="notice"><%= notice %></p>
+<% content_for :titlePage do %>
+  Exibit Modulo
+<% end %>
+
+<%= render 'layouts/panel' %>
 
 <p>
-  <strong>Sivic igreja:</strong>
-  <%= @sivic_moduloescola.sivic_igreja %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @sivic_moduloescola.user %>
-</p>
-
-<p>
-  <strong>Nome modulo:</strong>
+  <strong>Nome Módulo:</strong>
   <%= @sivic_moduloescola.nome_modulo %>
 </p>
 

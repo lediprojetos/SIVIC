@@ -19,8 +19,6 @@
   <tbody>
     <% @sivic_moduloescolas.each do |sivic_moduloescola| %>
       <tr>
-        <td><%= sivic_moduloescola.sivic_igreja %></td>
-        <td><%= sivic_moduloescola.user %></td>
         <td><%= sivic_moduloescola.nome_modulo %></td>
         <td><%= link_to 'Show', sivic_moduloescola %></td>
         <td><%= link_to 'Edit', edit_sivic_moduloescola_path(sivic_moduloescola) %></td>
