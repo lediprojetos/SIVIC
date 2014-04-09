@@ -15,9 +15,6 @@
       <th>Data Fim</th>
       <th>Qtd Vagas</th>
       <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -27,37 +24,43 @@
         <td><%= sivic_evento.sivic_tipo_evento.desc_tipoevento %></td>
         <td><%= sivic_evento.DESC_evento %></td>
         <td><%= sivic_evento.DESC_resumo %></td>
-        <td><%= sivic_evento.VARL_inscricao %></td>
+        <td><%= number_to_currency(sivic_evento.VARL_inscricao, unit: "R$", separator: ",", delimiter: "") %></td>
         <td><%= sivic_evento.DATA_inicio.blank? ? '' : sivic_evento.DATA_inicio.strftime("%d/%m/%Y") %></td>
         <td><%= sivic_evento.DATA_fim.blank? ? '' : sivic_evento.DATA_fim.strftime("%d/%m/%Y") %></td>
         <td><%= sivic_evento.NUMR_qdtVagas %></td>
-          <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_evento %></td>
-          <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_evento_path(sivic_evento) %></td>
-          <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_evento , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td> 
-          <td><%= link_to_function  image_tag('minus.png', :title => 'Exibir', class: 'exibirico'), "var r = confirm('Deseja encerrar o evento?'); if (r == true){encerrar('#{sivic_evento.id}')}else{}"%></td>
+        <td align='right'>
+
+        <div class="btn-group">
+          <%= link_to sivic_evento, :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-list-alt"></span> Exibir
+          <% end %>             
+          <%= link_to edit_sivic_evento_path(sivic_evento), :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-pencil"></span> Editar
+          <% end %>             
+          <%= link_to sivic_evento, :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-trash"></span> Excluir
+          <% end %>
+        </div>
+
+        </td>
+
       </tr>
     <% end %>
   </tbody>
 </table>
-</div>
 
 <div class="apple_pagination">
 <%= will_paginate @sivic_eventos %>
 </div>
 
 </div></div>
-<table style="margin-top:10px;">
-  <tr>
-    <td align="center" style="width:50px;">
-      <%= link_to image_tag('new.png', :title => 'Novo', class: 'exibirico') , new_sivic_evento_path %>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" style="width:20px;">
-      <label class="altBotoes">Novo</label>
-    </td>
-  </tr> 
-</table>
+<div class="btn-group">
+  <%= link_to new_sivic_evento_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>
+
+
 
 <script>
 

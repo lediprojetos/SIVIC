@@ -154,10 +154,10 @@ ActiveRecord::Schema.define(version: 20140401164209) do
     t.string   "DESC_evento"
     t.text     "DESC_resumo"
     t.decimal  "VARL_inscricao",       precision: 10, scale: 2
-    t.datetime "DATA_inicio"
-    t.datetime "DATA_fim"
-    t.integer  "FLAG_ilimitado"
-    t.integer  "NUMR_qdtVagas"
+    t.date     "DATA_inicio"
+    t.date     "DATA_fim"
+    t.boolean  "FLAG_ilimitado"
+    t.boolean  "NUMR_qdtVagas"
     t.integer  "User_id"
     t.integer  "sivic_igreja_id"
     t.integer  "sivic_endereco_id"
@@ -223,17 +223,6 @@ ActiveRecord::Schema.define(version: 20140401164209) do
 
   add_index "sivic_movimentofinanceiros", ["sivic_evento_id"], name: "index_sivic_movimentofinanceiros_on_sivic_evento_id"
   add_index "sivic_movimentofinanceiros", ["sivic_tipmovfinanceiro_id"], name: "index_sivic_movimentofinanceiros_on_sivic_tipmovfinanceiro_id"
-
-  create_table "sivic_muduloescolas", force: true do |t|
-    t.integer  "sivic_igreja_id"
-    t.integer  "user_inclusao"
-    t.integer  "integer"
-    t.string   "nome_modulo"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sivic_muduloescolas", ["sivic_igreja_id"], name: "index_sivic_muduloescolas_on_sivic_igreja_id"
 
   create_table "sivic_partevenrelacelulas", force: true do |t|
     t.integer  "sivic_relatorioscelula_id"
