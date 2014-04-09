@@ -4,10 +4,10 @@ class CreateSivicEventos < ActiveRecord::Migration
       t.string :DESC_evento
       t.text :DESC_resumo
       t.decimal :VARL_inscricao, :precision => 10, :scale => 2
-      t.datetime :DATA_inicio
-      t.datetime :DATA_fim
-      t.integer :FLAG_ilimitado
-      t.integer :NUMR_qdtVagas
+      t.date :DATA_inicio
+      t.date :DATA_fim
+      t.boolean :FLAG_ilimitado
+      t.boolean :NUMR_qdtVagas
       t.references :User, index: true
       t.references :sivic_igreja, index: true
       t.references :sivic_endereco, index: true

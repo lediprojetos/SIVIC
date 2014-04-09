@@ -29,90 +29,97 @@
       </ul>
 <div class="tab-content">
   <div class="tab-pane active" id="tab1">
-
-
-            <div class="field">
-              <%= f.label :Tipo_do_Evento %>
-              <%= f.select :sivic_tipo_evento_id, options_from_collection_for_select(SivicTipoEvento.all, 'id', 'desc_tipoevento',@sivic_evento.sivic_tipo_evento_id),:include_blank => true, :class =>  'form-control-2'%>
-            </div>
-            <div class="field">
-              <%= f.label :Evento %>
-              <%= f.text_field :DESC_evento %>
-            </div>
-            <div class="field">
-              <%= f.label :Valor_inscricao %>
-              <%= f.text_field :VARL_inscricao %>
-            </div>          
-            <div class="field">
-              <%= f.label :Resumo %>
-              <%= f.text_area :DESC_resumo, :class =>  'form-control-100' %>
-            </div>
-          <div class="field">
-            <%= f.label :DATA_inicio %>
-            <%= f.text_field :DATA_inicio, :class =>  'form-control-1' %>
-          </div>  
-          <div class="field">
-            <%= f.label :DATA_fim %>
-            <%= f.text_field :DATA_fim, :class =>  'form-control-1' %>
-          </div>
-          <div class="field">
-            <%= f.label :Vagas_limitado %>
-            <%= f.number_field :FLAG_ilimitado %>
-          </div>
-          <div class="field">
-            <%= f.label :Qtd_Vagas %>
-            <%= f.number_field :NUMR_qdtVagas %>
-          </div>
+    <br />
+    <div class="row">
+      <div class="col-xs-3">
+        <%= f.label :Tipo_do_Evento %>
+        <%= f.select :sivic_tipo_evento_id, options_from_collection_for_select(SivicTipoEvento.all, 'id', 'desc_tipoevento',@sivic_evento.sivic_tipo_evento_id),{:include_blank => true},{:class =>  'form-control'}%>
+      </div>
+      <div class="col-xs-3">
+        <%= f.label :Evento %>
+        <%= f.text_field :DESC_evento, :class =>  'form-control'  %>
+      </div>
+      <div class="col-xs-3">
+        <%= f.label :Valor_inscricao %>
+        <%= f.text_field :VARL_inscricao, :class =>  'form-control'  %>
+      </div>          
+      <div class="col-xs-3">
+        <%= f.label :Resumo %>
+        <%= f.text_area :DESC_resumo, :class =>  'form-control' %>
+      </div>
+    <div class="col-xs-3">
+      <%= f.label :DATA_inicio %>
+      <%= f.text_field :DATA_inicio, :class =>  'form-control' %>
+    </div>  
+    <div class="col-xs-3">
+      <%= f.label :DATA_fim %>
+      <%= f.text_field :DATA_fim, :class =>  'form-control' %>
+    </div>
+    <div class="col-xs-3">
+      <%= f.label :Vagas_limitado %>
+      <%= f.number_field :FLAG_ilimitado, :class =>  'form-control'  %>
+    </div>
+    <div class="col-xs-3">
+      <%= f.label :Qtd_Vagas %>
+      <%= f.number_field :NUMR_qdtVagas, :class =>  'form-control'  %>
+    </div>
   </div>
+</div>
   
   <div class="tab-pane" id="tab2">
     <%=  f.fields_for :sivic_endereco do |endereco| %>
-
-            <div class="field">
+        <br />
+        <div class="row">
+            <div class="col-xs-3">
               <%= endereco.label :Rua %>
-              <%= endereco.text_field :DESC_Rua, :class =>  'form-control-3' %>
+              <%= endereco.text_field :DESC_Rua, :class =>  'form-control' %>
             </div>
 
-            <div class="field">
+            <div class="col-xs-3">
               <%= endereco.label :Complemento %>
-              <%= endereco.text_field :DESC_Complemento, :class =>  'form-control-3' %>
+              <%= endereco.text_field :DESC_Complemento, :class =>  'form-control' %>
             </div>
 
-            <div class="field">
+            <div class="col-xs-3">
               <%= endereco.label :Ponto_de_referência %>
-              <%= endereco.text_field :DESC_Pontoreferencia, :class =>  'form-control-3' %>
+              <%= endereco.text_field :DESC_Pontoreferencia, :class =>  'form-control' %>
             </div>
 
-            <div class="field">
+            <div class="col-xs-3">
               <%= endereco.label :Bairro %>
-              <%= endereco.text_field :DESC_Bairro %>
+              <%= endereco.text_field :DESC_Bairro, :class =>  'form-control' %>
             </div>
-
-            <div class="field">
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-xs-3">
               <%= endereco.label :CEP.capitalize %>
-              <%= endereco.number_field :NUMR_Cep, :class =>  'form-control-1' %>
+              <%= endereco.number_field :NUMR_Cep, :class =>  'form-control' %>
             </div>
+          
 
       
         <%=  f.fields_for :sivic_estado do |estado| %>
-            <div class="field">
+            <div class="col-xs-3">
               <%= estado.label :Estado %>
-              <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)'}%>
+              <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)', :class =>  'form-control'}%>
             </div>
         <%end%>
         <%if @sivic_cidade %>
-            <div class="field">
+            <div class="col-xs-3">
               <%= endereco.label :Cidade %>
-              <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada)%>
+              <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada),{},{:class =>  'form-control'}%>
             </div>
         <%else%>
-            <div class="field">
+            <div class="col-xs-3">
               <%= endereco.label :Cidade   %>
-              <%= endereco.select :sivic_cidade_id, [] %><br>
+              <%= endereco.select :sivic_cidade_id, [], {},{:class =>  'form-control'} %><br>
             </div> 
 
         <%end%>
         <% end %>
+
+        </div>
   </fieldset>
     <!--Capturando igreja do usuaário logado -->
     <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
