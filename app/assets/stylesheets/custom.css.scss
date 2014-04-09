@@ -63,7 +63,6 @@ p {
 /* footer */
 
 footer {
-  margin-top: 45px;
   padding-top: 5px;
   border-top: 1px solid $grayMediumLight;
   color: $grayLight;
@@ -129,34 +128,6 @@ aside {
 
 /* forms */
 
-.form-control-5 {
-  width: 500px;
-}
-
-.form-control-4 {
-  width: 400px;
-}
-
-.form-control-3 {
-  width: 300px;
-}
-
-.form-control-2 {
-  width: 200px;
-}
-
-.form-control-1 {
-  width: 100px;
-}
-
-.form-control-100 {
-  width: 95%;
-}
-
-.containermininmo {
-  width:100%;
-  overflow:auto;
-}
 
 .altBotoes{
   font-size: 1em;  
@@ -165,11 +136,6 @@ aside {
 
 .lblForms{
   color:#006983;
-}
-
-
-input {
-  height: auto !important;
 }
 
 a:hover img {

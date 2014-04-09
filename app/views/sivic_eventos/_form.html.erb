@@ -1,18 +1,22 @@
-<%= form_for(@sivic_evento) do |f| %>
-  <% if @sivic_evento.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sivic_evento.errors.count, "error") %> prohibited this sivic_evento from being saved:</h2>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= 'Cadastro de  Igrejas'%></h3>
+  </div>
+  <div class="panel-footer">
 
-      <ul>
-      <% @sivic_evento.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
- 
+  <%= form_for(@sivic_evento) do |f| %>
+    <% if @sivic_evento.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@sivic_evento.errors.count, "error") %> prohibited this sivic_evento from being saved:</h2>
 
-<div class="containermininmo">
+        <ul>
+        <% @sivic_evento.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
 
 <div class="tabbable">
       <ul class="nav nav-tabs">
@@ -26,139 +30,114 @@
 <div class="tab-content">
   <div class="tab-pane active" id="tab1">
 
-    <table style="width:95%;">
-      <tr>
-        <td>
+
             <div class="field">
               <%= f.label :Tipo_do_Evento %>
               <%= f.select :sivic_tipo_evento_id, options_from_collection_for_select(SivicTipoEvento.all, 'id', 'desc_tipoevento',@sivic_evento.sivic_tipo_evento_id),:include_blank => true, :class =>  'form-control-2'%>
             </div>
-        </td>
-        <td>    
             <div class="field">
               <%= f.label :Evento %>
               <%= f.text_field :DESC_evento %>
             </div>
-        </td>
-        <td>
             <div class="field">
               <%= f.label :Valor_inscricao %>
               <%= f.text_field :VARL_inscricao %>
             </div>          
-        </td>  
-      </tr>
-     </table>      
             <div class="field">
               <%= f.label :Resumo %>
               <%= f.text_area :DESC_resumo, :class =>  'form-control-100' %>
             </div>
-    <table style="width:95%;">
-      <tr>
-        <td>
           <div class="field">
             <%= f.label :DATA_inicio %>
             <%= f.text_field :DATA_inicio, :class =>  'form-control-1' %>
           </div>  
-        </td>
-        <td>
           <div class="field">
             <%= f.label :DATA_fim %>
             <%= f.text_field :DATA_fim, :class =>  'form-control-1' %>
           </div>
-        </td>
-        <td>
           <div class="field">
             <%= f.label :Vagas_limitado %>
             <%= f.number_field :FLAG_ilimitado %>
           </div>
-        </td>
-        <td>
           <div class="field">
             <%= f.label :Qtd_Vagas %>
             <%= f.number_field :NUMR_qdtVagas %>
           </div>
-        </td>
-      </tr>
-    </table>
   </div>
   
   <div class="tab-pane" id="tab2">
     <%=  f.fields_for :sivic_endereco do |endereco| %>
-      <table style="width:95%;" align='center'>
-        <tr>
-          <td>
+
             <div class="field">
               <%= endereco.label :Rua %>
               <%= endereco.text_field :DESC_Rua, :class =>  'form-control-3' %>
             </div>
-          </td>
-          <td>
+
             <div class="field">
               <%= endereco.label :Complemento %>
               <%= endereco.text_field :DESC_Complemento, :class =>  'form-control-3' %>
             </div>
-          </td>
-          <td>
+
             <div class="field">
               <%= endereco.label :Ponto_de_referência %>
               <%= endereco.text_field :DESC_Pontoreferencia, :class =>  'form-control-3' %>
             </div>
-          </td>
-        </tr>
-      </table>
-      <table style="width:95%;" align='center'>
-        <tr>
-          <td>
+
             <div class="field">
               <%= endereco.label :Bairro %>
               <%= endereco.text_field :DESC_Bairro %>
             </div>
-          </td>
-          <td>
+
             <div class="field">
               <%= endereco.label :CEP.capitalize %>
               <%= endereco.number_field :NUMR_Cep, :class =>  'form-control-1' %>
             </div>
-          </td>
 
       
         <%=  f.fields_for :sivic_estado do |estado| %>
-          <td>
             <div class="field">
               <%= estado.label :Estado %>
               <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)'}%>
             </div>
-          </td>
         <%end%>
         <%if @sivic_cidade %>
-          <td>
             <div class="field">
               <%= endereco.label :Cidade %>
               <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada)%>
             </div>
-          </td>
         <%else%>
-          <td>
             <div class="field">
               <%= endereco.label :Cidade   %>
               <%= endereco.select :sivic_cidade_id, [] %><br>
             </div> 
-          </td>
 
         <%end%>
         <% end %>
-      </tr>
-    </table>
   </fieldset>
     <!--Capturando igreja do usuaário logado -->
     <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
     <!--Capturando Usuário logado --> 
     <%= f.hidden_field :User_id, :value => current_user.id%> 
 
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div class="btn-group">
+  <button type="submit" class="btn btn-default btn">
+    <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+  </button>
+
+  <%= yield(:iconexibir) %>
+
+  <%= link_to sivic_eventos_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
 </div>
-</div>
-<%=render '/layouts/iconsalvar' %>
+
 
 <% end %>
 
