@@ -224,17 +224,6 @@ ActiveRecord::Schema.define(version: 20140401164209) do
   add_index "sivic_movimentofinanceiros", ["sivic_evento_id"], name: "index_sivic_movimentofinanceiros_on_sivic_evento_id"
   add_index "sivic_movimentofinanceiros", ["sivic_tipmovfinanceiro_id"], name: "index_sivic_movimentofinanceiros_on_sivic_tipmovfinanceiro_id"
 
-  create_table "sivic_muduloescolas", force: true do |t|
-    t.integer  "sivic_igreja_id"
-    t.integer  "user_inclusao"
-    t.integer  "integer"
-    t.string   "nome_modulo"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "sivic_muduloescolas", ["sivic_igreja_id"], name: "index_sivic_muduloescolas_on_sivic_igreja_id"
-
   create_table "sivic_partevenrelacelulas", force: true do |t|
     t.integer  "sivic_relatorioscelula_id"
     t.integer  "sivic_participantecelula_id"

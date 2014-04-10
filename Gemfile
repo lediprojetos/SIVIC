@@ -9,6 +9,9 @@ gem 'bootstrap-sass', '~> 3.1.1'
 gem 'bcrypt-ruby', '3.1.2'
 gem 'bootstrap'
 gem 'validates_cpf_cnpj'
+
+
+gem 'execjs'
  
 #Autenticação
 gem 'devise'
@@ -36,7 +39,7 @@ group :doc do
 end
 
 group :production do
-  gem 'pg', '0.15.1'
+  #gem 'pg', '0.15.1'
   gem 'rails_12factor', '0.0.2'
 end
 
