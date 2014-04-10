@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140401164209) do
+ActiveRecord::Schema.define(version: 20140410164016) do
 
   create_table "observacoesrelatorios", force: true do |t|
     t.integer  "sivic_relatorioscelula_id"
@@ -93,14 +93,18 @@ ActiveRecord::Schema.define(version: 20140401164209) do
     t.string   "DESC_TelefoneCelular"
     t.date     "DATA_Decisao"
     t.integer  "NUMR_QtdFilhos"
-    t.boolean  "FLAG_Discipulo"
+    t.boolean  "FLAG_Membro"
+    t.boolean  "FLAG_RecebeuCristo"
     t.boolean  "FLAG_Reconciliacao"
-    t.integer  "FLAG_OcasiaoRecebeuCristo"
+    t.boolean  "FLAG_OcasiaoCelula"
+    t.boolean  "FLAG_OcasiaoCelebracaoEvento"
+    t.boolean  "FLAG_OcasiaoEvangelismoPessoal"
+    t.boolean  "FLAG_OcasiaoCultoLivre"
     t.boolean  "FLAG_Trabalhando"
     t.string   "DESC_MomentoEstudoBiblico"
     t.string   "NUMR_RG"
     t.date     "DATA_EmissaoRG"
-    t.string   "NUMR_CPF",                  limit: 11
+    t.string   "NUMR_CPF",                       limit: 11
     t.string   "NOME_Pai"
     t.string   "NOME_Mae"
     t.date     "DATA_NascConjuge"
@@ -110,8 +114,6 @@ ActiveRecord::Schema.define(version: 20140401164209) do
     t.string   "DESC_IgrejaBatismo"
     t.boolean  "FLAG_DoadorSangue"
     t.boolean  "FLAG_DoadorOrgao"
-    t.boolean  "FLAG_Discipulador"
-    t.boolean  "FLAG_Consolidador"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "NUMR_Codigo"
@@ -154,10 +156,10 @@ ActiveRecord::Schema.define(version: 20140401164209) do
     t.string   "DESC_evento"
     t.text     "DESC_resumo"
     t.decimal  "VARL_inscricao",       precision: 10, scale: 2
-    t.date     "DATA_inicio"
-    t.date     "DATA_fim"
-    t.boolean  "FLAG_ilimitado"
-    t.boolean  "NUMR_qdtVagas"
+    t.datetime "DATA_inicio"
+    t.datetime "DATA_fim"
+    t.integer  "FLAG_ilimitado"
+    t.integer  "NUMR_qdtVagas"
     t.integer  "User_id"
     t.integer  "sivic_igreja_id"
     t.integer  "sivic_endereco_id"
@@ -206,6 +208,16 @@ ActiveRecord::Schema.define(version: 20140401164209) do
   end
 
   add_index "sivic_moduloescolas", ["sivic_igreja_id"], name: "index_sivic_moduloescolas_on_sivic_igreja_id"
+
+  create_table "sivic_moduloturmas", force: true do |t|
+    t.integer  "sivic_moduloescola_id"
+    t.integer  "sivic_turma_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_moduloturmas", ["sivic_moduloescola_id"], name: "index_sivic_moduloturmas_on_sivic_moduloescola_id"
+  add_index "sivic_moduloturmas", ["sivic_turma_id"], name: "index_sivic_moduloturmas_on_sivic_turma_id"
 
   create_table "sivic_movimentofinanceiros", force: true do |t|
     t.decimal  "VALR_movimento"

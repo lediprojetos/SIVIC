@@ -32,6 +32,21 @@
 
 <br/>
 
+<%
+  @sivic_moduloturma = SivicModuloturma.new
+  #@sivic_moduloescola = 
+
+%>
+
+<%= form_for(@sivic_moduloturma) do |moduloTurma| %>
+
+ <div class="col-xs-3">
+        <%= moduloTurma.label :Modulo %>
+        <%= moduloTurma.select :sivic_turma_id, options_from_collection_for_select(SivicModuloescola.all, 'id', 'desc_moduloescola',@sivic_moduloescola.sivic_turma_id),{:include_blank => true},{:class =>  'form-control'}%>
+ </div>
+ <% end %>
+
+
 </div></div>
 <table style="margin-top:10px;"> 
   <tr>

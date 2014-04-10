@@ -1,0 +1,29 @@
+<h1>Listing sivic_moduloturmas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sivic moduloescola</th>
+      <th>Sivic turma</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_moduloturmas.each do |sivic_moduloturma| %>
+      <tr>
+        <td><%= sivic_moduloturma.sivic_moduloescola %></td>
+        <td><%= sivic_moduloturma.sivic_turma %></td>
+        <td><%= link_to 'Show', sivic_moduloturma %></td>
+        <td><%= link_to 'Edit', edit_sivic_moduloturma_path(sivic_moduloturma) %></td>
+        <td><%= link_to 'Destroy', sivic_moduloturma, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic moduloturma', new_sivic_moduloturma_path %>
