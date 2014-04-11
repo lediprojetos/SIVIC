@@ -8,7 +8,6 @@
 <%= render 'layouts/panel' %>
 
 
-<div class="containermininmo">
 <legend>Dados Principais</legend>
 <p>
   <strong>Igreja Sede:</strong>
@@ -78,26 +77,17 @@
   <%= @sivic_igreja.sivic_endereco.sivic_cidade.sivic_estado.nome_estado %>
 </p>
 
-</div>
-
-
 </div></div>
-<table style="margin-top:10px;"> 
-  <tr>
-    <td align="center" style="width:50px;">
-      <%= link_to image_tag('edit.png', title: 'Editar', class: 'exibirico') , edit_sivic_igreja_path(@sivic_igreja) %>
-    </td>
-    <td align="center" style="width:20px;">
-      <%= link_to image_tag('back.png', title: 'Voltar',class: 'exibirico') , sivic_igrejas_path %>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" style="width:20px;">
-      <label class="altBotoes">Editar</label>
-    </td>
-    <td align="center" style="width:20px;">
-      <label class="altBotoes">Voltar</label>
-    </td>
-  </tr> 
-</table>
 
+<div class="btn-group">
+
+  <%= link_to edit_sivic_igreja_path(@sivic_igreja), :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-pencil"></span> Editar
+  <% end %>
+
+
+  <%= link_to sivic_igrejas_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+
+</div>

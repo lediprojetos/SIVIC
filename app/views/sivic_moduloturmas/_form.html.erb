@@ -1,0 +1,25 @@
+<%= form_for(@sivic_moduloturma) do |f| %>
+  <% if @sivic_moduloturma.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_moduloturma.errors.count, "error") %> prohibited this sivic_moduloturma from being saved:</h2>
+
+      <ul>
+      <% @sivic_moduloturma.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :sivic_moduloescola_id %><br>
+    <%= f.text_field :sivic_moduloescola_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_turma_id %><br>
+    <%= f.text_field :sivic_turma_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

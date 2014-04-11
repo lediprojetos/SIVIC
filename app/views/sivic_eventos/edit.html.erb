@@ -1,33 +1,8 @@
-
-<% content_for :titlePage do %>
-	Editar Evento
+<% content_for :iconexibir do %>
+  <%= link_to @sivic_evento, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-list-alt"></span> Exibir
+  <% end %>  
 <% end %>
 
-<%= render 'layouts/panel' %>
 
 <%= render 'form' %>
-
-<table>
-	<tr>
-		<td align="center" style="width:50px;">
-			<%= link_to image_tag('show.png', title: 'Exibir', class: 'exibirico') , @sivic_evento %>
-		</td>
-		<td align="center" style="width:50px;">
-			<%= link_to image_tag('back.png', title: 'Voltar', class: 'exibirico') , sivic_eventos_path %>
-		</td>		
-		<td align="center" style="width:50px;">
-			<%= link_to image_tag('minus.png', title: 'Encerrar', class: 'exibirico') , encerraEvento_path %>
-		</td>
-	</tr>
-	<tr>
-		<td align="center" style="width:20px;">
-			<label class="altBotoes">Exibir</label>
-		</td>
-		<td align="center" style="width:20px;">
-			<label class="altBotoes">Voltar</label>
-		</td>
-		<td align="center" style="width:20px;">
-			<label class="altBotoes">Encerrar</label>
-		</td>		
-	</tr>	
-</table>
