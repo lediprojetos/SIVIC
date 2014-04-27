@@ -1,3 +1,9 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= 'Cadastro de  Igrejas'%></h3>
+  </div>
+  <div class="panel-footer">
+
 <%= form_for(@sivic_turma) do |f| %>
   <% if @sivic_turma.errors.any? %>
     <div id="error_explanation">
@@ -11,33 +17,49 @@
     </div>
   <% end %>
 
-<div class="containermininmo">
+  <div class="row" >
+    <div class="col-xs-6">
+      <%= f.label :Descrição_Turma %>
+      <%= f.text_field :DESC_turma, :class =>  'form-control'%>
+    </div>
+  </div>
 
-  <div  class="field">
-    <%= f.label :Descrição_Turma %>
-    <%= f.text_field :DESC_turma %>
-  </div>
-  <div  class="field">
-    <%= f.label :DATA_Inicio %>
-    <%= f.text_field :DATA_Inicio, :value => (@sivic_turma.DATA_Inicio.blank? ? '' : @sivic_turma.DATA_Inicio.strftime("%d/%m/%Y")), :class => 'form-control-1' %>
-  </div>
-  <div  class="field">
-    <%= f.label :DATA_Fim %>
-    <%= f.text_field :DATA_Fim, :value => (@sivic_turma.DATA_Inicio.blank? ? '' : @sivic_turma.DATA_Inicio.strftime("%d/%m/%Y")), :class => 'form-control-1' %>
-  </div>
-  <div class="field">
-    <%= f.label :Número_de_Vagas %> 
-    <%= f.number_field :NUMR_QdtVagas %>
+  <div class="row" >
+    <div  class="col-xs-2">
+      <%= f.label :DATA_Inicio %>
+      <%= f.text_field :DATA_Inicio, :value => (@sivic_turma.DATA_Inicio.blank? ? '' : @sivic_turma.DATA_Inicio.strftime("%d/%m/%Y")), :class => 'form-control' %>
+    </div>
+    <div  class="col-xs-2">
+      <%= f.label :DATA_Fim %>
+      <%= f.text_field :DATA_Fim, :value => (@sivic_turma.DATA_Inicio.blank? ? '' : @sivic_turma.DATA_Inicio.strftime("%d/%m/%Y")), :class => 'form-control' %>
+    </div>
+    <div class="col-xs-2">
+      <%= f.label :Número_de_Vagas %> 
+      <%= f.number_field :NUMR_QdtVagas, :class =>  'form-control' %>
+    </div>
   </div>
 
     <!--Capturando dados automaticos-->
    <%=f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id%>  
    <%=f.hidden_field :user_inclusao, :value => current_user.id%>
-   
- <%=render '/layouts/iconsalvar' %>
 
 <% end %>
 
+
+  </div>
+</div>
+
+<div class="btn-group">
+  <button type="submit" class="btn btn-default btn">
+    <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+  </button>
+
+  <%= yield(:iconexibir) %>
+
+  <%= link_to sivic_eventos_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+</div>
 
 <script>
 
