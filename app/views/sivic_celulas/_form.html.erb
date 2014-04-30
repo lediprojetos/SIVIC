@@ -1,162 +1,176 @@
-<%= form_for(@sivic_celula) do |f| %>
-  <% if @sivic_celula.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sivic_celula.errors.count, "error") %> prohibited this sivic_celula from being saved:</h2>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= 'Cadastro de Ministérios'%></h3>
+  </div>
+  <div class="panel-footer">
 
-      <ul>
-      <% @sivic_celula.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= form_for(@sivic_celula) do |f| %>
+    <% if @sivic_celula.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@sivic_celula.errors.count, "error") %> prohibited this sivic_celula from being saved:</h2>
 
-<div class="containermininmo">
-<div class="tabbable">
-      <ul class="nav nav-tabs">
-          <li class="active">
-            <a href="#tab1" data-toggle="tab">Dados Evento</a>
-          </li>
-          <li>
-            <a href="#tab2" data-toggle="tab">Endereço</a>
-          </li>        
-      </ul>
-  <div class="tab-content">
-    <div class="tab-pane active" id="tab1">
-       <table style="width:100%;" align="center">
-      <tr>
-        <td>
-          <div class="field">
+        <ul>
+        <% @sivic_celula.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li class="active">
+          <a href="#tab1" data-toggle="tab">Dados Evento</a>
+        </li>
+        <li>
+          <a href="#tab2" data-toggle="tab">Endereço</a>
+        </li>        
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab1">
+        <div class="row">
+
+          <div class="col-xs-4">
             <%= f.label :Lider %>
-            <a data-toggle="modal" href="#myModal" class="btn btn-default" style='margin-bottom:10px;'>Buscar</a>
-            <%= f.select :sivic_pessoa_id, {},{},{ :class => 'form-control-4' } %>
+            <select id="sivic_celula_sivic_pessoa_id" name="sivic_celula_sivic_pessoa_id" disabled="disabled" class='form-control'>
+            </select>          
           </div>
-        </td>
-      </tr>      
-      <tr>
-        <td>    
-          <div class="field">
-            <%= f.label :Nome_da_Celula %>
-            <%= f.text_field :NOME_Celula, :class =>  'form-control-4' %>
-          </div>
-        </td>
-        <td> 
-          <div class="field">
-          <%= f.label :Sexo %>
-          <%= f.collection_select :DESC_sexo, SivicCelula::SEXO, :to_s, :humanize%>
-          </div>
-        </td>
-        <td>    
-          <div class="field">
-            <%= f.label :Dia_da_Semana %>
-            <%= f.collection_select :NUMR_Dia, SivicCelula::DIAS, :to_s, :humanize %>
-          </div>
-        </td>
 
-      </tr>
-    </table>
-    
-    <hr>
-    <table style="width:100%;">
-      <tr>       
-    <td>
-      <div class="checkbox">
-      <%= f.check_box :FLAG_crianca %>
-      <%= f.label :Criança %>
+          <div class="col-xs-1" style='margin-top:23px;'>
+            <a data-toggle="modal" href="#myModal" class="btn btn-success">Buscar</a>
+          </div>        
+
+          <div class="col-xs-4">
+            <%= f.label :Nome_da_Celula %>
+            <%= f.text_field :NOME_Celula, :class =>  'form-control' %>
+          </div>
+
+          <div class="col-xs-2">
+          <%= f.label :Sexo %>
+          <%= f.collection_select :DESC_sexo, SivicCelula::SEXO, :to_s, :humanize, {}, {:class => "form-control"}%>
+          </div>
+          <br />
+          <br />
+          <br />
+          <br />
+          <div class="col-xs-2">
+            <%= f.label :Dia_da_Semana %>
+            <%= f.collection_select :NUMR_Dia, SivicCelula::DIAS, :to_s, :humanize, {}, {:class => "form-control"}%>
+          </div>
+
+
+          <div class="col-xs-2" style='margin-top:18px;'>
+            <div class="checkbox">
+              <%= f.check_box :FLAG_crianca %>
+              <%= f.label :Criança %>
+            </div>
+          </div>
+          <div class="col-xs-2" style='margin-top:18px;'>
+            <div class="checkbox">
+              <%= f.check_box :FLAG_jovem %>
+              <%= f.label :Jovem %>
+            </div>
+          </div>
+          <div class="col-xs-2" style='margin-top:18px;'>
+            <div class="checkbox">
+              <%= f.check_box :FLAG_adulto %>
+              <%= f.label :Adulto %>
+            </div>
+          </div>
+        </div>
       </div>
-    </td>
-    <td>
-      <div class="checkbox">
-      <%= f.check_box :FLAG_jovem %>
-      <%= f.label :Jovem %>
-      </div>
-    </td>
-    <td>
-      <div class="checkbox">
-      <%= f.check_box :FLAG_adulto %>
-      <%= f.label :Adulto %>
-      </div>
-    </td>
-   </table>
-</div>
 
   <div class="tab-pane" id="tab2">
-     <%=  f.fields_for :sivic_endereco do |endereco| %>
-  <div class="field">
-    <%= endereco.label :Bairro %>
-    <%= endereco.text_field :DESC_Bairro %>
-  </div>
-  <div class="field">
-    <%= endereco.label :Rua %>
-    <%= endereco.text_field :DESC_Rua %>
-  </div>
-  <div class="field">
-    <%= endereco.label :Complemento %>
-    <%= endereco.text_field :DESC_Complemento %>
-  </div>
-  <div class="field">
-    <%= endereco.label :Ponto_referência %>
-    <%= endereco.text_field :DESC_Pontoreferencia %>
-  </div>
-  <div class="field">
-    <%= endereco.label :CEP.capitalize %>
-    <%= endereco.number_field :NUMR_Cep %>
-  </div>
 
-  <%=  f.fields_for :sivic_estado do |estado| %>
-  <div class="field">
-    <%= estado.label :Estado %>
-    <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)',}%>
-  </div>
-  <%end%>
+    <%=  f.fields_for :sivic_endereco do |endereco| %>
 
-  <%if @sivic_cidade %>
+    <div class="row">
+      <div class="col-xs-4">
+        <%= endereco.label :Bairro %>
+        <%= endereco.text_field :DESC_Bairro, :class =>  'form-control' %>
+      </div>
+      <div class="col-xs-4">
+        <%= endereco.label :Rua %>
+        <%= endereco.text_field :DESC_Rua, :class =>  'form-control' %>
+      </div>
+      <div class="col-xs-4">
+        <%= endereco.label :Complemento %>
+        <%= endereco.text_field :DESC_Complemento, :class =>  'form-control' %>
+      </div>
+      <div class="col-xs-4">
+        <%= endereco.label :Ponto_referência %>
+        <%= endereco.text_field :DESC_Pontoreferencia, :class =>  'form-control' %>
+      </div>
+      <div class="col-xs-4">
+        <%= endereco.label :CEP.capitalize %>
+        <%= endereco.number_field :NUMR_Cep, :class =>  'form-control' %>
+      </div>
 
-    <div class="field">
-      <%= endereco.label :Cidade %>
-      <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada)%>
+      <%=  f.fields_for :sivic_estado do |estado| %>
+      <div class="col-xs-4">
+        <%= estado.label :Estado %>
+        <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)', :class => "form-control"}%>
+      </div>
+      <%end%>
+
+      <%if @sivic_cidade %>
+
+        <div class="col-xs-4">
+          <%= endereco.label :Cidade %>
+          <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada),{},{ :class =>  'form-control'}%>
+        </div>
+
+      <%else%>
+
+        <div class="col-xs-4">
+          <%= endereco.label :Cidade   %>
+          <%= endereco.select :sivic_cidade_id, [], {}, :class =>  'form-control' %>
+        </div> 
+
+      <%end%>
+
+      <!--Capturando usuario logado-->
+      <%=f.hidden_field :user_inclusao, :value => current_user.id%>   
+
+      <% end %>
+          </div>
+        </div>
+      </div>
     </div>
-
-  <%else%>
-
-    <div class="field">
-      <%= endereco.label :Cidade   %>
-      <%= endereco.select :sivic_cidade_id, [] %>
-    </div> 
-
-  <%end%>
-
-  <!--Capturando usuario logado-->
-  <%=f.hidden_field :user_inclusao, :value => current_user.id%>   
-
-  <% end %>
-   </div>
-       
- </div>
-</div> 
-  <!--
-  Data Bloqueio
-  =============
-  <div class="field">
-    <%#= f.label :DATA_Bloqueio %><br>
-    <%#= f.datetime_select :DATA_Bloqueio %>
   </div>
--->
-  <%=render '/layouts/iconsalvar' %>
-   <% end %>
+</div>
+<% end %>
+    <!--
+    Data Bloqueio
+    =============
+    <div class="field">
+      <%#= f.label :DATA_Bloqueio %><br>
+      <%#= f.datetime_select :DATA_Bloqueio %>
+    </div>
+  -->
 
-<fieldset>
-  <div id="myModal" class="modal fade" style="display: none;">  
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
       <div class="modal-header">
-        <a class="close" data-dismiss="modal">×</a>  
-        <h3>Buscar Líder</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Buscar Líder</h4>
       </div>
       <div class="modal-body">
-        <div class="input-group input-group-lg">
-          <label >Nome</label><br>
-          <input id="NOME_lider_buscar" name="NOME_lider_buscar" onkeypress="buscaPessoa();" type="text" class="form-control" placeholder="Nome" style="width: 85%;">
-          <a data-toggle="modal" href="javascript:usaNome();" class="btn btn-success" style="margin-bottom: 10px;">Usar</a>
-        </div>
+
+        <label >Nome</label><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <input id="NOME_lider_buscar" name="NOME_lider_buscar" onkeypress="buscaPessoa()" type="text" class="form-control" placeholder="Nome">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" onclick="usaNome();">Usar</button>
+              </span>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+        <br />
+
         <table id="table_lider" name="table_lider" class="table table-hover">
           <thead>
             <tr>
@@ -173,67 +187,70 @@
         </table>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
       </div>
-  </div>  
-</fieldset>
+    </div>
+  </div>
+</div>
 
 
-<script>
 
-  function buscaPessoa(){
+  <script>
 
-      var pesquisa;
+    function buscaPessoa(){
 
-        pesquisa = $('#NOME_lider_buscar').val();
+        var pesquisa;
 
-      $.ajax({
-        url: '<%= listarDiscipulos_path %>',
-        data : 
-        {
-            NOME_pessoa : pesquisa
-        },
-        success: function(data){
-          $("#tbodyid").empty();
-          $("#tbodyid2").empty();
-          for (var i in data) {
-            var item = data[i];
+          pesquisa = $('#NOME_lider_buscar').val();
 
-              $('#table_lider').append('<tr><td><a href="javascript:setaLider(\'' + item.NOME_pessoa+'\','+item.id+');">'+item.NOME_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.NOME_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
+        $.ajax({
+          url: '<%= listarDiscipulos_path %>',
+          data : 
+          {
+              NOME_pessoa : pesquisa
+          },
+          success: function(data){
+            $("#tbodyid").empty();
+            $("#tbodyid2").empty();
+            for (var i in data) {
+              var item = data[i];
 
-          };
- 
-        }
-      })
-    }
+                $('#table_lider').append('<tr><td><a href="javascript:setaLider(\'' + item.NOME_pessoa+'\','+item.id+');">'+item.NOME_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.NOME_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
 
-  function setaLider(nome,id){
+            };
+   
+          }
+        })
+      }
 
-      $('#sivic_celula_sivic_pessoa_id').empty();
-      $('#sivic_celula_sivic_pessoa_id').html('<option>Carregando...</option>');
+    function setaLider(nome,id){
 
-      var options = "<option value='"+id+"'>"+nome+"</option>";
-      $('#sivic_celula_sivic_pessoa_id').html(options);
+        $('#sivic_celula_sivic_pessoa_id').empty();
+        $('#sivic_celula_sivic_pessoa_id').html('<option>Carregando...</option>');
 
-      $('#myModal').modal('hide');
-  }  
+        var options = "<option value='"+id+"'>"+nome+"</option>";
+        $('#sivic_celula_sivic_pessoa_id').html(options);
 
-  function changeState(state){
-      $.ajax({
-        url: '<%= listarCidade_path %>',
-        data : {id : state.value},
-        success: function(data){
-          $('#sivic_celula_sivic_endereco_attributes_sivic_cidade_id').empty();
-          $('#sivic_celula_sivic_endereco_attributes_sivic_cidade_id').html('<option>Carregando...</option>');
-          $('#sivic_celula_sivic_endereco_attributes_sivic_cidade_id').attr('disabled', 'disabled');
-          var options = "";
-          for (var i in data) {
-            var item = data[i];
-            options += "<option value='"+item.id+"'>"+item.name+"</option>"
-          };
- 
-          $('#sivic_celula_sivic_endereco_attributes_sivic_cidade_id').html(options);
-          $('#sivic_celula_sivic_endereco_attributes_sivic_cidade_id').removeAttr('disabled');          
-        }
-      })
-    }
-</script>
+        $('#myModal').modal('hide');
+    }  
+
+    function changeState(state){
+        $.ajax({
+          url: '<%= listarCidade_path %>',
+          data : {id : state.value},
+          success: function(data){
+            $('#sivic_celula_sivic_endereco_attributes_sivic_cidade_id').empty();
+            $('#sivic_celula_sivic_endereco_attributes_sivic_cidade_id').html('<option>Carregando...</option>');
+            $('#sivic_celula_sivic_endereco_attributes_sivic_cidade_id').attr('disabled', 'disabled');
+            var options = "";
+            for (var i in data) {
+              var item = data[i];
+              options += "<option value='"+item.id+"'>"+item.name+"</option>"
+            };
+   
+            $('#sivic_celula_sivic_endereco_attributes_sivic_cidade_id').html(options);
+            $('#sivic_celula_sivic_endereco_attributes_sivic_cidade_id').removeAttr('disabled');          
+          }
+        })
+      }
+  </script>

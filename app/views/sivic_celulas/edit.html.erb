@@ -1,26 +1,9 @@
-<% content_for :titlePage do %>
-  Editar Célula
+<% content_for :iconexibir do %>
+  <%= link_to @sivic_celula, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-list-alt"></span> Exibir
+  <% end %>  
 <% end %>
 
-<%= render 'layouts/panel' %>
 
 <%= render 'form' %>
 
-<table>
-	<tr>
-		<td align="center" style="width:50px;">
-			<%= link_to image_tag('show.png', title: 'Exibir', class: 'exibirico') , @sivic_celula %>
-		</td>
-		<td align="center" style="width:20px;">
-			<%= link_to image_tag('back.png', title: 'Voltar', class: 'exibirico') , sivic_celulas_path %>
-		</td>
-	</tr>
-	<tr>
-		<td align="center" style="width:20px;">
-			<label class="altBotoes">Exibir</label>
-		</td>
-		<td align="center" style="width:20px;">
-			<label class="altBotoes">Voltar</label>
-		</td>
-	</tr>	
-</table>

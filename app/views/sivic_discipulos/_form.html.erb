@@ -1,18 +1,22 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= 'Cadastro de Ministérios'%></h3>
+  </div>
+  <div class="panel-footer">
 
-<%= form_for(@sivic_discipulo) do |f| %>
-  <% if @sivic_discipulo.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sivic_discipulo.errors.count, "error") %> prohibited this sivic_discipulo from being saved:</h2>
+  <%= form_for(@sivic_discipulo) do |f| %>
+    <% if @sivic_discipulo.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@sivic_discipulo.errors.count, "error") %> prohibited this sivic_discipulo from being saved:</h2>
 
-      <ul>
-      <% @sivic_discipulo.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+        <ul>
+        <% @sivic_discipulo.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-  <div class="containermininmo">
     <div class="tabbable">
       <ul class="nav nav-tabs">
         <li class="active">
@@ -26,226 +30,195 @@
         </li>        
       </ul>
       <div class="tab-content">
+
         <div class="tab-pane active" id="tab1">
           
-           <%=  f.fields_for :sivic_pessoa do |pessoa| %>
+          <%=  f.fields_for :sivic_pessoa do |pessoa| %>
 
-         
-              <table style="width:95%" align='center'>
-                <tr>
-                  <td>
-                    <div class="field">
-                      <%= pessoa.label :Nome %>
-                      <%= pessoa.text_field :NOME_pessoa, :class => "form-control-3"%>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="field">
-                      <%= pessoa.label :Email %>
-                      <%= pessoa.text_field :DESC_email, :class =>  'form-control-3' %>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="field">
-                      <%= pessoa.label :Lider %>
-                      <a data-toggle="modal" href="#myModal3" class="btn btn-default" style='margin-bottom:10px;'>Buscar</a>
-                      <%= pessoa.select :father_id, {},{},{ :class => 'form-control-3' } %>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-              <table style="width:95%" align='center'>
-                <tr>
-                  <td>
-                    <div class="field">
-                      <%= pessoa.label :Observação %>
-                      <%= pessoa.text_field :DESC_observacao, :class => 'form-control-100'%>
-                    </div>
-                  </td>
-                </tr>
-              </table>
+            <br />
 
-                    <div class="field">
-                      <%= pessoa.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
-                    </div>
-                    <div class="field">
-                      <%= pessoa.hidden_field :User_id, :value => current_user.id%>
-                    </div>              
-
-              <div class="field">
-                <%= f.hidden_field :sivic_pessoa_id%>
+            <div class="row">
+              <div class="col-xs-4">
+                <%= pessoa.label :Nome %>
+                <%= pessoa.text_field :NOME_pessoa, :class => "form-control"%>
+              </div>
+              <div class="col-xs-3">
+                <%= pessoa.label :Email %>
+                <%= pessoa.text_field :DESC_email, :class =>  'form-control' %>
+              </div>
+              <div class="col-xs-3">
+                <%= pessoa.label :Lider %><br />
+                <%= pessoa.select :father_id, {},{},{ :class => 'form-control' } %>
               </div>
 
+              <div class="col-xs-2" style='margin-top:23px;'>
+                <a data-toggle="modal" href="#myModal3" class="btn btn-default" style='margin-bottom:10px;'>Buscar</a>
+              </div>              
+            </div>
+
+            <div class="row">
+              <div class="col-xs-4">
+                <%= pessoa.label :Observação %>
+                <%= pessoa.text_field :DESC_observacao, :class => 'form-control'%>
+              </div>
+
+              <div class="col-xs-4">
+                <%= pessoa.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
+              </div>
+
+              <div class="col-xs-4">
+                <%= pessoa.hidden_field :User_id, :value => current_user.id%>
+              </div>              
+
+              <div class="col-xs-4">
+                <%= f.hidden_field :sivic_pessoa_id%>
+              </div>
+            </div>
               <!--Endereço-->
-              <hr>
+            <hr>
 
-              <%=  f.fields_for :sivic_endereco do |endereco| %>
-                <table style="width:95%;" align='center'>
-                  <tr>
-                    <td>
-                      <div class="field">
-                        <%= endereco.label :Rua %>
-                        <%= endereco.text_field :DESC_Rua, :class =>  'form-control-3' %>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="field">
-                        <%= endereco.label :Complemento %>
-                        <%= endereco.text_field :DESC_Complemento, :class =>  'form-control-3' %>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="field">
-                        <%= endereco.label :Ponto_de_referência %>
-                        <%= endereco.text_field :DESC_Pontoreferencia, :class =>  'form-control-3' %>
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-                <table style="width:95%;" align='center'>
-                  <tr>
-                    <td>
-                      <div class="field">
-                        <%= endereco.label :Bairro %>
-                        <%= endereco.text_field :DESC_Bairro %>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="field">
-                        <%= endereco.label :CEP.capitalize %>
-                        <%= endereco.number_field :NUMR_Cep %>
-                      </div>
-                    </td>
+            <%=  f.fields_for :sivic_endereco do |endereco| %>
+              <div class="row">
+                <div class="col-xs-4">
+                  <%= endereco.label :Rua %>
+                  <%= endereco.text_field :DESC_Rua, :class =>  'form-control' %>
+                </div>
 
-                
-                  <%=  f.fields_for :sivic_estado do |estado| %>
-                    <td>
-                      <div class="field">
-                        <%= estado.label :Estado %>
-                        <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)'}%>
-                      </div>
-                    </td>
-                  <%end%>
-                  <%if @sivic_cidade %>
-                    <td>
-                      <div class="field">
-                        <%= endereco.label :Cidade %>
-                        <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada)%>
-                      </div>
-                    </td>
-                  <%else%>
-                    <td>
-                      <div class="field">
-                        <%= endereco.label :Cidade   %>
-                        <%= endereco.select :sivic_cidade_id, [] %><br>
-                      </div> 
-                    </td>
+                <div class="col-xs-4">
+                  <%= endereco.label :Complemento %>
+                  <%= endereco.text_field :DESC_Complemento, :class =>  'form-control' %>
+                </div>
 
-                  <%end%>
-                <% end %>
-              <%end%>
-            </tr>
-            </table>
+                <div class="col-xs-4">
+                  <%= endereco.label :Ponto_de_referência %>
+                  <%= endereco.text_field :DESC_Pontoreferencia, :class =>  'form-control' %>
+                </div>
+
+                <div class="col-xs-4">
+                  <%= endereco.label :Bairro %>
+                  <%= endereco.text_field :DESC_Bairro, :class =>  'form-control' %>
+                </div>
+
+                <div class="col-xs-4">
+                  <%= endereco.label :CEP.capitalize %>
+                  <%= endereco.number_field :NUMR_Cep, :class =>  'form-control' %>
+                </div>
+        
+                <%=  f.fields_for :sivic_estado do |estado| %>
+                  <div class="col-xs-4">
+                    <%= estado.label :Estado %>
+                    <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)', :class =>  'form-control'}%>
+                  </div>
+                <%end%>
+
+                <%if @sivic_cidade %>
+                  <div class="col-xs-4">
+                    <%= endereco.label :Cidade %>
+                    <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada),{},{ :class =>  'form-control'}%>
+                  </div>
+                <%else%>
+                  <div class="col-xs-4">
+                    <%= endereco.label :Cidade   %>
+                    <%= endereco.select :sivic_cidade_id, [], {},{:class =>  'form-control'} %><br>
+                  </div> 
+                <%end%>
+              </div>
+            <% end %>
+          <%end%>
         </div>
 
         <div class="tab-pane" id="tab2">
 
-        <table style="width:95%;" align='center'>
-          <tr>
-            <td>
-              <div class="field">
-                <%= f.label :Data_de_Nascimento %>
-                <%= f.text_field :DATA_Nascimento, :value => (@sivic_discipulo.DATA_Nascimento.blank? ? '' : @sivic_discipulo.DATA_Nascimento.strftime("%d/%m/%Y")), :class => 'form-control-1' %>
-              </div>
-            </td>
-            <td>
-              <div class="field">
-                <%= f.label :Sexo %>
-                <%= f.collection_select :DESC_Sexo, SivicDiscipulo::SEXO, :to_s, :humanize,{},{ :class => 'form-control-1' }%>
-              </div>
-            </td>
-            <td>
-              <div class="field">
-                <%= f.label :Profissão %>
-                <%= f.select :sivic_profissao_id, options_from_collection_for_select(SivicProfissao.all, 'id', 'profissao')%>
-              </div>
-            </td>
-            <td>
-              <div class="field">
-                <%= f.label :Escolaridade %>
-                <%= f.select :sivic_escolaridade_id, options_from_collection_for_select(SivicEscolaridade.all, 'id', 'NOME_escolaridade')%>
-              </div>
-            </td>
-          </tr>
-        </table>
-        <table style="width:95%;" align='center'>
-          <tr>
-            <td>
-              <div class="field">
-                <%= f.label :Quantidade_de_Filhos %>
-                <%= f.number_field :NUMR_QtdFilhos, :class => 'form-control-1' %>
-              </div>
-            </td>            
-            <td>
-              <div class="field">
-                <%= f.label :Apelido %>
-                <%= f.text_field :DESC_Apelido %>
-              </div>
-            </td>
-            <td>
-              <div class="field">
-                <%= f.label :Estado_Civil %>
-                <%= f.collection_select :DESC_EstadoCivil, SivicDiscipulo::ESTADOCIVIL, :to_s, :humanize %>
-              </div>   
-            </td>
-            <td>
-              <div class="field">
-                <%= f.label :Rede %>
-                <%= f.select :sivic_rede_id, options_from_collection_for_select(SivicRede.all, 'id', 'nome_rede')%>
-              </div>
-            </td>
-          </tr>
-        </table>
-        <table style="width:95%;" align='center'>
-          <tr>
-            <td>
-              <div class="field">
-                <%= f.label :Célula %>
-                <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.all, 'id', 'NUMR_Dia')%>
-              </div>
-            </td>            
-            <td>
-              <div class="field">
-                <%= f.label :Data_da_Decisao %>
-                <%= f.text_field :DATA_Decisao, :value => (@sivic_discipulo.DATA_Decisao.blank? ? '' : @sivic_discipulo.DATA_Decisao.strftime("%d/%m/%Y")), :class => 'form-control-1' %>
-              </div>
-            </td>
-            <td>
-              <div class="field">
-                <%= f.label :Momento_Estudo_Biblico %>
-                <%= f.text_field :DESC_MomentoEstudoBiblico %>
-              </div>
-            </td>
-            <td>
-              <div class="field">
-                <%= f.label :Nome_do_Conjuge %>
-                <%= f.text_field :NOME_Conjuge %>
-              </div>              
-            </td>
-            <td>
-                  <div class="checkbox">
-                    <%= f.check_box :FLAG_Trabalhando %>
-                    <%= f.label :Trabalhando %>
-                  </div>
-                  <div class="checkbox">
-                    <%= f.check_box :FLAG_Reconciliacao %>
-                    <%= f.label :Reconciliacao %>
-                  </div>
-            </td>
-          </tr>
-        </table>
-        <hr>
+          <br />
+
+          <div class="row">
+
+            <div class="col-xs-2">
+              <%= f.label :Data_de_Nascimento %>
+              <%= f.text_field :DATA_Nascimento, :value => (@sivic_discipulo.DATA_Nascimento.blank? ? '' : @sivic_discipulo.DATA_Nascimento.strftime("%d/%m/%Y")), :class => 'form-control' %>
+            </div>
+
+            <div class="col-xs-2">
+              <%= f.label :Sexo %>
+              <%= f.collection_select :DESC_Sexo, SivicDiscipulo::SEXO, :to_s, :humanize,{},{ :class => 'form-control' }%>
+            </div>
+
+            <div class="col-xs-4">
+              <%= f.label :Profissão %>
+              <%= f.select :sivic_profissao_id, options_from_collection_for_select(SivicProfissao.all, 'id', 'profissao'),{}, {:class => "form-control"}%>
+            </div>
+
+            <div class="col-xs-4">
+              <%= f.label :Escolaridade %>
+              <%= f.select :sivic_escolaridade_id, options_from_collection_for_select(SivicEscolaridade.all, 'id', 'NOME_escolaridade'), {}, {:class => "form-control"}%>
+            </div>
+
+          </div>
+          <br />
+          <div class="row">
+
+            <div class="col-xs-2">
+              <%= f.label :Qtd_Filhos %>
+              <%= f.number_field :NUMR_QtdFilhos, :class => 'form-control' %>
+            </div>
+
+            <div class="col-xs-4">
+              <%= f.label :Apelido %>
+              <%= f.text_field :DESC_Apelido, :class => 'form-control' %>
+            </div>
+
+            <div class="col-xs-2">
+              <%= f.label :Estado_Civil %>
+              <%= f.collection_select :DESC_EstadoCivil, SivicDiscipulo::ESTADOCIVIL, :to_s, :humanize, {}, {:class => "form-control"}%>
+            </div>   
+
+            <div class="col-xs-4">
+              <%= f.label :Rede %>
+              <%= f.select :sivic_rede_id, options_from_collection_for_select(SivicRede.all, 'id', 'nome_rede'), {}, {:class => "form-control"} %>
+            </div>
+
+          </div>
+          <br />
+          <div class="row">
+
+            <div class="col-xs-3">
+              <%= f.label :Célula %>
+              <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.all, 'id', 'NUMR_Dia'), {}, {:class => "form-control"}%>
+            </div>
+
+            <div class="col-xs-2">
+              <%= f.label :Data_da_Decisao %>
+              <%= f.text_field :DATA_Decisao, :value => (@sivic_discipulo.DATA_Decisao.blank? ? '' : @sivic_discipulo.DATA_Decisao.strftime("%d/%m/%Y")), :class => 'form-control' %>
+            </div>
+
+            <div class="col-xs-3">
+              <%= f.label :Momento_Estudo_Biblico %>
+              <%= f.text_field :DESC_MomentoEstudoBiblico, :class => 'form-control' %>
+            </div>
+
+            <div class="col-xs-3">
+              <%= f.label :Nome_do_Conjuge %>
+              <%= f.text_field :NOME_Conjuge, :class => 'form-control' %>
+            </div>              
+
+          </div>
+
+            <br />
+
+            <div class="checkbox">
+              <%= f.check_box :FLAG_Trabalhando %>
+              <%= f.label :Trabalhando %>
+            </div>
+          
+            <div class="checkbox">
+              <%= f.check_box :FLAG_Reconciliacao %>
+              <%= f.label :Reconciliacao %>
+            </div>
+
+          <hr>
+
           <b>Ocasião em que recebeu Cristo?</b>
+
           <p>
           <div class="radio">
             <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" value="0" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 0 ? 'checked = "checked"' : '' %>>Célula
@@ -264,151 +237,139 @@
           </div>
         </div>
 
-      <%= f.hidden_field :NUMG_UsuarioInclusao, :value => current_user.id %>
-      <%= f.hidden_field :NUMG_UsuarioBloqueio, :value => current_user.id%>
+        <%= f.hidden_field :NUMG_UsuarioInclusao, :value => current_user.id %>
+        <%= f.hidden_field :NUMG_UsuarioBloqueio, :value => current_user.id%>
 
         <div class="tab-pane" id="tab3">
+
           <div class="checkbox">
             <%= f.check_box :FLAG_Discipulo %>
             <%= f.label :Discipulo %>
-          </div>  
+          </div>
+
           <div class="checkbox">
             <%= f.check_box :FLAG_Discipulador %>
             <%= f.label :Discipulador %>
-          </div>  
+          </div>
+
           <div class="checkbox">
             <%= f.check_box :FLAG_Consolidador %>
             <%= f.label :Consolidador %>
-          </div>                      
+          </div>
+
           <hr>
-          <table style="width:95%;" align='center'>
-            <tr>
-              <td>
-            
-              </td>
-              <td>
-                <div class="field">
-                  <label>CPF</label>
-                  <%= f.text_field :NUMR_CPF %>
-                </div>
-              </td>
-              <td>
-                <div class="field">
-                  <label>RG</label>
-                  <%= f.text_field :NUMR_RG %>
-                </div>
-              </td>
-              <td>
-                <div class="field">
-                  <label>Data de Emissão</label>
-                  <%= f.text_field :DATA_EmissaoRG, :value => (@sivic_discipulo.DATA_EmissaoRG.blank? ? '' : @sivic_discipulo.DATA_EmissaoRG.strftime("%d/%m/%Y")), :class => 'form-control-1' %>
-                </div>
-              </td>
-              <td>
-                <div class="field">
-                  <%= f.label :Titulo_Eleitoral %>
-                  <%= f.text_field :NUMR_TituloEleitoral %>
-                </div>
-              </td>                
-            </tr>
-          </table>
-          <table style="width:95%;" align='center'>
-            <tr>
-              <td>
-                <div class="field">
-                  <%= f.label :Nome_do_Pai %>
-                  <%= f.text_field :NOME_Pai, :class => 'form-control-3' %>
-                </div>
-              </td>
-              <td>
-                <div class="field">
-                  <%= f.label :Nome_da_Mae %>
-                  <%= f.text_field :NOME_Mae, :class => 'form-control-3' %>
-                </div> 
-              </td>              
-              <td>
-                <div class="field">
-                  <%= f.label :Telefone_Fixo %>
-                  <%= f.text_field :DESC_TelefoneFixo, :class => 'form-control-2' %>
-                </div> 
-              </td>              
-              <td>
-                <div class="field">
-                  <%= f.label :Telefone_Celular %>
-                  <%= f.text_field :DESC_TelefoneCelular, :class => 'form-control-2' %>
-                </div> 
-              </td>
-            </tr>
-          </table>
-          <table style="width:95%;" align='center'>
-            <tr>
-              <td>
-                <div class="field">
-                  <%= f.label :DATA_de_Batismo %>
-                  <%= f.text_field :DATA_Batismo, :value => (@sivic_discipulo.DATA_Batismo.blank? ? '' : @sivic_discipulo.DATA_Batismo.strftime("%d/%m/%Y")), :class => 'form-control-1' %>
-                </div>
-              </td>
-              <td>
-                <div class="field">
-                  <%= f.label :Igreja_de_Batismo %>
-                  <%= f.text_field :DESC_IgrejaBatismo %>
-                </div>                
-              </td>
-              <td>
-                <div class="checkbox">
-                  <%= f.check_box :FLAG_DoadorSangue %>
-                  <%= f.label :Doador_de_Sangue %>
-                </div>
-              </td>
-              <td>
-                <div class="checkbox">
-                  <%= f.check_box :FLAG_DoadorOrgao %>
-                  <%= f.label :Doador_de_Orgao %>
-                </div> 
-              </td>
-            </tr>
-          </table>
-          <table style="width:95%;" align='center'>
-            <tr>
-              <td>
-                <div class="field">
-                  <%= f.label :Data_de_Casamento %>
-                  <%= f.text_field :DATA_Casamento, :value => (@sivic_discipulo.DATA_Casamento.blank? ? '' : @sivic_discipulo.DATA_Casamento.strftime("%d/%m/%Y")), :class => 'form-control-1' %>
-                </div>
-              </td>
-              <td>
-                  <div class="field">
-                    <%= f.label :Data_de_Nascimento_do_Conjuge %>
-                    <%= f.text_field :DATA_NascConjuge, :value => (@sivic_discipulo.DATA_NascConjuge.blank? ? '' : @sivic_discipulo.DATA_NascConjuge.strftime("%d/%m/%Y")), :class => 'form-control-1' %>
-                  </div>
-              </td>
-              <td>
-                  <div class="field">
-                    <%= f.label :Profissão_do_Conjuge %>
-                    <%= f.select :NUMG_ProfissaoConjuge, options_from_collection_for_select(SivicProfissao.all, 'id', 'profissao')%>
-                  </div>
-              </td>
-            </tr>
-          </table>
+
+          <div class="row">
+
+            <div class="col-xs-2">
+              <label>CPF</label>
+              <%= f.text_field :NUMR_CPF, :class => 'form-control' %>
+            </div>
+
+            <div class="col-xs-2">
+              <label>RG</label>
+              <%= f.text_field :NUMR_RG, :class => 'form-control' %>
+            </div>
+
+            <div class="col-xs-2">
+              <label>Data de Emissão</label>
+              <%= f.text_field :DATA_EmissaoRG, :value => (@sivic_discipulo.DATA_EmissaoRG.blank? ? '' : @sivic_discipulo.DATA_EmissaoRG.strftime("%d/%m/%Y")), :class => 'form-control' %>
+            </div>
+
+            <div class="col-xs-3">
+              <%= f.label :Titulo_Eleitoral %>
+              <%= f.text_field :NUMR_TituloEleitoral, :class => 'form-control' %>
+            </div>            
+
+            <div class="col-xs-3">
+              <div class="checkbox">
+                <%= f.check_box :FLAG_DoadorSangue %>
+                <%= f.label :Doador_de_Sangue %>
+              </div>
+
+              <div class="checkbox">
+                <%= f.check_box :FLAG_DoadorOrgao %>
+                <%= f.label :Doador_de_Orgao %>
+              </div> 
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-4">
+              <%= f.label :Nome_do_Pai %>
+              <%= f.text_field :NOME_Pai, :class => 'form-control' %>
+            </div>
+
+            <div class="col-xs-4">
+              <%= f.label :Nome_da_Mae %>
+              <%= f.text_field :NOME_Mae, :class => 'form-control' %>
+            </div> 
+
+            <div class="col-xs-2">
+              <%= f.label :Telefone_Fixo %>
+              <%= f.text_field :DESC_TelefoneFixo, :class => 'form-control' %>
+            </div> 
+
+            <div class="col-xs-2">
+              <%= f.label :Telefone_Celular %>
+              <%= f.text_field :DESC_TelefoneCelular, :class => 'form-control' %>
+            </div> 
+          </div> 
+          <br/>
+          <div class="row">
+            <div class="col-xs-2">
+              <%= f.label :DATA_de_Batismo %>
+              <%= f.text_field :DATA_Batismo, :value => (@sivic_discipulo.DATA_Batismo.blank? ? '' : @sivic_discipulo.DATA_Batismo.strftime("%d/%m/%Y")), :class => 'form-control' %>
+            </div>
+
+            <div class="col-xs-4">
+              <%= f.label :Igreja_de_Batismo %>
+              <%= f.text_field :DESC_IgrejaBatismo, :class => 'form-control' %>
+            </div>                
+
+            <div class="col-xs-2">
+              <%= f.label :Data_de_Casamento %>
+              <%= f.text_field :DATA_Casamento, :value => (@sivic_discipulo.DATA_Casamento.blank? ? '' : @sivic_discipulo.DATA_Casamento.strftime("%d/%m/%Y")), :class => 'form-control' %>
+            </div>
+
+            <div class="col-xs-3">
+              <%= f.label :Nascimento_do_Conjuge %>
+              <%= f.text_field :DATA_NascConjuge, :value => (@sivic_discipulo.DATA_NascConjuge.blank? ? '' : @sivic_discipulo.DATA_NascConjuge.strftime("%d/%m/%Y")), :class => 'form-control' %>
+            </div>
+
+            <div class="col-xs-4">
+              <%= f.label :Profissão_do_Conjuge %>
+              <%= f.select :NUMG_ProfissaoConjuge, options_from_collection_for_select(SivicProfissao.all, 'id', 'profissao'), {}, {:class => 'form-control'}%>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
-    <%=render '/layouts/iconsalvar' %>
   <% end %>
-  
-<fieldset>
-  <div id="myModal2" class="modal fade" style="display: none;">  
-      <div class="modal-header">  
-        <a class="close" data-dismiss="modal">×</a>  
-        <h3>Buscar Pessoas</h3>  
-      </div>  
+</div>
+
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Buscar Pessoas</h4>
+      </div>
       <div class="modal-body">
-        <div class="input-group input-group-lg">
-          <label >Nome</label>
-          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onkeypress="buscaPessoa('pessoa');" type="text" class="form-control" placeholder="Nome" style="width: 85%;">
-          <a data-toggle="modal" href="javascript:usaNome();" class="btn btn-success" style="margin-bottom: 10px;">Usar</a>
-        </div>
+
+        <label >Nome</label><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onkeypress="buscaPessoa('pessoa')" type="text" class="form-control" placeholder="Nome">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" onclick="usaNome();">Usar</button>
+              </span>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+        <br />
+
         <table id="table_user" name="table_user" class="table table-hover">
           <thead>
             <tr>
@@ -425,21 +386,37 @@
         </table>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
       </div>
-  </div>  
-</fieldset>
-<fieldset>
-  <div id="myModal3" class="modal fade" style="display: none;">  
+    </div>
+  </div>
+</div>
+
+
+
+
+ <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
       <div class="modal-header">
-        <a class="close" data-dismiss="modal">×</a>  
-        <h3>Buscar Líder</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Buscar Pessoas</h4>
       </div>
       <div class="modal-body">
-        <div class="input-group input-group-lg">
-          <label >Nome</label><br>
-          <input id="NOME_lider_buscar" name="NOME_lider_buscar" onkeypress="buscaPessoa('lider');" type="text" class="form-control" placeholder="Nome" style="width: 85%;">
-          <a data-toggle="modal" href="javascript:usaNome('lider');" class="btn btn-success" style="margin-bottom: 10px;">Usar</a>
-        </div>
+
+        <label >Nome</label><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <input id="NOME_lider_buscar" name="NOME_lider_buscar" onkeypress="buscaPessoa('lider')" type="text" class="form-control" placeholder="Nome">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" onclick="usaNome('lider');">Usar</button>
+              </span>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+        <br />
+
         <table id="table_lider" name="table_lider" class="table table-hover">
           <thead>
             <tr>
@@ -456,9 +433,12 @@
         </table>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
       </div>
-  </div>  
-</fieldset>
+    </div>
+  </div>
+</div>
+
 
 <script>
 

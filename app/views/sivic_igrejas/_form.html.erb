@@ -23,13 +23,17 @@
           <%= f.label :Sede %>
           <%= f.select :father_id, options_from_collection_for_select(SivicIgreja.all, 'id', 'NOME_igreja',@sivic_sede),{:include_blank => true}, {:class => "form-control"}%>
   </div>
-  <div class="col-xs-4">
+  <div class="col-xs-3">
           <%= f.label :NOME %>
           <%= f.text_field :NOME_igreja, :class => "form-control"  %>
   </div>
   <div class="col-xs-2">
           <%= f.label :Telefone %>
           <%= f.text_field :NUMR_telefone, :class => "form-control"  %>
+  </div>
+  <div class="col-xs-3">
+      <%= f.label :CNPJ %>
+      <%= f.text_field :NUMR_cnpj,:class => "form-control" %>
   </div>
 </div>
 
@@ -39,10 +43,6 @@
       <%= f.label :Nome_do_Responsável %>
       <%= f.text_field :NOME_responsavel, :class => "form-control" %>
   </div>
-  <div class="col-xs-3">
-      <%= f.label :CNPJ %>
-      <%= f.text_field :NUMR_cnpj,:class => "form-control" %>
-  </div>
 </div>
 
 <br />
@@ -51,12 +51,12 @@
 
 <%=  f.fields_for :sivic_endereco do |endereco| %>
 <div class="row">
-        <div class="col-xs-3">
+        <div class="col-xs-4">
           <%= endereco.label :Rua %>
           <%= endereco.text_field :DESC_Rua, :class =>  'form-control' %>
         </div>
 
-        <div class="col-xs-3">
+        <div class="col-xs-4">
           <%= endereco.label :Complemento %>
           <%= endereco.text_field :DESC_Complemento, :class =>  'form-control' %>
         </div>
@@ -64,12 +64,10 @@
           <%= endereco.label :Ponto_de_referência %>
           <%= endereco.text_field :DESC_Pontoreferencia, :class =>  'form-control' %>
         </div>
-
 </div>
 <br />
 <div class="row">
-
-        <div class="col-xs-3">
+        <div class="col-xs-4">
           <%= endereco.label :Bairro %>
           <%= endereco.text_field :DESC_Bairro,  :class =>  'form-control' %>
         </div>

@@ -4,37 +4,12 @@
 
 <%=render '/layouts/panel' %>
 
-<table style="width:50%;">
-  <tr>
-    <td>
-      <label >Pesquisa</label>
-      <select id='sivic_estado_sivic_situacoesrelatorio_id'>
-        <option value='0'></option>
-        <option value='1'>TODOS</option>
-        <option value='2'>ATIVAS</option>
-        <option value='3'>BLOQUEADAS</option>
-    </td>
-    <td>
-          <label >Líder</label>
-          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" type="text" placeholder="Nome do Líder" style="width: 90%;">
-    </td>
-    <td>
-      <div style='margin-top:15px;'>
-        <a data-toggle="modal" href="javascript:chamaPesquisa();" class="btn btn-info" style="">Buscar</a><br/>
-      </div>
-    </td>
-  </tr>
-</table>
-
-
-<div class="containermininmo">
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Líder</th>
       <th>Dia</th>
       <th>Data Bloqueio</th>
-      <th></th>
       <th></th>
       <th></th>
     </tr>
@@ -46,9 +21,21 @@
         <td><%= sivic_celula.sivic_pessoa.NOME_pessoa %></td>
         <td><%= sivic_celula.NUMR_Dia %></td>
         <td><%= sivic_celula.DATA_Bloqueio.blank? ? '' : sivic_celula.DATA_Bloqueio.strftime("%d/%m/%Y") %></td>
-        <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_celula %></td>
-        <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_celula_path(sivic_celula) %></td>
-        <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_celula , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>
+
+        <td align='right'>
+          <div class="btn-group">
+            <%= link_to sivic_celula, :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-list-alt"></span> Exibir
+            <% end %>             
+            <%= link_to edit_sivic_celula_path(sivic_celula), :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-pencil"></span> Editar
+            <% end %>             
+            <%= link_to sivic_celula, :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-trash"></span> Excluir
+            <% end %>
+          </div>
+        </td>  
+
         <td><%= link_to_function  image_tag('block.png', :title => 'Bloquear', class: 'exibirico'), "chamaModal('#{sivic_celula.id}') "%></td>                 
       </tr> 
     <% end %>
@@ -56,13 +43,13 @@
 </table>
 <br>
 
-</div>
-<div class="apple_pagination">
-<%#= will_paginate @sivic_celulas %>
+</div></div>
+<div class="btn-group">
+  <%= link_to new_sivic_celula_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
 </div>
 
-</div>
-</div>
 
 <fieldset>
   <div id="myModal1" class="modal fade" style="display: none;">  
@@ -88,18 +75,6 @@
   </div>  
 </fieldset>
 
-<table style="margin-top:10px;">
-  <tr>
-    <td align="center" style="width:50px;">
-      <%= link_to image_tag('new.png', :title => 'Novo', class: 'exibirico') , new_sivic_celula_path %>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" style="width:20px;">
-      <label class="altBotoes">Novo</label>
-    </td>
-  </tr> 
-</table>
 
 <script>
 
@@ -136,4 +111,4 @@ function chamaModal(id){
 
 
 
-<%= link_to 'Print Tasks', sivic_celulas_path(format: 'pdf'), :target => '_blank' %>
+<%#= link_to 'Print Tasks', sivic_celulas_path(format: 'pdf'), :target => '_blank' %>
