@@ -5,7 +5,7 @@ class CreateSivicEnderecos < ActiveRecord::Migration
       t.string :DESC_Rua
       t.string :DESC_Complemento
       t.string :DESC_Pontoreferencia
-      t.integer :NUMR_Cep
+      t.string :NUMR_Cep
       t.references :sivic_cidade, index: true
 
       t.timestamps

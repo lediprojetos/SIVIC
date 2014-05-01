@@ -8,7 +8,6 @@
 
       <%=render '/layouts/panel' %>
 
-      <div class="containermininmo">  
 
         <div class="tabbable">
               <ul class="nav nav-tabs">
@@ -22,53 +21,35 @@
           <div class="tab-content">
             <div class="tab-pane active" id="tab1">
 
-              <table style="width:60%;" align='center'>
-                <tr>
-                  <td>
-                    <div class="field">
-                      <%= f.hidden_field :sivic_pessoa_id, :value => current_user.sivic_pessoa_id%>
-                      <%= f.label :email %>
-                      <%= f.email_field :email, :autofocus => true, :class => 'form-control-100' %>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-              <table style="width:60%;" align='center'>
-                <tr>
-                  <td>
+                <div class="row">
+                  <div class="col-xs-4">
+                  </div>
+                  <div class="col-xs-4">
 
+                    <%= f.hidden_field :sivic_pessoa_id, :value => current_user.sivic_pessoa_id%>
+                    <%= f.label :email %>
+                    <%= f.email_field :email, :autofocus => true, :class => 'form-control' %>
+                    <br />
                     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
                       Currently waiting confirmation for: <%= resource.unconfirmed_email %>
                     <% end %>
 
-                    <%= f.label :Senha %> <i>(Deixe em branco caso não queira editar a senha)</i></br>
-                    <%= f.password_field :password, :autocomplete => "off" %>
-                  </td>
-                  <td>
+                    <%= f.label :Senha %>
+                    <%= f.password_field :password, :autocomplete => "off",  :class => 'form-control'  %>
+                    <br />
                     <%= f.label :Confirmação_de_Senha %>
-                    <%= f.password_field :password_confirmation %>
-                  </td>
-                </tr>
-              </table>
-              <table style="width:60%;" align='center'>
-                <tr>
-                  <td>
-                    <%= f.label :Senha_Atual %> <i>(Você precisa de sua senha atual para confirmar a alteração)</i>
-                    <%= f.password_field :current_password %>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                    <%= f.password_field :password_confirmation,  :class => 'form-control'  %>
+                    <br />
+                    <%= f.label :Senha_Atual %>
+                    <%= f.password_field :current_password,  :class => 'form-control'  %>
+                    <br />
                     <%= f.label :Permissão %>
-                    <%= f.collection_select :role, User::ROLES, :to_s, :humanize, {}, {:class => 'form-control-100'} %>  
-                  </td>
-                </tr>
-                <tr>
-                  <td>
+                    <%= f.collection_select :role, User::ROLES, :to_s, :humanize, {}, {:class => 'form-control'} %>  
+                    <br />
                     <%= f.submit "Atualizar", class: "btn btn-mediun btn-primary" %>
-                  </td>
-                </tr>
-              </table>
+                  </div>
+                </div>
+
             <% end %>
 
 

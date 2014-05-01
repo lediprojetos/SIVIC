@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.string   "DESC_Rua"
     t.string   "DESC_Complemento"
     t.string   "DESC_Pontoreferencia"
-    t.integer  "NUMR_Cep"
+    t.string   "NUMR_Cep"
     t.integer  "sivic_cidade_id"
     t.datetime "created_at"
     t.datetime "updated_at"

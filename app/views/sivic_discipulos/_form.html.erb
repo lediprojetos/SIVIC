@@ -103,7 +103,7 @@
 
                 <div class="col-xs-2">
                   <%= endereco.label :CEP.capitalize %>
-                  <%= endereco.number_field :NUMR_Cep, :class =>  'form-control' %>
+                  <%= endereco.text_field :NUMR_Cep, :class =>  'form-control' %>
                 </div>
         
                 <%=  f.fields_for :sivic_estado do |estado| %>

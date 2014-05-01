@@ -5,4 +5,13 @@ class SivicEndereco < ActiveRecord::Base
 
 
   validates :sivic_cidade_id, :presence => { :message => ' - Escolha uma Cidade' }
+
+  before_validation :retiraMascara
+
+def retiraMascara
+
+	self.NUMR_Cep.gsub!(/[^0-9]/, '')
+
+end
+
 end
