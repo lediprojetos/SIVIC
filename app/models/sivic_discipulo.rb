@@ -18,6 +18,7 @@ class SivicDiscipulo < ActiveRecord::Base
   # - Domínio
   SEXO = %w[FEMININO MASCULINO OUTROS]
   ESTADOCIVIL = %w[SOLTEIRO CASADO UNIAO_ESTAVEL OUTROS]
+  DIAS = %w[SEGUNDA-FEIRA TERCA-FEIRA QUARTA-FEIRA QUINTA-FEIRA SEXTA-FEIRA SABADO DOMINGO]
 
   # - Validações
   #validates :NUMR_CPF, :cpf => { :message => ' - Digite um CPF valido' }

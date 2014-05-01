@@ -37,9 +37,9 @@
           <%= link_to edit_sivic_evento_path(sivic_evento), :class => "btn btn-default btn-sm" do %>
             <span class="glyphicon glyphicon-pencil"></span> Editar
           <% end %>             
-          <%= link_to sivic_evento, :class => "btn btn-default btn-sm" do %>
-            <span class="glyphicon glyphicon-trash"></span> Excluir
-          <% end %>
+            <%= link_to sivic_evento , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-trash"></span> Excluir
+            <% end %>           
         </div>
 
         </td>

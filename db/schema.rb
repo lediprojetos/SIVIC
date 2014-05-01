@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140410164016) do
+ActiveRecord::Schema.define(version: 20140501151830) do
 
   create_table "observacoesrelatorios", force: true do |t|
     t.integer  "sivic_relatorioscelula_id"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 20140410164016) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "NUMR_Codigo"
+    t.time     "hora_estudobiblico"
   end
 
   add_index "sivic_discipulos", ["sivic_celula_id"], name: "index_sivic_discipulos_on_sivic_celula_id"
@@ -154,10 +155,10 @@ ActiveRecord::Schema.define(version: 20140410164016) do
     t.string   "DESC_evento"
     t.text     "DESC_resumo"
     t.decimal  "VARL_inscricao",       precision: 10, scale: 2
-    t.date     "DATA_inicio"
-    t.date     "DATA_fim"
-    t.boolean  "FLAG_ilimitado"
-    t.boolean  "NUMR_qdtVagas"
+    t.datetime "DATA_inicio"
+    t.datetime "DATA_fim"
+    t.integer  "FLAG_ilimitado"
+    t.integer  "NUMR_qdtVagas"
     t.integer  "User_id"
     t.integer  "sivic_igreja_id"
     t.integer  "sivic_endereco_id"
