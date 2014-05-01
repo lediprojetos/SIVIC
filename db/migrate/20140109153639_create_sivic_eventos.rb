@@ -7,7 +7,7 @@ class CreateSivicEventos < ActiveRecord::Migration
       t.date :DATA_inicio
       t.date :DATA_fim
       t.boolean :FLAG_ilimitado
-      t.boolean :NUMR_qdtVagas
+      t.integer :NUMR_qdtVagas
       t.references :User, index: true
       t.references :sivic_igreja, index: true
       t.references :sivic_endereco, index: true

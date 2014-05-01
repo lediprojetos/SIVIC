@@ -42,7 +42,7 @@
 
  <div class="col-xs-3">
         <%= moduloTurma.label :Modulo %>
-        <%= moduloTurma.select :sivic_turma_id, options_from_collection_for_select(SivicModuloescola.all, 'id', 'desc_moduloescola',@sivic_moduloescola.sivic_turma_id),{:include_blank => true},{:class =>  'form-control'}%>
+        <%= moduloTurma.select :sivic_turma_id, options_from_collection_for_select(SivicModuloescola.all, 'id', 'nome_modulo',@sivic_moduloturma.sivic_turma_id),{:include_blank => true},{:class =>  'form-control'}%>
  </div>
  <% end %>
 

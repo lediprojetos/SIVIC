@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(version: 20140410164016) do
     t.date     "DATA_inicio"
     t.date     "DATA_fim"
     t.boolean  "FLAG_ilimitado"
-    t.boolean  "NUMR_qdtVagas"
+    t.integer  "NUMR_qdtVagas"
     t.integer  "User_id"
     t.integer  "sivic_igreja_id"
     t.integer  "sivic_endereco_id"

@@ -17,16 +17,24 @@
       <th></th>
     </tr>
   </thead>
-
   <tbody>
     <% @sivic_parteventos.each do |sivic_partevento| %>
       <tr>
         <td><%= sivic_partevento.sivic_pessoa.NOME_pessoa %></td>
         <td><%= sivic_partevento.sivic_evento.DESC_evento %></td>
         <td><%= sivic_partevento.sivic_movimentofinanceiro.VALR_movimento %></td>
-        <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_partevento %></td>
-        <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_partevento_path(sivic_partevento) %></td>
-        <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_partevento , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>            
+        
+        <div class="btn-group">
+          <%= link_to sivic_partevento, :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-list-alt"></span> Exibir
+          <% end %>             
+          <%= link_to edit_sivic_partevento_path(sivic_evento), :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-pencil"></span> Editar
+          <% end %>             
+          <%= link_to sivic_evento, :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-trash"></span> Excluir
+          <% end %>
+        </div>         
       </tr>
     <% end %>
   </tbody>
