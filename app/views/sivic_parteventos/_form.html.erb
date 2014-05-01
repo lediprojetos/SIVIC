@@ -1,3 +1,9 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= 'Realizar Inscrição'%></h3>
+  </div>
+  <div class="panel-footer">
+
 <%= form_for(@sivic_partevento) do |f| %>
   <% if @sivic_partevento.errors.any? %>
     <div id="error_explanation">
@@ -62,70 +68,104 @@
 
 <%end%>
 
-<%=render '/layouts/iconsalvar' %>
-<%end%>
+
 
   <%
     @sivic_pessoa = SivicPessoa.new
     @sivic_igreja = SivicIgreja.all
   %> 
- <div id="myModal2" class="modal fade" style="display: none;">  
-     
-      <div class="tabbable">  
-        <ul class="nav nav-tabs">
-          <li class="active"><a href="#tab1" data-toggle="tab">Consultar</a></li>
-          <li><a href="#tab2" data-toggle="tab">Cadastrar</a></li>
-        </ul>
-      </div> 
-      <div class="tab-content">
-      <div class="tab-pane active" id="tab1">
-    
-     <div class="modal-header">  
-          <a class="close" data-dismiss="modal">×</a>  
-          <h4>Buscar Pessoas</h4>  
-      </div>  
+
+
+      </div>   
+  </div>
+</div>
+
+<div class="btn-group">
+  <button type="submit" class="btn btn-default btn">
+    <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+  </button>
+
+  <%= yield(:iconexibir) %>
+
+  <%= link_to sivic_eventos_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+</div>
+
+<% end %>
+
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
       <div class="modal-body">
-        <div class="input-group input-group-lg">
-          <label >Nome</label><br>
-          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onkeypress="buscaPessoa()"type="text" class="form-control" placeholder="Username" style="width: 80%;">
-          <a data-toggle="modal" href="javascript:buscaPessoa();" class="btn btn-success" style="margin-bottom: 10px;">Buscar</a>
-        </div>
+
+
+<ul class="nav nav-tabs" id="myTab"><h4 class="modal-title" id="myModalLabel"></h4>
+
+  <li class="active"><a href="#home" data-toggle="tab"><h4 class="modal-title" id="myModalLabel">Buscar Pessoas</h4></a></li>
+  <li><a href="#profile" data-toggle="tab"><h4 class="modal-title" id="myModalLabel">Cadastrar Pessoas</h4></a></li>
+</ul>
+<br />
+<div class="tab-content">
+  <div class="tab-pane active" id="home">
+
+
+        <label >Nome</label><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onkeypress="buscaPessoa()" type="text" class="form-control" placeholder="Nome">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" onclick="buscaPessoa();">Buscar</button>
+              </span>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+        <br />
+
         <table id="table_user" name="table_user" class="table table-hover">
           <thead>
             <tr>
               <th>Nome</th>
+              <th>Email</th>
             </tr>
           </thead>
           <tbody id="tbodyid">
               <tr>
               </tr>
+              <tr>
+              </tr>
           </tbody>  
         </table>
-      </div>  
-    </div>
 
-    <div class="tab-pane" id="tab2">
-    <%= form_for(@sivic_pessoa) do |f| %>
-      <div class="modal-header">  
-        <a class="close" data-dismiss="modal">×</a>  
-        <h5>Cadastro de Pessoa</h5>  
-      </div>  
+  </div>
+  <div class="tab-pane" id="profile">
+      <%= form_for(@sivic_pessoa) do |f| %> 
       <div class="modal-body">
-        <div class="field">
+        <div class="row">
+        <div class="col-xs-12">
           <%= f.label :Lider %>
-          <%= f.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',0),{:include_blank => true},{:class => "form-control-100" }%>
-        </div>  
-        <div class="field">
+          <%= f.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',0),{:include_blank => true},{:class => "form-control" }%>
+        </div> 
+      </div> 
+      <div class="row"> 
+        <div class="col-xs-12">
           <%= f.label :Nome %>
-          <%= f.text_field :NOME_pessoa, :class => "form-control-100"  %>
+          <%= f.text_field :NOME_pessoa, :class => "form-control"  %>
         </div>
-        <div class="field">
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
           <%= f.label :Email %>
-          <%= f.text_field :DESC_email, :class => "form-control-100"  %>
+          <%= f.text_field :DESC_email, :class => "form-control"  %>
         </div>
-        <div class="field">
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
           <%= f.label :Observação %>
-          <%= f.text_field :DESC_observacao, :class => "form-control-100"  %>
+          <%= f.text_field :DESC_observacao, :class => "form-control"  %>
+        </div>
         </div>
           <!--Capturando igreja do usuaário logado -->
          <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
@@ -135,12 +175,20 @@
           <div class="field">
             <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
           </div>        
-       </div>  
-     </div>  
-     <% end %>
+       </div> 
+       <% end %> 
   </div>
-</div>  
-            
+</div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
  <div id="myModal3" class="modal fade" style="display: none;" >  
       <div class="modal-header">  
         <a class="close" data-dismiss="modal">×</a>  
@@ -165,11 +213,13 @@
           </tbody>  
         </table>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer"> 
     </div>
     </div> 
 
  <script>
+
+$('#myModal2').modal('show');
 
   function createPessoa(){
         
