@@ -8,7 +8,7 @@
   <tr>
     <td>
       <label >Situação</label>
-      <select id='sivic_estado_sivic_situacoesrelatorio_id'>
+      <select id='sivic_estado_sivic_situacoesrelatorio_id' class="form-control">
         <option value='0'></option>
         <option value='1'>ENVIADO</option>
         <option value='2'>PENDENTE</option>
@@ -16,10 +16,10 @@
     </td>
     <td>
           <label >Líder</label>
-          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" type="text" placeholder="Nome do Líder" style="width: 90%;">
+          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" type="text" placeholder="Nome do Líder" class="form-control">
     </td>
     <td>
-      <div style='margin-top:15px;'>
+      <div style='margin-top:22px;'>
         <a data-toggle="modal" href="javascript:chamaPesquisa();" class="btn btn-info" style="">Buscar</a><br/>
       </div>
     </td>
@@ -80,24 +80,20 @@
 <%= will_paginate @sivic_relatorioscelulas %>
 </div>
 
+
+
+
 </div></div>
+<div class="btn-group">
+  <%= link_to new_sivic_relatorioscelula_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>
+<%#if not SivicCelula.where(:sivic_pessoa_id => current_user.sivic_pessoa_id).blank? %>
 
-<%if not SivicCelula.where(:sivic_pessoa_id => current_user.sivic_pessoa_id).blank? %>
 
-<table style="margin-top:10px;">
-  <tr>
-    <td align="center" style="width:50px;">
-      <%= link_to image_tag('new.png', :title => 'Novo', class: 'exibirico') , new_sivic_relatorioscelula_path %>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" style="width:20px;">
-      <label class="altBotoes">Novo</label>
-    </td>
-  </tr> 
-</table>
 
-<%end%>
+<%#end%>
 
 <script>
 

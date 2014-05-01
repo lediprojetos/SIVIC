@@ -1,3 +1,9 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= 'Novo Relatório'%></h3>
+  </div>
+  <div class="panel-footer">
+
 <%= form_for(@sivic_relatorioscelula) do |f| %>
   <% if @sivic_relatorioscelula.errors.any? %>
     <div id="error_explanation">
@@ -11,162 +17,129 @@
     </div>
   <% end %>
 
-<div class="containermininmo">
-  <table style="width:95%;" align="center">
-    <tr>
-      <td>
-        <div class="field">
+      <div class="row">
+        <div class="col-xs-5">
           <%= f.label :Célula %>
             <%if current_user.role == 'LIDER_DE_CELULAS'%>
-              <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.where(:sivic_pessoa_id => current_user.sivic_pessoa_id), 'id', 'NOME_Celula')%>
+              <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.where(:sivic_pessoa_id => current_user.sivic_pessoa_id), 'id', 'NOME_Celula'),{:include_blank => true},{:class =>  'form-control'}%>
             <%else%>
-              <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.all, 'id', 'NOME_Celula'),:include_blank => true%>
+              <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.all, 'id', 'NOME_Celula'),{:include_blank => true},{:class =>  'form-control'}%>
             <%end%>          
         </div>
-      </td>
-      <td>
-        <div class="field">
+        <div class="col-xs-3">
           <%= f.label :DATA_da_Reuniao %>
-          <%= f.text_field :DATA_Reuniao, :class => 'form-control-1' %> 
-        </div>
-      </td>
-      <td>
-        <div class="field">
+          <%= f.text_field :DATA_Reuniao, :class => 'form-control' %> 
+        </div>    
+        <div class="col-xs-2">
           <%= f.label :Horário_de_início %>
-          <%= f.text_field :DATA_Horainicio, :class => 'form-control-1' %>
+          <%= f.text_field :DATA_Horainicio, :class => 'form-control' %>
         </div>
-      </td>
-      <td>
-        <div class="field">
+       <div class="col-xs-2">
           <%= f.label :Horário_de_término %>
-          <%= f.text_field :DATA_HoraTermino, :class => 'form-control-1' %>
+          <%= f.text_field :DATA_HoraTermino, :class => 'form-control' %>
         </div>
-      </td>
-    </tr>
-  </table>
-  <table style="width:95%;" align="center">
-    <tr>
-      <td>
-        <div class="field">
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-xs-2">
           <label>Nº Visitantes</label>
-          <%= f.number_field :NUMR_NumVisitante, :class => 'form-control-1' %>
+          <%= f.number_field :NUMR_NumVisitante, :class => 'form-control' %>
         </div>
-      </td>
-      <td>
-        <div class="field">
+        <div class="col-xs-2">
           <label>Nº Participantes</label>
-          <%= f.number_field :NUMR_NumParticipante, :class => 'form-control-1' %>
+          <%= f.number_field :NUMR_NumParticipante, :class => 'form-control' %>
         </div>
-      </td>
-      <td>
-        <div class="field">
+        <div class="col-xs-4">
           <%= f.label :Assunto_do_estudo %>
-          <%= f.text_field :DESC_AssuntoEstudo, :class => 'form-control-3' %>
+          <%= f.text_field :DESC_AssuntoEstudo, :class => 'form-control' %>
         </div>
-      </td>
-      <td>
-        <div class="field">
+        <div class="col-xs-4">
           <%= f.label :Texto_Bíblico %>
-          <%= f.text_field :DESC_TextoBiblico, :class => 'form-control-3' %>
+          <%= f.text_field :DESC_TextoBiblico, :class => 'form-control' %>
         </div>
-      </td>
-    </tr>
-  </table>
-  <table style="width:95%;" align="center">
-    <tr>
-      <td>
-        <div class="field">
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-xs-2">
           <%= f.label :Valor_de_oferta %>
-          <%= f.text_field :VALR_Oferta %>
+          <%= f.text_field :VALR_Oferta, :class => 'form-control' %>
         </div>
-      </td>
-      <td>
-        <div class="field">
+        <div class="col-xs-2">
           <%= f.label :Decisões %>
-          <%= f.number_field :NUMR_Decisoes %>
+          <%= f.number_field :NUMR_Decisoes, :class => 'form-control' %>
         </div>
-      </td>
-      <td>
+        <div class="col-xs-2">
+          <%= f.label :Novos_convertidos %>
+          <%= f.number_field :NUMR_QtdNovoConvertido, :class => 'form-control' %>
+        </div> 
+        <div class="col-xs-6">
+          <%= f.label :Outras_informações %>
+          <%= f.text_area :DESC_OutrasInformacoes, :class => 'form-control' %>
+        </div>
+    </div>
+    </br>
+
+     <div class="row">
+        <div class="col-xs-2">
+          <%= f.label :Resgate %>
+          <%= f.number_field :NUMR_QtdResgate, :class => 'form-control' %>
+        </div>
+        <div class="col-xs-2">
+          <%= f.label :Pre_Encontro %>
+          <%= f.number_field :NUMR_QtdPreEncontro, :class => 'form-control' %>
+        </div>
+        <div class="col-xs-2">
+          <%= f.label :Encontro %>
+          <%= f.number_field :NUMR_QtdEncontro, :class => 'form-control' %>
+        </div>
+        <div class="col-xs-2">
+          <%= f.label :Pos_encontro %>
+          <%= f.number_field :NUMR_QtdPosEncontro, :class => 'form-control' %>
+        </div>
+        <div class="col-xs-2">
+          <%= f.label :Escola_de_líderes %>
+          <%= f.number_field :NUMR_QtdEscoLid1, :class => 'form-control' %>
+        </div>
+        <div class="col-xs-2">
+          <%= f.label :Escola_de_líderes_2%>
+          <%= f.number_field :NUMR_EscoLid2, :class => 'form-control' %>
+        </div>
+     </div>
+     <br/>
+     <div class="row">
+        <div class="col-xs-2">
+          <%= f.label :Escola_de_líderes_3 %>
+          <%= f.number_field :NUMR_EscoLid3, :class => 'form-control' %>
+        </div>
+        <div class="col-xs-2">
+          <%= f.label :Líderes_de_células %>
+          <%= f.number_field :NUMR_QtdLidCelula, :class => 'form-control' %>
+        </div>
+      </div>
+
         <div class="field">
           <%= f.hidden_field :sivic_situacoesrelatorio_id, :value => 1 %>
         </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= f.label :Novos_convertidos %>
-          <%= f.number_field :NUMR_QtdNovoConvertido %>
-        </div>
-      </td>
-    </tr>
-  </table>
-  <table style="width:95%;" align="center">
-    <tr>
-      <td>
-        <div class="field">
-          <%= f.label :Outras_informações %>
-          <%= f.text_area :DESC_OutrasInformacoes, :class => 'form-control-100' %>
-        </div>
-      </td>
-    </tr>
-  </table>
-  <table style="width:95%;" align="center">
-    <tr>
-      <td>
-        <div class="field">
-          <%= f.label :Resgate %>
-          <%= f.number_field :NUMR_QtdResgate %>
-        </div>
-      </td>
-      <td>
-        <div class="field">
-          <%= f.label :Pre_Encontro %>
-          <%= f.number_field :NUMR_QtdPreEncontro %>
-        </div>
-      </td>
-      <td>        
-        <div class="field">
-          <%= f.label :Encontro %>
-          <%= f.number_field :NUMR_QtdEncontro %>
-        </div>
-      </td>
-      <td>        
-        <div class="field">
-          <%= f.label :Pos_encontro %>
-          <%= f.number_field :NUMR_QtdPosEncontro %>
-        </div>
-      </td>
-    </tr>
-  </table>
-  <table style="width:95%;" align="center">
-    <tr>
-      <td>
-        <div class="field">
-          <%= f.label :Escola_de_líderes %>
-          <%= f.number_field :NUMR_QtdEscoLid1 %>
-        </div>
-      </td>
-      <td>         
-        <div class="field">
-          <%= f.label :Escola_de_líderes_2 %>
-          <%= f.number_field :NUMR_EscoLid2 %>
-        </div>
-      </td>
-      <td>         
-        <div class="field">
-          <%= f.label :Escola_de_líderes_3 %>
-          <%= f.number_field :NUMR_EscoLid3 %>
-        </div>
-      </td>
-      <td>         
-        <div class="field">
-          <%= f.label :Líderes_de_células %>
-          <%= f.number_field :NUMR_QtdLidCelula %>
-        </div>
-      </td>
-    </tr>
-  </table>
+       
 
-  <%=render '/layouts/iconsalvar' %>
+   </div>
+  </div>
+</div>
+
+<div class="btn-group">
+  <button type="submit" class="btn btn-default btn">
+    <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+  </button>
+
+  <%= yield(:iconexibir) %>
+
+  <%= link_to sivic_eventos_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+</div>
+
+
+
 <% end %>
 
  
