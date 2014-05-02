@@ -13,6 +13,21 @@
 
 ActiveRecord::Schema.define(version: 20140501151830) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "clientes", force: true do |t|
+    t.string   "desc_nome"
+    t.string   "NUMR_CPF"
+    t.string   "DESC_TelefoneCelular"
+    t.string   "DESC_TelefoneFixo"
+    t.string   "DESC_Email"
+    t.string   "DESC_Secao"
+    t.string   "DESC_Observacao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "observacoesrelatorios", force: true do |t|
     t.integer  "sivic_relatorioscelula_id"
     t.integer  "sivic_pessoa_id"
@@ -21,8 +36,32 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "observacoesrelatorios", ["sivic_pessoa_id"], name: "index_observacoesrelatorios_on_sivic_pessoa_id"
-  add_index "observacoesrelatorios", ["sivic_relatorioscelula_id"], name: "index_observacoesrelatorios_on_sivic_relatorioscelula_id"
+  add_index "observacoesrelatorios", ["sivic_pessoa_id"], name: "index_observacoesrelatorios_on_sivic_pessoa_id", using: :btree
+  add_index "observacoesrelatorios", ["sivic_relatorioscelula_id"], name: "index_observacoesrelatorios_on_sivic_relatorioscelula_id", using: :btree
+
+  create_table "refeicao_clientes", force: true do |t|
+    t.integer  "cliente_id"
+    t.integer  "refeicao_id"
+    t.boolean  "flag_pago"
+    t.boolean  "FLAG_Acompanhamento"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "refeicao_clientes", ["cliente_id"], name: "index_refeicao_clientes_on_cliente_id", using: :btree
+  add_index "refeicao_clientes", ["refeicao_id"], name: "index_refeicao_clientes_on_refeicao_id", using: :btree
+
+  create_table "refeicaos", force: true do |t|
+    t.date     "DATE_Refeicao"
+    t.string   "DESC_Refeicao"
+    t.string   "TIPO_Refeicao"
+    t.string   "DESC_Acompanhamento"
+    t.decimal  "VALOR_Refeicao"
+    t.decimal  "VALOR_Acompanhamento"
+    t.string   "DESC_Observacao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sivic_celulas", force: true do |t|
     t.string   "NOME_Celula"
@@ -43,8 +82,8 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.integer  "NUMR_Codigo"
   end
 
-  add_index "sivic_celulas", ["sivic_endereco_id"], name: "index_sivic_celulas_on_sivic_endereco_id"
-  add_index "sivic_celulas", ["sivic_pessoa_id"], name: "index_sivic_celulas_on_sivic_pessoa_id"
+  add_index "sivic_celulas", ["sivic_endereco_id"], name: "index_sivic_celulas_on_sivic_endereco_id", using: :btree
+  add_index "sivic_celulas", ["sivic_pessoa_id"], name: "index_sivic_celulas_on_sivic_pessoa_id", using: :btree
 
   create_table "sivic_cidades", force: true do |t|
     t.string   "nome_cidade"
@@ -53,7 +92,7 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_cidades", ["sivic_estado_id"], name: "index_sivic_cidades_on_sivic_estado_id"
+  add_index "sivic_cidades", ["sivic_estado_id"], name: "index_sivic_cidades_on_sivic_estado_id", using: :btree
 
   create_table "sivic_contcelulas", force: true do |t|
     t.integer  "NUMR_Contador"
@@ -62,7 +101,7 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_contcelulas", ["sivic_igreja_id"], name: "index_sivic_contcelulas_on_sivic_igreja_id"
+  add_index "sivic_contcelulas", ["sivic_igreja_id"], name: "index_sivic_contcelulas_on_sivic_igreja_id", using: :btree
 
   create_table "sivic_contdiscipulos", force: true do |t|
     t.integer  "NUMR_Contador"
@@ -71,7 +110,7 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_contdiscipulos", ["sivic_igreja_id"], name: "index_sivic_contdiscipulos_on_sivic_igreja_id"
+  add_index "sivic_contdiscipulos", ["sivic_igreja_id"], name: "index_sivic_contdiscipulos_on_sivic_igreja_id", using: :btree
 
   create_table "sivic_discipulos", force: true do |t|
     t.integer  "sivic_pessoa_id"
@@ -118,12 +157,12 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.time     "hora_estudobiblico"
   end
 
-  add_index "sivic_discipulos", ["sivic_celula_id"], name: "index_sivic_discipulos_on_sivic_celula_id"
-  add_index "sivic_discipulos", ["sivic_endereco_id"], name: "index_sivic_discipulos_on_sivic_endereco_id"
-  add_index "sivic_discipulos", ["sivic_escolaridade_id"], name: "index_sivic_discipulos_on_sivic_escolaridade_id"
-  add_index "sivic_discipulos", ["sivic_pessoa_id"], name: "index_sivic_discipulos_on_sivic_pessoa_id"
-  add_index "sivic_discipulos", ["sivic_profissao_id"], name: "index_sivic_discipulos_on_sivic_profissao_id"
-  add_index "sivic_discipulos", ["sivic_rede_id"], name: "index_sivic_discipulos_on_sivic_rede_id"
+  add_index "sivic_discipulos", ["sivic_celula_id"], name: "index_sivic_discipulos_on_sivic_celula_id", using: :btree
+  add_index "sivic_discipulos", ["sivic_endereco_id"], name: "index_sivic_discipulos_on_sivic_endereco_id", using: :btree
+  add_index "sivic_discipulos", ["sivic_escolaridade_id"], name: "index_sivic_discipulos_on_sivic_escolaridade_id", using: :btree
+  add_index "sivic_discipulos", ["sivic_pessoa_id"], name: "index_sivic_discipulos_on_sivic_pessoa_id", using: :btree
+  add_index "sivic_discipulos", ["sivic_profissao_id"], name: "index_sivic_discipulos_on_sivic_profissao_id", using: :btree
+  add_index "sivic_discipulos", ["sivic_rede_id"], name: "index_sivic_discipulos_on_sivic_rede_id", using: :btree
 
   create_table "sivic_enderecos", force: true do |t|
     t.string   "DESC_Bairro"
@@ -136,7 +175,7 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_enderecos", ["sivic_cidade_id"], name: "index_sivic_enderecos_on_sivic_cidade_id"
+  add_index "sivic_enderecos", ["sivic_cidade_id"], name: "index_sivic_enderecos_on_sivic_cidade_id", using: :btree
 
   create_table "sivic_escolaridades", force: true do |t|
     t.string   "NOME_escolaridade"
@@ -168,10 +207,10 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "DATA_encerramento"
   end
 
-  add_index "sivic_eventos", ["User_id"], name: "index_sivic_eventos_on_User_id"
-  add_index "sivic_eventos", ["sivic_endereco_id"], name: "index_sivic_eventos_on_sivic_endereco_id"
-  add_index "sivic_eventos", ["sivic_igreja_id"], name: "index_sivic_eventos_on_sivic_igreja_id"
-  add_index "sivic_eventos", ["sivic_tipo_evento_id"], name: "index_sivic_eventos_on_sivic_tipo_evento_id"
+  add_index "sivic_eventos", ["User_id"], name: "index_sivic_eventos_on_User_id", using: :btree
+  add_index "sivic_eventos", ["sivic_endereco_id"], name: "index_sivic_eventos_on_sivic_endereco_id", using: :btree
+  add_index "sivic_eventos", ["sivic_igreja_id"], name: "index_sivic_eventos_on_sivic_igreja_id", using: :btree
+  add_index "sivic_eventos", ["sivic_tipo_evento_id"], name: "index_sivic_eventos_on_sivic_tipo_evento_id", using: :btree
 
   create_table "sivic_igrejas", force: true do |t|
     t.integer  "father_id"
@@ -185,7 +224,7 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_igrejas", ["sivic_endereco_id"], name: "index_sivic_igrejas_on_sivic_endereco_id"
+  add_index "sivic_igrejas", ["sivic_endereco_id"], name: "index_sivic_igrejas_on_sivic_endereco_id", using: :btree
 
   create_table "sivic_ministerios", force: true do |t|
     t.string   "nome_ministerio"
@@ -195,7 +234,7 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_ministerios", ["sivic_igreja_id"], name: "index_sivic_ministerios_on_sivic_igreja_id"
+  add_index "sivic_ministerios", ["sivic_igreja_id"], name: "index_sivic_ministerios_on_sivic_igreja_id", using: :btree
 
   create_table "sivic_moduloescolas", force: true do |t|
     t.integer  "sivic_igreja_id"
@@ -206,7 +245,7 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_moduloescolas", ["sivic_igreja_id"], name: "index_sivic_moduloescolas_on_sivic_igreja_id"
+  add_index "sivic_moduloescolas", ["sivic_igreja_id"], name: "index_sivic_moduloescolas_on_sivic_igreja_id", using: :btree
 
   create_table "sivic_moduloturmas", force: true do |t|
     t.integer  "sivic_moduloescola_id"
@@ -215,8 +254,8 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_moduloturmas", ["sivic_moduloescola_id"], name: "index_sivic_moduloturmas_on_sivic_moduloescola_id"
-  add_index "sivic_moduloturmas", ["sivic_turma_id"], name: "index_sivic_moduloturmas_on_sivic_turma_id"
+  add_index "sivic_moduloturmas", ["sivic_moduloescola_id"], name: "index_sivic_moduloturmas_on_sivic_moduloescola_id", using: :btree
+  add_index "sivic_moduloturmas", ["sivic_turma_id"], name: "index_sivic_moduloturmas_on_sivic_turma_id", using: :btree
 
   create_table "sivic_movimentofinanceiros", force: true do |t|
     t.decimal  "VALR_movimento"
@@ -232,8 +271,8 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.text     "DESC_movimento"
   end
 
-  add_index "sivic_movimentofinanceiros", ["sivic_evento_id"], name: "index_sivic_movimentofinanceiros_on_sivic_evento_id"
-  add_index "sivic_movimentofinanceiros", ["sivic_tipmovfinanceiro_id"], name: "index_sivic_movimentofinanceiros_on_sivic_tipmovfinanceiro_id"
+  add_index "sivic_movimentofinanceiros", ["sivic_evento_id"], name: "index_sivic_movimentofinanceiros_on_sivic_evento_id", using: :btree
+  add_index "sivic_movimentofinanceiros", ["sivic_tipmovfinanceiro_id"], name: "index_sivic_movimentofinanceiros_on_sivic_tipmovfinanceiro_id", using: :btree
 
   create_table "sivic_partevenrelacelulas", force: true do |t|
     t.integer  "sivic_relatorioscelula_id"
@@ -243,9 +282,9 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.integer  "sivic_sitpartcelula_id"
   end
 
-  add_index "sivic_partevenrelacelulas", ["sivic_participantecelula_id"], name: "index_sivic_partevenrelacelulas_on_sivic_participantecelula_id"
-  add_index "sivic_partevenrelacelulas", ["sivic_relatorioscelula_id"], name: "index_sivic_partevenrelacelulas_on_sivic_relatorioscelula_id"
-  add_index "sivic_partevenrelacelulas", ["sivic_sitpartcelula_id"], name: "index_sivic_partevenrelacelulas_on_sivic_sitpartcelula_id"
+  add_index "sivic_partevenrelacelulas", ["sivic_participantecelula_id"], name: "index_sivic_partevenrelacelulas_on_sivic_participantecelula_id", using: :btree
+  add_index "sivic_partevenrelacelulas", ["sivic_relatorioscelula_id"], name: "index_sivic_partevenrelacelulas_on_sivic_relatorioscelula_id", using: :btree
+  add_index "sivic_partevenrelacelulas", ["sivic_sitpartcelula_id"], name: "index_sivic_partevenrelacelulas_on_sivic_sitpartcelula_id", using: :btree
 
   create_table "sivic_parteventos", force: true do |t|
     t.integer  "sivic_pessoa_id"
@@ -256,9 +295,9 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_parteventos", ["sivic_evento_id"], name: "index_sivic_parteventos_on_sivic_evento_id"
-  add_index "sivic_parteventos", ["sivic_movimentofinanceiro_id"], name: "index_sivic_parteventos_on_sivic_movimentofinanceiro_id"
-  add_index "sivic_parteventos", ["sivic_pessoa_id"], name: "index_sivic_parteventos_on_sivic_pessoa_id"
+  add_index "sivic_parteventos", ["sivic_evento_id"], name: "index_sivic_parteventos_on_sivic_evento_id", using: :btree
+  add_index "sivic_parteventos", ["sivic_movimentofinanceiro_id"], name: "index_sivic_parteventos_on_sivic_movimentofinanceiro_id", using: :btree
+  add_index "sivic_parteventos", ["sivic_pessoa_id"], name: "index_sivic_parteventos_on_sivic_pessoa_id", using: :btree
 
   create_table "sivic_participantecelulas", force: true do |t|
     t.string   "NOME_Participante"
@@ -270,8 +309,8 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.integer  "sivic_sitpartcelula_id"
   end
 
-  add_index "sivic_participantecelulas", ["sivic_celula_id"], name: "index_sivic_participantecelulas_on_sivic_celula_id"
-  add_index "sivic_participantecelulas", ["sivic_sitpartcelula_id"], name: "index_sivic_participantecelulas_on_sivic_sitpartcelula_id"
+  add_index "sivic_participantecelulas", ["sivic_celula_id"], name: "index_sivic_participantecelulas_on_sivic_celula_id", using: :btree
+  add_index "sivic_participantecelulas", ["sivic_sitpartcelula_id"], name: "index_sivic_participantecelulas_on_sivic_sitpartcelula_id", using: :btree
 
   create_table "sivic_pessoas", force: true do |t|
     t.integer  "father_id"
@@ -285,8 +324,8 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_pessoas", ["User_id"], name: "index_sivic_pessoas_on_User_id"
-  add_index "sivic_pessoas", ["sivic_igreja_id"], name: "index_sivic_pessoas_on_sivic_igreja_id"
+  add_index "sivic_pessoas", ["User_id"], name: "index_sivic_pessoas_on_User_id", using: :btree
+  add_index "sivic_pessoas", ["sivic_igreja_id"], name: "index_sivic_pessoas_on_sivic_igreja_id", using: :btree
 
   create_table "sivic_professors", force: true do |t|
     t.integer  "user_inclusao"
@@ -298,7 +337,7 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_professors", ["sivic_pessoa_id"], name: "index_sivic_professors_on_sivic_pessoa_id"
+  add_index "sivic_professors", ["sivic_pessoa_id"], name: "index_sivic_professors_on_sivic_pessoa_id", using: :btree
 
   create_table "sivic_profissaos", force: true do |t|
     t.string   "profissao"
@@ -313,7 +352,7 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_redes", ["sivic_igreja_id"], name: "index_sivic_redes_on_sivic_igreja_id"
+  add_index "sivic_redes", ["sivic_igreja_id"], name: "index_sivic_redes_on_sivic_igreja_id", using: :btree
 
   create_table "sivic_relatorioscelulas", force: true do |t|
     t.integer  "sivic_celula_id"
@@ -341,8 +380,8 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_relatorioscelulas", ["sivic_celula_id"], name: "index_sivic_relatorioscelulas_on_sivic_celula_id"
-  add_index "sivic_relatorioscelulas", ["sivic_situacoesrelatorio_id"], name: "index_sivic_relatorioscelulas_on_sivic_situacoesrelatorio_id"
+  add_index "sivic_relatorioscelulas", ["sivic_celula_id"], name: "index_sivic_relatorioscelulas_on_sivic_celula_id", using: :btree
+  add_index "sivic_relatorioscelulas", ["sivic_situacoesrelatorio_id"], name: "index_sivic_relatorioscelulas_on_sivic_situacoesrelatorio_id", using: :btree
 
   create_table "sivic_sitpartcelulas", force: true do |t|
     t.string   "DESC_situacao"
@@ -351,7 +390,7 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_sitpartcelulas", ["sivic_igreja_id"], name: "index_sivic_sitpartcelulas_on_sivic_igreja_id"
+  add_index "sivic_sitpartcelulas", ["sivic_igreja_id"], name: "index_sivic_sitpartcelulas_on_sivic_igreja_id", using: :btree
 
   create_table "sivic_situacoesrelatorios", force: true do |t|
     t.string   "DESC_Situacao"
@@ -372,7 +411,7 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_tipo_eventos", ["sivic_igreja_id"], name: "index_sivic_tipo_eventos_on_sivic_igreja_id"
+  add_index "sivic_tipo_eventos", ["sivic_igreja_id"], name: "index_sivic_tipo_eventos_on_sivic_igreja_id", using: :btree
 
   create_table "sivic_turmas", force: true do |t|
     t.integer  "sivic_igreja_id"
@@ -388,7 +427,7 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.datetime "updated_at"
   end
 
-  add_index "sivic_turmas", ["sivic_igreja_id"], name: "index_sivic_turmas_on_sivic_igreja_id"
+  add_index "sivic_turmas", ["sivic_igreja_id"], name: "index_sivic_turmas_on_sivic_igreja_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -407,8 +446,8 @@ ActiveRecord::Schema.define(version: 20140501151830) do
     t.string   "role"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["sivic_pessoa_id"], name: "index_users_on_sivic_pessoa_id"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["sivic_pessoa_id"], name: "index_users_on_sivic_pessoa_id", using: :btree
 
 end
