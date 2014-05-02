@@ -26,9 +26,10 @@
             <%= link_to edit_sivic_ministerio_path(sivic_ministerio), :class => "btn btn-default btn-sm" do %>
               <span class="glyphicon glyphicon-pencil"></span> Editar
             <% end %>             
-            <%= link_to sivic_ministerio, :class => "btn btn-default btn-sm" do %>
+            <%= link_to sivic_ministerio , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
               <span class="glyphicon glyphicon-trash"></span> Excluir
             <% end %>
+
           </div>
         </td>             
       </tr>

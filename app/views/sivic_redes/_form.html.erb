@@ -1,3 +1,9 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= 'Cadastro de Redes'%></h3>
+  </div>
+  <div class="panel-footer">
+
 <%= form_for(@sivic_rede) do |f| %>
   <% if @sivic_rede.errors.any? %>
     <div id="error_explanation">
@@ -11,28 +17,27 @@
     </div>
   <% end %>
 
-  <div class="containermininmo">
-  <table style="width:100%;" align="center">
-    <tr>
-      <td>   
-        <div class="field">
-          <%= f.label :Rede,  :class => 'lblForms' %>
-          <%= f.text_field :nome_rede %>
-        </div>
-        <div class="field">
+  <div class="row">
+    <div class="col-xs-4">
+    </div>
+    <div class="col-xs-4">
+      <%= f.label :Rede,  :class => 'lblForms' %>
+      <%= f.text_field :nome_rede, :class => 'form-control' %>
+      
+      <%if current_user.sivic_pessoa.sivic_igreja_id%>
+        <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id%>
+      <%else%>
+        <%= f.label :Igreja, :class => 'lblForms'  %>
+        <%= f.select :sivic_igreja_id, options_from_collection_for_select(SivicIgreja.all, 'id', 'NOME_igreja'),:include_blank => true%>
+      <%end%>
+      <%=f.hidden_field :User_id, :value => current_user.id%>
+    </div>
+  </div>
 
-            <%if current_user.sivic_pessoa.sivic_igreja_id%>
-              <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id%>
-            <%else%>
-              <%= f.label :Igreja, :class => 'lblForms'  %>
-              <%= f.select :sivic_igreja_id, options_from_collection_for_select(SivicIgreja.all, 'id', 'NOME_igreja'),:include_blank => true%>
-            <%end%>
-            <%=f.hidden_field :User_id, :value => current_user.id%>
 
-        </div>
-    </td>
-  </tr>
-</table>
+  </div>            
+</div>
+
 <div class="btn-group">
 
   <button type="submit" class="btn btn-default btn">
