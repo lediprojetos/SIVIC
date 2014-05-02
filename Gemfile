@@ -3,7 +3,7 @@ ruby '1.9.3'
 
 gem 'rails', '4.0.1'
 
-gem 'sass-rails', '>= 3.2'
+gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass', '~> 3.1.1'
 
 gem 'bcrypt-ruby', '3.1.2'
