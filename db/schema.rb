@@ -16,18 +16,6 @@ ActiveRecord::Schema.define(version: 20140505105228) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "clientes", force: true do |t|
-    t.string   "desc_nome"
-    t.string   "NUMR_CPF"
-    t.string   "DESC_TelefoneCelular"
-    t.string   "DESC_TelefoneFixo"
-    t.string   "DESC_Email"
-    t.string   "DESC_Secao"
-    t.string   "DESC_Observacao"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "observacoesrelatorios", force: true do |t|
     t.integer  "sivic_relatorioscelula_id"
     t.integer  "sivic_pessoa_id"
@@ -38,30 +26,6 @@ ActiveRecord::Schema.define(version: 20140505105228) do
 
   add_index "observacoesrelatorios", ["sivic_pessoa_id"], name: "index_observacoesrelatorios_on_sivic_pessoa_id", using: :btree
   add_index "observacoesrelatorios", ["sivic_relatorioscelula_id"], name: "index_observacoesrelatorios_on_sivic_relatorioscelula_id", using: :btree
-
-  create_table "refeicao_clientes", force: true do |t|
-    t.integer  "cliente_id"
-    t.integer  "refeicao_id"
-    t.boolean  "flag_pago"
-    t.boolean  "FLAG_Acompanhamento"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "refeicao_clientes", ["cliente_id"], name: "index_refeicao_clientes_on_cliente_id", using: :btree
-  add_index "refeicao_clientes", ["refeicao_id"], name: "index_refeicao_clientes_on_refeicao_id", using: :btree
-
-  create_table "refeicaos", force: true do |t|
-    t.date     "DATE_Refeicao"
-    t.string   "DESC_Refeicao"
-    t.string   "TIPO_Refeicao"
-    t.string   "DESC_Acompanhamento"
-    t.decimal  "VALOR_Refeicao"
-    t.decimal  "VALOR_Acompanhamento"
-    t.string   "DESC_Observacao"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "sivic_celulas", force: true do |t|
     t.string   "NOME_Celula"
