@@ -43,8 +43,8 @@ class SivicIgrejasController < ApplicationController
 
     respond_to do |format|
       if @sivic_igreja.save
-        SivicContcelula.create(:NUMR_Contador => 1, :sivic_igreja_id => @sivic_igreja.id)
-        SivicContdiscipulo.create(:NUMR_Contador => 1, :sivic_igreja_id => @sivic_igreja.id)
+        SivicContcelula.create(:NUMR_Contador => 0, :sivic_igreja_id => @sivic_igreja.id)
+        SivicContdiscipulo.create(:NUMR_Contador => 0, :sivic_igreja_id => @sivic_igreja.id)
         format.html { redirect_to @sivic_igreja, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_igreja }
       else

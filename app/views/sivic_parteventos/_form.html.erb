@@ -115,9 +115,9 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="input-group">
-              <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onkeypress="buscaPessoa()" type="text" class="form-control" placeholder="Nome">
+              <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onkeypress="buscaPessoa('pessoa')" type="text" class="form-control" placeholder="Nome">
               <span class="input-group-btn">
-                <button class="btn btn-success" type="button" onclick="buscaPessoa();">Buscar</button>
+                <button class="btn btn-success" type="button" onclick="buscaPessoa('pessoa');">Buscar</button>
               </span>
             </div><!-- /input-group -->
           </div><!-- /.col-lg-6 -->
@@ -139,20 +139,59 @@
           </tbody>  
         </table>
 
+         <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+          </div>
+
   </div>
   <div class="tab-pane" id="profile">
-      <%= form_for(@sivic_pessoa) do |f| %> 
+      <%= form_for(@sivic_pessoa) do |f| %>      
       <div class="modal-body">
+
+
+        <!--  Testes começa aqui -->
+         
+         <label >Lider</label><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <input id="NOME_lider_buscar" name="NOME_lider_buscar" onkeypress="buscaPessoa('lider')" type="text" class="form-control" placeholder="Nome">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" onclick="buscaPessoa('lider');">Buscar</button>
+              </span>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+        <br />
+
+        <table id="table_user" name="table_user" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyid2">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+
+        <!--  Testes termina aqui -->
+        
         <div class="row">
         <div class="col-xs-12">
           <%= f.label :Lider %>
-          <%= f.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'NOME_pessoa',0),{:include_blank => true},{:class => "form-control" }%>
+          <%= f.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'nome_pessoa',0),{:include_blank => true},{:class => "form-control" }%>
         </div> 
-      </div> 
+      </div>
+
       <div class="row"> 
         <div class="col-xs-12">
           <%= f.label :Nome %>
-          <%= f.text_field :NOME_pessoa, :class => "form-control"  %>
+          <%= f.text_field :nome_pessoa, :class => "form-control"  %>
         </div>
       </div>
       <div class="row">
@@ -172,17 +211,24 @@
       </div>
     
       <div class="modal-footer">
-          <div class="field">
-            <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
+        <div class="row">
+         
+          <div class="col-xs-2">
+              <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
+          </div>
+          
+          <div class="col-xs-8">
+          </div>
+
+           <div class="col-xs-2">
+             <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+          </div>
           </div>        
        </div> 
        <% end %> 
   </div>
 </div>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
-      </div>
+   
     </div>
   </div>
 </div>
@@ -241,7 +287,7 @@ $('#myModal2').modal('show');
          var options = "";
          for (var i in data){
           var item = data[i];
-          options += "<option value='"+item.id+"'>"+item.NOME_pessoa+"</option>";
+          options += "<option value='"+item.id+"'>"+item.nome_pessoa+"</option>";
          };
          
          $('#sivic_partevento_sivic_pessoa_id').html(options);
@@ -254,23 +300,40 @@ $('#myModal2').modal('show');
        })      
      }
 
-  function buscaPessoa(){
-   
+  function buscaPessoa(fonte){
+
+     var pesquisa;
+
+      if (fonte == 'lider'){
+        pesquisa = $('#NOME_lider_buscar').val();
+      }else{
+        pesquisa = $('#NOME_pessoa_buscar').val();
+      }
+        
        $.ajax({
-        url : '<%= listarPessoa_path %>',
+        url : '<%= listarDiscipulos_path %>',
         data :
         {
-          NOME_pessoa : $('#NOME_pessoa_buscar').val()
+          nome_pessoa : pesquisa
         },
-        success: function(data){        
-          $('#tbodyid').empty();
-          for (var i in data){
+        success: function(data){
+          $("#tbodyid").empty();
+          $("#tbodyid2").empty();
+          for (var i in data) {
             var item = data[i];
-            $('#table_user').append('<tr><td><a href="javascript:setaNome(\''+ item.NOME_pessoa+'\','+item.id+'\);">'+item.NOME_pessoa+'</a></td></tr>')
-          };         
+
+            if (fonte == 'lider' ) {
+              $('#table_lider').append('<tr><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
+            }else{
+              $('#table_user').append('<tr><td><a href="javascript:window.location.replace(\'http://localhost:3000/sivic_discipulos/' +item.id+ '/edit\')";">'+item.nome_pessoa+'</a></td><td><a href="javascript:window.location.replace(\'http://localhost:3000/sivic_discipulos/' +item.id+ '/edit\')";">'+item.DESC_email+'</a></td></tr>');
+
+            }
+          };
+ 
         }
        })
      }
+
      function setaNome(nome,id){
 
       $('#sivic_partevento_sivic_pessoa_id').empty();
