@@ -62,4 +62,5 @@ class SivicDiscipulo < ActiveRecord::Base
       @@sivic_contdiscipulo.update(:NUMR_Contador => @@codigo)
    end
   
+  
 end
