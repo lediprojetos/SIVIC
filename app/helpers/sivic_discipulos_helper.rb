@@ -12,7 +12,7 @@ module SivicDiscipulosHelper
 
 			html += '<li>'
 			
-			html += '<a href="#">' + sivic_pessoas.sivic_pessoa.NOME_pessoa + '</a>'
+			html += '<a href="#">' + sivic_pessoas.sivic_pessoa.nome_pessoa + '</a>'
 
 			html +=BuscaPessoas(sivic_pessoas.sivic_pessoa.id)
 
@@ -42,11 +42,11 @@ def BuscaPessoas2(id)
 
 				html += '<tr class="odd gradeA">'
 
-					html += '<td>' + sivic_pessoas.sivic_pessoa.NOME_pessoa + '</td>'
+					html += '<td>' + sivic_pessoas.sivic_pessoa.nome_pessoa + '</td>'
 					html += '<td>' + (sivic_pessoas.DATA_Nascimento.blank? ? '' : sivic_pessoas.DATA_Nascimento.strftime("%d/%m/%Y"))  + '</td>'
 					html += '<td>' + sivic_pessoas.NUMR_CPF.to_s + '</td>'
 					html += '<td>' + (sivic_pessoas.DATA_Batismo.blank? ? '' : sivic_pessoas.DATA_Batismo.strftime("%d/%m/%Y"))  + '</td>'
-					html += '<td>' + sivic_pessoas.sivic_pessoa.father.NOME_pessoa + '</td>'					
+					html += '<td>' + sivic_pessoas.sivic_pessoa.father.nome_pessoa + '</td>'					
 
 				html +=BuscaPessoas2(sivic_pessoas.sivic_pessoa.id)
 			
