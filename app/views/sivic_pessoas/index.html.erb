@@ -22,12 +22,12 @@
   <tbody>
     <% @sivic_pessoas.each do |sivic_pessoa| %>
       <tr>
-        <td><%= sivic_pessoa.NOME_pessoa %></td>
+        <td><%= sivic_pessoa.nome_pessoa %></td>
         <td><%= sivic_pessoa.DESC_email %></td>
         <td><%= sivic_pessoa.DESC_observacao %></td>
           <% @lider = sivic_pessoa.father %>
           <% if @lider != nil %>
-            <td><%= sivic_pessoa.father.NOME_pessoa%></td>
+            <td><%= sivic_pessoa.father.nome_pessoa%></td>
           <%else%>
             <td><%= nil%></td>
           <%end%>
