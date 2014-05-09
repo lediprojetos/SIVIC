@@ -4,17 +4,17 @@ class SivicPessoasController < ApplicationController
 
 
   def create_pessoa
-    SivicPessoa.create(:father_id => params[:father_id],:NOME_pessoa => params[:NOME_pessoa],:DESC_email => params[:DESC_email],:DESC_observacao => params[:DESC_observacao],:sivic_igreja_id => params[:sivic_igreja_id])
+    SivicPessoa.create(:father_id => params[:father_id],:nome_pessoa => params[:nome_pessoa],:DESC_email => params[:DESC_email],:DESC_observacao => params[:DESC_observacao],:sivic_igreja_id => params[:sivic_igreja_id])
 
-    sivic_pessoa = SivicPessoa.find :all, :conditions => {:NOME_pessoa =>  params[:NOME_pessoa]}, :order => "NOME_pessoa ASC"
-    sivic_pessoa_json = sivic_pessoa.map {|item| {:id => item.id, :NOME_pessoa => item.NOME_pessoa, :DESC_email => item.DESC_email}}
+    sivic_pessoa = SivicPessoa.find :all, :conditions => {:nome_pessoa =>  params[:nome_pessoa]}, :order => "nome_pessoa ASC"
+    sivic_pessoa_json = sivic_pessoa.map {|item| {:id => item.id, :nome_pessoa => item.nome_pessoa, :DESC_email => item.DESC_email}}
     render :json => sivic_pessoa_json
   end
 
   def busca_pessoa
 
-    sivic_pessoa = SivicPessoa.where("NOME_pessoa like ?", "%#{params[:NOME_pessoa]}%")
-    sivic_pessoa_json = sivic_pessoa.map {|item| {:id => item.id, :NOME_pessoa => item.NOME_pessoa, :DESC_email => item.DESC_email, :father_id => item.father_id,:NOME_Lider => item.father.blank? ? '' : item.father.NOME_pessoa}}
+    sivic_pessoa = SivicPessoa.where("nome_pessoa like ?", "%#{params[:nome_pessoa]}%")
+    sivic_pessoa_json = sivic_pessoa.map {|item| {:id => item.id, :nome_pessoa => item.nome_pessoa, :DESC_email => item.DESC_email, :father_id => item.father_id,:NOME_Lider => item.father.blank? ? '' : item.father.nome_pessoa}}
     render :json => sivic_pessoa_json
   end
 
@@ -96,6 +96,6 @@ class SivicPessoasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_pessoa_params
-      params.require(:sivic_pessoa).permit(:NOME_pessoa, :DESC_email, :DESC_observacao, :User_id, :sivic_igreja_id, :father_id)
+      params.require(:sivic_pessoa).permit(:nome_pessoa, :DESC_email, :DESC_observacao, :User_id, :sivic_igreja_id, :father_id)
     end
 end
