@@ -4,33 +4,21 @@
   } );
 </script>
 
+  <div style='width:5000px;height:5000px;'>
 
+  <div class="tree">
 
-
-
-
-
-        <div style='width:5000px;height:5000px;'>
-      
-        <div class="tree">
-
-          <ul>
-            <li><a href="#"><%= @sivic_discipulo.sivic_pessoa.nome_pessoa%></a><%= BuscaPessoas(@sivic_discipulo.sivic_pessoa_id)%></li>
-          </ul>	
-          
-        </div>
-      </div>
-
-
-
+    <ul>
+      <li><a href="#"><%= @sivic_discipulo.sivic_pessoa.nome_pessoa%></a><%= BuscaPessoas(@sivic_discipulo.sivic_pessoa_id)%></li>
+    </ul>	
+    
+  </div>
+</div>
 
 
 <% content_for :pathback do %>
   <%= sivic_discipulos_path%>
 <% end %>
-
-<%#= render '/layouts/iconvoltar' %>
-
 
 <style type="text/css">
 

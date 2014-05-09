@@ -14,9 +14,9 @@ class SivicDiscipulosController < ApplicationController
 
   def busca_discipulos
 
-    sivic_discipulo = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('sp.nome_pessoa like ?', "%#{params[:nome_pessoa]}%")
+    sivic_discipulo = SivicPessoa.joins('LEFT JOIN sivic_discipulos sp on sivic_pessoa_id = sp.id').where('nome_pessoa like ?', "%#{params[:nome_pessoa]}%")
 
-    sivic_pessoa_json = sivic_discipulo.map {|item| {:id => item.sivic_pessoa_id, :nome_pessoa => item.sivic_pessoa.nome_pessoa, :DESC_email => item.sivic_pessoa.DESC_email, :father_id => item.sivic_pessoa.father_id,:NOME_Lider => item.sivic_pessoa.father.blank? ? '' : item.sivic_pessoa.father.nome_pessoa}}
+    sivic_pessoa_json = sivic_discipulo.map {|item| {:id_discipulo => SivicDiscipulo.find_by_id(item.id).nil? ? '' : SivicDiscipulo.find_by_id(item.id).id ,:id => item.id, :nome_pessoa => item.nome_pessoa, :DESC_email => item.DESC_email, :father_id => item.father_id,:NOME_Lider => item.father.blank? ? '' : item.father.nome_pessoa}}
     render :json => sivic_pessoa_json
   end  
 

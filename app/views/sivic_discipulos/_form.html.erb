@@ -553,8 +553,13 @@ jQuery(function($){
             if (fonte == 'lider' ) {
               $('#table_lider').append('<tr><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
             }else{
-              $('#table_user').append('<tr><td><a href="javascript:window.location.replace(\'http://localhost:3000/sivic_discipulos/' +item.id+ '/edit\')";">'+item.nome_pessoa+'</a></td><td><a href="javascript:window.location.replace(\'http://localhost:3000/sivic_discipulos/' +item.id+ '/edit\')";">'+item.DESC_email+'</a></td></tr>');
 
+              if (item.id_discipulo == "") {
+                $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+',\'' + item.DESC_email+'\','+item.father_id+',\''+item.NOME_Lider+'\');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+',\'' + item.DESC_email+'\');">'+item.DESC_email+'</a></td></tr>');
+              } else {
+              $('#table_user').append('<tr><td><a href="javascript:window.location.replace(\'http://localhost:3000/sivic_discipulos/' +item.id+ '/edit\')";">'+item.nome_pessoa+'</a></td><td><a href="javascript:window.location.replace(\'http://localhost:3000/sivic_discipulos/' +item.id+ '/edit\')";">'+item.DESC_email+'</a></td></tr>');
+              }
+              
             }
           };
  
@@ -575,18 +580,18 @@ jQuery(function($){
 
   function setaNome(nome,id,email,idlider,nomelider){
 
-      //$('#sivic_discipulo_sivic_pessoa_id').val(id)
-      //$('#sivic_discipulo_sivic_pessoa_attributes_nome_pessoa').val(nome)
-      //$('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').val(email)
-      //$('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty();
-      //$('#sivic_discipulo_sivic_pessoa_attributes_father_id').html('<option>Carregando...</option>');
+      $('#sivic_discipulo_sivic_pessoa_id').val(id)
+      $('#sivic_discipulo_sivic_pessoa_attributes_nome_pessoa').val(nome)
+      $('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').val(email)
+      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty();
+      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html('<option>Carregando...</option>');
 
-      //var options = "<option value='"+idlider+"'>"+nomelider+"</option>";
-      //$('#sivic_discipulo_sivic_pessoa_attributes_father_id').html(options);
+      var options = "<option value='"+idlider+"'>"+nomelider+"</option>";
+      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html(options);
 
-      //$('#myModal2').modal('hide');
+      $('#myModal2').modal('hide');
 
-      window.location.replace("http://localhost:3000/sivic_discipulos/" + id + "/edit");
+      //window.location.replace("http://localhost:3000/sivic_discipulos/" + id + "/edit");
   }
 
   function usaNome(nome){

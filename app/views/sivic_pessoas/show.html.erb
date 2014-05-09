@@ -12,7 +12,7 @@
     <tr>
       <td>
         <strong>Nome:</strong>
-        <%= @sivic_pessoa.NOME_pessoa %>
+        <%= @sivic_pessoa.nome_pessoa %>
       </td>
     </tr>
     <tr>      
@@ -32,7 +32,7 @@
         <strong>Lider:</strong>
         <% @lider = @sivic_pessoa.father %>
         <% if @lider != nil %>
-          <%= @sivic_pessoa.father.NOME_pessoa%>
+          <%= @sivic_pessoa.father.nome_pessoa%>
         <%else%>
             <%= nil%>
         <%end%>
