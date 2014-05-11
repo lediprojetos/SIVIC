@@ -557,11 +557,7 @@ jQuery(function($){
               if (item.id_discipulo == "") {
                 $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+',\'' + item.DESC_email+'\','+item.father_id+',\''+item.NOME_Lider+'\');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+',\'' + item.DESC_email+'\');">'+item.DESC_email+'</a></td></tr>');
               } else {
-<<<<<<< HEAD
-              $('#table_user').append('<tr><td><a href="javascript:window.location.replace(\'http://localhost:3000/sivic_discipulos/' +item.id+ '/edit\')";">'+item.nome_pessoa+'</a></td><td><a href="javascript:window.location.replace(\'http://localhost:3000/sivic_discipulos/' +item.id+ '/edit\')";">'+item.DESC_email+'</a></td></tr>');
-=======
               $('#table_user').append('<tr><td><a href="javascript:window.location.replace(\'http://localhost:3000/sivic_discipulos/' +item.id_discipulo+ '/edit\')";">'+item.nome_pessoa+'</a></td><td><a href="javascript:window.location.replace(\'http://localhost:3000/sivic_discipulos/' +item.id_discipulo+ '/edit\')";">'+item.DESC_email+'</a></td></tr>');
->>>>>>> 9d59906a765964a76081bdad16ae2b77cecc83a6
               }
               
             }

@@ -69,66 +69,7 @@
     <span class="glyphicon glyphicon-arrow-left"></span> Voltar
   <% end %>
 
-<<<<<<< HEAD
-  <div class="containermininmo">
-    <br />
-    <table style="width:60%;" align="center">
-      <tr>
-        <td>
-          <div class="field">
-            <%= f.label :Nome, :class => 'lblForms'  %>
-            <%= f.text_field :nome_pessoa, :class => "form-control-5" %>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="field">
-            <%= f.label :Email, :class => 'lblForms'  %>
-            <%= f.text_field :DESC_email %>
-          </div>
-        </td>
-      </tr>
-    </table>
-    <table style="width:60%;" align="center">
-      <tr>
-        <td>
-          <div class="field">
-            <%= f.label :Lider, :class => 'lblForms'  %>
-            <a data-toggle="modal" href="#myModal" class="btn btn-default" style='margin-bottom:10px;'><labeL class="lblForms">Buscar</label></a>
-            <%= f.select :father_id, :value => 0%>
-          </div>
-        </td>
-        <td>
-      </tr>
-      <tr>
-        <td>
-          <div class="field">
-            <%= f.label :Observação, :class => 'lblForms'  %>
-            <%= f.text_field :DESC_observacao, :class => 'form-control-5'  %>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="field">
-            <!--Campos ocultos -->
-            <%if current_user.sivic_pessoa.sivic_igreja_id%>
-              <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id%>
-            <%else%>
-              <%= f.label :Igreja, :class => 'lblForms'  %>
-              <%= f.select :sivic_igreja_id, options_from_collection_for_select(SivicIgreja.all, 'id', 'NOME_igreja'),:include_blank => true%>
-            <%end%>
-            
-            <%=f.hidden_field :User_id, :value => current_user.id%>
-            <!--Campos ocultos -->
-          </div>
-        </td>
-      </tr>      
-    </table>
-=======
 </div>
->>>>>>> 9d59906a765964a76081bdad16ae2b77cecc83a6
 
 
 <% end %>
