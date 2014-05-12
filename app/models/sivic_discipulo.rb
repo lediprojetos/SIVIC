@@ -38,6 +38,8 @@ class SivicDiscipulo < ActiveRecord::Base
   before_create  :geraCodigo
   after_create   :atualizaContador
 
+  before_validation :retiraMascara
+
   @@codigo 
 
   def self.find_by_name_or_all(query)
@@ -62,6 +64,12 @@ class SivicDiscipulo < ActiveRecord::Base
    def  atualizaContador
       @@sivic_contdiscipulo.update(:NUMR_Contador => @@codigo)
    end
+
+  def retiraMascara
+      self.NUMR_CPF.gsub!(/[^0-9]/, '')
+  end
+
+
   
   
 end
