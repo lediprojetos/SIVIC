@@ -9,7 +9,7 @@ class SivicPessoa < ActiveRecord::Base
 
   #validates :father_id, :presence => { :message => ' - Escolha um lider' }
 
-before_create :setaParaConsolidador
+#before_create :setaParaConsolidador
 
 #metodo para setar discipulo como consolidador quando tiver uma pessoa cadastrada debaixo dele
    def setaParaConsolidador  
