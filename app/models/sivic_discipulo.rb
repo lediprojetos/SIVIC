@@ -1,6 +1,7 @@
 class SivicDiscipulo < ActiveRecord::Base
 
   # - RELACIONAMENTOS
+  belongs_to :sivic_cidade
   belongs_to :sivic_pessoa
   belongs_to :sivic_endereco
   belongs_to :sivic_profissao

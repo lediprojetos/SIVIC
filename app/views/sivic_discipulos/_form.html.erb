@@ -40,7 +40,19 @@
             <div class="row">
               <div class="col-xs-4">
                 <%= pessoa.label :Nome %>
-                <%= pessoa.text_field :nome_pessoa, :class => "form-control"%>
+                <%if @sivic_discipulo.id%>
+                  <%= pessoa.text_field :nome_pessoa, :readonly => true, :class => "form-control"%>
+                <%else%>
+                  <%= pessoa.text_field :nome_pessoa, :class => "form-control"%>
+
+                  <script>
+                      $("#sivic_discipulo_sivic_pessoa_attributes_nome_pessoa" ).click(function() {
+                        $('#myModal2').modal({ keyboard: false })
+                        $('#myModal2').modal('show');
+                      });                  
+                  </script>
+
+                <%end%>
               </div>
               <div class="col-xs-3">
                 <%= pessoa.label :Email %>
@@ -362,6 +374,26 @@
               <%= f.label :Profissão_do_Conjuge %>
               <%= f.select :NUMG_ProfissaoConjuge, options_from_collection_for_select(SivicProfissao.all, 'id', 'profissao'), {}, {:class => 'form-control'}%>
             </div>
+
+            <%=  f.fields_for :sivic_estado do |estado| %>
+              <div class="col-xs-3">
+                <%= estado.label :Estado_Naturalidade %>
+                <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado2), {:include_blank => true}, {:onchange => 'changeState2(this)', :class =>  'form-control'}%>
+              </div>
+            <%end%> 
+
+            <%if @sivic_cidade2 %>
+              <div class="col-xs-3">
+                <%= f.label :Naturalidade %>
+                <%= f.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade2, 'id', 'nome_cidade',@sivic_naturalidade_setada),{},{ :class =>  'form-control'}%>
+              </div>
+            <%else%>
+              <div class="col-xs-3">
+                <%= f.label :Naturalidade   %>
+                <%= f.select :sivic_cidade_id, [], {},{:class =>  'form-control'} %><br>
+              </div> 
+            <%end%>
+
           </div>
         </div>
       </div>
@@ -371,6 +403,10 @@
 </div>
 
 <div class="btn-group">
+
+  <%= link_to new_sivic_discipulo_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
 
   <button type="submit" class="btn btn-default btn">
     <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
@@ -478,12 +514,6 @@
 
 <script>
 
-$("#sivic_discipulo_sivic_pessoa_attributes_nome_pessoa" ).click(function() {
-  $('#myModal2').modal({ keyboard: false })
-  $('#myModal2').modal('show');
-});
-
-
 $('#myModal2').on('shown.bs.modal', function () {
     $('#nome_pessoa_buscar').val($("#sivic_discipulo_sivic_pessoa_attributes_nome_pessoa" ).val());
     $("#sivic_discipulo_sivic_pessoa_attributes_nome_pessoa" ).val("");  
@@ -526,6 +556,27 @@ jQuery(function($){
         }
       })
     }
+
+  function changeState2(state){
+      $.ajax({
+        url: '<%= listarCidade_path %>',
+        data : {id : state.value},
+        success: function(data){
+          $('#sivic_discipulo_sivic_cidade_id').empty();
+          $('#sivic_discipulo_sivic_cidade_id').html('<option>Carregando...</option>');
+          $('#sivic_discipulo_sivic_cidade_id').attr('disabled', 'disabled');
+          var options = "";
+          for (var i in data) {
+            var item = data[i];
+            options += "<option value='"+item.id+"'>"+item.name+"</option>"
+          };
+ 
+          $('#sivic_discipulo_sivic_cidade_id').html(options);
+          $('#sivic_discipulo_sivic_cidade_id').removeAttr('disabled');          
+        }
+      })
+    }
+
 
 
   function buscaPessoa(fonte){
