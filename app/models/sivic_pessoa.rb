@@ -14,14 +14,17 @@ before_create :setaParaConsolidador
 #metodo para setar discipulo como consolidador quando tiver uma pessoa cadastrada debaixo dele
    def setaParaConsolidador  
     
-    @pessoa = SivicPessoa.find(self.father_id)
+    if self.father_id != nil  
 
-    @discipulo = SivicDiscipulo.find_by! sivic_pessoa_id: @pessoa.id
-   
-   if @discipulo.FLAG_Consolidador = false
-      @discipulo.update(:FLAG_Consolidador => true) 
-   end 
-    
+        @pessoa = SivicPessoa.find(self.father_id)
+
+        @discipulo = SivicDiscipulo.find_by! sivic_pessoa_id: @pessoa.id
+       
+       if @discipulo.FLAG_Consolidador = false
+          @discipulo.update(:FLAG_Consolidador => true) 
+       end 
+        
+   end
    end
 
 end
