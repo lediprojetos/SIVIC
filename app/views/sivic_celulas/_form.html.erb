@@ -32,8 +32,7 @@
 
           <div class="col-xs-4">
             <%= f.label :Lider %>
-            <select id="sivic_celula_sivic_pessoa_id" name="sivic_celula_sivic_pessoa_id" disabled="disabled" class='form-control'>
-            </select>          
+            <%= f.select :sivic_pessoa_id, {},{},{ :class => 'form-control' } %>         
           </div>
 
           <div class="col-xs-1" style='margin-top:23px;'>
@@ -230,7 +229,7 @@ jQuery(function($){
           url: '<%= listarDiscipulos_path %>',
           data : 
           {
-              NOME_pessoa : pesquisa
+              nome_pessoa : pesquisa
           },
           success: function(data){
             $("#tbodyid").empty();
@@ -238,7 +237,7 @@ jQuery(function($){
             for (var i in data) {
               var item = data[i];
 
-                $('#table_lider').append('<tr><td><a href="javascript:setaLider(\'' + item.NOME_pessoa+'\','+item.id+');">'+item.NOME_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.NOME_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
+                $('#table_lider').append('<tr><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
 
             };
    

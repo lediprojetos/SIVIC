@@ -62,6 +62,7 @@ SIVIC::Application.routes.draw do
   match '/criarPessoa', to: 'sivic_pessoas#create_pessoa', via: 'get'
   match '/listarPessoa', to: 'sivic_pessoas#busca_pessoa', via: 'get'
   match '/listarDiscipulos', to: 'sivic_discipulos#busca_discipulos', via: 'get'
+  match '/listarCelulas', to: 'sivic_celulas#busca_celulas', via: 'get'
 
   match '/criarParticipantesRelatorios', to: 'sivic_partevenrelacelulas#create_participante', via: 'get'
   match '/listarParticipantesCelulas', to: 'sivic_participantecelulas#busca_participante', via: 'get'
