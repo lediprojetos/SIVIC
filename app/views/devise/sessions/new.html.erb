@@ -16,14 +16,14 @@
               <div class="col-xs-12">
               <%= f.label :Senha %>
               <%= f.password_field :password, :class => 'form-control' %>
-              </div>
-            </div>
               <% if devise_mapping.rememberable? -%>
                 <div class="checkbox">
                   <%= f.check_box :remember_me %>
                 	<%= f.label :Lembrar_Senha %>
             	   </div>
               <% end -%>
+              </div>
+            </div>
               <br />
               <%= f.submit "Fazer Login" , class: "btn btn-mediun btn-primary"%>
               <% end %>
