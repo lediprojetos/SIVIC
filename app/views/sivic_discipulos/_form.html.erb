@@ -232,7 +232,7 @@
               <%= f.collection_select :DESC_MomentoEstudoBiblico, SivicDiscipulo::DIAS, :to_s, :humanize, {}, {:class => "form-control"}%>
             </div>            
 
-            <div class="col-xs-2">
+            <div class="col-xs-3">
               <%= f.label :Hora_Estudo %>
               <%= f.text_field :hora_estudobiblico, :value => (@sivic_discipulo.hora_estudobiblico.blank? ? '' : @sivic_discipulo.hora_estudobiblico.strftime("%H:%M")), :class => 'form-control' %>
             </div>
