@@ -19,19 +19,19 @@
 
   <div class="containermininmo">
   <table style="width:50%;" align='center'>
-    <tr>
+    <div class="row">
       <td>
-        <div class="field">
+        <div class="col-xs-10">
           <%= f.label :Nome %>
           <%#= f.text_field :sivic_pessoa_id, disabled="disabled" %>
-          <select id="sivic_partevento_sivic_pessoa_id" name="sivic_partevento[sivic_pessoa_id]" disabled="disabled" class="form-control-5">
+          <select id="sivic_partevento_sivic_pessoa_id" name="sivic_partevento[sivic_pessoa_id]" disabled="disabled" class='form-control'>
           </select>
         </div>
-        <div class="field">
-          <a data-toggle="modal" href="#myModal2" class="btn btn-primary btn-small btn-signup">Buscar Pessoa</a>
+        <div class="col-xs-2" style='margin-top:23px;'>
+          <a data-toggle="modal" href="#myModal2" class="btn btn-success">Buscar Pessoa</a>
         </div>
       </td>
-    </tr>
+    </div>
     <tr>      
       <td>
         <div class="field">
@@ -154,21 +154,31 @@
          <label >Lider</label><br>
         <div class="row">
           <div class="col-lg-12">
+            
             <div class="input-group">
               <input id="NOME_lider_buscar" name="NOME_lider_buscar" onkeypress="buscaPessoa('lider')" type="text" class="form-control" placeholder="Nome">
               <span class="input-group-btn">
                 <button class="btn btn-success" type="button" onclick="buscaPessoa('lider');">Buscar</button>
               </span>
             </div><!-- /input-group -->
+
           </div><!-- /.col-lg-6 -->
+     
+                <%= f.hidden_field :father_id%>
+              
+              <p>
+              <strong>Id:</strong>
+              <%= @sivic_pessoa.father_id %>
+              </p>
+
         </div><!-- /.row -->
         <br />
 
-        <table id="table_user" name="table_user" class="table table-hover">
+        <table id="table_lider" name="table_lider" class="table table-hover">
           <thead>
             <tr>
-              <th>Nome</th>
-              <th>Email</th>
+             <!-- <th>Nome</th>
+              <th>Email</th>-->
             </tr>
           </thead>
           <tbody id="tbodyid2">
@@ -179,14 +189,15 @@
           </tbody>  
         </table>
 
-        <!--  Testes termina aqui -->
+       <!--  Testes termina aqui -->
         
-        <div class="row">
+      <!--<div class="row">
         <div class="col-xs-12">
           <%= f.label :Lider %>
           <%= f.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'nome_pessoa',0),{:include_blank => true},{:class => "form-control" }%>
         </div> 
-      </div>
+      </div>-->
+
 
       <div class="row"> 
         <div class="col-xs-12">
@@ -274,7 +285,7 @@ $('#myModal2').modal('show');
         data :
         {
            father_id : $('#sivic_pessoa_father_id').val()
-          ,NOME_pessoa : $('#sivic_pessoa_NOME_pessoa').val()
+          ,nome_pessoa : $('#sivic_pessoa_nome_pessoa').val()
           ,DESC_email: $('#sivic_pessoa_DESC_email').val()
           ,DESC_observacao : $('#sivic_pessoa_DESC_observacao').val()
           ,sivic_igreja_id : $('#sivic_pessoa_sivic_igreja_id').val()
@@ -325,7 +336,7 @@ $('#myModal2').modal('show');
             if (fonte == 'lider' ) {
               $('#table_lider').append('<tr><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
             }else{
-              $('#table_user').append('<tr><td><a href="javascript:window.location.replace(\'http://localhost:3000/sivic_discipulos/' +item.id+ '/edit\')";">'+item.nome_pessoa+'</a></td><td><a href="javascript:window.location.replace(\'http://localhost:3000/sivic_discipulos/' +item.id+ '/edit\')";">'+item.DESC_email+'</a></td></tr>');
+              $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
 
             }
           };
@@ -344,6 +355,16 @@ $('#myModal2').modal('show');
         $('#sivic_partevento_sivic_pessoa_id').removeAttr('disabled');
         $('#myModal2').modal('hide');         
     }
+
+    function setaLider(nome,id){
+
+      $('#NOME_lider_buscar').val(nome);
+      $('#sivic_pessoa_father_id').val(id);
+      $("#tbodyid2").empty();
+ 
+            
+    }
+
 
   function buscaEvento(){
        $.ajax({
