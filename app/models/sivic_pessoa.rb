@@ -12,8 +12,10 @@ class SivicPessoa < ActiveRecord::Base
 before_create :setaParaConsolidador
 
 #metodo para setar discipulo como consolidador quando tiver uma pessoa cadastrada debaixo dele
+
    def setaParaConsolidador  
     
+      if self.sivic_igreja_id != 1
         if self.father_id != nil  
           
             @pessoa = SivicPessoa.find(self.father_id)
@@ -28,6 +30,7 @@ before_create :setaParaConsolidador
           end  
      
        end
+     end
    end
 
 end
