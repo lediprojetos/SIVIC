@@ -23,7 +23,8 @@
         <div class="col-xs-6">
           <%= f.label :Nome %>
           <%#= f.text_field :sivic_pessoa_id, disabled="disabled" %>
-          <select id="sivic_partevento_sivic_pessoa_id" name="sivic_partevento[sivic_pessoa_id]" disabled="disabled" class='form-control'>
+
+          <select id="sivic_partevento_sivic_pessoa_id"  name="sivic_partevento[sivic_pessoa_id]"value="<%=@sivic_discipulo.sivic_pessoa.father.nome_pessoa rescue nil%>" onkeypress="" type="text" disabled="disabled" class='form-control'>
           </select>
         </div>
         <div class="col-xs-2" style='margin-top:23px;'>
@@ -39,7 +40,7 @@
           </select>
         </div>
         <div class="col-xs-2" style='margin-top:23px;'>
-              <a data-toggle="modal" href="#myModal3" class="btn btn-primary btn-small btn-signup">Buscar Evento</a>
+              <a data-toggle="modal" href="#myModal3" class="btn btn-success">Buscar Evento</a>
         </div>
     </div>
           
@@ -76,7 +77,7 @@
 
       </div>   
   </div>
-</div>
+
 
 <div class="btn-group">
   <button type="submit" class="btn btn-default btn">
@@ -85,7 +86,7 @@
 
   <%= yield(:iconexibir) %>
 
-  <%= link_to sivic_eventos_path, :class => "btn btn-default" do %>
+  <%= link_to sivic_parteventos_path, :class => "btn btn-default" do %>
     <span class="glyphicon glyphicon-arrow-left"></span> Voltar
   <% end %>
 </div>
@@ -231,13 +232,48 @@
   </div>
 </div>
    
+     </div>
+   </div>
+ </div>
+</div>
+
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Eventos</h4>
+      </div>
+      <div class="modal-body">
+
+        <table id="table_evento" name="table_evento" class="table table-hover" onload="buscaEvento()">
+          <thead>
+            <tr>
+              <th>Evento</th>
+              <th>Data Inicio</th>
+              <th>Data Fim</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyeventos">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
     </div>
   </div>
 </div>
 
 
 
- <div id="myModal3" class="modal fade" style="display: none;" >  
+ <div id="myModal" class="modal fade" style="display: none;" >  
       <div class="modal-header">  
         <a class="close" data-dismiss="modal">×</a>  
         <h4 class="center">Eventos</h4>  
@@ -267,7 +303,7 @@
 
  <script>
 
-$('#myModal2').modal('show');
+//$('#myModal2').modal('show');
 
   function createPessoa(){
         
