@@ -80,6 +80,6 @@ class SivicParteventosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_partevento_params
-      params.require(:sivic_partevento).permit(:sivic_pessoa_id, :sivic_evento_id, :FLAG_naoparticipou, sivic_movimentofinanceiro_attributes: [ :id, :VALR_movimento, :user_inclusao, :FLAG_baixa, :sivic_tipmovfinanceiro_id, :sivic_evento_id, :DATA_exclusao, :user_exclusao, :DESC_movimento ])
+      params.require(:sivic_partevento).permit(:sivic_pessoa_id, :sivic_evento_id, :FLAG_naoparticipou, :flag_passando, sivic_movimentofinanceiro_attributes: [ :id, :VALR_movimento, :user_inclusao, :FLAG_baixa, :sivic_tipmovfinanceiro_id, :sivic_evento_id, :DATA_exclusao, :user_exclusao, :DESC_movimento, :valr_restante ])
     end
 end
