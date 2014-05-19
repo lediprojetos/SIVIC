@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512154728) do
+ActiveRecord::Schema.define(version: 20140517141857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -234,6 +234,7 @@ ActiveRecord::Schema.define(version: 20140512154728) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "DESC_movimento"
+    t.decimal  "valr_restante"
   end
 
   add_index "sivic_movimentofinanceiros", ["sivic_evento_id"], name: "index_sivic_movimentofinanceiros_on_sivic_evento_id", using: :btree
@@ -258,6 +259,7 @@ ActiveRecord::Schema.define(version: 20140512154728) do
     t.boolean  "FLAG_naoparticipou"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "flag_passando"
   end
 
   add_index "sivic_parteventos", ["sivic_evento_id"], name: "index_sivic_parteventos_on_sivic_evento_id", using: :btree
