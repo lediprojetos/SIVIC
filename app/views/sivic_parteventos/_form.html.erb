@@ -17,32 +17,43 @@
     </div>
   <% end %>
 
-    <div class="col-xs-2">
-    </div>
-    <div class="row">
-        <div class="col-xs-6">
-          <%= f.label :Nome %>
-          <%#= f.text_field :sivic_pessoa_id, disabled="disabled" %>
-          <select id="sivic_partevento_sivic_pessoa_id" name="sivic_partevento[sivic_pessoa_id]" disabled="disabled" class='form-control'>
-          </select>
-        </div>
-        <div class="col-xs-2" style='margin-top:23px;'>
-          <a data-toggle="modal" href="#myModal2" class="btn btn-success">Buscar Pessoa</a>
-        </div>
-    </div>
-    <div class="col-xs-2">
-    </div>
+    
     <div class="row">      
-        <div div class="col-xs-6">
-          <%= f.label :Evento %>
-          <select id="sivic_partevento_sivic_evento_id" name="sivic_partevento[sivic_evento_id]" disabled="disabled" class="form-control">
-          </select>
-        </div>
-        <div class="col-xs-2" style='margin-top:23px;'>
-              <a data-toggle="modal" href="#myModal3" class="btn btn-primary btn-small btn-signup">Buscar Evento</a>
-        </div>
+       <div class="col-xs-2">
+       </div>
+       
+       <div class="col-xs-6">
+            <%= f.label :Nome %>
+            <%= f.hidden_field :sivic_pessoa_id%>
+            <%#= f.text_field :sivic_pessoa_id, disabled="disabled" %>
+            <div class="input-group">
+             <input id="nome_pessoa" name="nome_pessoa" value="<%=@sivic_partevento.sivic_pessoa.nome_pessoa rescue nil%>" onkeypress="" type="text" class="form-control" placeholder="Nome">
+            <span class="input-group-btn">
+              <button class="btn btn-success" type="button" onclick="$('#myModal2').modal('show');">Buscar Pessoa</button>
+            </span>
+           </div>
+       </div>
     </div>
-          
+
+
+    <br/>
+    <div class="row">
+      <div class="col-xs-2">
+      </div>      
+          <div div class="col-xs-6">
+             <%= f.label :Evento %>
+             <%= f.hidden_field :sivic_evento_id%>
+            <div class="input-group">
+             <input id="sivic_evento" name="sivic_evento" value="<%=@sivic_partevento.sivic_evento.DESC_evento rescue nil%>" onkeypress="" type="text" class="form-control" placeholder="Nome">
+            <span class="input-group-btn">
+              <button class="btn btn-success" type="button" onclick="$('#myModal3').modal('show');">Buscar Evento</button>
+            </span>
+           </div>
+      </div>
+    </div>
+    
+    <br/> 
+    
     <%=  f.fields_for :sivic_movimentofinanceiro do |movimento| %>
 
       <div class="row">
@@ -52,7 +63,23 @@
           <%= movimento.label :Valor_Pago %>
           <%= movimento.text_field :VALR_movimento, :class => "form-control" %>
         </div>
-      </div>
+
+         <div div class="col-xs-2">
+          <%= movimento.label :Valor_Restante %>
+          <%= movimento.text_field :valr_restante, :class => "form-control" %>
+        </div>
+
+        <div style="width:100px; float: left;">
+             
+              <div class="radio">
+                <input id="sivic_partevento_flag_passando" type="radio" value="true" name="sivic_partevento[flag_passando]" <%= @sivic_partevento.flag_passando == true ? 'checked = "checked"' : '' %>>Passando
+              </div>
+              <div class="radio">
+                    <input id="sivic_partevento_flaf_passando" type="radio" value="false" name="sivic_partevento[flag_passando]" <%= @sivic_partevento.flag_passando == false ? 'checked = "checked"' : '' %>>Servindo             
+              </div>
+        </div>
+
+    </div>
   
 
    <%=@evento%>
@@ -68,6 +95,7 @@
 
   <%end%>
 
+
   <%
     @sivic_pessoa = SivicPessoa.new
     @sivic_igreja = SivicIgreja.all
@@ -76,7 +104,7 @@
 
       </div>   
   </div>
-</div>
+
 
 <div class="btn-group">
   <button type="submit" class="btn btn-default btn">
@@ -85,7 +113,7 @@
 
   <%= yield(:iconexibir) %>
 
-  <%= link_to sivic_eventos_path, :class => "btn btn-default" do %>
+  <%= link_to sivic_parteventos_path, :class => "btn btn-default" do %>
     <span class="glyphicon glyphicon-arrow-left"></span> Voltar
   <% end %>
 </div>
@@ -231,13 +259,48 @@
   </div>
 </div>
    
+     </div>
+   </div>
+ </div>
+</div>
+
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Eventos</h4>
+      </div>
+      <div class="modal-body">
+
+        <table id="table_evento" name="table_evento" class="table table-hover" onload="buscaEvento()">
+          <thead>
+            <tr>
+              <th>Evento</th>
+              <th>Data Inicio</th>
+              <th>Data Fim</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyeventos">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
     </div>
   </div>
 </div>
 
 
 
- <div id="myModal3" class="modal fade" style="display: none;" >  
+ <div id="myModal" class="modal fade" style="display: none;" >  
       <div class="modal-header">  
         <a class="close" data-dismiss="modal">×</a>  
         <h4 class="center">Eventos</h4>  
@@ -267,7 +330,7 @@
 
  <script>
 
-$('#myModal2').modal('show');
+//$('#myModal2').modal('show');
 
   function createPessoa(){
         
@@ -336,18 +399,15 @@ $('#myModal2').modal('show');
        })
      }
 
-     function setaNome(nome,id){
+  function setaNome(nome,id){
 
-      $('#sivic_partevento_sivic_pessoa_id').empty();
-      $('#sivic_partevento_sivic_pessoa_id').html('<option>Carregando...</option>');
-      $('#sivic_partevento_sivic_pessoa_id').attr('disabled', 'disabled');
-      var options = "<option value='"+id+"'>"+nome+"</option>";
-        $('#sivic_partevento_sivic_pessoa_id').html(options);
-        $('#sivic_partevento_sivic_pessoa_id').removeAttr('disabled');
-        $('#myModal2').modal('hide');         
+      $('#nome_pessoa').val(nome);
+      $('#sivic_partevento_sivic_pessoa_id').val(id);
+
+      $('#myModal2').modal('hide');          
     }
 
-    function setaLider(nome,id){
+  function setaLider(nome,id){
 
       $('#NOME_lider_buscar').val(nome);
       $('#sivic_pessoa_father_id').val(id);
@@ -370,19 +430,19 @@ $('#myModal2').modal('show');
         }
        })
      }
-     function setaEvento(nome,id){
 
-      $('#sivic_partevento_sivic_evento_id').empty();
-      $('#sivic_partevento_sivic_evento_id').html('<option>Carregando...</option>');
-      $('#sivic_partevento_sivic_evento_id').attr('disabled', 'disabled');
-      var options = "<option value='"+id+"'>"+nome+"</option>";
-        $('#sivic_partevento_sivic_evento_id').html(options);
-        $('#sivic_partevento_sivic_evento_id').removeAttr('disabled');
-        $('#evento_id').val(id);
-        $('#myModal3').modal('hide');         
+     function setaEvento(nome,id){    
+      $('#sivic_evento').val(nome);
+      $('#sivic_partevento_sivic_evento_id').val(id);
+      $("#tbodyid3").empty();
     }
          
 
    buscaEvento(); 
+
+    $(function() {
+     $("#sivic_partevento_sivic_movimentofinanceiro_attributes_VALR_movimento").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+     $("#sivic_partevento_sivic_movimentofinanceiro_attributes_valr_restante").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+  })
 
  </script>

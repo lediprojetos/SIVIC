@@ -7,7 +7,7 @@ class ObservacoesrelatoriosController < ApplicationController
     Observacoesrelatorio.create(:sivic_relatorioscelula_id => params[:sivic_relatorioscelula_id],:sivic_pessoa_id => params[:sivic_pessoa_id],:DESC_Observacao => params[:DESC_Observacao])
 
     sivic_observacao = Observacoesrelatorio.find :all, :conditions => {:sivic_relatorioscelula_id => params[:sivic_relatorioscelula_id],:sivic_pessoa_id => params[:sivic_pessoa_id],:DESC_Observacao => params[:DESC_Observacao]}
-    sivic_observacao_json = sivic_observacao.map {|item| {:sivic_relatorioscelula_id => item.sivic_relatorioscelula_id, :NOME_pessoa => item.sivic_pessoa.NOME_pessoa, :DESC_Observacao => item.DESC_Observacao}}
+    sivic_observacao_json = sivic_observacao.map {|item| {:sivic_relatorioscelula_id => item.sivic_relatorioscelula_id, :nome_pessoa => item.sivic_pessoa.nome_pessoa, :DESC_Observacao => item.DESC_Observacao}}
     render :json => sivic_observacao_json    
 
   end
