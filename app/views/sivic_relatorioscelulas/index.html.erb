@@ -4,27 +4,30 @@
 
 <%=render '/layouts/panel' %>
 
-<table style="width:50%;">
-  <tr>
-    <td>
-      <label >Situação</label>
-      <select id='sivic_estado_sivic_situacoesrelatorio_id' class="form-control">
-        <option value='0'></option>
-        <option value='1'>ENVIADO</option>
-        <option value='2'>PENDENTE</option>
-        <option value='3'>RECEBIDO</option>
-    </td>
-    <td>
-          <label >Líder</label>
-          <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" type="text" placeholder="Nome do Líder" class="form-control">
-    </td>
-    <td>
-      <div style='margin-top:22px;'>
-        <a data-toggle="modal" href="javascript:chamaPesquisa();" class="btn btn-info" style="">Buscar</a><br/>
-      </div>
-    </td>
-  </tr>
-</table>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <label >Nome do Líder</label>
+      <div class="input-group">
+        <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" type="text" class="form-control" placeholder="Nome">
+        <span class="input-group-btn">
+          <button class="btn btn-success" type="button" onclick="chamaPesquisa();">Buscar</button>
+        </span>
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+    <div class="col-lg-4">
+
+    <%=  fields_for :situacoes do |situacoes| %>
+
+          <%= situacoes.label :Situações %>
+          <%= situacoes.select :NUMR_Dia, options_from_collection_for_select(SivicSituacoesrelatorio.all, 'id', 'DESC_Situacao'), {:include_blank => true}, {:class =>  'form-control'}%>            
+
+    <%end%>          
+
+    </div>
+  </div>
+
+
 
   <hr>
 
@@ -41,34 +44,45 @@
       <th>Valor de Oferta</th>
       <th>Situação</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @sivic_relatorioscelulas.each do |sivic_relatorioscelula| %>
       <tr>
-        <td><%= sivic_relatorioscelula.sivic_celula.sivic_pessoa.NOME_pessoa %></td>
+        <td><%= sivic_relatorioscelula.sivic_celula.sivic_pessoa.nome_pessoa %></td>
         <td><%= sivic_relatorioscelula.sivic_celula.NUMR_Dia %></td>
         <td><%= sivic_relatorioscelula.DATA_Reuniao.blank? ? '' : sivic_relatorioscelula.DATA_Reuniao.strftime("%d/%m/%Y")  %></td>
         <td><%= sivic_relatorioscelula.DATA_Horainicio.blank? ? '' : sivic_relatorioscelula.DATA_Horainicio.strftime("%H:%M")  %></td>
         <td><%= sivic_relatorioscelula.DATA_HoraTermino.blank? ? '' : sivic_relatorioscelula.DATA_HoraTermino.strftime("%H:%M")  %></td>
         <td><%= sivic_relatorioscelula.VALR_Oferta %></td>
-        <%if sivic_relatorioscelula.sivic_situacoesrelatorio.DESC_Situacao == 'ENVIADO'%>
+        <%if sivic_relatorioscelula.sivic_situacoesrelatorio.id == 1 #ENVIADO'%>
           <td><b style='color:orange;'><%= sivic_relatorioscelula.sivic_situacoesrelatorio.DESC_Situacao %></b></td>
-        <%elsif sivic_relatorioscelula.sivic_situacoesrelatorio.DESC_Situacao == 'PENDENTE'%>
+        <%elsif sivic_relatorioscelula.sivic_situacoesrelatorio.id == 2  #'PENDENTE'%>
           <td><b style='color:red;'><%= sivic_relatorioscelula.sivic_situacoesrelatorio.DESC_Situacao %></b></td>
-        <%elsif sivic_relatorioscelula.sivic_situacoesrelatorio.DESC_Situacao == 'RECEBIDO'%>
-          <td><b style='color:green;'><%= sivic_relatorioscelula.sivic_situacoesrelatorio.DESC_Situacao %></b></td>
+        <%elsif sivic_relatorioscelula.sivic_situacoesrelatorio.id == 3 #'RECEBIDO'%>
+          <td><b style='color:green;'><%= sivic_relatorioscelula.sivic_situacoesrelatorio.DESC_Situacao %></b></td>        
+        <%elsif sivic_relatorioscelula.sivic_situacoesrelatorio.id == 5 #DISPONIVEL %>
+          <td><b style='color:blue;'><%= sivic_relatorioscelula.sivic_situacoesrelatorio.DESC_Situacao %></b></td>        
+        <%elsif sivic_relatorioscelula.sivic_situacoesrelatorio.id == 4 #ATRASADO %>
+          <td><b style='color:red;'><%= sivic_relatorioscelula.sivic_situacoesrelatorio.DESC_Situacao %></b></td>
         <%end%>
-        <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_relatorioscelula %></td>
-        <td>
-        <%if sivic_relatorioscelula.sivic_situacoesrelatorio.DESC_Situacao == 'PENDENTE'%>
-          <%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_relatorioscelula_path(sivic_relatorioscelula) %>
-        <%end%>
+
+
+        <td align='right'>
+          <div class="btn-group">
+            <%= link_to sivic_relatorioscelula, :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-list-alt"></span> Exibir
+            <% end %>             
+            <%= link_to edit_sivic_relatorioscelula_path(sivic_relatorioscelula), :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-pencil"></span> Editar
+            <% end %>             
+            <%= link_to sivic_relatorioscelula , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-trash"></span> Excluir
+            <% end %>            
+          </div>
         </td>
-            <td><%= link_to image_tag('trash.png', :title => 'Excluir',  class: 'exibirico'), sivic_relatorioscelula , :method => :delete,  :confirm => 'Deseja excluir o registro?'%></td>            
+            
       </tr>
     <% end %>
   </tbody>
@@ -100,7 +114,7 @@
   function chamaPesquisa(){
 
     nome = $('#NOME_pessoa_buscar').val()
-    situacao = $('#sivic_estado_sivic_situacoesrelatorio_id').val().trim();
+    situacao = $('#situacoes_NUMR_Dia').val().trim();
 
     if (situacao == "0" && situacao == ""){
       window.location = '/sivic_relatorioscelulas/';

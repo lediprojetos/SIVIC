@@ -12,6 +12,10 @@
   <div class="alert alert-warning"><strong>Situacao:</strong> Enviado</div>
 <%elsif @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 2 %>
   <div class="alert alert-danger"><strong>Situacao:</strong> Pendente</div>
+<%elsif @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 4 %>
+  <div class="alert alert-danger"><strong>Situacao:</strong> Atrasado</div>
+<%elsif @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 5 %>
+  <div class="alert alert-danger"><strong>Situacao:</strong> Disponivel</div>
 <%end%>
 
 <div class="tabbable">
@@ -28,10 +32,10 @@
 
 <input type='hidden' id='sivic_relatorioscelula_id' name='sivic_relatorioscelula_id' class='sivic_relatorioscelula_id' value='<%= @sivic_relatorioscelula.id%>'>
 <input type='hidden' id='sivic_pessoa_id' name='sivic_pessoa_id' class='sivic_pessoa_id' value='<%= current_user.id%>'>
-
+<br/>
 <p>
   <strong>Responsável:</strong>
-  <%= @sivic_relatorioscelula.sivic_celula.sivic_pessoa.NOME_pessoa %>
+  <%= @sivic_relatorioscelula.sivic_celula.sivic_pessoa.nome_pessoa %>
 </p>
 
 <p>
@@ -145,6 +149,8 @@
 
   <div class="tab-pane active" id="tab4">
 
+  <br/>
+
   <%if not @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 3 %>
   <div class="field">
     <a data-toggle="modal" href="#myModal2" class="btn btn-success">Buscar Participante</a>
@@ -182,52 +188,44 @@
 </div></div>
 </div></div></div>
 
-<table style="margin-top:10px;"> 
-  <tr>
+<div class="btn-group">
+
     <%if @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 2 %>
-    <td align="center" style="width:50px;">
-      <%= link_to image_tag('edit.png', title: 'Editar', class: 'exibirico') , edit_sivic_relatorioscelula_path(@sivic_relatorioscelula) %>
-    </td>
+
+      <%= link_to edit_sivic_relatorioscelula_path(@sivic_relatorioscelula), :class => "btn btn-default btn-sm" do %>
+        <span class="glyphicon glyphicon-pencil"></span> Editar
+      <% end %>      
+
     <%end%>
-    <td align="center" style="width:50px;">
-      <%= link_to image_tag('back.png', title: 'Voltar',class: 'exibirico') , sivic_relatorioscelulas_path %>
-    </td>
+
+    <%= link_to sivic_relatorioscelulas_path, :class => "btn btn-default btn-sm" do %>
+      <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+    <% end %>      
+
     <%if current_user.role == 'ADMINISTRADOR'%>
-    <td align="center" style="width:50px;">
-      <input type='image' src='/assets/right.png' onclick='$("#myModal3").modal("show")' class='exibirico'>
-    </td>
+
+      <a class="btn btn-default btn-sm" onclick='$("#myModal3").modal("show")'>
+        <span class="glyphicon glyphicon-ok"></span> 
+        Avaliar
+      </a>      
+
     <%end%>
-  </tr>
-  <tr>
-    <%if @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 2 %>
-    <td align="center" style="width:20px;">
-      <label class="altBotoes">Editar</label>
-    </td>
-    <%end%>
-    <td align="center" style="width:20px;">
-      <label class="altBotoes">Voltar</label>
-    </td>
-    <%if current_user.role == 'ADMINISTRADOR'%>
-    <td align="center" style="width:20px;">
-      <label class="altBotoes">Avaliar</label>
-    </td>
-    <%end%>
-  </tr> 
-</table>
+
+</div>
 
 <%
   @sivic_participantecelula = SivicParticipantecelula.new
   @sivic_igreja = SivicIgreja.all
 %>
 
-<fieldset>
-   <div id="myModal2" class="modal fade" style="display: none;">
-      <div class="tabbable">
-         <!-- Only required for left/right tabs -->
-         <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab1" data-toggle="tab">Consultar</a></li>
-            <li><a href="#tab2" data-toggle="tab">Cadastrar</a></li>
-         </ul>
+
+  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Cadastrar</h4>
+      </div>
          <div class="tab-content">
             <div class="tab-pane active" id="tab1">
                <!--Conteúdo Consulta -->
@@ -292,36 +290,32 @@
             <% end %>            
          </div>
       </div>
-   </div>
-</fieldset>
 
-<fieldset>
-  <div id="myModal3" class="modal fade" style="display: none;">  
+
+  <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
       <div class="modal-header">
-        <a class="close" data-dismiss="modal">×</a>  
-        <h4>Avaliar Relório</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Avaliar Relório</h4>
       </div>
       <div class="modal-body">
-        <div class="input-group input-group-lg">
-        </div>
-
+        
         <table id='tlbchat'>
           <% @sivic_Observacoesrelatorios.each do |sivic_obs| %>
-          <tr>
-            <td>
-              <div class='divchat'>
-                <div>
-                  <strong><%= sivic_obs.sivic_pessoa.NOME_pessoa + ':'%></strong>
-                  <label><%= sivic_obs.DESC_Observacao%></label>
+            <tr>
+              <td>
+                <div class="alert alert-success">
+                  <strong>
+                    <%= sivic_obs.sivic_pessoa.nome_pessoa%>:
+                  </strong>
+                  <%= sivic_obs.DESC_Observacao%>
                 </div>
-              </div>
-            </td>           
-          </tr>
+              </td>           
+            </tr>
           <%end%>
         </table>
-
         <hr>
-
 
       </div>
       <div class="modal-footer">
@@ -340,8 +334,9 @@
           </tr>
         </table>
       </div>
-  </div>  
-</fieldset>
+    </div>
+  </div>
+</div>  
 
 <script>
 
@@ -386,7 +381,8 @@ jQuery(function($){
           for (var i in data) {
             var item = data[i];
 
-            $('#tlbchat').append('<tr><td><div class="divchat"><div><strong>'+item.NOME_pessoa+'</strong><label>'+item.DESC_Observacao+'</label></div></div></td></tr>')
+            $('#tlbchat').append('<tr><td><div class="alert alert-success"><strong>'+item.nome_pessoa+': </strong>'+item.DESC_Observacao+'</div></td></tr>')
+
             $('#txtareachat').val("")
 
           };

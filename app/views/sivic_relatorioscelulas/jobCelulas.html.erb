@@ -1,0 +1,42 @@
+
+
+<%= form_tag nil, method: 'GET' do %>
+
+<div class="row">
+	<div class="col-xs-3">
+
+		<%= label :NUMR_Dia, "Dia da Semana" %>
+        <%= collection_select nil, :NUMR_Dia, SivicCelula::DIAS, :to_s, :humanize, {:include_blank => true}, {:class => "form-control"}%>
+
+	</div>
+	<div class="col-xs-2" style='margin-top:23px;'>
+			<button class="btn btn-success" type="submit" >Lançar</button>
+	</div>
+</div>
+
+<% end %>  
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Líder</th>
+      <th>Dia</th>
+      <th>Data Bloqueio</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @celulas.each do |sivic_celula| %>
+      <tr>
+        <td><%= sivic_celula.sivic_pessoa.nome_pessoa %></td>
+        <td><%= sivic_celula.NUMR_Dia %></td>
+        <td><%= sivic_celula.DATA_Bloqueio.blank? ? '' : sivic_celula.DATA_Bloqueio.strftime("%d/%m/%Y") %></td>
+
+
+      </tr> 
+    <% end %>
+  </tbody>
+</table>
+
+<%=Time.now.strftime("%A")%>
