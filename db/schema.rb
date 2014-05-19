@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140517141857) do
+ActiveRecord::Schema.define(version: 20140519132951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -256,7 +256,7 @@ ActiveRecord::Schema.define(version: 20140517141857) do
     t.integer  "sivic_pessoa_id"
     t.integer  "sivic_evento_id"
     t.integer  "sivic_movimentofinanceiro_id"
-    t.boolean  "FLAG_naoparticipou"
+    t.boolean  "flag_naoparticipou"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "flag_passando"

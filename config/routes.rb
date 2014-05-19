@@ -85,4 +85,7 @@ SIVIC::Application.routes.draw do
   get '/filtraprofessor/:sivic_professor_situacao_id', to: 'sivic_professors#index', as: 'filtraprofessor'
   get '/filtraturma/:sivic_turma_situacao_id', to: 'sivic_turmas#index', as: 'filtraturma'
 
+
+   get '/pEventos/:id', to: 'sivic_parteventos#naoParticipou', as: 'pEventos'
+
 end

@@ -1,11 +1,12 @@
 class SivicParteventosController < ApplicationController
-  before_action :set_sivic_partevento, only: [:show, :edit, :update, :destroy]
+  before_action :set_sivic_partevento, only: [:show, :edit, :update, :destroy, :naoParticipou]
   before_action :authenticate_user!
 
   # GET /sivic_parteventos
   # GET /sivic_parteventos.json
   def index
-    @sivic_parteventos = SivicPartevento.paginate(:page => params[:page], :per_page => 10)
+    #@sivic_parteventos = SivicPartevento.paginate(:page => params[:page], :per_page => 10)
+    @sivic_parteventos = SivicPartevento.where("flag_naoparticipou is null or flag_naoparticipou = false").paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /sivic_parteventos/1
@@ -23,6 +24,16 @@ class SivicParteventosController < ApplicationController
   # GET /sivic_parteventos/1/edit
   def edit
     
+  end
+
+  # Metodo para setar quando uma pessoa está escrita em um evento mas não participou
+  def naoParticipou
+
+    @sivic_partevento.update(:flag_naoparticipou => true)
+    respond_to do |format|
+      format.html { redirect_to sivic_parteventos_url }
+      format.json { head :no_content }
+    end
   end
 
   #busca todos os eventos
