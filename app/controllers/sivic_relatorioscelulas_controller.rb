@@ -3,6 +3,30 @@ class SivicRelatorioscelulasController < ApplicationController
   before_action :authenticate_user!
 
 
+  def jobCelulas
+    if params[:NUMR_Dia] != nil
+
+      
+      SivicRelatorioscelula.update_all( "sivic_situacoesrelatorio_id = 4"," sivic_situacoesrelatorio_id = 5")
+
+
+      @celulas = SivicCelula.where(:NUMR_Dia => params[:NUMR_Dia])
+
+      @celulas.each do |sivic_celula|
+
+        SivicRelatorioscelula.create(:sivic_celula_id => sivic_celula.id, :DATA_Reuniao => Time.now, :sivic_situacoesrelatorio_id => 5)
+
+      end
+
+    else
+
+      @celulas = SivicCelula.all
+      
+    end
+
+  end
+
+
   def altera_situacao
     #sivic_relatorio = SivicRelatorioscelula.where(:id => params[:id])
     #sivic_relatorio.update(:sivic_situacoesrelatorio_id => params[:sivic_situacoesrelatorio_id])
@@ -27,16 +51,16 @@ class SivicRelatorioscelulasController < ApplicationController
       params[:sivic_situacoesrelatorio_id] = '0'
     end
 
-    if params[:NOME_pessoa] == nil
-      params[:NOME_pessoa] = '0'
+    if params[:nome_pessoa] == nil
+      params[:nome_pessoa] = '0'
     end
 
-    if params[:sivic_situacoesrelatorio_id] != '0' && params[:NOME_pessoa] != '0'
-      @sivic_relatorioscelulas = SivicRelatorioscelula.joins('INNER JOIN sivic_celulas sp on sivic_celula_id = sp.id  INNER JOIN sivic_pessoas p on sp.sivic_pessoa_id = p.id where p.NOME_pessoa like"' + params[:NOME_pessoa] +'%" and sivic_situacoesrelatorio_id ='+ params[:sivic_situacoesrelatorio_id]).paginate(:page => params[:page], :per_page => 10)
+    if params[:sivic_situacoesrelatorio_id] != '0' && params[:nome_pessoa] != '0'
+      @sivic_relatorioscelulas = SivicRelatorioscelula.joins('INNER JOIN sivic_celulas sp on sivic_celula_id = sp.id  INNER JOIN sivic_pessoas p on sp.sivic_pessoa_id = p.id').where('p.nome_pessoa like ? and sivic_situacoesrelatorio_id ='+ params[:sivic_situacoesrelatorio_id], "#{params[:nome_pessoa]}%").paginate(:page => params[:page], :per_page => 10)
     elsif params[:sivic_situacoesrelatorio_id] != '0'
       @sivic_relatorioscelulas = SivicRelatorioscelula.where(:sivic_situacoesrelatorio_id => params[:sivic_situacoesrelatorio_id]).paginate(:page => params[:page], :per_page => 10)
-    elsif params[:NOME_pessoa] != '0'
-      @sivic_relatorioscelulas = SivicRelatorioscelula.joins('INNER JOIN sivic_celulas sp on sivic_celula_id = sp.id  INNER JOIN sivic_pessoas p on sp.sivic_pessoa_id = p.id where p.NOME_pessoa like"' + params[:NOME_pessoa] +'%"').paginate(:page => params[:page], :per_page => 10)
+    elsif params[:nome_pessoa] != '0'
+      @sivic_relatorioscelulas = SivicRelatorioscelula.joins('INNER JOIN sivic_celulas sp on sivic_celula_id = sp.id INNER JOIN sivic_pessoas p on sp.sivic_pessoa_id = p.id').where('p.nome_pessoa like ?', "#{params[:nome_pessoa]}%").paginate(:page => params[:page], :per_page => 10)
     elsif
       @sivic_relatorioscelulas = SivicRelatorioscelula.paginate(:page => params[:page], :per_page => 10)
     end
