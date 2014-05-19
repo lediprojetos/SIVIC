@@ -192,15 +192,6 @@
 
     <%if @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 2 %>
 
-<<<<<<< HEAD
-      <%= link_to edit_sivic_relatorioscelula_path(@sivic_relatorioscelula), :class => "btn btn-default btn-sm" do %>
-        <span class="glyphicon glyphicon-pencil"></span> Editar
-      <% end %>      
-
-    <%end%>
-
-    <%= link_to sivic_relatorioscelulas_path, :class => "btn btn-default btn-sm" do %>
-=======
       <%= link_to edit_sivic_relatorioscelula_path(@sivic_relatorioscelula), :class => "btn btn-default btn" do %>
         <span class="glyphicon glyphicon-pencil"></span> Editar
       <% end %> 
@@ -208,17 +199,12 @@
     <%end%>
 
     <%= link_to sivic_relatorioscelulas_path, :class => "btn btn-default btn" do %>
->>>>>>> 0b4db5f5bd69f75034efb90ac6d98183acd05757
       <span class="glyphicon glyphicon-arrow-left"></span> Voltar
     <% end %>      
 
     <%if current_user.role == 'ADMINISTRADOR'%>
 
-<<<<<<< HEAD
-      <a class="btn btn-default btn-sm" onclick='$("#myModal3").modal("show")'>
-=======
       <a class="btn btn-default btn" onclick='$("#myModal3").modal("show")'>
->>>>>>> 0b4db5f5bd69f75034efb90ac6d98183acd05757
         <span class="glyphicon glyphicon-ok"></span> 
         Avaliar
       </a>      
@@ -233,20 +219,11 @@
 %>
 
 
-<<<<<<< HEAD
-  <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-=======
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
->>>>>>> 0b4db5f5bd69f75034efb90ac6d98183acd05757
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-<<<<<<< HEAD
-        <h4 class="modal-title" id="myModalLabel">Cadastrar</h4>
-      </div>
-         <div class="tab-content">
-=======
       </div>
       <div class="modal-body">
         <div class="tabbable">
@@ -259,7 +236,6 @@
             </li>       
           </ul>
           <div class="tab-content">
->>>>>>> 0b4db5f5bd69f75034efb90ac6d98183acd05757
             <div class="tab-pane active" id="tab1">
               <br/>
               <div class="row">
@@ -319,11 +295,6 @@
           </div>
         </div>
       </div>
-<<<<<<< HEAD
-
-
-  <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-=======
     </div>
   </div>
  
@@ -331,7 +302,6 @@
 
 
 <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
->>>>>>> 0b4db5f5bd69f75034efb90ac6d98183acd05757
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -354,11 +324,6 @@
             </tr>
           <%end%>
         </table>
-<<<<<<< HEAD
-        <hr>
-
-=======
->>>>>>> 0b4db5f5bd69f75034efb90ac6d98183acd05757
       </div>
       <div class="modal-footer">
         <div slyle='width:100%; height:100%; align:left'>

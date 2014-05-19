@@ -17,9 +17,9 @@ gem 'execjs'
 gem 'devise'
 gem 'cancan'
 
-gem 'pg'  
+#gem 'pg'  
 
- #gem 'pg', '~> 0.17.1'
+gem 'pg', '~> 0.17.1'
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
