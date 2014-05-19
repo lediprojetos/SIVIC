@@ -125,52 +125,44 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-body">
-
-
-<ul class="nav nav-tabs" id="myTab"><h4 class="modal-title" id="myModalLabel"></h4>
-
-  <li class="active"><a href="#home" data-toggle="tab"><h4 class="modal-title" id="myModalLabel">Buscar Pessoas</h4></a></li>
-  <li><a href="#profile" data-toggle="tab"><h4 class="modal-title" id="myModalLabel">Cadastrar Pessoas</h4></a></li>
-</ul>
-<br />
-<div class="tab-content">
-  <div class="tab-pane active" id="home">
-
-
-        <label >Nome</label><br>
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="input-group">
-              <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onkeypress="buscaPessoa('pessoa')" type="text" class="form-control" placeholder="Nome">
-              <span class="input-group-btn">
-                <button class="btn btn-success" type="button" onclick="buscaPessoa('pessoa');">Buscar</button>
-              </span>
-            </div><!-- /input-group -->
-          </div><!-- /.col-lg-6 -->
-        </div><!-- /.row -->
+        <ul class="nav nav-tabs" id="myTab"><h4 class="modal-title" id="myModalLabel"></h4>
+          <li class="active"><a href="#home" data-toggle="tab"><h4 class="modal-title" id="myModalLabel">Buscar Pessoas</h4></a></li>
+          <li><a href="#profile" data-toggle="tab"><h4 class="modal-title" id="myModalLabel">Cadastrar Pessoas</h4></a></li>
+        </ul>
         <br />
-
-        <table id="table_user" name="table_user" class="table table-hover">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Email</th>
-            </tr>
-          </thead>
-          <tbody id="tbodyid">
-              <tr>
-              </tr>
-              <tr>
-              </tr>
-          </tbody>  
-        </table>
-
-         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+        <div class="tab-content">
+          <div class="tab-pane active" id="home">
+            <label >Nome</label><br>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="input-group">
+                  <input id="NOME_pessoa_buscar" name="NOME_pessoa_buscar" onkeypress="buscaPessoa('pessoa')" type="text" class="form-control" placeholder="Nome">
+                  <span class="input-group-btn">
+                    <button class="btn btn-success" type="button" onclick="buscaPessoa('pessoa');">Buscar</button>
+                  </span>
+                </div><!-- /input-group -->
+              </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+            <br />
+            <table id="table_user" name="table_user" class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyid">
+                  <tr>
+                  </tr>
+                  <tr>
+                  </tr>
+              </tbody>  
+            </table>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+            </div>
           </div>
-
-  </div>
-  <div class="tab-pane" id="profile">
+          <div class="tab-pane" id="profile">
       <%= form_for(@sivic_pessoa) do |f| %>      
       <div class="modal-body">
 
@@ -197,8 +189,7 @@
         <table id="table_lider" name="table_lider" class="table table-hover">
           <thead>
             <tr>
-             <!-- <th>Nome</th>
-              <th>Email</th>-->
+
             </tr>
           </thead>
           <tbody id="tbodyid2">
@@ -209,14 +200,6 @@
           </tbody>  
         </table>
 
-       <!--  Testes termina aqui -->
-        
-      <!--<div class="row">
-        <div class="col-xs-12">
-          <%= f.label :Lider %>
-          <%= f.select :father_id, options_from_collection_for_select(SivicPessoa.all, 'id', 'nome_pessoa',0),{:include_blank => true},{:class => "form-control" }%>
-        </div> 
-      </div>-->
 
       <div class="row"> 
         <div class="col-xs-12">
@@ -255,7 +238,6 @@
           </div>
           </div>        
        </div> 
-       <% end %> 
   </div>
 </div>
    
@@ -300,7 +282,7 @@
 
 
 
- <div id="myModal" class="modal fade" style="display: none;" >  
+  <div id="myModal" class="modal fade" style="display: none;" >  
       <div class="modal-header">  
         <a class="close" data-dismiss="modal">×</a>  
         <h4 class="center">Eventos</h4>  
@@ -326,7 +308,7 @@
       </div>
       <div class="modal-footer"> 
     </div>
-    </div> 
+  </div> 
 
  <script>
 
