@@ -7,6 +7,7 @@
 <table class="table table-hover">
   <thead>
     <tr>
+      <th>Id</th>
       <th>Líder</th>
       <th>Dia</th>
       <th>Data Bloqueio</th>
@@ -17,6 +18,7 @@
   <tbody>
     <% @sivic_celulas.each do |sivic_celula| %>
       <tr>
+        <td><%= sivic_celula.NUMR_Codigo %></td>
         <td><%= sivic_celula.sivic_pessoa.nome_pessoa %></td>
         <td><%= sivic_celula.NUMR_Dia %></td>
         <td><%= sivic_celula.DATA_Bloqueio.blank? ? '' : sivic_celula.DATA_Bloqueio.strftime("%d/%m/%Y") %></td>

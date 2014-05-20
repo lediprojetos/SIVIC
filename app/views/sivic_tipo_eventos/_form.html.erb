@@ -17,14 +17,18 @@
         </div>
       <% end %>
 
-      <div class="field">
-        <%= f.label :Tipo_de_Evento %>
-        <%= f.text_field :desc_tipoevento %>
+     <div class="row">
+      <div class ="col-lg-3">
       </div>
+      <div class="col-lg-6">
+        <%= f.label :Tipo_de_Evento %>
+        <%= f.text_field :desc_tipoevento, :class =>  'form-control'  %>
+      </div>
+    </div>
       
         <!--Capturando igreja do usuaário logado -->
       <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja.id %>
-
+</br>
   </div>
 </div>
 
