@@ -5,9 +5,9 @@ class SivicParticipantecelulasController < ApplicationController
 
   def create_participante
 
-    SivicParticipantecelula.create(:NOME_Participante => params[:NOME_Participante],:DESC_Email => params[:DESC_Email],:NUMR_Telefone => params[:NUMR_Telefone],:sivic_sitpartcelula_id => params[:sivic_sitpartcelula_id], :sivic_celula_id => params[:sivic_celula_id])
-    sivic_participante = SivicParticipantecelula.find :all, :conditions => {:NOME_Participante => params[:NOME_Participante],:DESC_Email => params[:DESC_Email],:NUMR_Telefone => params[:NUMR_Telefone]}, :order => "NOME_Participante ASC"
-    sivic_participante_json = sivic_participante.map {|item| {:id => item.id, :NOME_Participante => item.NOME_Participante, :sivic_sitpartcelula_id => item.sivic_sitpartcelula.id}}
+    SivicParticipantecelula.create(:nome_participante => params[:nome_participante],:DESC_Email => params[:DESC_Email],:NUMR_Telefone => params[:NUMR_Telefone],:sivic_sitpartcelula_id => params[:sivic_sitpartcelula_id], :sivic_celula_id => params[:sivic_celula_id])
+    sivic_participante = SivicParticipantecelula.find :all, :conditions => {:nome_participante => params[:nome_participante],:DESC_Email => params[:DESC_Email],:NUMR_Telefone => params[:NUMR_Telefone]}, :order => "nome_participante ASC"
+    sivic_participante_json = sivic_participante.map {|item| {:id => item.id, :nome_participante => item.nome_participante, :sivic_sitpartcelula_id => item.sivic_sitpartcelula.id}}
     render :json => sivic_participante_json
 
   end
@@ -16,8 +16,8 @@ class SivicParticipantecelulasController < ApplicationController
 
    #debugger
    
-    sivic_participante = SivicParticipantecelula.where("sivic_celula_id = #{params[:sivic_celula_id]} and NOME_Participante like ?", "#{params[:NOME_Participante]}%")
-    sivic_participante_json = sivic_participante.map {|item| {:id => item.id, :NOME_Participante => item.NOME_Participante, :id_Situacao => item.sivic_sitpartcelula_id, :DESC_SituacaoParticipante => item.sivic_sitpartcelula.DESC_situacao}}
+    sivic_participante = SivicParticipantecelula.where("sivic_celula_id = #{params[:sivic_celula_id]} and nome_participante like ?", "#{params[:nome_participante]}%")
+    sivic_participante_json = sivic_participante.map {|item| {:id => item.id, :nome_participante => item.nome_participante, :id_Situacao => item.sivic_sitpartcelula_id, :DESC_SituacaoParticipante => item.sivic_sitpartcelula.DESC_situacao}}
     render :json => sivic_participante_json
 
   end     
@@ -91,6 +91,6 @@ class SivicParticipantecelulasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_participantecelula_params
-      params.require(:sivic_participantecelula).permit(:NOME_Participante, :DESC_Email, :NUMR_Telefone, :sivic_sitpartcelula_id, :sivic_celula_id)
+      params.require(:sivic_participantecelula).permit(:nome_participante, :DESC_Email, :NUMR_Telefone, :sivic_sitpartcelula_id, :sivic_celula_id)
     end
 end

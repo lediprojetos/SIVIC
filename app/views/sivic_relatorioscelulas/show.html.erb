@@ -173,7 +173,7 @@
   <tbody>
     <% @sivic_relatorioscelula.sivic_partevenrelacelula.each do |sivic_partevenrelacelula| %>
       <tr>
-        <td><%= sivic_partevenrelacelula.sivic_participantecelula.NOME_Participante %></td>
+        <td><%= sivic_partevenrelacelula.sivic_participantecelula.nome_participante %></td>
         <td><%= sivic_partevenrelacelula.sivic_participantecelula.DESC_Email %></td>
         <td><%= sivic_partevenrelacelula.sivic_participantecelula.NUMR_Telefone %></td>
         <td><%= sivic_partevenrelacelula.sivic_sitpartcelula.DESC_situacao %></td>
@@ -241,7 +241,7 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div class="input-group">
-                    <input id="NOME_participante_buscar" name="NOME_participante_buscar" onkeypress="buscaPessoa();" type="text" class="form-control" placeholder="Nome">
+                    <input id="nome_participante_buscar" name="nome_participante_buscar" onkeypress="buscaPessoa();" type="text" class="form-control" placeholder="Nome">
                     <span class="input-group-btn">
                       <button class="btn btn-success" type="button" onclick="buscaPessoa();">Buscar</button>
                     </span>
@@ -269,7 +269,7 @@
                     <div class="row">
                       <div class="col-xs-12">
                          <%= f.label :NOME %>
-                         <%= f.text_field :NOME_Participante, :class => 'form-control' %>
+                         <%= f.text_field :nome_participante, :class => 'form-control' %>
                       </div>
                       <div class="col-xs-12">
                          <%= f.label :Email %>
@@ -404,7 +404,7 @@ jQuery(function($){
         url: '<%= criarParticipantesCelulas_path %>',
         data : 
         {
-            NOME_Participante : $('#sivic_participantecelula_NOME_Participante').val()
+            nome_participante : $('#sivic_participantecelula_nome_participante').val()
             ,DESC_Email : $('#sivic_participantecelula_DESC_Email').val()
             ,NUMR_Telefone : $('#sivic_participantecelula_NUMR_Telefone').val()
             ,sivic_sitpartcelula_id : $('#sivic_participantecelula_sivic_sitpartcelula_id').val()
@@ -415,9 +415,9 @@ jQuery(function($){
           var DESC_SituacaoParticipante
           for (var i in data) {
             var item = data[i];
-            setaNome(item.NOME_Participante,item.id,item.sivic_sitpartcelula_id);
+            setaNome(item.nome_participante,item.id,item.sivic_sitpartcelula_id);
 
-            $('#sivic_participantecelula_NOME_Participante').val("");
+            $('#sivic_participantecelula_nome_participante').val("");
             $('#sivic_participantecelula_DESC_Email').val("");
             $('#sivic_participantecelula_NUMR_Telefone').val("");
             //$('#sivic_participantecelula_DESC_SituacaoParticipante').val("");
@@ -432,14 +432,14 @@ jQuery(function($){
         url: '<%= listarParticipantesCelulas_path %>',
         data : 
         {
-            NOME_Participante : $('#NOME_participante_buscar').val()
+            nome_participante : $('#nome_participante_buscar').val()
             ,sivic_celula_id : $('#sivic_participantecelula_sivic_celula_id').val()
         },
         success: function(data){
           $("#tbodyid").empty();
           for (var i in data) {
             var item = data[i];
-            $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.NOME_Participante+'\','+item.id+',\ '+ item.id_Situacao+'\);">'+item.NOME_Participante+'</a></td><td><a href="javascript:setaNome(\'' + item.NOME_Participante+'\','+item.id+',\ ' + item.id_Situacao+'\);">'+item.DESC_SituacaoParticipante+'</a></td></tr>')
+            $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.nome_participante+'\','+item.id+',\ '+ item.id_Situacao+'\);">'+item.nome_participante+'</a></td><td><a href="javascript:setaNome(\'' + item.nome_participante+'\','+item.id+',\ ' + item.id_Situacao+'\);">'+item.DESC_SituacaoParticipante+'</a></td></tr>')
           };
  
         }
@@ -459,10 +459,10 @@ jQuery(function($){
         success: function(data){
           for (var i in data) {
             var item = data[i];
-            //$('#tlbparticipantes').append('<tr><td>'+item.NOME_Participante+'</td><td>'+item.DESC_Email+'</td><td>'+item.NUMR_Telefone+'</td><td>'+item.DESC_SituacaoParticipante+'</td><td><a data-confirm="Deseja excluir o registro?" data-method="delete" href="/sivic_relatorioscelulas/'+$('#sivic_relatorioscelula_id').val()+'/sivic_partevenrelacelulas/'+item.id+'" rel="nofollow">Excluir</a></td></tr>');
+            //$('#tlbparticipantes').append('<tr><td>'+item.nome_participante+'</td><td>'+item.DESC_Email+'</td><td>'+item.NUMR_Telefone+'</td><td>'+item.DESC_SituacaoParticipante+'</td><td><a data-confirm="Deseja excluir o registro?" data-method="delete" href="/sivic_relatorioscelulas/'+$('#sivic_relatorioscelula_id').val()+'/sivic_partevenrelacelulas/'+item.id+'" rel="nofollow">Excluir</a></td></tr>');
             //alert(item.id);
 
-            $('#tlbparticipantes').append('<tr><td>'+item.NOME_Participante+'</td><td>'+item.DESC_Email+'</td><td>'+item.NUMR_Telefone+'</td><td>'+item.DESC_SituacaoParticipante+'</td><td><a data-confirm="Deseja excluir o registro?" data-method="delete" href="/sivic_relatorioscelulas/'+$('#sivic_relatorioscelula_id').val()+'/sivic_partevenrelacelulas/'+item.id+'" rel="nofollow"><img alt="Trash" class="exibirico" src="/assets/trash.png" title="Excluir" /></a>')
+            $('#tlbparticipantes').append('<tr><td>'+item.nome_participante+'</td><td>'+item.DESC_Email+'</td><td>'+item.NUMR_Telefone+'</td><td>'+item.DESC_SituacaoParticipante+'</td><td><a data-confirm="Deseja excluir o registro?" data-method="delete" href="/sivic_relatorioscelulas/'+$('#sivic_relatorioscelula_id').val()+'/sivic_partevenrelacelulas/'+item.id+'" rel="nofollow"><img alt="Trash" class="exibirico" src="/assets/trash.png" title="Excluir" /></a>')
           };
  
         }
