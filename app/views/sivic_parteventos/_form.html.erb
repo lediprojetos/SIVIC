@@ -19,7 +19,7 @@
 
     
     <div class="row">      
-       <div class="col-xs-2">
+       <div class="col-xs-3">
        </div>
        
        <div class="col-xs-6">
@@ -38,7 +38,7 @@
 
     <br/>
     <div class="row">
-      <div class="col-xs-2">
+      <div class="col-xs-3">
       </div>      
           <div div class="col-xs-6">
              <%= f.label :Evento %>
@@ -57,7 +57,7 @@
     <%=  f.fields_for :sivic_movimentofinanceiro do |movimento| %>
 
       <div class="row">
-        <div div class="col-xs-2">
+        <div div class="col-xs-3">
         </div>
         <div div class="col-xs-2">
           <%= movimento.label :Valor_Pago %>
@@ -241,6 +241,8 @@
   </div>
 </div>
    
+<% end %>
+
      </div>
    </div>
  </div>
@@ -416,7 +418,7 @@
      function setaEvento(nome,id){    
       $('#sivic_evento').val(nome);
       $('#sivic_partevento_sivic_evento_id').val(id);
-      $("#tbodyid3").empty();
+      $("#myModal3").modal('hide');
     }
          
 
