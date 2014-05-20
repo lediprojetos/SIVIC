@@ -62,7 +62,11 @@ class SivicRelatorioscelulasController < ApplicationController
     elsif params[:nome_pessoa] != '0'
       @sivic_relatorioscelulas = SivicRelatorioscelula.joins('INNER JOIN sivic_celulas sp on sivic_celula_id = sp.id INNER JOIN sivic_pessoas p on sp.sivic_pessoa_id = p.id').where('p.nome_pessoa like ?', "#{params[:nome_pessoa]}%").paginate(:page => params[:page], :per_page => 10)
     elsif
-      @sivic_relatorioscelulas = SivicRelatorioscelula.paginate(:page => params[:page], :per_page => 10)
+      if current_user.role == 'LIDER_DE_CELULAS'
+        @sivic_relatorioscelulas = SivicRelatorioscelula.joins('INNER JOIN sivic_celulas cel on sivic_celula_id = cel.id').where('cel.sivic_pessoa_id' => current_user.sivic_pessoa.id).paginate(:page => params[:page], :per_page => 10)
+      else
+        @sivic_relatorioscelulas = SivicRelatorioscelula.paginate(:page => params[:page], :per_page => 10)
+      end
     end
   end
 

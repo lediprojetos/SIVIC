@@ -47,27 +47,30 @@
 
   function createObservacao(){
 
-      $.ajax({
-        url: '<%= criarObservacaorelatorio_path %>',
-        data : 
-        {
-            sivic_relatorioscelula_id : $('#sivic_relatorioscelula_id').val()
-            ,sivic_pessoa_id : $('#sivic_pessoa_id').val()
-            ,DESC_Observacao : $('#txtareachat').val()
-        },
-        success: function(data){
-          var options = "";
-          var DESC_SituacaoParticipante
-          for (var i in data) {
-            var item = data[i];
+      if ($('#txtareachat').val() != ""){
+        
+        $.ajax({
+          url: '<%= criarObservacaorelatorio_path %>',
+          data : 
+          {
+              sivic_relatorioscelula_id : $('#sivic_relatorioscelula_id').val()
+              ,sivic_pessoa_id : $('#sivic_pessoa_id').val()
+              ,DESC_Observacao : $('#txtareachat').val()
+          },
+          success: function(data){
+            var options = "";
+            var DESC_SituacaoParticipante
+            for (var i in data) {
+              var item = data[i];
 
-            $('#tlbchat').append('<tr><td><div class="divchat"><div><strong>'+item.nome_pessoa+'</strong><label>'+item.DESC_Observacao+'</label></div></div></td></tr>')
-            $('#txtareachat').val("")
+              $('#tlbchat').append('<tr><td><div class="divchat"><div><strong>'+item.nome_pessoa+'</strong><label>'+item.DESC_Observacao+'</label></div></div></td></tr>')
+              $('#txtareachat').val("")
 
-          };
-        }
-      })
+            };
+          }
+        })
 
+      }
   }
 
 </script>
