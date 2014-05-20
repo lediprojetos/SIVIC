@@ -45,7 +45,7 @@ group :production do
   gem 'rails_12factor', '0.0.2'
 end
 
-gem 'debugger'
+#gem 'debugger'
 gem 'will_paginate', '~> 3.0.5'
 gem 'pdfkit'
 
