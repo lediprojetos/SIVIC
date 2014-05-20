@@ -9,7 +9,7 @@ class SivicCelulasController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.pdf { render_civic_celula_list(@sivic_celulas) }
+      format.pdf { render_civic_celula_mirror(@sivic_celulas) }
     end    
   end
 
@@ -26,6 +26,14 @@ class SivicCelulasController < ApplicationController
   # GET /sivic_celulas/1
   # GET /sivic_celulas/1.json
   def show
+
+    @sivic_celula = SivicCelula.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.pdf { render_civic_celula_mirror(@sivic_celula) }
+    end  
+
   end
 
   # GET /sivic_celulas/new
@@ -115,13 +123,35 @@ class SivicCelulasController < ApplicationController
 
       tasks.each do |task|
         report.list.add_row do |row|
-          row.values id: task.id
-          row.values name: task.sivic_pessoa.NOME_pessoa
+          row.values lblId: task.id
+          row.values lblNome: task.sivic_pessoa.nome_pessoa
+          row.values lblNomeCelula: task.NOME_Celula
+          row.values lblDia: task.NUMR_Dia
+          row.values lblDataBloqueio: task.DATA_Bloqueio
         end
       end
+
+
+      report.page.item(:data).value(Time.now)
+      report.page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
       
       send_data report.generate, filename: 'index.pdf', 
                                  type: 'application/pdf', 
                                  disposition: ''
-    end    
+    end
+
+
+    def render_civic_celula_mirror(tasks)
+      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'celulas_espelho.tlf')
+
+
+      report.page.item(:data).value(Time.now)
+      #report.page.values data: Time.now
+      #report.page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+      
+      send_data report.generate, filename: 'celulas_espelho.pdf', 
+                                 type: 'application/pdf', 
+                                 disposition: ''
+    end
+
 end
