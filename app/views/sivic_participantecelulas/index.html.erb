@@ -29,9 +29,10 @@
             <%= link_to edit_sivic_participantecelula_path(sivic_participantecelula), :class => "btn btn-default btn-sm" do %>
               <span class="glyphicon glyphicon-pencil"></span> Editar
             <% end %>             
-            <%= link_to sivic_participantecelula, :class => "btn btn-default btn-sm" do %>
+            <%= link_to sivic_participantecelula , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
               <span class="glyphicon glyphicon-trash"></span> Excluir
-            <% end %>
+            <% end %>   
+
           </div>
         </td>
 

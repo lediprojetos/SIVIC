@@ -5,13 +5,13 @@ class SivicCelulasController < ApplicationController
   # GET /sivic_celulas
   # GET /sivic_celulas.json
   def index
-    @sivic_celulas = SivicCelula.all #paginate(:page => params[:page], :per_page => 10)
+    @sivic_celulas = SivicCelula.all
 
     respond_to do |format|
       format.html
       format.pdf { render_civic_celula_list(@sivic_celulas) }
     end    
-  end
+  end  
 
 
   def busca_celulas
@@ -26,6 +26,14 @@ class SivicCelulasController < ApplicationController
   # GET /sivic_celulas/1
   # GET /sivic_celulas/1.json
   def show
+
+    @sivic_celula = SivicCelula.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.pdf { render_civic_celula_mirror(@sivic_celula) }
+    end  
+
   end
 
   # GET /sivic_celulas/new
@@ -115,13 +123,53 @@ class SivicCelulasController < ApplicationController
 
       tasks.each do |task|
         report.list.add_row do |row|
-          row.values id: task.id
-          row.values name: task.sivic_pessoa.NOME_pessoa
+          row.values lblId: task.id
+          row.values lblNome: task.sivic_pessoa.nome_pessoa
+          row.values lblNomeCelula: task.NOME_Celula
+          row.values lblDia: task.NUMR_Dia
+          row.values lblDataBloqueio: task.DATA_Bloqueio
         end
       end
+
+
+      report.page.item(:data).value(Time.now)
+      report.page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
       
       send_data report.generate, filename: 'index.pdf', 
                                  type: 'application/pdf', 
                                  disposition: ''
-    end    
+    end
+
+
+
+
+    def render_civic_celula_mirror(tasks)
+      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'celulas_espelho.tlf')
+
+      report.start_new_page do |page|
+
+        page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+        page.item(:data).value(Time.now)
+        page.item(:lblId).value(tasks.id)
+        page.item(:lblNome).value(tasks.NOME_Celula)
+        page.item(:lblLider).value(tasks.sivic_pessoa.nome_pessoa)
+        page.item(:lblDiaDaSemana).value(tasks.NUMR_Dia)
+        page.item(:lblDataBloqueio).value(tasks.DATA_Bloqueio)
+        page.item(:lblBairro).value(tasks.sivic_endereco.DESC_Bairro)
+        page.item(:lblRua).value(tasks.sivic_endereco.DESC_Rua)
+        page.item(:lblComplemento).value(tasks.sivic_endereco.DESC_Complemento)
+        page.item(:lblPontoDeReferencia).value(tasks.sivic_endereco.DESC_Pontoreferencia)
+        page.item(:lblCEP).value(tasks.sivic_endereco.NUMR_Cep)
+        page.item(:lblCidade).value(tasks.sivic_endereco.sivic_cidade.nome_cidade)
+        page.item(:lblEstado).value(tasks.sivic_endereco.sivic_cidade.sivic_estado.nome_estado)
+
+      
+      end
+
+
+      send_data report.generate, filename: 'celulas_espelho.pdf', 
+                                 type: 'application/pdf', 
+                                 disposition: ''
+    end
+
 end

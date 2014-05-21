@@ -52,6 +52,12 @@
   <%= link_to new_sivic_celula_path, :class => "btn btn-default" do %>
     <span class="glyphicon glyphicon-file"></span> Novo
   <% end %>
+
+
+  <%= link_to sivic_celulas_path(format: 'pdf'), {:class => "btn btn-default", :target => '_blank'} do %>
+    <span class="glyphicon glyphicon-print  "></span> PDF
+  <% end %>
+
 </div>
 
  <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -120,4 +126,3 @@ function chamaModal(id){
 
 
 
-<%#= link_to 'Print Tasks', sivic_celulas_path(format: 'pdf'), :target => '_blank' %>
