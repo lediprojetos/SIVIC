@@ -23,7 +23,7 @@ class SivicEventosController < ApplicationController
 
   # Metodo para encerrar o evento
   def encerrar 
-    @sivic_evento = SivicEvento.find("#{params[:id]}%")
+    #@sivic_evento = SivicEvento.find("#{params[:id]}%")
     @sivic_evento.update(:DATA_encerramento => Time.now)
 
     respond_to do |format|

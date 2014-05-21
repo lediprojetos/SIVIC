@@ -36,7 +36,10 @@
           <% end %>             
           <%= link_to edit_sivic_evento_path(sivic_evento), :class => "btn btn-default btn-sm" do %>
             <span class="glyphicon glyphicon-pencil"></span> Editar
-          <% end %>             
+          <% end %> 
+           <%= link_to encerraEvento_path(sivic_evento), :confirm => 'Deseja encerrar o evento?', :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-ban-circle"></span> Encerrar
+            <% end %>             
             <%= link_to sivic_evento , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
               <span class="glyphicon glyphicon-trash"></span> Excluir
             <% end %>           
@@ -64,20 +67,6 @@
 
 <script>
 
-function encerrar(evento_id){
-        
-     $.ajax({
-        url : '<%= encerraEvento_path %>',
-        data :
-        {
-          id : evento_id
-        },
-        success: function(data){
-            document.location.reload();
-          }
-     })  
-  }
 
 </script>
-
 

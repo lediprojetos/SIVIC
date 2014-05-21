@@ -70,7 +70,6 @@ SIVIC::Application.routes.draw do
   match '/listarParticipantesCelulas', to: 'sivic_participantecelulas#busca_participante', via: 'get'
   match '/criarParticipantesCelulas', to: 'sivic_participantecelulas#create_participante', via: 'get'
   match '/listarEvento', to: 'sivic_parteventos#buscaEvento', via: 'get'
-  match '/encerraEvento', to: 'sivic_eventos#encerrar', via: 'get'
   match '/buscaDiagrama', to: 'sivic_discipulos#buscaDiagrama', via: 'get'
   match '/criarEndereco', to: 'sivic_enderecos#create_endereco', via: 'get'
   match '/criarObservacaorelatorio', to: 'observacoesrelatorios#create_observacao', via: 'get'
@@ -89,5 +88,7 @@ SIVIC::Application.routes.draw do
 
 
    get '/pEventos/:id', to: 'sivic_parteventos#naoParticipou', as: 'pEventos'
+
+   get '/encerraEvento/:id', to: 'sivic_eventos#encerrar', as: 'encerraEvento'
 
 end
