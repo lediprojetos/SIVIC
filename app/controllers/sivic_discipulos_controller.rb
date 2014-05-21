@@ -2,6 +2,7 @@ class SivicDiscipulosController < ApplicationController
   before_action :set_sivic_discipulo, only: [:show, :edit, :update, :destroy, :relDiscipulos]
   before_action :authenticate_user!
 
+
   def relDiscipulos
     @sivic_discipulo = SivicDiscipulo.find(params[:id])
     @tipo_relatorio = params[:tipo]
@@ -10,7 +11,63 @@ class SivicDiscipulosController < ApplicationController
   def relGeracoes
     @sivic_discipulo = SivicDiscipulo.find(params[:id])
     @tipo_relatorio = params[:tipo]
-  end  
+
+    @allperson = [@sivic_discipulo.sivic_pessoa_id]
+    BuscaPessoas2(@sivic_discipulo.sivic_pessoa_id)
+
+    respond_to do |format|
+      format.html
+      format.pdf { render_civic_discipulo_geracao_list(@allperson) }
+    end
+
+  end
+
+
+
+def BuscaPessoas2(id)
+  sivic_dados = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id where father_id = ' + id.to_s)
+
+
+  if sivic_dados
+
+    sivic_dados.each do |sivic_dados|
+
+      #debugger
+      @allperson += [sivic_dados.sivic_pessoa.id]
+      @allperson += BuscaPessoas2(sivic_dados.sivic_pessoa.id)
+
+    end
+
+  end
+end
+
+def render_civic_discipulo_geracao_list(tasks)
+  report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'discipulos_geracao.tlf')
+
+  for n in tasks
+    dados_pessoa = SivicDiscipulo.find_by_sivic_pessoa_id(n)
+
+    report.list.add_row do |row|
+      row.values lblId: dados_pessoa.sivic_pessoa_id
+      row.values lblNome: dados_pessoa.sivic_pessoa.nome_pessoa
+      row.values lblNascimento: dados_pessoa.DATA_Nascimento
+      row.values lblEndereco: dados_pessoa.sivic_endereco.DESC_Rua + ' ' + dados_pessoa.sivic_endereco.DESC_Complemento + ' ' + dados_pessoa.sivic_endereco.NUMR_Cep
+      row.values lblBairro: dados_pessoa.sivic_endereco.DESC_Bairro
+      row.values lblCelular: dados_pessoa.DESC_TelefoneCelular
+      row.values lblTelefone: dados_pessoa.DESC_TelefoneCelular
+    end
+  end
+
+
+  report.page.item(:data).value(Time.now)
+  report.page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+  
+  send_data report.generate, filename: 'discipulos_geracao.pdf', 
+                             type: 'application/pdf', 
+                             disposition: ''
+end
+
+
 
   def busca_discipulos
 

@@ -5,13 +5,13 @@ class SivicCelulasController < ApplicationController
   # GET /sivic_celulas
   # GET /sivic_celulas.json
   def index
-    @sivic_celulas = SivicCelula.all #paginate(:page => params[:page], :per_page => 10)
+    @sivic_celulas = SivicCelula.all
 
     respond_to do |format|
       format.html
-      format.pdf { render_civic_celula_mirror(@sivic_celulas) }
+      format.pdf { render_civic_celula_list(@sivic_celulas) }
     end    
-  end
+  end  
 
 
   def busca_celulas
@@ -141,14 +141,32 @@ class SivicCelulasController < ApplicationController
     end
 
 
+
+
     def render_civic_celula_mirror(tasks)
       report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'celulas_espelho.tlf')
 
+      report.start_new_page do |page|
 
-      report.page.item(:data).value(Time.now)
-      #report.page.values data: Time.now
-      #report.page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+        page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+        page.item(:data).value(Time.now)
+        page.item(:lblId).value(tasks.id)
+        page.item(:lblNome).value(tasks.NOME_Celula)
+        page.item(:lblLider).value(tasks.sivic_pessoa.nome_pessoa)
+        page.item(:lblDiaDaSemana).value(tasks.NUMR_Dia)
+        page.item(:lblDataBloqueio).value(tasks.DATA_Bloqueio)
+        page.item(:lblBairro).value(tasks.sivic_endereco.DESC_Bairro)
+        page.item(:lblRua).value(tasks.sivic_endereco.DESC_Rua)
+        page.item(:lblComplemento).value(tasks.sivic_endereco.DESC_Complemento)
+        page.item(:lblPontoDeReferencia).value(tasks.sivic_endereco.DESC_Pontoreferencia)
+        page.item(:lblCEP).value(tasks.sivic_endereco.NUMR_Cep)
+        page.item(:lblCidade).value(tasks.sivic_endereco.sivic_cidade.nome_cidade)
+        page.item(:lblEstado).value(tasks.sivic_endereco.sivic_cidade.sivic_estado.nome_estado)
+
       
+      end
+
+
       send_data report.generate, filename: 'celulas_espelho.pdf', 
                                  type: 'application/pdf', 
                                  disposition: ''
