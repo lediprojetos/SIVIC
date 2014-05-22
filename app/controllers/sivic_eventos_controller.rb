@@ -5,7 +5,7 @@ class SivicEventosController < ApplicationController
   # GET /sivic_eventos
   # GET /sivic_eventos.json
   def index
-    @sivic_eventos = SivicEvento.where("DATA_encerramento is null").paginate(:page => params[:page], :per_page => 10)
+    @sivic_eventos = SivicEvento.where("data_encerramento is null").paginate(:page => params[:page], :per_page => 10)
   end
 
 #Método chamado pra carregar cidades dinâmicamente via ajax
@@ -24,7 +24,7 @@ class SivicEventosController < ApplicationController
   # Metodo para encerrar o evento
   def encerrar 
     #@sivic_evento = SivicEvento.find("#{params[:id]}%")
-    @sivic_evento.update(:DATA_encerramento => Time.now)
+    @sivic_evento.update(:data_encerramento => Time.now)
 
     respond_to do |format|
     format.html { redirect_to sivic_eventos_path }
