@@ -2,6 +2,8 @@
   Lista Células
 <% end %>
 
+<input type="hidden" id="id_celula" name="id_celula">
+
 <%=render '/layouts/panel' %>
 
 <table class="table table-hover">
@@ -26,18 +28,23 @@
         <td align='right'>
           <div class="btn-group">
             <%= link_to sivic_celula, :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-list-alt"></span> Exibir
+              <span class="glyphicon glyphicon-list-alt" title="Exibir"></span>
             <% end %>             
             <%= link_to edit_sivic_celula_path(sivic_celula), :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-pencil"></span> Editar
+              <span class="glyphicon glyphicon-pencil" title="Editar"></span>
             <% end %>             
             <%= link_to sivic_celula , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-trash"></span> Excluir
+              <span class="glyphicon glyphicon-trash" title="Excluir"></span>
             <% end %>
+            <%if not sivic_celula.DATA_Bloqueio %>
             <a class="btn btn-default btn-sm" onclick="chamaModal('<%=sivic_celula.id%>')">
-              <span class="glyphicon glyphicon-ban-circle"></span> 
-              Bloquear
+              <span class="glyphicon glyphicon-ban-circle" title="Bloquear"></span> 
+            </a>            
+            <%else%>
+            <a class="btn btn-default btn-sm" onclick="chamaModal2('<%=sivic_celula.id%>')">
+              <span class="glyphicon glyphicon-ok-circle" title="Desbloquear"></span> 
             </a>
+            <%end%>
           </div>
         </td>  
 
@@ -48,6 +55,7 @@
 <br>
 
 </div></div>
+
 <div class="btn-group">
   <%= link_to new_sivic_celula_path, :class => "btn btn-default" do %>
     <span class="glyphicon glyphicon-file"></span> Novo
@@ -69,7 +77,7 @@
       </div>
       <div class="modal-body">
 
-        <label >Nome</label><br>
+        <label >Motivo</label><br>
         <div class="row">
           <div class="col-xs-12">
             <textarea class="form-control" placeholder="Motivo do Bloqueio" name='txtareachat' id='txtareachat'></textarea>          
@@ -83,6 +91,30 @@
           <tr>
             <td>
               <a data-toggle="modal" class="btn btn-danger" href="javascript:bloquear();" >Bloquear</a>
+            </td>
+          </tr>
+        </table>        
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Desbloquear Célula</h4>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <table align='center'>
+          <tr>
+            <td>
+              <a data-toggle="modal" class="btn btn-success" href="javascript:desbloquear();" >Desbloquear</a>
             </td>
           </tr>
         </table>        
@@ -114,9 +146,34 @@ function bloquear(){
         
    }
 
+function desbloquear(){
+
+     $.ajax({
+        url : '<%= desbloqueaCelula_path %>',
+        data :
+        {
+           id : $('#id_celula').val()
+        },
+        success: function(data){
+        $('#txtareachat').val("");
+        $('#myModal1').modal('hide');
+        document.location.reload();
+
+          }
+      })  
+        
+   }
+
+
 function chamaModal(id){  
    
    $('#myModal1').modal('show');
+   $('#id_celula').val(id);
+
+  }
+  function chamaModal2(id){  
+   
+   $('#myModal2').modal('show');
    $('#id_celula').val(id);
 
   }

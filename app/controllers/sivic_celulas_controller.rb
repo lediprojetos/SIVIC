@@ -5,7 +5,7 @@ class SivicCelulasController < ApplicationController
   # GET /sivic_celulas
   # GET /sivic_celulas.json
   def index
-    @sivic_celulas = SivicCelula.all
+    @sivic_celulas = SivicCelula.find(:all, :order => :id)
 
     respond_to do |format|
       format.html
@@ -86,8 +86,21 @@ class SivicCelulasController < ApplicationController
 
   def bloquea
 
-    @sivic_celula = SivicCelula.find("#{params[:id]}%")
+    @sivic_celula = SivicCelula.find_by_id(params[:id])
     @sivic_celula.update(:DATA_Bloqueio => Time.now, :user_bloqueio => "#{params[:user_bloqueio]}",  :DESC_Bloqueio => "#{params[:DESC_Bloqueio]}" )
+
+  
+    respond_to do |format|
+      format.html { redirect_to sivic_celulas_url }
+      format.json { head :no_content }
+    end
+
+  end 
+
+  def desbloquea
+
+    @sivic_celula = SivicCelula.find_by_id(params[:id])
+    @sivic_celula.update(:DATA_Bloqueio => nil)
 
   
     respond_to do |format|
