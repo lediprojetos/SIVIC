@@ -1,0 +1,27 @@
+﻿REQUISITOS FINANCEIROS
+
+
+*DADOS PARA TABELA DE RECEITA
+
+	Nome da receita
+	valor 
+	conta bancária
+	data de vencimento
+	Categoria da receita
+	Recebido
+	Usuario inclusão 
+	Usuario exclusão
+	Data da competencia 
+	Observação 
+	
+*DADOS PARA TABELA DE DESPEZA
+	
+	
+
+*DADOS DO FORNECEDOR
+    
+	nome fornecedor
+
+*CENTRO DE CUSTO
+	
+	nome
