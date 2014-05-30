@@ -7,12 +7,23 @@
 	valor 
 	conta bancária
 	data de vencimento
+	data do Ocorrencia
 	Categoria da receita
-	Recebido
+	Flag_Recebido
+	Data exclusão 
+	Centro de custo
+	rede do movimento
+	Observação
 	Usuario inclusão 
 	Usuario exclusão
-	Data da competencia 
-	Observação 
+    Tipo de movimentação	
+	sivic_pessoa
+	
+	
+receitas_pessoas
+id receita
+id pessoa	
+	
 	
 *DADOS PARA TABELA DE DESPEZA
 	
@@ -20,8 +31,17 @@
 
 *DADOS DO FORNECEDOR
     
-	nome fornecedor
+	Nome 
+	Razao social
+	CPNJ
+	CPF
+	ENDERECO
+	TELEFONE
+	Responsavel
+	descricao
+	
 
 *CENTRO DE CUSTO
 	
 	nome
+*TIPO
