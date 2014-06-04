@@ -4,14 +4,14 @@ development:
   pool: 5
   timeout: 5000
   username: postgres
-  password: diel 
+  password: sivic 
 test:
   adapter: postgresql
   database: my_database_development
   pool: 5
   timeout: 5000
   username: postgres
-  password: diel  
+  password: sivic  
 
 production:
   adapter: postgresql
@@ -19,4 +19,4 @@ production:
   pool: 5
   timeout: 5000
   username: postgres
-  password: diel
+  password: sivic
