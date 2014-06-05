@@ -1,5 +1,5 @@
 <% content_for :titlePage do %>
-  Listar Discípulos
+  Listar Bancos
 <% end %>
 
 
@@ -8,8 +8,8 @@
 <table class="table table-hover">
   <thead>
     <tr>
+      <th>Codigo Banco</th>
       <th>Nome Banco</th>
-      <th>Numr Codigo</th>
       <th></th>
       <th></th>
       <th></th>
@@ -19,11 +19,23 @@
   <tbody>
     <% @sivic_bancos.each do |sivic_banco| %>
       <tr>
-        <td><%= sivic_banco.nome_banco %></td>
         <td><%= sivic_banco.numr_codigo %></td>
-        <td><%= link_to 'Show', sivic_banco %></td>
-        <td><%= link_to 'Edit', edit_sivic_banco_path(sivic_banco) %></td>
-        <td><%= link_to 'Destroy', sivic_banco, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= sivic_banco.nome_banco %></td>
+
+        <td align='right'>
+        <div class="btn-group">
+          <%= link_to sivic_banco, :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-list-alt"title="Exibir"></span> 
+          <% end %>             
+          <%= link_to edit_sivic_banco_path(sivic_banco), :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-pencil" title="Editar"></span> 
+          <% end %>              
+            <%= link_to sivic_banco , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-trash"title="Excluir"></span> 
+            <% end %>           
+        </div>
+      </td>
+
       </tr>
     <% end %>
   </tbody>
