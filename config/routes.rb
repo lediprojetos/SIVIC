@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_bancos
+
   resources :sivic_moduloturmas
 
   resources :sivic_moduloescolas

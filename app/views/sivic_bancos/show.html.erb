@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome banco:</strong>
+  <%= @sivic_banco.nome_banco %>
+</p>
+
+<p>
+  <strong>Numr codigo:</strong>
+  <%= @sivic_banco.numr_codigo %>
+</p>
+
+<%= link_to 'Edit', edit_sivic_banco_path(@sivic_banco) %> |
+<%= link_to 'Back', sivic_bancos_path %>
