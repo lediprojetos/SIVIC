@@ -341,20 +341,19 @@
         },
 
        success: function(data){
-         $('#sivic_partevento_sivic_pessoa_id').empty();
-         $('#sivic_partevento_sivic_pessoa_id').html('<option>Carregando...</option>');
-         $('#sivic_partevento_sivic_pessoa_id').attr('disabled', 'disabled');
          var options = "";
          for (var i in data){
           var item = data[i];
-          options += "<option value='"+item.id+"'>"+item.nome_pessoa+"</option>";
+
+           $('#nome_pessoa').val(item.nome_pessoa);
+           $('#sivic_partevento_sivic_pessoa_id').val(item.id);
+
          };
          
-         $('#sivic_partevento_sivic_pessoa_id').html(options);
-         $('#sivic_partevento_sivic_pessoa_id').removeAttr('disabled');         
-         $('#sivic_pessoa_NOME_pessoa').val("");
+         $('#sivic_pessoa_nome_pessoa').val("");
          $('#sivic_pessoa_DESC_email').val("");
          $('#sivic_pessoa_DESC_observacao').val("");
+
          $('#myModal2').modal('hide');
          } 
        })      
