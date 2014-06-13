@@ -81,7 +81,7 @@ end
   # GET /sivic_discipulos
   # GET /sivic_discipulos.json
   def index
-    @sivic_discipulos = SivicDiscipulo.find_by_name_or_all(params[:q]).paginate(:page => params[:page], :per_page => 5)
+    @sivic_discipulos = SivicDiscipulo.find_by_name_or_all(params[:q]).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /sivic_discipulos/1
