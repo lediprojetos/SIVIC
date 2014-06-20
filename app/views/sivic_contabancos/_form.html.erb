@@ -1,0 +1,45 @@
+<%= form_for(@sivic_contabanco) do |f| %>
+  <% if @sivic_contabanco.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_contabanco.errors.count, "error") %> prohibited this sivic_contabanco from being saved:</h2>
+
+      <ul>
+      <% @sivic_contabanco.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nome_conta %><br>
+    <%= f.text_field :nome_conta %>
+  </div>
+  <div class="field">
+    <%= f.label :numr_agencia %><br>
+    <%= f.text_field :numr_agencia %>
+  </div>
+  <div class="field">
+    <%= f.label :numr_conta %><br>
+    <%= f.text_field :numr_conta %>
+  </div>
+  <div class="field">
+    <%= f.label :numr_dvconta %><br>
+    <%= f.text_field :numr_dvconta %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_banco_id %><br>
+    <%= f.text_field :sivic_banco_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_igreja_id %><br>
+    <%= f.text_field :sivic_igreja_id %>
+  </div>
+
+  <%=f.hidden_field :user_inclusao, :value => current_user.id%>  
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

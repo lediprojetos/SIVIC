@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  	belongs_to :sivic_pessoa
+  belongs_to :sivic_pessoa
 
  	has_many :inclusao, :class_name => "SivicMovimentofinanceiro"
 	has_many :exclusao, :class_name => "SivicMovimentofinanceiro"

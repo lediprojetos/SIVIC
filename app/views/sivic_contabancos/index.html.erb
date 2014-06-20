@@ -1,0 +1,56 @@
+<% content_for :titlePage do %>
+  Lista de Contas
+<% end %>
+
+<%=render '/layouts/panel' %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nome conta</th>
+      <th>Agencia</th>
+      <th>Numero conta</th>
+      <th>Dv</th>
+      <th>Banco</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_contabancos.each do |sivic_contabanco| %>
+      <tr>
+        <td><%= sivic_contabanco.nome_conta %></td>
+        <td><%= sivic_contabanco.numr_agencia %></td>
+        <td><%= sivic_contabanco.numr_conta %></td>
+        <td><%= sivic_contabanco.numr_dvconta %></td>
+        <td><%= sivic_contabanco.sivic_banco %></td>      
+         <td align='right'>
+
+        <div class="btn-group">
+          <%= link_to sivic_contabanco, :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-list-alt"></span> Exibir
+          <% end %>             
+          <%= link_to edit_sivic_contabanco_path(sivic_contabanco), :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-pencil"></span> Editar
+          <% end %>             
+            <%= link_to sivic_contabanco , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-trash"></span> Excluir
+            <% end %>           
+        </div>
+
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div></div>
+<div class="btn-group">
+  <%= link_to new_sivic_contabanco_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>
+
