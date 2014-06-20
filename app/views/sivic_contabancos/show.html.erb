@@ -1,49 +1,48 @@
 <p id="notice"><%= notice %></p>
 
+
+<% content_for :titlePage do %>
+  Exibir Conta
+<% end %>
+
+<%= render 'layouts/panel' %>
+
 <p>
   <strong>Nome conta:</strong>
   <%= @sivic_contabanco.nome_conta %>
 </p>
 
 <p>
-  <strong>Numr agencia:</strong>
+  <strong>Agência:</strong>
   <%= @sivic_contabanco.numr_agencia %>
 </p>
 
 <p>
-  <strong>Numr conta:</strong>
+  <strong>Conta:</strong>
   <%= @sivic_contabanco.numr_conta %>
 </p>
 
 <p>
-  <strong>Numr dvconta:</strong>
+  <strong>Dv:</strong>
   <%= @sivic_contabanco.numr_dvconta %>
 </p>
 
 <p>
-  <strong>Sivic banco:</strong>
-  <%= @sivic_contabanco.sivic_banco %>
+  <strong>Banco:</strong>
+  <%= @sivic_contabanco.sivic_banco.nome_banco %>
 </p>
 
-<p>
-  <strong>Sivic igreja:</strong>
-  <%= @sivic_contabanco.sivic_igreja %>
-</p>
 
-<p>
-  <strong>User:</strong>
-  <%= @sivic_contabanco.User %>
-</p>
+</div></div>
+<div class="btn-group">
 
-<p>
-  <strong>User:</strong>
-  <%= @sivic_contabanco.User %>
-</p>
+  <%= link_to edit_sivic_contabanco_path(@sivic_contabanco), :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-pencil"></span> Editar
+  <% end %>
 
-<p>
-  <strong>Data exclusao:</strong>
-  <%= @sivic_contabanco.data_exclusao %>
-</p>
 
-<%= link_to 'Edit', edit_sivic_contabanco_path(@sivic_contabanco) %> |
-<%= link_to 'Back', sivic_contabancos_path %>
+  <%= link_to sivic_contabancos_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+
+</div>

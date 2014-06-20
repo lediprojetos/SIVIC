@@ -28,7 +28,7 @@ class SivicContabancosController < ApplicationController
 
     respond_to do |format|
       if @sivic_contabanco.save
-        format.html { redirect_to @sivic_contabanco, notice: 'Sivic contabanco was successfully created.' }
+        format.html { redirect_to @sivic_contabanco, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_contabanco }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class SivicContabancosController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_contabanco.update(sivic_contabanco_params)
-        format.html { redirect_to @sivic_contabanco, notice: 'Sivic contabanco was successfully updated.' }
+        format.html { redirect_to @sivic_contabanco, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
