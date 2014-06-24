@@ -1,23 +1,14 @@
 SIVIC::Application.routes.draw do
 
   resources :sivic_fornecedors
-
   resources :sivic_contabancos
-
   resources :sivic_bancos
-
   resources :sivic_moduloturmas
-
   resources :sivic_moduloescolas
-
   resources :sivic_turmas
-
   resources :sivic_professors
-
   resources :sivic_contcelulas
-
   resources :sivic_contdiscipulos
-
   resources :observacoesrelatorios
   resources :sivic_situacoesrelatorios
   resources :sivic_sitpartcelulas

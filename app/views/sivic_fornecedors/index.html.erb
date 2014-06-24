@@ -1,17 +1,16 @@
-<h1>Listing sivic_fornecedors</h1>
+<% content_for :titlePage do %>
+  Lista de Fornecedores
+<% end %>
 
-<table>
+<%=render '/layouts/panel' %>
+
+<table class="table table-hover">
   <thead>
     <tr>
-      <th>Nome fornecedor</th>
-      <th>Numr cnpj</th>
-      <th>Numr cpf</th>
-      <th>Numr telefone</th>
-      <th>Nome responsavel</th>
-      <th>Desc fornecedor</th>
-      <th>Sivic endereco</th>
-      <th>Sivic igreja</th>
-      <th>User</th>
+      <th>Nome</th>
+      <th>CNPJ</th>
+      <th>CPF</th>
+      <th>Telefône</th>
       <th></th>
       <th></th>
       <th></th>
@@ -25,14 +24,21 @@
         <td><%= sivic_fornecedor.numr_cnpj %></td>
         <td><%= sivic_fornecedor.numr_cpf %></td>
         <td><%= sivic_fornecedor.numr_telefone %></td>
-        <td><%= sivic_fornecedor.nome_responsavel %></td>
-        <td><%= sivic_fornecedor.desc_fornecedor %></td>
-        <td><%= sivic_fornecedor.sivic_endereco %></td>
-        <td><%= sivic_fornecedor.sivic_igreja %></td>
-        <td><%= sivic_fornecedor.user %></td>
-        <td><%= link_to 'Show', sivic_fornecedor %></td>
-        <td><%= link_to 'Edit', edit_sivic_fornecedor_path(sivic_fornecedor) %></td>
-        <td><%= link_to 'Destroy', sivic_fornecedor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+      <td align='right'>
+        <div class="btn-group">
+          <%= link_to sivic_fornecedor, :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-list-alt"></span> Exibir
+          <% end %>             
+          <%= link_to edit_sivic_fornecedor_path(sivic_fornecedor), :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-pencil"></span> Editar
+          <% end %>            
+            <%= link_to sivic_fornecedor , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-trash"></span> Excluir
+            <% end %>           
+        </div>
+      </td>
+
       </tr>
     <% end %>
   </tbody>
@@ -40,4 +46,9 @@
 
 <br>
 
-<%= link_to 'New Sivic fornecedor', new_sivic_fornecedor_path %>
+</div></div>
+<div class="btn-group">
+  <%= link_to new_sivic_fornecedor_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>

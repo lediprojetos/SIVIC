@@ -15,6 +15,7 @@ class SivicFornecedorsController < ApplicationController
   # GET /sivic_fornecedors/new
   def new
     @sivic_fornecedor = SivicFornecedor.new
+    @sivic_fornecedor.build_sivic_endereco
   end
 
   # GET /sivic_fornecedors/1/edit
@@ -69,6 +70,6 @@ class SivicFornecedorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_fornecedor_params
-      params.require(:sivic_fornecedor).permit(:nome_fornecedor, :numr_cnpj, :numr_cpf, :numr_telefone, :nome_responsavel, :desc_fornecedor, :sivic_endereco_id, :sivic_igreja_id, :user_id)
+      params.require(:sivic_fornecedor).permit(:nome_fornecedor, :numr_cnpj, :numr_cpf, :numr_telefone, :nome_responsavel, :desc_fornecedor, :sivic_igreja_id, :user_id, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
     end
 end

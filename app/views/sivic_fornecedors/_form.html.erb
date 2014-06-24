@@ -1,3 +1,9 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= 'Cadastro de Fornecedores'%></h3>
+  </div>
+  <div class="panel-footer">
+
 <%= form_for(@sivic_fornecedor) do |f| %>
   <% if @sivic_fornecedor.errors.any? %>
     <div id="error_explanation">
@@ -11,30 +17,91 @@
     </div>
   <% end %>
 
-  <div class="field">
+<div class="row">
+  <div class="col-xs-6">
     <%= f.label :nome_fornecedor %><br>
-    <%= f.text_field :nome_fornecedor %>
+    <%= f.text_field :nome_fornecedor, :class => 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :numr_cnpj %><br>
-    <%= f.text_field :numr_cnpj %>
+  <div class="col-xs-3">
+    <%= f.label :CNPJ %><br>
+    <%= f.text_field :numr_cnpj, :class => 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :numr_cpf %><br>
-    <%= f.text_field :numr_cpf %>
+  <div class="col-xs-3">
+    <%= f.label :CPF %><br>
+    <%= f.text_field :numr_cpf, :class => 'form-control' %>
   </div>
-  <div class="field">
-    <%= f.label :numr_telefone %><br>
-    <%= f.text_field :numr_telefone %>
-  </div>
-  <div class="field">
-    <%= f.label :nome_responsavel %><br>
-    <%= f.text_field :nome_responsavel %>
-  </div>
-  <div class="field">
-    <%= f.label :desc_fornecedor %><br>
-    <%= f.text_field :desc_fornecedor %>
-  </div>
+</div>
+<br>
+
+<div class="row">
+    <div class="col-xs-6">
+      <%= f.label :nome_responsavel %><br>
+      <%= f.text_field :nome_responsavel, :class => 'form-control' %>
+    </div>
+    <div class="col-xs-3">
+      <%= f.label :Telefône %><br>
+      <%= f.text_field :numr_telefone, :class => 'form-control' %>
+    </div>
+    <div class="col-xs-3">
+      <%= f.label :desc_fornecedor %><br>
+      <%= f.text_area :desc_fornecedor, :class => 'form-control' %>
+    </div>
+</div>
+
+
+<%=  f.fields_for :sivic_endereco do |endereco| %>
+        <br />
+        <div class="row">
+            <div class="col-xs-3">
+              <%= endereco.label :Rua %>
+              <%= endereco.text_field :DESC_Rua, :class => 'form-control' %>
+            </div>
+
+            <div class="col-xs-3">
+              <%= endereco.label :Complemento %>
+              <%= endereco.text_field :DESC_Complemento, :class => 'form-control' %>
+            </div>
+
+            <div class="col-xs-3">
+              <%= endereco.label :Ponto_de_referência %>
+              <%= endereco.text_field :DESC_Pontoreferencia, :class => 'form-control' %>
+            </div>
+
+            <div class="col-xs-3">
+              <%= endereco.label :Bairro %>
+              <%= endereco.text_field :DESC_Bairro, :class =>  'form-control' %>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-xs-3">
+              <%= endereco.label :CEP.capitalize %>
+              <%= endereco.number_field :NUMR_Cep, :class => 'form-control' %>
+            </div>
+          
+        <%=  f.fields_for :sivic_estado do |estado| %>
+            <div class="col-xs-3">
+              <%= estado.label :Estado %>
+              <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)', :class =>  'form-control'}%>
+            </div>
+        <%end%>
+        <%if @sivic_cidade %>
+            <div class="col-xs-3">
+              <%= endereco.label :Cidade %>
+              <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada),{},{:class =>  'form-control'}%>
+            </div>
+        <%else%>
+            <div class="col-xs-3">
+              <%= endereco.label :Cidade   %>
+              <%= endereco.select :sivic_cidade_id, [], {},{:class =>  'form-control'} %><br>
+            </div> 
+
+        <%end%>
+        <% end %>
+
+        </div>
+
+
   <div class="field">
     <%= f.label :sivic_endereco_id %><br>
     <%= f.text_field :sivic_endereco_id %>
@@ -47,7 +114,43 @@
     <%= f.label :user_id %><br>
     <%= f.text_field :user_id %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
   </div>
+</div>
+
+<div class="btn-group">
+  <button type="submit" class="btn btn-default btn">
+    <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+  </button>
+
+  <%= yield(:iconexibir) %>
+
+  <%= link_to sivic_eventos_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+</div>
+
 <% end %>
+
+
+<script>
+  function changeState(state){
+      $.ajax({
+        url: '<%= listarCidade_path %>',
+        data : {id : state.value},
+        success: function(data){
+          $('#sivic_fornecedor_sivic_endereco_attributes_sivic_cidade_id').empty();
+          $('#sivic_fornecedor_sivic_endereco_attributes_sivic_cidade_id').html('<option>Carregando...</option>');
+          $('#sivic_fornecedor_sivic_endereco_attributes_sivic_cidade_id').attr('disabled', 'disabled');
+          var options = "";
+          for (var i in data) {
+            var item = data[i];
+            options += "<option value='"+item.id+"'>"+item.name+"</option>"
+          };
+ 
+          $('#sivic_fornecedor_sivic_endereco_attributes_sivic_cidade_id').html(options);
+          $('#sivic_fornecedor_sivic_endereco_attributes_sivic_cidade_id').removeAttr('disabled');          
+        }
+      })
+    }
+</script>
