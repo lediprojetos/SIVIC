@@ -48,6 +48,7 @@
     </div>
 </div>
 
+<hr>
 
 <%=  f.fields_for :sivic_endereco do |endereco| %>
         <br />
@@ -79,6 +80,8 @@
               <%= endereco.number_field :NUMR_Cep, :class => 'form-control' %>
             </div>
           
+      <fieldset>
+            
         <%=  f.fields_for :sivic_estado do |estado| %>
             <div class="col-xs-3">
               <%= estado.label :Estado %>
@@ -101,19 +104,11 @@
 
         </div>
 
-
-  <div class="field">
-    <%= f.label :sivic_endereco_id %><br>
-    <%= f.text_field :sivic_endereco_id %>
-  </div>
-  <div class="field">
-    <%= f.label :sivic_igreja_id %><br>
-    <%= f.text_field :sivic_igreja_id %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
+  <!--Capturando igreja do usuaário logado -->
+    <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
+    <!--Capturando Usuário logado --> 
+    <%= f.hidden_field :User_id, :value => current_user.id%> 
+  </fieldset>
 
   </div>
 </div>
