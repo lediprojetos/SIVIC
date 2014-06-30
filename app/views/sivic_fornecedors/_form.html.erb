@@ -129,6 +129,14 @@
 
 
 <script>
+
+jQuery(function($){
+   $("#sivic_fornecedor_numr_cnpj").mask("99.999.999/9999-99");
+   $("#sivic_fornecedor_numr_telefone").mask("(99)9999-9999");
+   $("# sivic_fornecedor_sivic_endereco_attributes_NUMR_Cep").mask("99.999-999");
+});
+
+
   function changeState(state){
       $.ajax({
         url: '<%= listarCidade_path %>',

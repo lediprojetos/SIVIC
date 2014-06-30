@@ -35,12 +35,16 @@ class SivicDiscipulo < ActiveRecord::Base
 
 
   #Gera codigo de discipulo 
-  before_create  :geraCodigo
+  before_create  :geraCodigo 
   after_create   :atualizaContador
+
+  before_destroy :capitura_pessoa
+  after_destroy  :deleta_pessoa
 
   before_validation :retiraMascara
 
   @@codigo 
+  @@pessoa 
 
   def self.find_by_name_or_all(query)
     if query
@@ -69,7 +73,13 @@ class SivicDiscipulo < ActiveRecord::Base
       self.NUMR_CPF.gsub!(/[^0-9]/, '')
   end
 
+  def deleta_pessoa
+       @@pessoa.destroy  
+  end
 
+  def capitura_pessoa
+       @@pessoa  = SivicPessoa.find(self.sivic_pessoa_id)      
+  end
   
   
 end
