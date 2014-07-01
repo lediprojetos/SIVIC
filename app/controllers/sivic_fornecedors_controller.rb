@@ -29,7 +29,7 @@ class SivicFornecedorsController < ApplicationController
 
     respond_to do |format|
       if @sivic_fornecedor.save
-        format.html { redirect_to @sivic_fornecedor, notice: 'Sivic fornecedor was successfully created.' }
+        format.html { redirect_to @sivic_fornecedor, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_fornecedor }
       else
         format.html { render action: 'new' }
@@ -43,7 +43,7 @@ class SivicFornecedorsController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_fornecedor.update(sivic_fornecedor_params)
-        format.html { redirect_to @sivic_fornecedor, notice: 'Sivic fornecedor was successfully updated.' }
+        format.html { redirect_to @sivic_fornecedor, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

@@ -107,7 +107,7 @@
   <!--Capturando igreja do usuaário logado -->
     <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
     <!--Capturando Usuário logado --> 
-    <%= f.hidden_field :User_id, :value => current_user.id%> 
+    <%= f.hidden_field :user_id, :value => current_user.id%> 
   </fieldset>
 
   </div>
@@ -133,7 +133,8 @@
 jQuery(function($){
    $("#sivic_fornecedor_numr_cnpj").mask("99.999.999/9999-99");
    $("#sivic_fornecedor_numr_telefone").mask("(99)9999-9999");
-   $("# sivic_fornecedor_sivic_endereco_attributes_NUMR_Cep").mask("99.999-999");
+   $("#sivic_fornecedor_sivic_endereco_attributes_NUMR_Cep").mask("99.999-999");
+   $("#sivic_fornecedor_numr_cpf").mask("999.999.999.99");
 });
 
 

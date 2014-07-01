@@ -7,4 +7,14 @@ class SivicFornecedor < ActiveRecord::Base
 
     accepts_nested_attributes_for :sivic_endereco, allow_destroy: true
 
+
+     before_validation :retiraMascara
+
+
+
+  def retiraMascara
+      self.numr_cpf.gsub!(/[^0-9]/, '')
+      self.numr_cnpj.gsub!(/[^0-9]/, '')     
+  end
+
 end
