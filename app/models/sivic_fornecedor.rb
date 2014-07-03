@@ -11,7 +11,6 @@ class SivicFornecedor < ActiveRecord::Base
      before_validation :retiraMascara
 
 
-
   def retiraMascara
       self.numr_cpf.gsub!(/[^0-9]/, '')
       self.numr_cnpj.gsub!(/[^0-9]/, '')     
