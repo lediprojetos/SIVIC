@@ -28,21 +28,21 @@
         <td align='right'>
           <div class="btn-group">
             <%= link_to sivic_celula, :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-list-alt" title="Exibir"></span>
+              <span class="glyphicon glyphicon-list-alt"></span> Exibir
             <% end %>             
             <%= link_to edit_sivic_celula_path(sivic_celula), :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-pencil" title="Editar"></span>
+              <span class="glyphicon glyphicon-pencil"></span> Editar
             <% end %>             
             <%= link_to sivic_celula , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-trash" title="Excluir"></span>
+              <span class="glyphicon glyphicon-trash"></span> Excluir
             <% end %>
             <%if not sivic_celula.DATA_Bloqueio %>
             <a class="btn btn-default btn-sm" onclick="chamaModal('<%=sivic_celula.id%>')">
-              <span class="glyphicon glyphicon-ban-circle" title="Bloquear"></span> 
+              <span class="glyphicon glyphicon-ban-circle"></span> Bloquear
             </a>            
             <%else%>
             <a class="btn btn-default btn-sm" onclick="chamaModal2('<%=sivic_celula.id%>')">
-              <span class="glyphicon glyphicon-ok-circle" title="Desbloquear"></span> 
+              <span class="glyphicon glyphicon-ok-circle"></span> Desbloquear
             </a>
             <%end%>
           </div>

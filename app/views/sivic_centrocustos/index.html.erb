@@ -19,9 +19,19 @@
     <% @sivic_centrocustos.each do |sivic_centrocusto| %>
       <tr>
         <td><%= sivic_centrocusto.nome_centrocusto %></td>
-        <td><%= link_to 'Show', sivic_centrocusto %></td>
-        <td><%= link_to 'Edit', edit_sivic_centrocusto_path(sivic_centrocusto) %></td>
-        <td><%= link_to 'Destroy', sivic_centrocusto, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td align='right'>
+        <div class="btn-group">
+          <%= link_to sivic_centrocusto, :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-list-alt"></span> Exibir
+          <% end %>             
+          <%= link_to edit_sivic_centrocusto_path(sivic_centrocusto), :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-pencil"></span> Editar
+          <% end %>           
+            <%= link_to sivic_centrocusto , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-trash"></span> Excluir
+            <% end %>           
+        </div>
+        </td>
       </tr>
     <% end %>
   </tbody>

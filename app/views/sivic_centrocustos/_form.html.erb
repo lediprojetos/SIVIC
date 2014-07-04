@@ -17,22 +17,32 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :nome_centrocusto %><br>
-    <%= f.text_field :nome_centrocusto %>
+  <div class="row">
+      <div class="col-xs-3">
+      </div>
+
+      <div class="col-xs-6">
+        <%= f.label :nome  %><br>
+        <%= f.text_field :nome_centrocusto, :class =>  'form-control' %>
+      </div>
   </div>
-  <div class="field">
-    <%= f.label :desc_centrocusto %><br>
-    <%= f.text_area :desc_centrocusto %>
-  </div>
-  <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.text_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :sivic_igreja_id %><br>
-    <%= f.text_field :sivic_igreja_id %>
-  </div>
+</br>
+<div class="row">
+      <div class="col-xs-3">
+      </div>
+      
+      <div class="col-xs-6">      
+          <%= f.label :Descrição %><br>
+          <%= f.text_area :desc_centrocusto, :class =>  'form-control' %>
+      </div>
+
+</div>
+</br>
+   
+       <!--Capturando igreja do usuaário logado -->
+    <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
+    <!--Capturando Usuário logado --> 
+    <%= f.hidden_field :user_id, :value => current_user.id%> 
 
     </div>
 </div>

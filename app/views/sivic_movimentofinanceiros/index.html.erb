@@ -23,7 +23,7 @@
       <tr>
         <td><%= sivic_movimentofinanceiro.sivic_tipmovfinanceiro.DESC_movimento %></td>
         <td><%= sivic_movimentofinanceiro.VALR_movimento %></td>
-        <td><%= sivic_movimentofinanceiro.sivic_evento.DESC_evento %></td>
+        <td><%= sivic_movimentofinanceiro.sivic_evento %></td>
         <td><%= sivic_movimentofinanceiro.FLAG_baixa %></td>
         <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_movimentofinanceiro %></td>
         <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') , edit_sivic_movimentofinanceiro_path(sivic_movimentofinanceiro) %></td>

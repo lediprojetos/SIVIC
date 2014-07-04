@@ -1,0 +1,33 @@
+<%= form_for(@sivic_categorium) do |f| %>
+  <% if @sivic_categorium.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_categorium.errors.count, "error") %> prohibited this sivic_categorium from being saved:</h2>
+
+      <ul>
+      <% @sivic_categorium.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nome_categoria %><br>
+    <%= f.text_field :nome_categoria %>
+  </div>
+  <div class="field">
+    <%= f.label :tipo_categoria %><br>
+    <%= f.number_field :tipo_categoria %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_igreja_id %><br>
+    <%= f.text_field :sivic_igreja_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
