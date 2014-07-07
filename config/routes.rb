@@ -1,6 +1,6 @@
 SIVIC::Application.routes.draw do
 
-  resources :sivic_categoria
+  resources :sivic_categories
 
   resources :sivic_centrocustos
   resources :sivic_fornecedors

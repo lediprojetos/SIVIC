@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe "sivic_categoria/show" do
+describe "sivic_categories/show" do
   before(:each) do
-    @sivic_categorium = assign(:sivic_categorium, stub_model(SivicCategorium,
+    @sivic_category = assign(:sivic_category, stub_model(SivicCategory,
       :nome_categoria => "Nome Categoria",
       :tipo_categoria => 1,
-      :user => nil,
-      :sivic_igreja => nil
+      :sivic_igreja => nil,
+      :user => nil
     ))
   end
 

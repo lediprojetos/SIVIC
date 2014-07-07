@@ -1,0 +1,33 @@
+<h1>Listing sivic_categories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome categoria</th>
+      <th>Tipo categoria</th>
+      <th>Sivic igreja</th>
+      <th>User</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_categories.each do |sivic_category| %>
+      <tr>
+        <td><%= sivic_category.nome_categoria %></td>
+        <td><%= sivic_category.tipo_categoria %></td>
+        <td><%= sivic_category.sivic_igreja %></td>
+        <td><%= sivic_category.user %></td>
+        <td><%= link_to 'Show', sivic_category %></td>
+        <td><%= link_to 'Edit', edit_sivic_category_path(sivic_category) %></td>
+        <td><%= link_to 'Destroy', sivic_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic category', new_sivic_category_path %>
