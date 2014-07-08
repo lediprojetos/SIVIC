@@ -1,24 +1,39 @@
 <p id="notice"><%= notice %></p>
 
+<% content_for :titlePage do %>
+  Exibir Conta
+<% end %>
+
+<%= render 'layouts/panel' %>
+
+
+<p>
+  <strong>Categoria Pai:</strong>
+  <% @pai = SivicCategory.find_by_id(@sivic_category.father_id) %>
+  <% if @pai != nil %>
+    <%= SivicCategory.find_by_id(@sivic_category.father_id).nome_categoria%>
+  <%else%>
+      <%= nil%>
+  <%end%>
+
+</p>
+
 <p>
   <strong>Nome categoria:</strong>
   <%= @sivic_category.nome_categoria %>
 </p>
 
-<p>
-  <strong>Tipo categoria:</strong>
-  <%= @sivic_category.tipo_categoria %>
-</p>
 
-<p>
-  <strong>Sivic igreja:</strong>
-  <%= @sivic_category.sivic_igreja %>
-</p>
+</div></div>
+<div class="btn-group">
 
-<p>
-  <strong>User:</strong>
-  <%= @sivic_category.user %>
-</p>
+  <%= link_to edit_sivic_category_path(@sivic_category), :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-pencil"></span> Editar
+  <% end %>
 
-<%= link_to 'Edit', edit_sivic_category_path(@sivic_category) %> |
-<%= link_to 'Back', sivic_categories_path %>
+
+  <%= link_to sivic_categories_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+
+</div>

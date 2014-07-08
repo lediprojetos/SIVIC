@@ -35,11 +35,12 @@ ActiveRecord::Schema.define(version: 20140707163154) do
   end
 
   create_table "sivic_categories", force: true do |t|
+    t.integer  "father_id"
+    t.integer  "integer"
     t.string   "nome_categoria"
     t.integer  "tipo_categoria"
     t.integer  "sivic_igreja_id"
     t.integer  "user_inclusao"
-    t.integer  "integer"
     t.integer  "user_exclusao"
     t.datetime "DATA_exclusao"
     t.datetime "created_at"

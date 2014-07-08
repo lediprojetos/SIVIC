@@ -19,6 +19,10 @@ class SivicCategoriesController < ApplicationController
 
   # GET /sivic_categories/1/edit
   def edit
+
+    @sivic_categoriaPai = SivicCategory.find(params[:id])
+    @sivic_categoriaPai = @sivic_categoriaPai.father_id
+    
   end
 
   # POST /sivic_categories
@@ -69,6 +73,6 @@ class SivicCategoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_category_params
-      params.require(:sivic_category).permit(:nome_categoria, :tipo_categoria, :sivic_igreja_id, :user_id)
+      params.require(:sivic_category).permit(:father_id, :nome_categoria, :tipo_categoria, :sivic_igreja_id, :user_inclusao)
     end
 end

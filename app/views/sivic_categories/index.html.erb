@@ -1,12 +1,14 @@
-<h1>Listing sivic_categories</h1>
+<% content_for :titlePage do %>
+  Lista de Categorias
+<% end %>
 
-<table>
+<%=render '/layouts/panel' %>
+
+
+<table class="table table-hover">
   <thead>
     <tr>
-      <th>Nome categoria</th>
-      <th>Tipo categoria</th>
-      <th>Sivic igreja</th>
-      <th>User</th>
+      <th>Nome Categoria</th>
       <th></th>
       <th></th>
       <th></th>
@@ -17,12 +19,19 @@
     <% @sivic_categories.each do |sivic_category| %>
       <tr>
         <td><%= sivic_category.nome_categoria %></td>
-        <td><%= sivic_category.tipo_categoria %></td>
-        <td><%= sivic_category.sivic_igreja %></td>
-        <td><%= sivic_category.user %></td>
-        <td><%= link_to 'Show', sivic_category %></td>
-        <td><%= link_to 'Edit', edit_sivic_category_path(sivic_category) %></td>
-        <td><%= link_to 'Destroy', sivic_category, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td align='right'>
+        <div class="btn-group">
+          <%= link_to sivic_category, :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-list-alt"></span> Exibir
+          <% end %>             
+          <%= link_to edit_sivic_category_path(sivic_category), :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-pencil"></span> Editar
+          <% end %>           
+            <%= link_to sivic_category, :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-trash"></span> Excluir
+            <% end %>           
+        </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +39,9 @@
 
 <br>
 
-<%= link_to 'New Sivic category', new_sivic_category_path %>
+</div></div>
+<div class="btn-group">
+  <%= link_to new_sivic_category_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>
