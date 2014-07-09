@@ -1,0 +1,85 @@
+<%= form_for(@sivic_lancamento) do |f| %>
+  <% if @sivic_lancamento.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_lancamento.errors.count, "error") %> prohibited this sivic_lancamento from being saved:</h2>
+
+      <ul>
+      <% @sivic_lancamento.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nome_lancamento %><br>
+    <%= f.text_field :nome_lancamento %>
+  </div>
+  <div class="field">
+    <%= f.label :valr_lancamento %><br>
+    <%= f.text_field :valr_lancamento %>
+  </div>
+  <div class="field">
+    <%= f.label :data_vencimento %><br>
+    <%= f.date_select :data_vencimento %>
+  </div>
+  <div class="field">
+    <%= f.label :data_competencia %><br>
+    <%= f.date_select :data_competencia %>
+  </div>
+  <div class="field">
+    <%= f.label :flag_pago %><br>
+    <%= f.check_box :flag_pago %>
+  </div>
+  <div class="field">
+    <%= f.label :flag_dizimo %><br>
+    <%= f.check_box :flag_dizimo %>
+  </div>
+  <div class="field">
+    <%= f.label :numr_recorrencia %><br>
+    <%= f.number_field :numr_recorrencia %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_category_id %><br>
+    <%= f.text_field :sivic_category_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_centrocusto_id %><br>
+    <%= f.text_field :sivic_centrocusto_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_rede_id %><br>
+    <%= f.text_field :sivic_rede_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_tipmovfinanceiro_id %><br>
+    <%= f.text_field :sivic_tipmovfinanceiro_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_pessoa_id %><br>
+    <%= f.text_field :sivic_pessoa_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_fornecedor_id %><br>
+    <%= f.text_field :sivic_fornecedor_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_igreja_id %><br>
+    <%= f.text_field :sivic_igreja_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :data_exclusao %><br>
+    <%= f.datetime_select :data_exclusao %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

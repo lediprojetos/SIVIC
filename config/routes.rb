@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_lancamentos
+
   resources :sivic_categories
 
   resources :sivic_centrocustos
