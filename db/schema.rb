@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140707163154) do
+ActiveRecord::Schema.define(version: 20140709165720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -260,6 +260,39 @@ ActiveRecord::Schema.define(version: 20140707163154) do
   end
 
   add_index "sivic_igrejas", ["sivic_endereco_id"], name: "index_sivic_igrejas_on_sivic_endereco_id", using: :btree
+
+  create_table "sivic_lancamentos", force: true do |t|
+    t.string   "nome_lancamento"
+    t.decimal  "valr_lancamento"
+    t.date     "data_vencimento"
+    t.date     "data_competencia"
+    t.boolean  "flag_pago"
+    t.boolean  "flag_dizimo"
+    t.integer  "numr_recorrencia"
+    t.integer  "numr_parcela"
+    t.integer  "numr_referenciaparcela"
+    t.integer  "sivic_category_id"
+    t.integer  "sivic_centrocusto_id"
+    t.integer  "sivic_rede_id"
+    t.integer  "sivic_tipmovfinanceiro_id"
+    t.integer  "sivic_pessoa_id"
+    t.integer  "sivic_fornecedor_id"
+    t.integer  "sivic_igreja_id"
+    t.integer  "user_inclusao"
+    t.integer  "integer"
+    t.integer  "user_exclusao"
+    t.datetime "data_exclusao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_lancamentos", ["sivic_category_id"], name: "index_sivic_lancamentos_on_sivic_category_id", using: :btree
+  add_index "sivic_lancamentos", ["sivic_centrocusto_id"], name: "index_sivic_lancamentos_on_sivic_centrocusto_id", using: :btree
+  add_index "sivic_lancamentos", ["sivic_fornecedor_id"], name: "index_sivic_lancamentos_on_sivic_fornecedor_id", using: :btree
+  add_index "sivic_lancamentos", ["sivic_igreja_id"], name: "index_sivic_lancamentos_on_sivic_igreja_id", using: :btree
+  add_index "sivic_lancamentos", ["sivic_pessoa_id"], name: "index_sivic_lancamentos_on_sivic_pessoa_id", using: :btree
+  add_index "sivic_lancamentos", ["sivic_rede_id"], name: "index_sivic_lancamentos_on_sivic_rede_id", using: :btree
+  add_index "sivic_lancamentos", ["sivic_tipmovfinanceiro_id"], name: "index_sivic_lancamentos_on_sivic_tipmovfinanceiro_id", using: :btree
 
   create_table "sivic_ministerios", force: true do |t|
     t.string   "nome_ministerio"

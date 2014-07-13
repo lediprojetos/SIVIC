@@ -8,6 +8,8 @@ class CreateSivicLancamentos < ActiveRecord::Migration
       t.boolean :flag_pago
       t.boolean :flag_dizimo
       t.integer :numr_recorrencia
+      t.integer :numr_parcela
+      t.integer :numr_referenciaparcela
       t.references :sivic_category, index: true
       t.references :sivic_centrocusto, index: true
       t.references :sivic_rede, index: true
@@ -15,8 +17,8 @@ class CreateSivicLancamentos < ActiveRecord::Migration
       t.references :sivic_pessoa, index: true
       t.references :sivic_fornecedor, index: true
       t.references :sivic_igreja, index: true
-      t.references :user, index: true
-      t.references :user, index: true
+      t.integer :user_inclusao, :integer, :references => :User, index: true
+      t.integer :user_exclusao, :integer, :references => :User, index: true
       t.datetime :data_exclusao
 
       t.timestamps
