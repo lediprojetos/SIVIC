@@ -38,7 +38,7 @@
   <tbody>
     <% @sivic_professors.each do |sivic_professor| %>
       <tr>
-        <td><%= sivic_professor.sivic_pessoa.NOME_pessoa %></td>  
+        <td><%= sivic_professor.sivic_pessoa.nome_pessoa %></td>  
         <td><%= sivic_professor.DATA_bloqueio.blank? ? '' : sivic_professor.DATA_bloqueio.strftime("%d/%m/%Y") %></td>
         <td><%= link_to image_tag('show.png', :title => 'Exibir', class: 'exibirico') , sivic_professor %></td>
         <td><%= link_to image_tag('edit.png', :title => 'Editar',  class: 'exibirico') ,  edit_sivic_professor_path(sivic_professor) %></td>

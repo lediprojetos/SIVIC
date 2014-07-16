@@ -8,17 +8,17 @@ class SivicProfessorsController < ApplicationController
    # debugger
 
     if params[:sivic_professor_situacao_id] == nil
-      params[:sivic_professor_situacao_id] = '0'
+       params[:sivic_professor_situacao_id] = '0'
     end
 
    if params[:sivic_professor_situacao_id] == '2'
       @sivic_professors = SivicProfessor.all
    elsif params[:sivic_professor_situacao_id] == '0'
-      @sivic_professors = SivicProfessor.where("DATA_bloqueio is null")
+      @sivic_professors = SivicProfessor.where(DATA_bloqueio: nil)
    elsif params[:sivic_professor_situacao_id] == '1'
-      @sivic_professors = SivicProfessor.where("DATA_bloqueio is not null")
+      @sivic_professors = SivicProfessor.where.not(DATA_bloqueio: nil)
    elsif
-    @sivic_relatorioscelulas = SivicProfessor.all
+      @sivic_relatorioscelulas = SivicProfessor.all
    end    
   end
 
