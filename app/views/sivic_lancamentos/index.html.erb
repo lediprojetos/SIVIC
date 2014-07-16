@@ -1,9 +1,12 @@
-<h1>Listing sivic_lancamentos</h1>
+<% content_for :titlePage do %>
+<% end %>
 
-<table>
+<%=render '/layouts/panel' %>
+
+<table class="table table-hover">
   <thead>
     <tr>
-      <th>Nome lancamento</th>
+      <th>Nome</th>
       <th>Valr lancamento</th>
       <th>Data vencimento</th>
       <th>Data competencia</th>
@@ -38,4 +41,5 @@
 
 <br>
 
+</div></div>
 <%= link_to 'New Sivic lancamento', new_sivic_lancamento_path %>
