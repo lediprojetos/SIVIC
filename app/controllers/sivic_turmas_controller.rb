@@ -11,7 +11,7 @@ class SivicTurmasController < ApplicationController
     end
 
     if params[:sivic_turma_situacao_id] == '2'
-      @sivic_turmas = SivicTurma.all 
+      @sivic_turmas = SivicTurma.all  
     elsif params[:sivic_turma_situacao_id] == '0'
       @sivic_turmas = SivicTurma.where(DATA_bloqueio: nil)
     elsif  params[:sivic_turma_situacao_id] == '1'
