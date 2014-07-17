@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140709165720) do
+ActiveRecord::Schema.define(version: 20140717224108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -208,7 +208,7 @@ ActiveRecord::Schema.define(version: 20140709165720) do
   end
 
   create_table "sivic_eventos", force: true do |t|
-    t.string   "DESC_evento"
+    t.string   "desc_evento"
     t.text     "DESC_resumo"
     t.decimal  "VARL_inscricao",       precision: 10, scale: 2
     t.date     "DATA_inicio"

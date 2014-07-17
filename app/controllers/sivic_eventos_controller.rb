@@ -104,6 +104,6 @@ class SivicEventosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_evento_params
-      params.require(:sivic_evento).permit(:DESC_evento, :DESC_resumo, :VARL_inscricao, :DATA_inicio, :DATA_fim, :FLAG_ilimitado, :NUMR_qdtVagas, :User_id, :sivic_igreja_id, :sivic_tipo_evento_id, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
+      params.require(:sivic_evento).permit(:desc_evento, :DESC_resumo, :VARL_inscricao, :DATA_inicio, :DATA_fim, :FLAG_ilimitado, :NUMR_qdtVagas, :User_id, :sivic_igreja_id, :sivic_tipo_evento_id, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
     end
 end

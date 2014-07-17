@@ -9,6 +9,26 @@ class SivicParteventosController < ApplicationController
     @sivic_parteventos = SivicPartevento.where("flag_naoparticipou is null or flag_naoparticipou = false").paginate(:page => params[:page], :per_page => 10)
   end
 
+  def participanteseventos
+    #@sivic_eventos = SivicEvento.where("data_encerramento is null").paginate(:page => params[:page], :per_page => 10)
+    @sivic_eventos = SivicEvento.find_by_name_or_all(params[:q]).paginate(:page => params[:page], :per_page => 10)
+  end
+  
+  def relparticipantesEventos
+
+    if params[:tipo] == '1'
+      @sivic_partevento = SivicPartevento.where('sivic_evento_id = ' + params[:id] + 'and flag_passando = TRUE')
+    else
+      @sivic_partevento = SivicPartevento.where('sivic_evento_id = ' + params[:id] + 'and flag_passando = FALSE')
+    end
+
+    respond_to do |format|
+      format.html
+      format.pdf { render_participantes_eventos_list(@sivic_partevento) }
+    end
+
+  end  
+
   # GET /sivic_parteventos/1
   # GET /sivic_parteventos/1.json
   def show
@@ -40,7 +60,7 @@ class SivicParteventosController < ApplicationController
   def buscaEvento 
     #sivic_evento = SivicEvento.all
     sivic_evento = SivicEvento.where("DATA_encerramento is null")
-    sivic_evento_json = sivic_evento.map {|item| {:id => item.id, :TipoEvento => item.sivic_tipo_evento.desc_tipoevento, :DESC_evento => item.DESC_evento, :DATA_Inicio => item.DATA_inicio, :DATA_Fim => item.DATA_fim}}
+    sivic_evento_json = sivic_evento.map {|item| {:id => item.id, :TipoEvento => item.sivic_tipo_evento.desc_tipoevento, :desc_evento => item.desc_evento, :DATA_Inicio => item.DATA_inicio, :DATA_Fim => item.DATA_fim}}
     render :json => sivic_evento_json
   end
   # POST /sivic_parteventos
@@ -93,4 +113,42 @@ class SivicParteventosController < ApplicationController
     def sivic_partevento_params
       params.require(:sivic_partevento).permit(:desc_convidadopor, :sivic_pessoa_id, :sivic_evento_id, :FLAG_naoparticipou, :flag_passando, sivic_movimentofinanceiro_attributes: [ :id, :VALR_movimento, :user_inclusao, :FLAG_baixa, :sivic_tipmovfinanceiro_id, :sivic_evento_id, :DATA_exclusao, :user_exclusao, :DESC_movimento, :valr_restante ])
     end
-end
+  end    
+
+  def render_participantes_eventos_list(tasks)
+    report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'participantes_eventos.tlf')
+
+    cont = 1
+
+    tasks.each do |task|
+      report.list.add_row do |row|
+        row.values lblNome: task.sivic_pessoa.nome_pessoa
+        row.values lblLider: task.sivic_pessoa.father.nome_pessoa
+        row.values lblConvidadoPor: task.desc_convidadopor
+        row.values lblCont: cont
+
+        cont += 1
+
+      end
+
+      report.page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
+      report.page.item(:data).value(Time.now.strftime("%d/%m/%Y"))
+
+
+      report.page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+      report.page.item(:lblNomeEvento).value(task.sivic_evento.desc_evento)
+      report.page.item(:lblDataEvento).value(task.sivic_evento.DATA_inicio.blank? ? '' : task.sivic_evento.DATA_inicio.strftime("%d/%m/%Y"))
+
+      if params[:tipo] == '1'
+        report.page.item(:lblTipoRelatorio).value('Passando')
+      else
+        report.page.item(:lblTipoRelatorio).value('Servindo')
+      end
+
+
+    end
+        send_data report.generate, filename: 'index.pdf', 
+                                   type: 'application/pdf', 
+                                   disposition: ''
+  end
+

@@ -54,12 +54,16 @@ SIVIC::Application.routes.draw do
   match '/help',    to: 'static_pages#help',    via: 'get'
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
+  match '/report', to: 'static_pages#report', via: 'get'
+
+  match '/participantesEventos', to: 'sivic_parteventos#participanteseventos', via: 'get'
 
   match '/jobCelulas', to: 'sivic_relatorioscelulas#jobCelulas', via: 'get'
 
   get '/relDiscipulos/:id', to: 'sivic_discipulos#relDiscipulos', as: 'relDiscipulos'
   get '/relGeracoes/:id', to: 'sivic_discipulos#relGeracoes', as: 'relGeracoes'
 
+  get '/relparticipantesEventos/:id/:tipo', to: 'sivic_parteventos#relparticipantesEventos', as: 'relparticipantesEventos'
 
   match '/admin', to: 'static_pages#index', via: 'get'
   match '/listarCidade', to: 'sivic_igrejas#get_cities', via: 'get'

@@ -22,7 +22,7 @@
     <% @sivic_eventos.each do |sivic_evento| %>
       <tr>
         <td><%= sivic_evento.sivic_tipo_evento.desc_tipoevento %></td>
-        <td><%= sivic_evento.DESC_evento %></td>
+        <td><%= sivic_evento.desc_evento %></td>
         <td><%= sivic_evento.DESC_resumo %></td>
         <td><%= number_to_currency(sivic_evento.VARL_inscricao, unit: "R$", separator: ",", delimiter: "") %></td>
         <td><%= sivic_evento.DATA_inicio.blank? ? '' : sivic_evento.DATA_inicio.strftime("%d/%m/%Y") %></td>

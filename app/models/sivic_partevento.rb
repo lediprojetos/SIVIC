@@ -7,4 +7,5 @@ class SivicPartevento < ActiveRecord::Base
   validates :sivic_evento_id, :presence => { :message => ' - Escolha uma evento!' }
 
    accepts_nested_attributes_for :sivic_movimentofinanceiro, allow_destroy: true
+
 end
