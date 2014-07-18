@@ -17,7 +17,7 @@
         <td>
           <div class="field">
             <%= f.label :Evento %>
-            <%= f.select :sivic_evento_id, options_from_collection_for_select(SivicEvento.all, 'id', 'DESC_evento',@sivic_movimentofinanceiro.sivic_evento_id), {:include_blank => true},{:class => 'form-control-100'}%>
+            <%= f.select :sivic_evento_id, options_from_collection_for_select(SivicEvento.all, 'id', 'desc_evento',@sivic_movimentofinanceiro.sivic_evento_id), {:include_blank => true},{:class => 'form-control-100'}%>
           </div>
           <div class="field">
             <%= f.label :Tipo_Movimento %>
