@@ -38,6 +38,7 @@ class SivicRelatorioscelulasController < ApplicationController
     respond_to do |format|
     format.html { redirect_to sivic_relatorioscelulas_path }
     format.json { head :no_content }
+    
     end    
 
   end
