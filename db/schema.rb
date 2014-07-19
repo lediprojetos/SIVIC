@@ -386,7 +386,7 @@ ActiveRecord::Schema.define(version: 20140718164502) do
   create_table "sivic_pessoas", force: true do |t|
     t.integer  "father_id"
     t.integer  "integer"
-    t.string   "NOME_pessoa"
+    t.string   "nome_pessoa"
     t.string   "DESC_email"
     t.string   "DESC_observacao"
     t.integer  "sivic_igreja_id"

@@ -7,7 +7,7 @@ class SivicPessoa < ActiveRecord::Base
   belongs_to :father, :class_name => "SivicPessoa"
 
   
-validates :nome_pessoa, :presence => { :message => ' - Informe um nome' }
+#validates :nome_pessoa, :presence => { :message => ' - Informe um nome' }
 #validates :father_id, :presence => { :message => ' - Escolha um lider' }
 
 before_create :setaParaConsolidador

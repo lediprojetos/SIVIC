@@ -32,6 +32,15 @@ class SivicRelatorioscelulasController < ApplicationController
     #sivic_relatorio.update(:sivic_situacoesrelatorio_id => params[:sivic_situacoesrelatorio_id])
 
     sivic_evento = SivicRelatorioscelula.find_by_id(params[:sivic_relatorioscelula_id])
+    sivic_situacoesrelatorio_id =  params[:sivic_situacoesrelatorio_id]
+
+    if sivic_evento.sivic_situacoesrelatorio_id != 3     
+       if sivic_situacoesrelatorio_id == "3"
+          @sivic_movimentofinanceiro = SivicMovimentofinanceiro.create(:VALR_movimento => sivic_evento.VALR_Oferta, :user_inclusao => current_user.id, :FLAG_baixa => nil, :sivic_tipmovfinanceiro_id => 1, :sivic_evento_id => nil, :DATA_exclusao => nil, :user_exclusao => nil, :DESC_movimento => 'Relatorio de Celula' )
+          sivic_evento.sivic_movimentofinanceiro_id = @sivic_movimentofinanceiro.id
+      end
+    end
+
     sivic_evento.sivic_situacoesrelatorio_id = params[:sivic_situacoesrelatorio_id]
     sivic_evento.save
 
