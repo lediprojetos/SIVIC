@@ -24,7 +24,7 @@
     <%= f.label :Pessoa %>
     <select id="sivic_professor_sivic_pessoa_id" name="sivic_professor[sivic_pessoa_id]" disabled="disabled" class='form-control'>
     <% if @sivic_professor.id? %>
-      <option value="<%=@sivic_professor.sivic_pessoa.id%>"><%=@sivic_professor.sivic_pessoa.NOME_pessoa%></option>
+      <option value="<%=@sivic_professor.sivic_pessoa.id%>"><%=@sivic_professor.sivic_pessoa.nome_pessoa%></option>
       <%end%>
     </select>
   </div>
