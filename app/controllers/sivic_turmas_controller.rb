@@ -69,8 +69,8 @@ class SivicTurmasController < ApplicationController
 
   # Metodo para bloquar turma
   def bloquea 
-    @sivic_turma = SivicTurma.find("#{params[:id]}%")
-    @sivic_turma.update(:DATA_bloqueio => Time.now, :user_bloqueio => params[:user_bloqueio])
+    @sivic_turma = SivicTurma.find(params[:id])
+    @sivic_turma.update(:DATA_bloqueio => Time.now, :user_bloqueio => current_user.id)
 
     respond_to do |format|
     format.html {  redirect_to sivic_turmas_url }
