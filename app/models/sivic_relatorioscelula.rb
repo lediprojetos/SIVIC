@@ -11,7 +11,7 @@ class SivicRelatorioscelula < ActiveRecord::Base
 
 #esse metedo deve funcionar na alteração do relatorio
 
-before_save :movimento_financeiro
+#before_save :movimento_financeiro
 
 
 
