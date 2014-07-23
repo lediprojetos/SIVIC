@@ -82,8 +82,7 @@ SIVIC::Application.routes.draw do
   match '/alteraSituacao', to: 'sivic_relatorioscelulas#altera_situacao', via: 'get'
   match '/bloqueaCelula', to: 'sivic_celulas#bloquea', via: 'get'
   match '/desbloqueaCelula', to: 'sivic_celulas#desbloquea', via: 'get'
-  match '/bloqueaProfessor', to: 'sivic_professors#bloquea', via: 'get'
-  match '/bloqueaTurma', to: 'sivic_turmas#bloquea', via: 'get'
+
 
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}
@@ -95,7 +94,8 @@ SIVIC::Application.routes.draw do
 
 
    get '/pEventos/:id', to: 'sivic_parteventos#naoParticipou', as: 'pEventos'
-
    get '/encerraEvento/:id', to: 'sivic_eventos#encerrar', as: 'encerraEvento'
+   get '/bloqueaProfessor:id', to: 'sivic_professors#bloquea', as: 'bloqueaProfessor'
+   get '/bloqueaTurma:id', to: 'sivic_turmas#bloquea', as: 'bloqueaTurma'
 
 end

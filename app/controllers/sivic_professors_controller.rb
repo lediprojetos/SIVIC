@@ -53,15 +53,18 @@ class SivicProfessorsController < ApplicationController
   end
 
   # Metodo para encerrar o evento
-  def bloquea 
-    @sivic_professor = SivicProfessor.find("#{params[:id]}%")
+  def bloquea
 
-    @sivic_professor.update(:DATA_bloqueio => Time.now, :user_bloqueio => params[:user_bloqueio])
+    #@sivic_professor = SivicProfessor.find("#{params[:id]}")
 
+    @sivic_professor = SivicProfessor.find(params[:id])
+
+    @sivic_professor.update(:DATA_bloqueio => Time.now, :user_bloqueio => current_user.id)
 
     respond_to do |format|
     format.html { redirect_to sivic_professors_path }
     format.json { head :no_content }
+
     end
   end
 

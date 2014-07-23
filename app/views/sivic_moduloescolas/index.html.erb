@@ -18,15 +18,24 @@
     <% @sivic_moduloescolas.each do |sivic_moduloescola| %>
       <tr>
         <td><%= sivic_moduloescola.nome_modulo %></td>
-        <td><%= link_to 'Show', sivic_moduloescola %></td>
-        <td><%= link_to 'Edit', edit_sivic_moduloescola_path(sivic_moduloescola) %></td>
-        <td><%= link_to 'Destroy', sivic_moduloescola, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+      <td align='right'>
+        <div class="btn-group">
+          <%= link_to sivic_moduloescola, :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-list-alt"></span> Exibir
+          <% end %>             
+          <%= link_to edit_sivic_moduloescola_path(sivic_moduloescola), :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-pencil"></span> Editar
+          <% end %>             
+            <%= link_to sivic_moduloescola , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-trash"></span> Excluir
+            <% end %>           
+        </div>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-
 </div></div>
 <div class="btn-group">
   <%= link_to new_sivic_moduloescola_path, :class => "btn btn-default" do %>
