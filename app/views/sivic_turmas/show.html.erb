@@ -39,8 +39,9 @@
 <br/>
 
 <%
+
   @sivic_moduloturma = SivicModuloturma.new
-  #@sivic_moduloescola = 
+  @sivic_professor =  SivicProfessor.new
 
 %>
 
@@ -65,7 +66,7 @@
        <%= form_for(@sivic_professor) do |professor| %>
           <div class="col-xs-12">
           <%= professor.label :Professor %>
-          <%= professor.select :sivic_professor_id, options_from_collection_for_select(SivicProfessor.all, 'id', 'sivic_pessoa.nome_pessoa',@sivic_moduloturma.sivic_turma_id),{:include_blank => true},{:class =>  'form-control'}%>
+          <%= professor.select :id, options_from_collection_for_select(SivicProfessor.all, 'id', 'nome_professor',@sivic_moduloturma.sivic_turma_id),{:include_blank => true},{:class =>  'form-control'}%>
           </div>
        <% end %> 
         
