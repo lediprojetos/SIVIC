@@ -10,34 +10,6 @@
   <%= @sivic_moduloescola.nome_modulo %>
 </p>
 
-
-<table class="table table-hover" id="tlbparticipantes">
-  <thead>
-    <tr>
-      <th>Modulo:</th>
-      <th>Professor</th>
-      <th>Telefone:</th>
-      <%if not @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 3 %>
-      <th></th>     
-      <%end%>
-    </tr>
-  </thead>
-  <tbody>
-    <% @sivic_relatorioscelula.sivic_partevenrelacelula.each do |sivic_partevenrelacelula| %>
-      <tr>
-        <td><%= sivic_partevenrelacelula.sivic_participantecelula.nome_participante %></td>
-        <td><%= sivic_partevenrelacelula.sivic_participantecelula.DESC_Email %></td>
-        <td><%= sivic_partevenrelacelula.sivic_participantecelula.NUMR_Telefone %></td>
-        <td><%= sivic_partevenrelacelula.sivic_sitpartcelula.DESC_situacao %></td>
-        <%if not @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 3 %>
-        <td><%= link_to image_tag('trash.png', :title => 'Excluir', class: 'exibirico'), [sivic_partevenrelacelula.sivic_relatorioscelula, sivic_partevenrelacelula],:confirm => 'Deseja excluir o registro?',:method => :delete %>
-         </td>
-         <%end%>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
 </div></div>
 <div class="btn-group">
 

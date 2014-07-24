@@ -30,6 +30,12 @@
   <%= @sivic_turma.DATA_bloqueio %>
 </p>
 
+<hr>
+
+  <div class="field">
+    <a data-toggle="modal" href="#myModal" class="btn btn-success">Adicionar Modulos</a>
+  </div>
+
 <br/>
 
 <%
@@ -38,14 +44,40 @@
 
 %>
 
-<%= form_for(@sivic_moduloturma) do |moduloTurma| %>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Eventos</h4>
+      </div>
+      <div class="modal-body">
 
- <div class="col-xs-3">
-        <%= moduloTurma.label :Modulo %>
-        <%= moduloTurma.select :sivic_turma_id, options_from_collection_for_select(SivicModuloescola.all, 'id', 'nome_modulo',@sivic_moduloturma.sivic_turma_id),{:include_blank => true},{:class =>  'form-control'}%>
- </div>
- <% end %>
+        <table id="table_evento" name="table_evento" class="table table-hover" onload="buscaEvento()">
+          
+        <%= form_for(@sivic_moduloturma) do |moduloTurma| %>
+          <div class="col-xs-12">
+          <%= moduloTurma.label :Modulo %>
+          <%= moduloTurma.select :sivic_turma_id, options_from_collection_for_select(SivicModuloescola.all, 'id', 'nome_modulo',@sivic_moduloturma.sivic_turma_id),{:include_blank => true},{:class =>  'form-control'}%>
+          </div>
+       <% end %> 
+        
+       <%= form_for(@sivic_professor) do |professor| %>
+          <div class="col-xs-12">
+          <%= professor.label :Professor %>
+          <%= professor.select :sivic_professor_id, options_from_collection_for_select(SivicProfessor.all, 'id', 'sivic_pessoa.nome_pessoa',@sivic_moduloturma.sivic_turma_id),{:include_blank => true},{:class =>  'form-control'}%>
+          </div>
+       <% end %> 
+        
 
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </div></div>
 <table style="margin-top:10px;"> 
