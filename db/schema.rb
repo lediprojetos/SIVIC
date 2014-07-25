@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140718164502) do
+ActiveRecord::Schema.define(version: 20140725165118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -284,6 +284,10 @@ ActiveRecord::Schema.define(version: 20140718164502) do
     t.datetime "data_exclusao"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "codi_parcela"
+    t.decimal  "valr_descontotaxa"
+    t.decimal  "valr_jurosmulta"
+    t.decimal  "valr_recebido"
   end
 
   add_index "sivic_lancamentos", ["sivic_category_id"], name: "index_sivic_lancamentos_on_sivic_category_id", using: :btree
