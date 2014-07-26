@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sivic professors:</strong>
+  <%= @sivic_turmamoduloprofessor.sivic_professors %>
+</p>
+
+<p>
+  <strong>Sivic moduloescolas:</strong>
+  <%= @sivic_turmamoduloprofessor.sivic_moduloescolas %>
+</p>
+
+<p>
+  <strong>Sivic turmas:</strong>
+  <%= @sivic_turmamoduloprofessor.sivic_turmas %>
+</p>
+
+<%= link_to 'Edit', edit_sivic_turmamoduloprofessor_path(@sivic_turmamoduloprofessor) %> |
+<%= link_to 'Back', sivic_turmamoduloprofessors_path %>
