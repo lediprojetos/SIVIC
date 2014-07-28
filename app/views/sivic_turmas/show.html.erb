@@ -119,7 +119,6 @@
 
 <script>
 
-
 function createModuloProfessor(){
        $.ajax({
         url : '<%=%>',
@@ -127,13 +126,13 @@ function createModuloProfessor(){
         {
            sivic_moduloescolas_id : $('#sivic_moduloturma_sivic_turma_id').val()
           ,sivic_professors_id : $('#sivic_professor_id').val()
-          ,sivic_turmas_id :  '<%=sivic_turma.id%>'
+          ,sivic_turmas_id :  '<%=@sivic_turma.id%>'
          },
         success: function(data){
           $('#tbodyeminhavytryne').empty();
           for (var i in data){
             var item = data[i];
-            $('#table_minhas_vytrynes').append('<tr><td>'+item.nome+'</td><td><a type=date href="javascript: if(confirm("Deseja excluir o registro?")){  deletaVytryneUser(\''+ item.id+'\)}else{};"><button type="button" class="btn btn-danger btn-sm">Deletar</button></td></tr>')
+            $('#idbodymodulo').append('<tr><td>'+item.nome+'</td><td><a type=date href="javascript: if(confirm("Deseja excluir o registro?")){  deletaVytryneUser(\''+ item.id+'\)}else{};"><button type="button" class="btn btn-danger btn-sm">Deletar</button></td></tr>')
           };         
          }
        })     
@@ -141,17 +140,18 @@ function createModuloProfessor(){
 
 
 function buscaModuloProfessor(){
+
        $.ajax({
         url : '<%=buscaTurmaProfessor_path %>',
         data :
         {
-          sivic_turmas_id : '<%=sivic_turma.id%>'
+          sivic_turmas_id : '<%=@sivic_turma.id%>'
          },
       success: function(data){
           $('#tlbmoduloprofessor').empty();
           for (var i in data){
             var item = data[i];
-            $('#table_minhas_vytrynes').append('<tr><td>'+item.nome+'</td><td><a type=date href="javascript: if(confirm("Deseja excluir o registro?")){  deletaVytryneUser(\''+ item.id+'\)}else{};"><button type="button" class="btn btn-danger btn-sm">Deletar</button></td></tr>')
+            $('#idbodymodulo').append('<tr><td>'+item.nome+'</td><td><a type=date href="javascript: if(confirm("Deseja excluir o registro?")){  deletaVytryneUser(\''+ item.id+'\)}else{};"><button type="button" class="btn btn-danger btn-sm">Deletar</button></td></tr>')
           };         
          }
        })     
@@ -165,10 +165,10 @@ function buscaModuloProfessor(){
           user_id : '<%=current_user.id%>'
          },
           success: function(data){
-          
+          }
        })  
    }
-
- buscaModuloProfessor()
+  
+  buscaModuloProfessor();
 
 </script>

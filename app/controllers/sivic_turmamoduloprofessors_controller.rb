@@ -36,6 +36,7 @@ class SivicTurmamoduloprofessorsController < ApplicationController
   def busca_modulo_professor
     
       sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find :all, :conditions => {:sivic_turmas_id => params[:sivic_turmas_id]}
+      debugger
       sivic_turmamoduloprofessor_json = sivic_turmamoduloprofessor.map {|item| {:id => item.id, :nome_professor => item.sivic_professors.sivic_pessoas.nome_pessoa, :nome_modulo => item.sivic_moduloescolas.nome_modulo}}
       render :json => sivic_turmamoduloprofessor_json    
 
