@@ -7,14 +7,27 @@ class SivicLancamentosController < ApplicationController
     @sivic_lancamentos = SivicLancamento.all
   end
 
-  # GET /sivic_lancamentos/1
-  # GET /sivic_lancamentos/1.json
-  def show
-  end
-
   # GET /sivic_lancamentos/new
   def new
     @sivic_lancamento = SivicLancamento.new
+  end
+
+  def contasapagar
+    @sivic_lancamentos = SivicLancamento.where("sivic_tipmovfinanceiro_id  = 1")
+  end  
+
+  def contasareceber
+    @sivic_lancamentos = SivicLancamento.where("sivic_tipmovfinanceiro_id  = 2")
+  end    
+
+  def extrato
+    @sivic_lancamentos = SivicLancamento.all
+  end      
+
+
+  # GET /sivic_lancamentos/1
+  # GET /sivic_lancamentos/1.json
+  def show
   end
 
   # GET /sivic_lancamentos/1/edit

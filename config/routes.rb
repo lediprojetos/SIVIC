@@ -84,7 +84,11 @@ SIVIC::Application.routes.draw do
   match '/alteraSituacao', to: 'sivic_relatorioscelulas#altera_situacao', via: 'get'
   match '/bloqueaCelula', to: 'sivic_celulas#bloquea', via: 'get'
   match '/desbloqueaCelula', to: 'sivic_celulas#desbloquea', via: 'get'
-   match '/buscaTurmaProfessor', to: 'sivic_turmamoduloprofessors#busca_modulo_professor', via: 'get'
+  match '/buscaTurmaProfessor', to: 'sivic_turmamoduloprofessors#busca_modulo_professor', via: 'get'
+
+  get '/contasapagar', to: 'sivic_lancamentos#contasapagar',as: 'contasapagar'
+  get '/contasareceber', to: 'sivic_lancamentos#contasareceber',as: 'contasareceber'
+  get '/extrato', to: 'sivic_lancamentos#extrato',as: 'extrato'
 
 
 

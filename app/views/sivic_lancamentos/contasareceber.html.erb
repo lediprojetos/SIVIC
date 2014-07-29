@@ -1,0 +1,49 @@
+<%=render '/layouts/finanbar' %>
+
+
+<% content_for :titlePage do %>
+<% end %>
+
+<%#=render '/layouts/panel' %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Valr lancamento</th>
+      <th>Data vencimento</th>
+      <th>Data competencia</th>
+      <th>Flag pago</th>
+      <th>Flag dizimo</th>
+      <th>Numr recorrencia</th>
+      <th>Sivic category</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_lancamentos.each do |sivic_lancamento| %>
+      <tr>
+        <td><%= sivic_lancamento.nome_lancamento %></td>
+        <td><%= sivic_lancamento.valr_lancamento %></td>
+        <td><%= sivic_lancamento.data_vencimento %></td>
+        <td><%= sivic_lancamento.data_competencia %></td>
+        <td><%= sivic_lancamento.flag_pago %></td>
+        <td><%= sivic_lancamento.flag_dizimo %></td>
+        <td><%= sivic_lancamento.numr_recorrencia %></td>
+        <td><%= sivic_lancamento.sivic_category %></td>
+        <td><%= link_to 'Show', sivic_lancamento %></td>
+        <td><%= link_to 'Edit', edit_sivic_lancamento_path(sivic_lancamento) %></td>
+        <td><%= link_to 'Destroy', sivic_lancamento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+</div></div>
+<%= link_to 'New Sivic lancamento', new_sivic_lancamento_path %>
+</div>
