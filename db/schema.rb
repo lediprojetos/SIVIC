@@ -491,16 +491,16 @@ ActiveRecord::Schema.define(version: 20140726151440) do
   add_index "sivic_tipo_eventos", ["sivic_igreja_id"], name: "index_sivic_tipo_eventos_on_sivic_igreja_id", using: :btree
 
   create_table "sivic_turmamoduloprofessors", force: true do |t|
-    t.integer  "sivic_professors_id"
-    t.integer  "sivic_moduloescolas_id"
-    t.integer  "sivic_turmas_id"
+    t.integer  "sivic_professor_id"
+    t.integer  "sivic_moduloescola_id"
+    t.integer  "sivic_turma_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "sivic_turmamoduloprofessors", ["sivic_moduloescolas_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_moduloescolas_id", using: :btree
-  add_index "sivic_turmamoduloprofessors", ["sivic_professors_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_professors_id", using: :btree
-  add_index "sivic_turmamoduloprofessors", ["sivic_turmas_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_turmas_id", using: :btree
+  add_index "sivic_turmamoduloprofessors", ["sivic_moduloescola_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_moduloescola_id", using: :btree
+  add_index "sivic_turmamoduloprofessors", ["sivic_professor_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_professor_id", using: :btree
+  add_index "sivic_turmamoduloprofessors", ["sivic_turma_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_turma_id", using: :btree
 
   create_table "sivic_turmas", force: true do |t|
     t.integer  "sivic_igreja_id"

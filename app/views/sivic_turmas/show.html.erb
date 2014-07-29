@@ -147,11 +147,11 @@ function buscaModuloProfessor(){
         {
           sivic_turmas_id : '<%=@sivic_turma.id%>'
          },
-      success: function(data){
+      success: function(data){ 
           $('#tlbmoduloprofessor').empty();
           for (var i in data){
             var item = data[i];
-            $('#idbodymodulo').append('<tr><td>'+item.nome+'</td><td><a type=date href="javascript: if(confirm("Deseja excluir o registro?")){  deletaVytryneUser(\''+ item.id+'\)}else{};"><button type="button" class="btn btn-danger btn-sm">Deletar</button></td></tr>')
+            $('#idbodymodulo').append('<tr><td>'+item.nome_turma+'</td></tr>')
           };         
          }
        })     
