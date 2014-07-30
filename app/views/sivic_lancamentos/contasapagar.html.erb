@@ -6,8 +6,6 @@
 Contas a Pagar
 <% end %>
 
-<%#=render '/layouts/panel' %>
-
 <table class="table table-hover table-striped table-bordered table-condensed">
   <thead>
     <tr>
@@ -44,4 +42,203 @@ Contas a Pagar
   </tbody>
 </table>
 
+
+
+<!-- Button trigger modal -->
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+        <h4 class="modal-title" id="myModalLabel">Novo Pagamento</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-6">
+              <spam>Descrição</spam>
+              <input id="nome_lancamento" name="nome_lancamento" type="text" class="form-control" placeholder="Descrição do lançamento"> 
+          </div>
+
+          <div class="col-xs-6">
+              <spam>Categoria</spam>
+              <%=  fields_for :sivic_category do |f| %>
+                <%= f.select :sivic_category_id, options_from_collection_for_select(SivicCategory.all, 'id', 'nome_categoria'),{},{ :class =>  'form-control'}%>
+              <% end %>
+          </div>
+        </div>
+        </br>
+        <div class="row">
+
+            <div class='col-sm-4'>
+              <spam>Data Vencimento</spam>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input id="data_vencimento" name="data_vencimento" type='text' class="form-control" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+          <div class="col-xs-8">
+              <spam>Conta</spam>
+              <%=  fields_for :sivic_contabancos do |f| %>
+                <%= f.select :sivic_conta_id, options_from_collection_for_select(SivicContabanco.all, 'id', 'nome_conta'),{},{ :class =>  'form-control'}%>
+              <% end %>          
+          </div>          
+        </div>
+
+        <div class="row">
+          <div class="col-xs-4">
+              <spam>Valor</spam>
+              <input id="valr_lancamento" name="valr_lancamento" type="text" class="form-control"> 
+          </div>
+        </div>
+
+        <hr>
+
+        <div style="margin-left:10px;">
+
+          <div class="row">
+            <div class="col-xs-2">
+              <div class="checkbox">
+                <label>
+                  <input id="chkRepetir" type="checkbox" onclick="desabilitarepetir();"> Repetir
+                </label>
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <select id="selTemporizador" class="form-control" disabled="disabled">
+                <option>Diariamente</option>
+                <option>Semanalmente</option>
+                <option>Mensalmente</option>
+                <option>Bimestralmente</option>
+                <option>Trimestralmente</option>
+              </select>
+            </div>
+              
+            <div class="col-xs-2">
+              <spam id="lblnumr_recorrencia">Ocorrência:</spam>
+            </div>            
+            <div class="col-xs-2">
+              <input id="numr_recorrencia" name="numr_recorrencia" type="text" class="form-control" disabled="disabled"> 
+            </div>            
+
+          </div>
+
+          <hr>
+
+          <div class="row">
+            <div class="col-xs-2">
+              <div class="checkbox">
+                <label>
+                  <input id="chkPago" type="checkbox" onclick="desabilitapago();"> Pago
+                </label>
+              </div>
+            </div>
+            <div class='col-sm-4'>
+              <spam id="lbldata_pagamento" style="color:gray;" >Data Pagamento</spam>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker2'>
+                        <input id="data_pagamento" name="data_pagamento" type='text' class="form-control" disabled="disabled"/>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="col-xs-3">
+              <spam id="lblvalr_descontotaxa" style="color:gray;">Descontos/Taxas:</spam>
+              <input id="valr_descontotaxa" name="valr_descontotaxa" type="text" class="form-control" disabled="disabled"> 
+            </div>             
+            <div class="col-xs-3">
+              <spam id="lblvalr_jurosmulta" style="color:gray;">Juros/Multa:</spam>
+              <input id="valr_jurosmulta" name="valr_jurosmulta" type="text" class="form-control" disabled="disabled"> 
+            </div>             
+          </div>  
+          <div class="row">
+            <div class="col-xs-2">
+            </div>             
+            <div class="col-xs-4">
+              <spam id="lblvalr_pago" style="color:gray;">Valor Pago</spam>
+              <input id="valr_pago" name="valr_pago" type="text" class="form-control" disabled="disabled"> 
+            </div> 
+
+
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Savar Pagamento</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div></div>
+</div></div>
+
+
+<script>
+    $(function() {
+      $('#datetimepicker2').datetimepicker({language: 'pt', pickTime: false});
+      $('#datetimepicker1').datetimepicker({language: 'pt', pickTime: false});      
+      $("#valr_lancamento").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+      $('#myModal').modal('show');
+  })
+
+
+function desabilitapago(){
+
+  if($('#chkPago').is(':checked') == true){
+
+    $('#data_pagamento').prop( "disabled", false );
+    $('#valr_descontotaxa').prop( "disabled", false );
+    $('#valr_jurosmulta').prop( "disabled", false );
+    $('#valr_pago').prop( "disabled", false );
+    $("#lbldata_pagamento").css("color", "black");
+    $("#lblvalr_descontotaxa").css("color", "black");
+    $("#lblvalr_jurosmulta").css("color", "black");
+    $("#lblvalr_pago").css("color", "black");
+
+  } else {
+    $('#data_pagamento').prop( "disabled", true );
+    $('#valr_descontotaxa').prop( "disabled", true );
+    $('#valr_jurosmulta').prop( "disabled", true );
+    $('#valr_pago').prop( "disabled", true );
+    $("#lbldata_pagamento").css("color", "gray");
+    $("#lblvalr_descontotaxa").css("color", "gray");
+    $("#lblvalr_jurosmulta").css("color", "gray");
+    $("#lblvalr_pago").css("color", "gray");
+  }
+
+}
+
+function desabilitarepetir(){
+
+  if($('#chkRepetir').is(':checked') == true){
+
+    $('#numr_recorrencia').prop( "disabled", false );
+    $('#selTemporizador').prop( "disabled", false );
+    $("#lblnumr_recorrencia").css("color", "black");
+
+  } else {
+    $('#numr_recorrencia').prop( "disabled", true );
+    $('#selTemporizador').prop( "disabled", true );
+    $("#lblnumr_recorrencia").css("color", "gray");
+  }
+  
+}
+
+
+
+</script>
 

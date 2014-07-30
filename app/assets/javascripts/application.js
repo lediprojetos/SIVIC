@@ -16,6 +16,12 @@
 //= require turbolinks
 //= require_tree 
 
+//= require moment
+//= require bootstrap-datetimepicker
+
+//= require moment/pt
+//= require locales/bootstrap-datetimepicker.pt.js
+
 
 /*
 	Masked Input plugin for jQuery
@@ -760,8 +766,3 @@ $.fn.extend({
         }
     };
 })(window.jQuery || window.Zepto);
-
-
-
-
-
