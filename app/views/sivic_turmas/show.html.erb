@@ -39,7 +39,7 @@
 <hr>
 
 
-<table class="table table-hover" id="tlbmoduloprofessor">
+<table class="table table-hover" id="tlbmoduloprofessor" name="tlbmoduloprofessor">
   <thead>
     <tr>
       <th>Modulo</th>
@@ -133,6 +133,11 @@ function createModuloProfessor(){
           for (var i in data){
             var item = data[i];
             $('#idbodymodulo').append('<tr><td>'+item.nome+'</td><td><a type=date href="javascript: if(confirm("Deseja excluir o registro?")){  deletaVytryneUser(\''+ item.id+'\)}else{};"><button type="button" class="btn btn-danger btn-sm">Deletar</button></td></tr>')
+
+
+               $('#tlbmoduloprofessor').append('<tr><td>'+item.nome_modulo+'</td><td>'+item.nome_professor+'</td><td><a type=date href="javascript:deletaModuloProfessor(\','+item.id+'\);"><button type="button" class="btn btn-danger btn-sm">Excluir</button></td></tr>')
+
+
           };         
          }
        })     
@@ -147,9 +152,12 @@ function buscaModuloProfessor(){
           sivic_turmas_id : '<%=@sivic_turma.id%>'
          },
       success: function(data){         
-      
-       alert("teste")
-        
+        $('#idbodymodulo ').empty();
+         for (var i in data){
+              var item = data[i];
+
+           $('#tlbmoduloprofessor').append('<tr><td>'+item.nome_modulo+'</td><td>'+item.nome_professor+'</td><td><a data-confirm="Deseja Excluir o registro?" data-method="delete" href="/sivic_turmamoduloprofessors/'+item.id+'" rel="nofollow" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span> Excluir</a></td></tr>')
+           };   
          }
        })     
    }
