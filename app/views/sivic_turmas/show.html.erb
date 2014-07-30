@@ -140,26 +140,23 @@ function createModuloProfessor(){
 
 
 function buscaModuloProfessor(){
-
        $.ajax({
         url : '<%=buscaTurmaProfessor_path %>',
         data :
         {
           sivic_turmas_id : '<%=@sivic_turma.id%>'
          },
-      success: function(data){ 
-          $('#tlbmoduloprofessor').empty();
-          for (var i in data){
-            var item = data[i];
-            $('#idbodymodulo').append('<tr><td>'+item.nome_turma+'</td></tr>')
-          };         
+      success: function(data){         
+      
+       alert("teste")
+        
          }
        })     
    }
 
    function deletaModuloProfessor(id){
        $.ajax({
-        url : '<%=  %>',
+        url : '<%= %>',
         data :
         {
           user_id : '<%=current_user.id%>'
@@ -168,6 +165,9 @@ function buscaModuloProfessor(){
           }
        })  
    }
+
+
+
   
   buscaModuloProfessor();
 
