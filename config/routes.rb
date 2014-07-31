@@ -86,6 +86,8 @@ SIVIC::Application.routes.draw do
   match '/desbloqueaCelula', to: 'sivic_celulas#desbloquea', via: 'get'
   match '/buscaTurmaProfessor', to: 'sivic_turmamoduloprofessors#busca_modulo_professor', via: 'get'
 
+  match '/criarTurmaModuloProfessor', to: 'sivic_turmamoduloprofessors#create_turma_modulo_professor', via: 'get'
+  
   match '/inserePagamento', to: 'sivic_lancamentos#create_pagamento', via: 'get'
 
   get '/contasapagar', to: 'sivic_lancamentos#contasapagar',as: 'contasapagar'

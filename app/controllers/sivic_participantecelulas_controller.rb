@@ -76,6 +76,7 @@ class SivicParticipantecelulasController < ApplicationController
   # DELETE /sivic_participantecelulas/1
   # DELETE /sivic_participantecelulas/1.json
   def destroy
+    
     @sivic_participantecelula.destroy
     respond_to do |format|
       format.html { redirect_to sivic_participantecelulas_url }

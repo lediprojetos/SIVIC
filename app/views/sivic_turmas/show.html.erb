@@ -90,8 +90,23 @@
 
         </table>
       </div>
+
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      <div class="row">
+         
+          <div class="col-xs-2">
+              <a data-toggle="modal" href="javascript:createModuloProfessor(this.value);" class="btn btn-success">Cadastrar</a>
+          </div>
+          
+          <div class="col-xs-8">
+          </div>
+
+           <div class="col-xs-2">
+             <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+          </div>
+          </div>        
+       </div> 
+
       </div>
     </div>
   </div>
@@ -121,22 +136,19 @@
 
 function createModuloProfessor(){
        $.ajax({
-        url : '<%=%>',
+        url : '<%=criarTurmaModuloProfessor_path%>',
         data :
         {
-           sivic_moduloescolas_id : $('#sivic_moduloturma_sivic_turma_id').val()
-          ,sivic_professors_id : $('#sivic_professor_id').val()
-          ,sivic_turmas_id :  '<%=@sivic_turma.id%>'
+           sivic_moduloescola_id : $('#sivic_moduloturma_sivic_turma_id').val()
+          ,sivic_professor_id : $('#sivic_professor_id').val()
+          ,sivic_turma_id :  '<%=@sivic_turma.id%>'
          },
         success: function(data){
-          $('#tbodyeminhavytryne').empty();
+          $('#idbodymodulo').empty();
           for (var i in data){
             var item = data[i];
-            $('#idbodymodulo').append('<tr><td>'+item.nome+'</td><td><a type=date href="javascript: if(confirm("Deseja excluir o registro?")){  deletaVytryneUser(\''+ item.id+'\)}else{};"><button type="button" class="btn btn-danger btn-sm">Deletar</button></td></tr>')
-
-
-               $('#tlbmoduloprofessor').append('<tr><td>'+item.nome_modulo+'</td><td>'+item.nome_professor+'</td><td><a type=date href="javascript:deletaModuloProfessor(\','+item.id+'\);"><button type="button" class="btn btn-danger btn-sm">Excluir</button></td></tr>')
-
+           
+            $('#tlbmoduloprofessor').append('<tr><td>'+item.nome_modulo+'</td><td>'+item.nome_professor+'</td><td><a data-confirm="Deseja Excluir o registro?" data-method="delete" href="/sivic_turmamoduloprofessors/'+item.id+'" rel="nofollow" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span> Excluir</a></td></tr>')
 
           };         
          }
@@ -174,9 +186,6 @@ function buscaModuloProfessor(){
        })  
    }
 
-
-
-  
-  buscaModuloProfessor();
+    buscaModuloProfessor();
 
 </script>

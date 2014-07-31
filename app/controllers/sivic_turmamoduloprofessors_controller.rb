@@ -22,14 +22,15 @@ class SivicTurmamoduloprofessorsController < ApplicationController
   end
 
   def create_turma_modulo_professor 
-      sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find :all, :conditions => {:sivic_professors_id => params[:sivic_professors_id], :sivic_moduloescolas_id => params[:sivic_moduloescolas_id], :sivic_turmas_id => params[:sivic_turmas_id]}
+      sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find :all, :conditions => {:sivic_professor_id => params[:sivic_professor_id], :sivic_moduloescola_id => params[:sivic_moduloescola_id], :sivic_turma_id => params[:sivic_turma_id]}
     
     if sivic_turmamoduloprofessor.empty?
-       SivicTurmamoduloprofessor.create(:sivic_professors_id => params[:sivic_professors_id], :sivic_moduloescolas_id => params[:sivic_moduloescolas_id], :sivic_turmas_id => params[:sivic_turmas_id])
-       sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find :all, :conditions => {:sivic_turmas_id => params[:sivic_turmas_id]}
-
-       sivic_turmamoduloprofessor_json = sivic_turmamoduloprofessor.map {|item| {:id => item.id, :nome_professor => item.sivic_professors.sivic_pessoas.nome_pessoa, :nome_modulo => item.sivic_moduloescolas.nome_modulo}}
-       render :json => sivic_turmamoduloprofessor_json    
+       SivicTurmamoduloprofessor.create(:sivic_professor_id => params[:sivic_professor_id], :sivic_moduloescola_id => params[:sivic_moduloescola_id], :sivic_turma_id => params[:sivic_turma_id])
+      
+      sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.where(sivic_turma_id: params[:sivic_turmas_id]).to_a
+  
+     sivic_turmamoduloprofessor_json = sivic_turmamoduloprofessor.map {|item| {:id => item.id, :sivic_turma_id => item.sivic_turma_id, :nome_turma => item.sivic_turma.DESC_turma, :nome_professor => item.sivic_professor.sivic_pessoa.nome_pessoa, :nome_modulo => item.sivic_moduloescola.nome_modulo}}
+     render :json => sivic_turmamoduloprofessor_json     
     end
   end
 
@@ -42,7 +43,7 @@ class SivicTurmamoduloprofessorsController < ApplicationController
 	  sivic_turmamoduloprofessor_json = sivic_turmamoduloprofessor.map {|item| {:id => item.id, :sivic_turma_id => item.sivic_turma_id, :nome_turma => item.sivic_turma.DESC_turma, :nome_professor => item.sivic_professor.sivic_pessoa.nome_pessoa, :nome_modulo => item.sivic_moduloescola.nome_modulo}}
     render :json => sivic_turmamoduloprofessor_json    
 
-  end
+end
 
   # POST /sivic_turmamoduloprofessors
   # POST /sivic_turmamoduloprofessors.json
@@ -77,9 +78,12 @@ class SivicTurmamoduloprofessorsController < ApplicationController
   # DELETE /sivic_turmamoduloprofessors/1
   # DELETE /sivic_turmamoduloprofessors/1.json
   def destroy
+    
+    @sivic_turma = SivicTurma.find(@sivic_turmamoduloprofessor.sivic_turma_id)
+
     @sivic_turmamoduloprofessor.destroy
     respond_to do |format|
-      format.html { redirect_to sivic_turmamoduloprofessors_url }
+      format.html { redirect_to @sivic_turma }
       format.json { head :no_content }
     end
   end
