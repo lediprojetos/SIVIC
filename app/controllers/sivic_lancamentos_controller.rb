@@ -1,6 +1,15 @@
 class SivicLancamentosController < ApplicationController
   before_action :set_sivic_lancamento, only: [:show, :edit, :update, :destroy]
 
+
+  def create_pagamento
+    SivicLancamentosController.create(:father_id => params[:father_id],:nome_pessoa => params[:nome_pessoa],:DESC_email => params[:DESC_email],:DESC_observacao => params[:DESC_observacao],:sivic_igreja_id => params[:sivic_igreja_id])
+
+    sivic_pessoa = SivicPessoa.find :all, :conditions => {:nome_pessoa =>  params[:nome_pessoa]}, :order => "nome_pessoa ASC"
+    sivic_pessoa_json = sivic_pessoa.map {|item| {:id => item.id, :nome_pessoa => item.nome_pessoa, :DESC_email => item.DESC_email}}
+    render :json => sivic_pessoa_json
+  end
+
   # GET /sivic_lancamentos
   # GET /sivic_lancamentos.json
   def index

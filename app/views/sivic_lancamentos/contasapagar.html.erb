@@ -42,13 +42,6 @@ Contas a Pagar
   </tbody>
 </table>
 
-
-
-<!-- Button trigger modal -->
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Launch demo modal
-</button>
-
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -176,18 +169,55 @@ Contas a Pagar
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary">Savar Pagamento</button>
+        <button type="button" class="btn btn-primary" onclick="salvapagamento();">Savar Pagamento</button>
       </div>
     </div>
   </div>
 </div>
 
+</div></div>
+</div></div>
 
-</div></div>
-</div></div>
+
 
 
 <script>
+
+function salvapagamento() {
+  
+      $.ajax({
+        url: '<%= inserePagamento_path %>',
+        data : 
+        {
+            nome_lancamento : $('#nome_lancamento').val()
+            ,sivic_category_id : $('#sivic_category_sivic_category_id').val()
+            ,data_vencimento : $('#data_vencimento').val()
+            ,sivic_conta_id : $('#sivic_conta_id').val()
+            ,valr_lancamento : $('#valr_lancamento').val()
+            ,numr_temporizador : $('#selTemporizador').val()
+            ,numr_recorrencia : $('#numr_recorrencia').val()
+            ,data_pagamento : $('#data_pagamento').val()
+            ,valr_descontotaxa : $('#valr_descontotaxa').val()
+            ,valr_jurosmulta : $('#valr_jurosmulta').val()
+            ,valr_pago : $('#valr_pago').val()
+        },
+        success: function(data){
+          var options = "";
+          var DESC_SituacaoParticipante
+          for (var i in data) {
+            var item = data[i];
+            setaNome(item.nome_participante,item.id,item.sivic_sitpartcelula_id);
+
+            $('#sivic_participantecelula_nome_participante').val("");
+            $('#sivic_participantecelula_DESC_Email').val("");
+            $('#sivic_participantecelula_NUMR_Telefone').val("");
+            //$('#sivic_participantecelula_DESC_SituacaoParticipante').val("");
+
+          };
+        }
+      })  
+}
+
     $(function() {
       $('#datetimepicker2').datetimepicker({language: 'pt', pickTime: false});
       $('#datetimepicker1').datetimepicker({language: 'pt', pickTime: false});      
