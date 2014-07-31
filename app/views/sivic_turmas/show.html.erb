@@ -144,13 +144,7 @@ function createModuloProfessor(){
           ,sivic_turma_id :  '<%=@sivic_turma.id%>'
          },
         success: function(data){
-          $('#idbodymodulo').empty();
-          for (var i in data){
-            var item = data[i];
-           
-            $('#tlbmoduloprofessor').append('<tr><td>'+item.nome_modulo+'</td><td>'+item.nome_professor+'</td><td><a data-confirm="Deseja Excluir o registro?" data-method="delete" href="/sivic_turmamoduloprofessors/'+item.id+'" rel="nofollow" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span> Excluir</a></td></tr>')
-
-          };         
+            buscaModuloProfessor();
          }
        })     
    }
