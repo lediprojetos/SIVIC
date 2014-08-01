@@ -1,0 +1,51 @@
+<% content_for :titlePage do %>
+  Matriculas
+<% end %>
+
+<%=render '/layouts/panel' %>
+<div class="containermininmo">
+<table class="table table-hover">
+  <thead>
+    <tr>  
+      <th>Aluno</th>
+      <th>Turma</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_turmaalunos.each do |sivic_turmaaluno| %>
+      <tr>
+        <td><%= sivic_turmaaluno.sivic_pessoa.nome_pessoa %></td>
+        <td><%= sivic_turmaaluno.sivic_turma.DESC_turma %></td>    
+        <td align='right'>
+        <div class="btn-group">
+          <%= link_to sivic_turmaaluno, :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-list-alt"></span> Exibir
+          <% end %>             
+          <%= link_to edit_sivic_turmaaluno_path(sivic_turmaaluno), :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-pencil"></span> Editar
+          <% end %> 
+           <%= link_to bloqueaTurma_path(sivic_turma), :confirm => 'Deseja bloquear a turma?', :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-ban-circle"></span> Bloquear
+            <% end %>             
+            <%= link_to sivic_turmaaluno , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-trash"></span> Excluir
+            <% end %>           
+        </div>
+        </td>             
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+
+</div></div>
+<div class="btn-group">
+  <%= link_to new_sivic_turmaaluno_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140730110544) do
+ActiveRecord::Schema.define(version: 20140801154720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -488,6 +488,20 @@ ActiveRecord::Schema.define(version: 20140730110544) do
   end
 
   add_index "sivic_tipo_eventos", ["sivic_igreja_id"], name: "index_sivic_tipo_eventos_on_sivic_igreja_id", using: :btree
+
+  create_table "sivic_turmaalunos", force: true do |t|
+    t.integer  "sivic_turma_id"
+    t.integer  "sivic_pessoa_id"
+    t.integer  "user_inclusao"
+    t.integer  "integer"
+    t.integer  "user_bloqueio"
+    t.date     "data_bloqueio"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_turmaalunos", ["sivic_pessoa_id"], name: "index_sivic_turmaalunos_on_sivic_pessoa_id", using: :btree
+  add_index "sivic_turmaalunos", ["sivic_turma_id"], name: "index_sivic_turmaalunos_on_sivic_turma_id", using: :btree
 
   create_table "sivic_turmamoduloprofessors", force: true do |t|
     t.integer  "sivic_professor_id"

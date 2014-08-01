@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_turmaalunos
+
   resources :sivic_turmamoduloprofessors
 
   resources :sivic_lancamentos
@@ -108,5 +110,6 @@ SIVIC::Application.routes.draw do
    get '/encerraEvento/:id', to: 'sivic_eventos#encerrar', as: 'encerraEvento'
    get '/bloqueaProfessor:id', to: 'sivic_professors#bloquea', as: 'bloqueaProfessor'
    get '/bloqueaTurma:id', to: 'sivic_turmas#bloquea', as: 'bloqueaTurma'
+   get '/bloqueaTurmaaluno:id', to: 'sivic_turmaalunoss#bloquea', as: 'bloqueaTurmaaluno'
 
 end

@@ -1,0 +1,33 @@
+<%= form_for(@sivic_turmaaluno) do |f| %>
+  <% if @sivic_turmaaluno.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_turmaaluno.errors.count, "error") %> prohibited this sivic_turmaaluno from being saved:</h2>
+
+      <ul>
+      <% @sivic_turmaaluno.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :sivic_turma_id %><br>
+    <%= f.text_field :sivic_turma_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_pessoa_id %><br>
+    <%= f.text_field :sivic_pessoa_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :data_bloqueio %><br>
+    <%= f.date_select :data_bloqueio %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
