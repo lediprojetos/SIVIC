@@ -1,4 +1,6 @@
 class SivicLancamento < ActiveRecord::Base
+  
+  belongs_to :sivic_contabanco
   belongs_to :sivic_category
   belongs_to :sivic_centrocusto
   belongs_to :sivic_rede

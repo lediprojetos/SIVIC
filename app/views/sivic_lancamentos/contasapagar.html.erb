@@ -10,6 +10,7 @@ Contas a Pagar
   <thead>
     <tr>
       <th>Data</th>
+      <th>Categoria</th>
       <th>Lançamento</th>
       <th>Valor</th>
       <th></th>
@@ -19,9 +20,10 @@ Contas a Pagar
   <tbody>
     <% @sivic_lancamentos.each do |sivic_lancamento| %>
       <tr>
-        <td><%= sivic_lancamento.data_vencimento %></td>
+        <td><%= (sivic_lancamento.data_vencimento.blank? ? '' : sivic_lancamento.data_vencimento.strftime("%d/%m/%Y")) %></td>
         <td><%= sivic_lancamento.sivic_category.nome_categoria %></td>
-        <td><%= sivic_lancamento.valr_lancamento %></td>
+        <td><%= sivic_lancamento.nome_lancamento %></td>
+        <td><%= number_to_currency(sivic_lancamento.valr_lancamento, unit: "R$", separator: ",", delimiter: "") %></td>
 
         <td align='right'>
           <div class="btn-group">
@@ -42,6 +44,51 @@ Contas a Pagar
   </tbody>
 </table>
 
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Totais</div>
+
+  <!-- Table -->
+  <table class="table">
+  
+    <tr>
+      <td>
+        Pagas(R$)
+      </td>
+      <td>
+        <spam style="color:rgb(211, 47, 47);">0,00</spam>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        A Pagar(R$)
+      </td>
+      <td>
+        <spam style="color:rgb(211, 47, 47);">0,00</spam>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Vencidas(R$)
+      </td>
+      <td>
+        <b><spam style="color:rgb(211, 47, 47);">0,00</spam></b>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Total de Pagamnetos(R$)
+      </td>
+      <td>
+        <b><spam style="color: rgb(56, 90, 122);"><%= number_to_currency(@total_lancamentos, unit: "R$", separator: ",", delimiter: "") %></label></b>
+      </td>
+    </tr>            
+  
+  </table>
+</div>
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -51,6 +98,8 @@ Contas a Pagar
         <h4 class="modal-title" id="myModalLabel">Novo Pagamento</h4>
       </div>
       <div class="modal-body">
+        
+        <div id = "alert_placeholder"></div>  
         <div class="row">
           <div class="col-xs-6">
               <spam>Descrição</spam>
@@ -60,7 +109,7 @@ Contas a Pagar
           <div class="col-xs-6">
               <spam>Categoria</spam>
               <%=  fields_for :sivic_category do |f| %>
-                <%= f.select :sivic_category_id, options_from_collection_for_select(SivicCategory.all, 'id', 'nome_categoria'),{},{ :class =>  'form-control'}%>
+                <%= f.select :sivic_category_id, options_from_collection_for_select(SivicCategory.all, 'id', 'nome_categoria'),{:include_blank => true},{ :class =>  'form-control'}%>
               <% end %>
           </div>
         </div>
@@ -81,7 +130,7 @@ Contas a Pagar
           <div class="col-xs-8">
               <spam>Conta</spam>
               <%=  fields_for :sivic_contabancos do |f| %>
-                <%= f.select :sivic_conta_id, options_from_collection_for_select(SivicContabanco.all, 'id', 'nome_conta'),{},{ :class =>  'form-control'}%>
+                <%= f.select :sivic_conta_id, options_from_collection_for_select(SivicContabanco.all, 'id', 'nome_conta'),{:include_blank => true},{ :class =>  'form-control'}%>
               <% end %>          
           </div>          
         </div>
@@ -107,16 +156,18 @@ Contas a Pagar
             </div>
             <div class="col-xs-4">
               <select id="selTemporizador" class="form-control" disabled="disabled">
-                <option>Diariamente</option>
-                <option>Semanalmente</option>
-                <option>Mensalmente</option>
-                <option>Bimestralmente</option>
-                <option>Trimestralmente</option>
+                <option value='D'>Diariamente</option>
+                <option value='S'>Semanalmente</option>
+                <option value='M'>Mensalmente</option>
+                <option value='B'>Bimestralmente</option>
+                <option value='T'>Trimestralmente</option>
+                <option value='SM'>Semestralmente</option>
+                <option value='A'>Anualmente</option>
               </select>
             </div>
               
             <div class="col-xs-2">
-              <spam id="lblnumr_recorrencia">Ocorrência:</spam>
+              <spam id="lblnumr_recorrencia" style="color:gray;">Ocorrência:</spam>
             </div>            
             <div class="col-xs-2">
               <input id="numr_recorrencia" name="numr_recorrencia" type="text" class="form-control" disabled="disabled"> 
@@ -147,11 +198,11 @@ Contas a Pagar
                 
             <div class="col-xs-3">
               <spam id="lblvalr_descontotaxa" style="color:gray;">Descontos/Taxas:</spam>
-              <input id="valr_descontotaxa" name="valr_descontotaxa" type="text" class="form-control" disabled="disabled"> 
+              <input id="valr_descontotaxa" name="valr_descontotaxa" type="text" class="form-control" disabled="disabled" value="0,00"> 
             </div>             
             <div class="col-xs-3">
               <spam id="lblvalr_jurosmulta" style="color:gray;">Juros/Multa:</spam>
-              <input id="valr_jurosmulta" name="valr_jurosmulta" type="text" class="form-control" disabled="disabled"> 
+              <input id="valr_jurosmulta" name="valr_jurosmulta" type="text" class="form-control" disabled="disabled" value="0,00"> 
             </div>             
           </div>  
           <div class="row">
@@ -159,71 +210,143 @@ Contas a Pagar
             </div>             
             <div class="col-xs-4">
               <spam id="lblvalr_pago" style="color:gray;">Valor Pago</spam>
-              <input id="valr_pago" name="valr_pago" type="text" class="form-control" disabled="disabled"> 
+              <input id="valr_pago" name="valr_pago" type="text" class="form-control" disabled="disabled" value="0,00">
             </div> 
-
-
           </div>
         </div>
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-        <button type="button" class="btn btn-primary" onclick="salvapagamento();">Savar Pagamento</button>
+        <button id="bntSalvar" type="button" class="btn btn-primary" onclick="validates();">Savar Pagamento</button>
       </div>
     </div>
   </div>
 </div>
 
 </div></div>
-</div></div>
-
-
-
+</div>
 
 <script>
 
-function salvapagamento() {
-  
-      $.ajax({
-        url: '<%= inserePagamento_path %>',
-        data : 
-        {
-            nome_lancamento : $('#nome_lancamento').val()
-            ,sivic_category_id : $('#sivic_category_sivic_category_id').val()
-            ,data_vencimento : $('#data_vencimento').val()
-            ,sivic_conta_id : $('#sivic_conta_id').val()
-            ,valr_lancamento : $('#valr_lancamento').val()
-            ,numr_temporizador : $('#selTemporizador').val()
-            ,numr_recorrencia : $('#numr_recorrencia').val()
-            ,data_pagamento : $('#data_pagamento').val()
-            ,valr_descontotaxa : $('#valr_descontotaxa').val()
-            ,valr_jurosmulta : $('#valr_jurosmulta').val()
-            ,valr_pago : $('#valr_pago').val()
-        },
-        success: function(data){
-          var options = "";
-          var DESC_SituacaoParticipante
-          for (var i in data) {
-            var item = data[i];
-            setaNome(item.nome_participante,item.id,item.sivic_sitpartcelula_id);
 
-            $('#sivic_participantecelula_nome_participante').val("");
-            $('#sivic_participantecelula_DESC_Email').val("");
-            $('#sivic_participantecelula_NUMR_Telefone').val("");
-            //$('#sivic_participantecelula_DESC_SituacaoParticipante').val("");
+$(function() {
+  $('#datetimepicker2').datetimepicker({language: 'pt', pickTime: false});
+  $('#datetimepicker1').datetimepicker({language: 'pt', pickTime: false});      
+  $("#valr_lancamento").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+  $("#valr_descontotaxa").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+  $("#valr_jurosmulta").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+  $("#valr_pago").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+  $('#myModal').on('hidden.bs.modal', function (e) { location.reload();})    
+})
 
-          };
-        }
-      })  
+function validates(){
+
+
+  if ($('#nome_lancamento').val() == ""){
+    alert_boot('Digite um nome para o lançamento','danger');
+    return false;
+  }
+  if ($('#sivic_category_sivic_category_id').val() == ""){
+    alert_boot('Escolha uma categoria para o lançamento.','warning')
+    return false;
+  }  
+  if ($('#data_vencimento').val() == ""){
+    alert_boot('Digite uma data de vencimento.','warning')
+    return false;
+  }   
+  if ($('#sivic_contabancos_sivic_conta_id').val() == ""){
+    alert_boot('Escolha uma conta.','warning')
+    return false;
+  }    
+  if ($('#valr_lancamento').val() == ""){
+    alert_boot('Digite o valor do lançamento.','warning')
+    return false;
+  }  
+
+  if($('#chkRepetir').is(':checked') == true){
+
+      if ($('#numr_recorrencia').val() == ""){
+        alert_boot('Digite a quantidade de parcela no campo recorrência.','warning')
+        return false;
+      }  
+
+  }
+
+  if($('#chkPago').is(':checked') == true){
+
+      if ($('#data_pagamento').val() == ""){
+        alert_boot('Digite a data do pagamento.','warning')
+        return false;
+      }  
+
+      if ($('#valr_pago').val() == ""){
+        alert_boot('Digite o valor pago.','warning')
+        return false;
+      }  
+
+  }
+
+  salvapagamento();
+
 }
 
-    $(function() {
-      $('#datetimepicker2').datetimepicker({language: 'pt', pickTime: false});
-      $('#datetimepicker1').datetimepicker({language: 'pt', pickTime: false});      
-      $("#valr_lancamento").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
-      $('#myModal').modal('show');
-  })
+
+
+function validaPagmaneto(){
+
+    $('#nome_lancamento').val('');
+    $('#sivic_category_sivic_category_id').val('');
+    $('#data_vencimento').val('');
+    $('#sivic_conta_id').val('');
+    $('#valr_lancamento').val('');
+    $('#selTemporizador').val('');
+    $('#numr_recorrencia').val('');
+    $('#data_pagamento').val('');
+    $('#valr_descontotaxa').val('');
+    $('#valr_jurosmulta').val('');
+    $('#valr_pago').val('');
+
+}
+
+function salvapagamento() {
+  
+  $.ajax({
+    url: '<%= inserePagamento_path %>',
+    data : 
+    {
+        nome_lancamento : $('#nome_lancamento').val()
+        ,sivic_category_id : $('#sivic_category_sivic_category_id').val()
+        ,data_vencimento : $('#data_vencimento').val()
+        ,sivic_contabanco_id : $('#sivic_conta_id').val()
+        ,valr_lancamento : $('#valr_lancamento').val()
+        ,numr_temporizador : $('#selTemporizador').val()
+        ,numr_recorrencia : $('#numr_recorrencia').val()
+        ,data_pagamento : $('#data_pagamento').val()
+        ,valr_descontotaxa : $('#valr_descontotaxa').val()
+        ,valr_jurosmulta : $('#valr_jurosmulta').val()
+        ,valr_pago : $('#valr_pago').val()
+    },
+    success: function(data){
+          
+        alert_boot('Pagamento salvo com sucesso.','success');
+
+        $('#nome_lancamento').val('');
+        $('#sivic_category_sivic_category_id').val('');
+        $('#data_vencimento').val('');
+        $('#sivic_conta_id').val('');
+        $('#valr_lancamento').val('');
+        $('#selTemporizador').val('');
+        $('#numr_recorrencia').val('');
+        $('#data_pagamento').val('');
+        $('#valr_descontotaxa').val('');
+        $('#valr_jurosmulta').val('');
+        $('#valr_pago').val('');
+
+    }
+  })  
+}
+
 
 
 function desabilitapago(){
@@ -269,6 +392,9 @@ function desabilitarepetir(){
 }
 
 
+function alert_boot(message,color) {
+
+  $('#alert_placeholder').html('<div class="alert alert-'+color+'" role="alert">'+message+'<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> </div>')
+}
 
 </script>
-
