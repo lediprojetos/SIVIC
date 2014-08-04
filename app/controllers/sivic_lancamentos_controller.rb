@@ -10,13 +10,18 @@ class SivicLancamentosController < ApplicationController
 
     valr_lancamento = (- params[:valr_lancamento].to_i)
 
+    if params[:chkPago] == 'True'
+      flag_pago = true
+    else
+      flag_pago = false
+    end
 
     if params[:numr_recorrencia] != ''
 
 
       params[:numr_recorrencia].to_i.times do
 
-        SivicLancamento.create(:nome_lancamento => params[:nome_lancamento],:sivic_category_id => params[:sivic_category_id],:data_vencimento => date,:sivic_contabanco_id => params[:sivic_contabanco_id],:valr_lancamento => valr_lancamento,:numr_recorrencia => params[:numr_recorrencia],:data_pagamento => params[:data_pagamento],:valr_descontotaxa => params[:valr_descontotaxa],:valr_jurosmulta => params[:valr_jurosmulta],:valr_pago => params[:valr_pago],:sivic_tipmovfinanceiro_id => 1, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id)
+        SivicLancamento.create(:nome_lancamento => params[:nome_lancamento],:sivic_category_id => params[:sivic_category_id],:data_vencimento => date,:sivic_contabanco_id => params[:sivic_contabanco_id],:valr_lancamento => valr_lancamento,:numr_recorrencia => params[:numr_recorrencia],:data_pagamento => params[:data_pagamento],:valr_descontotaxa => params[:valr_descontotaxa],:valr_jurosmulta => params[:valr_jurosmulta],:valr_pago => params[:valr_pago],:sivic_tipmovfinanceiro_id => 1, :flag_pago => flag_pago, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id)
 
         if params[:numr_temporizador] == 'D'
           date = (date + 1.days)
@@ -37,7 +42,7 @@ class SivicLancamentosController < ApplicationController
       end 
 
     else
-      SivicLancamento.create(:nome_lancamento => params[:nome_lancamento],:sivic_category_id => params[:sivic_category_id],:data_vencimento => date,:sivic_contabanco_id => params[:sivic_contabanco_id],:valr_lancamento => valr_lancamento,:numr_recorrencia => params[:numr_recorrencia],:data_pagamento => params[:data_pagamento],:valr_descontotaxa => params[:valr_descontotaxa],:valr_jurosmulta => params[:valr_jurosmulta],:valr_pago => params[:valr_pago],:sivic_tipmovfinanceiro_id => 1, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id)
+      SivicLancamento.create(:nome_lancamento => params[:nome_lancamento],:sivic_category_id => params[:sivic_category_id],:data_vencimento => date,:sivic_contabanco_id => params[:sivic_contabanco_id],:valr_lancamento => valr_lancamento,:numr_recorrencia => params[:numr_recorrencia],:data_pagamento => params[:data_pagamento],:valr_descontotaxa => params[:valr_descontotaxa],:valr_jurosmulta => params[:valr_jurosmulta],:valr_pago => params[:valr_pago],:sivic_tipmovfinanceiro_id => 1, :flag_pago => flag_pago, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id)
     end
 
     if lastid != SivicLancamento.last.id
@@ -62,12 +67,17 @@ class SivicLancamentosController < ApplicationController
   end
 
   def contasapagar
-    @sivic_lancamentos = SivicLancamento.where("sivic_tipmovfinanceiro_id  = 1 and sivic_igreja_id =" + current_user.sivic_pessoa.sivic_igreja_id.to_s)
+    @sivic_lancamentos = SivicLancamento.all(:conditions => {:sivic_tipmovfinanceiro_id => 1, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
     @total_lancamentos = SivicLancamento.sum(:valr_lancamento, :conditions => {:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
-  end  
+    @total_pago = SivicLancamento.sum(:valr_lancamento, :conditions => {:flag_pago => true, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
+    @a_pagar = SivicLancamento.sum(:valr_lancamento, :conditions => {:flag_pago => false, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
+    #@vencidas = SivicLancamento.sum(:valr_lancamento, :conditions => {:flag_pago => false, :data_vencimento => SivicLancamento.data_vencimento.to_date < Time.now, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
+    #@vencidas = SivicLancamento.sum(:valr_lancamento, :conditions => {:flag_pago => false})
+    @vencidas = SivicLancamento.sum(:valr_lancamento, :conditions => ['data_vencimento < ?', Date.today])
+  end
 
   def contasareceber
-    @sivic_lancamentos = SivicLancamento.where("sivic_tipmovfinanceiro_id  = 2")
+    @sivic_lancamentos = SivicLancamento.all(:conditioins => {:sivic_tipmovfinanceiro_id => 2, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
   end    
 
   def extrato
@@ -119,7 +129,7 @@ class SivicLancamentosController < ApplicationController
   def destroy
     @sivic_lancamento.destroy
     respond_to do |format|
-      format.html { redirect_to sivic_lancamentos_url }
+      format.html { redirect_to contasapagar_path }
       format.json { head :no_content }
     end
   end
