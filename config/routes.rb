@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_cursos
+
   resources :sivic_turmaalunos
 
   resources :sivic_turmamoduloprofessors

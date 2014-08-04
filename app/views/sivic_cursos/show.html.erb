@@ -1,24 +1,31 @@
 <p id="notice"><%= notice %></p>
 <% content_for :titlePage do %>
-  Exibit Disciplina
+  Exibir Curso
 <% end %>
 
 <%= render 'layouts/panel' %>
 
 <p>
-  <strong>Nome Disciplina:</strong>
-  <%= @sivic_moduloescola.nome_modulo %>
+  <strong>Nome curso:</strong>
+  <%= @sivic_curso.nome_curso %>
 </p>
+
+<p>
+  <strong>Desc curso:</strong>
+  <%= @sivic_curso.desc_curso %>
+</p>
+
+
 
 </div></div>
 <div class="btn-group">
 
-  <%= link_to edit_sivic_moduloescola_path(@sivic_moduloescola), :class => "btn btn-default" do %>
+  <%= link_to edit_sivic_curso_path(@sivic_curso), :class => "btn btn-default" do %>
     <span class="glyphicon glyphicon-pencil"></span> Editar
   <% end %>
 
 
-  <%= link_to sivic_moduloescolas_path, :class => "btn btn-default" do %>
+  <%= link_to sivic_cursos_path, :class => "btn btn-default" do %>
     <span class="glyphicon glyphicon-arrow-left"></span> Voltar
   <% end %>
 

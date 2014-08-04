@@ -28,7 +28,7 @@
             <div class="input-group">
              <input id="nome_pessoa" name="nome_pessoa" value="<%=@sivic_partevento.sivic_pessoa.nome_pessoa rescue nil%>" onkeypress="" type="text" class="form-control" placeholder="Aluno">
             <span class="input-group-btn">
-              <button class="btn btn-success" type="button" onclick="$('#myModal2').modal('show');">Buscar Aluno</button>
+              <button class="btn btn-success" type="button" onclick="$('#myModal1').modal('show');">Buscar Aluno</button>
             </span>
            </div>
        </div>
@@ -44,7 +44,7 @@
             <div class="input-group">
              <input id="sivic_turma" name="sivic_turma" value="<%=@sivic_turmaaluno.sivic_turma.DESC_turma rescue nil%>" onkeypress="" type="text" class="form-control" placeholder="Turma">
             <span class="input-group-btn">
-              <button class="btn btn-success" type="button" onclick="$('#myModal1').modal('show');">Buscar Turma</button>
+              <button class="btn btn-success" type="button" onclick="$('#myModal2').modal('show');">Buscar Turma</button>
             </span>
            </div>
       </div>
@@ -67,24 +67,33 @@
         <h4 class="modal-title" id="myModalLabel">Turmas</h4>
       </div>
       <div class="modal-body">
-        <table id="table_turma" name="table_turma" class="table table-hover" onload="buscaTurma">
-          <thead>
-            <tr>
-              <th>Turma</th>
-              <th>Data Inicio</th>
-              <th>Data Fim</th>
-            </tr>
-          </thead>
-          <tbody id="tbodyturmas">
-              <tr>
-              </tr>
-              <tr>
-              </tr>
-              <tr>
-              </tr>
-          </tbody>  
-        </table>
-      </div>
+          <label >Nome</label><br>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="input-group">
+                  <input id="nome_pessoa_buscar" name="nome_pessoa_buscar" onkeypress="buscaPessoa('pessoa')" type="text" class="form-control" placeholder="Nome">
+                  <span class="input-group-btn">
+                    <button class="btn btn-success" type="button" onclick="buscaPessoa('pessoa');">Buscar</button>
+                  </span>
+                </div><!-- /input-group -->
+              </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+            <br /> 
+              <table id="table_user" name="table_user" class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Email</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyid">
+                  <tr>
+                  </tr>
+                  <tr>
+                  </tr>
+              </tbody>  
+            </table>
+        </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
       </div>
@@ -149,9 +158,9 @@ function buscaPessoa(fonte){
      var pesquisa;
 
       if (fonte == 'lider'){
-        pesquisa = $('#NOME_lider_buscar').val();
+        pesquisa = $('#nome_lider_buscar').val();
       }else{
-        pesquisa = $('#NOME_pessoa_buscar').val();
+        pesquisa = $('#nome_pessoa_buscar').val();
       }
         
        $.ajax({
@@ -177,5 +186,28 @@ function buscaPessoa(fonte){
         }
        })
      }
+
+
+ function buscaEvento(){
+       $.ajax({
+        url : '<%=listarEvento_path %>',
+        data :{},
+        success: function(data){
+          $('#tbodyeventos').empty();
+          for (var i in data){
+            var item = data[i];
+            $('#table_evento').append('<tr><td><a type=date href="javascript:setaTurma(\''+ item.desc_evento+'\','+item.id+'\);">'+item.desc_evento+'</a></td><td><a href="javascript:setaEvento(\'' + item.desc_evento+'\','+item.id+'\);">'+item.DATA_Inicio+'</a></td><td><a href="javascript:setTurma(\'' + item.desc_evento+'\','+item.id+'\);">'+item.DATA_Fim+'</a></td></tr>')
+          };         
+        }
+       })
+  }
+
+
+  function setaNome(nome,id){    
+      $('#nome_pessoa').val(nome);
+      $('#sivic_turmaaluno_sivic_pessoa_id').val(id);
+
+      $('#myModal1').modal('hide');  
+    }
 
 </script>
