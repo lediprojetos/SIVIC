@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140801154720) do
+ActiveRecord::Schema.define(version: 20140804163050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,18 @@ ActiveRecord::Schema.define(version: 20140801154720) do
   end
 
   add_index "sivic_contdiscipulos", ["sivic_igreja_id"], name: "index_sivic_contdiscipulos_on_sivic_igreja_id", using: :btree
+
+  create_table "sivic_cursos", force: true do |t|
+    t.string   "nome_curso"
+    t.text     "desc_curso"
+    t.integer  "sivic_igreja_id"
+    t.integer  "user_inclusao"
+    t.integer  "integer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_cursos", ["sivic_igreja_id"], name: "index_sivic_cursos_on_sivic_igreja_id", using: :btree
 
   create_table "sivic_discipulos", force: true do |t|
     t.integer  "sivic_pessoa_id"
@@ -287,6 +299,9 @@ ActiveRecord::Schema.define(version: 20140801154720) do
     t.decimal  "valr_descontotaxa"
     t.decimal  "valr_jurosmulta"
     t.decimal  "valr_recebido"
+    t.integer  "sivic_contabanco_id"
+    t.date     "data_pagamento"
+    t.decimal  "valr_pago"
   end
 
   add_index "sivic_lancamentos", ["sivic_category_id"], name: "index_sivic_lancamentos_on_sivic_category_id", using: :btree
@@ -527,8 +542,10 @@ ActiveRecord::Schema.define(version: 20140801154720) do
     t.integer  "user_bloqueio"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sivic_curso_id"
   end
 
+  add_index "sivic_turmas", ["sivic_curso_id"], name: "index_sivic_turmas_on_sivic_curso_id", using: :btree
   add_index "sivic_turmas", ["sivic_igreja_id"], name: "index_sivic_turmas_on_sivic_igreja_id", using: :btree
 
   create_table "users", force: true do |t|

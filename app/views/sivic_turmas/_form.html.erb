@@ -1,6 +1,6 @@
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title"><%= 'Cadastro de  Turmas'%></h3>
+    <h3 class="panel-title"><%= 'Cadastro de Turmas'%></h3>
   </div>
   <div class="panel-footer">
 
@@ -17,11 +17,19 @@
     </div>
   <% end %>
 
-  <div class="row" >
-    <div class="col-xs-6">
-      <%= f.label :Descrição_Turma %>
-      <%= f.text_field :DESC_turma, :class =>  'form-control'%>
+  <div class="row">
+      <div class="col-xs-6">
+        <%= f.label :Curso %>
+        <%= f.select :sivic_curso_id, options_from_collection_for_select(SivicCurso.all, 'id', 'nome_curso',@sivic_turma.sivic_curso_id),{:include_blank => true},{:class =>  'form-control'}%>
+      </div>
+      <div class="col-xs-6">
+        <%= f.label :Descrição_Turma %>
+        <%= f.text_field :DESC_turma, :class =>  'form-control'%>
     </div>
+   </div>
+
+  <div class="row" >
+
      <div  class="col-xs-2">
       <%= f.label :DATA_Inicio %>
       <%= f.text_field :DATA_Inicio, :value => (@sivic_turma.DATA_Inicio.blank? ? '' : @sivic_turma.DATA_Inicio.strftime("%d/%m/%Y")), :class => 'form-control' %>
