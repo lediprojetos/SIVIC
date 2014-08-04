@@ -2,13 +2,22 @@ class SivicLancamentosController < ApplicationController
   before_action :set_sivic_lancamento, only: [:show, :edit, :update, :destroy]
 
 
-  def create_pagamento
+def busca_lancamento
 
-    lastid = SivicLancamento.last.id rescue nil
+      sivic_lancamento = SivicLancamento.find :all, :conditions => {:id => params[:id]}
+      sivic_lancamento_json = sivic_lancamento.map {|item| {:id => item.id, :nome_lancamento => item.nome_lancamento, :valr_lancamento => item.valr_lancamento, :data_vencimento => (item.data_vencimento.blank? ? '' : item.data_vencimento.strftime("%d/%m/%Y")), :flag_pago => item.flag_pago, :sivic_category_id => item.sivic_category_id, :sivic_contabanco_id => item.sivic_contabanco_id, :data_pagamento => (item.data_pagamento.blank? ? '' : item.data_pagamento.strftime("%d/%m/%Y")), :valr_pago => item.valr_pago, :valr_jurosmulta => item.valr_jurosmulta, :valr_descontotaxa => item.valr_descontotaxa}}
+      render :json => sivic_lancamento_json
+
+end
+
+  def create_pagamento
 
     date = Date.parse(params[:data_vencimento]).to_date
 
-    valr_lancamento = (- params[:valr_lancamento].to_i)
+    params[:valr_lancamento] = ( - params[:valr_lancamento].gsub(',', '.').to_f)
+    params[:valr_descontotaxa] = params[:valr_descontotaxa].gsub(',', '.')
+    params[:valr_jurosmulta] = params[:valr_jurosmulta].gsub(',', '.')
+    params[:valr_pago] = params[:valr_pago].gsub(',', '.')
 
     if params[:chkPago] == 'True'
       flag_pago = true
@@ -21,7 +30,7 @@ class SivicLancamentosController < ApplicationController
 
       params[:numr_recorrencia].to_i.times do
 
-        SivicLancamento.create(:nome_lancamento => params[:nome_lancamento],:sivic_category_id => params[:sivic_category_id],:data_vencimento => date,:sivic_contabanco_id => params[:sivic_contabanco_id],:valr_lancamento => valr_lancamento,:numr_recorrencia => params[:numr_recorrencia],:data_pagamento => params[:data_pagamento],:valr_descontotaxa => params[:valr_descontotaxa],:valr_jurosmulta => params[:valr_jurosmulta],:valr_pago => params[:valr_pago],:sivic_tipmovfinanceiro_id => 1, :flag_pago => flag_pago, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id)
+        SivicLancamento.create(:nome_lancamento => params[:nome_lancamento],:sivic_category_id => params[:sivic_category_id],:data_vencimento => date,:sivic_contabanco_id => params[:sivic_contabanco_id],:valr_lancamento => params[:valr_lancamento],:numr_recorrencia => params[:numr_recorrencia],:data_pagamento => params[:data_pagamento],:valr_descontotaxa => params[:valr_descontotaxa],:valr_jurosmulta => params[:valr_jurosmulta],:valr_pago => params[:valr_pago],:sivic_tipmovfinanceiro_id => 1, :flag_pago => flag_pago, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id)
 
         if params[:numr_temporizador] == 'D'
           date = (date + 1.days)
@@ -42,16 +51,12 @@ class SivicLancamentosController < ApplicationController
       end 
 
     else
-      SivicLancamento.create(:nome_lancamento => params[:nome_lancamento],:sivic_category_id => params[:sivic_category_id],:data_vencimento => date,:sivic_contabanco_id => params[:sivic_contabanco_id],:valr_lancamento => valr_lancamento,:numr_recorrencia => params[:numr_recorrencia],:data_pagamento => params[:data_pagamento],:valr_descontotaxa => params[:valr_descontotaxa],:valr_jurosmulta => params[:valr_jurosmulta],:valr_pago => params[:valr_pago],:sivic_tipmovfinanceiro_id => 1, :flag_pago => flag_pago, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id)
+      SivicLancamento.create(:nome_lancamento => params[:nome_lancamento],:sivic_category_id => params[:sivic_category_id],:data_vencimento => date,:sivic_contabanco_id => params[:sivic_contabanco_id],:valr_lancamento => params[:valr_lancamento],:numr_recorrencia => params[:numr_recorrencia],:data_pagamento => params[:data_pagamento],:valr_descontotaxa => params[:valr_descontotaxa],:valr_jurosmulta => params[:valr_jurosmulta],:valr_pago => params[:valr_pago],:sivic_tipmovfinanceiro_id => 1, :flag_pago => flag_pago, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id)
     end
 
-    if lastid != SivicLancamento.last.id
       sivic_lancamento = SivicLancamento.find :all, :conditions => {:id => SivicLancamento.last.id}
       sivic_lancamento_json = sivic_lancamento.map {|item| {:id => item.id, :nome_lancamento => item.nome_lancamento}}
       render :json => sivic_lancamento_json
-    else
-
-    end
 
   end
 
@@ -71,8 +76,6 @@ class SivicLancamentosController < ApplicationController
     @total_lancamentos = SivicLancamento.sum(:valr_lancamento, :conditions => {:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
     @total_pago = SivicLancamento.sum(:valr_lancamento, :conditions => {:flag_pago => true, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
     @a_pagar = SivicLancamento.sum(:valr_lancamento, :conditions => {:flag_pago => false, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
-    #@vencidas = SivicLancamento.sum(:valr_lancamento, :conditions => {:flag_pago => false, :data_vencimento => SivicLancamento.data_vencimento.to_date < Time.now, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
-    #@vencidas = SivicLancamento.sum(:valr_lancamento, :conditions => {:flag_pago => false})
     @vencidas = SivicLancamento.sum(:valr_lancamento, :conditions => ['data_vencimento < ?', Date.today])
   end
 
@@ -142,6 +145,6 @@ class SivicLancamentosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_lancamento_params
-      params.require(:sivic_lancamento).permit(:nome_lancamento, :valr_lancamento, :data_vencimento, :data_competencia, :flag_pago, :flag_dizimo, :numr_recorrencia, :sivic_category_id, :sivic_centrocusto_id, :sivic_rede_id, :sivic_tipmovfinanceiro_id, :sivic_pessoa_id, :sivic_fornecedor_id, :sivic_igreja_id, :user_id, :user_id, :data_exclusao, :sivic_contabanco_id, :data_pagamento_id, :valr_pago)
+      params.require(:sivic_lancamento).permit(:nome_lancamento, :valr_lancamento, :data_vencimento, :data_competencia, :flag_pago, :flag_dizimo, :numr_recorrencia, :sivic_category_id, :sivic_centrocusto_id, :sivic_rede_id, :sivic_tipmovfinanceiro_id, :sivic_pessoa_id, :sivic_fornecedor_id, :sivic_igreja_id, :user_id, :user_id, :data_exclusao, :sivic_contabanco_id, :data_pagamento_id, :valr_pago, :valr_jurosmulta, :valr_descontotaxa)
     end
 end
