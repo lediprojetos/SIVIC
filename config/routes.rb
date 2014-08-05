@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_cursos
+
   resources :sivic_turmaalunos
 
   resources :sivic_turmamoduloprofessors
@@ -91,6 +93,10 @@ SIVIC::Application.routes.draw do
   match '/criarTurmaModuloProfessor', to: 'sivic_turmamoduloprofessors#create_turma_modulo_professor', via: 'get'
   
   match '/inserePagamento', to: 'sivic_lancamentos#create_pagamento', via: 'get'
+  match '/alteraPagamento', to: 'sivic_lancamentos#altera_pagamento', via: 'get'
+  match '/busca_lancamento', to: 'sivic_lancamentos#busca_lancamento', via: 'get'
+
+
 
   get '/contasapagar', to: 'sivic_lancamentos#contasapagar',as: 'contasapagar'
   get '/contasareceber', to: 'sivic_lancamentos#contasareceber',as: 'contasareceber'

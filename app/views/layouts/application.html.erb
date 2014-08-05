@@ -10,9 +10,10 @@
   </head>
   <body>
     <%= render 'layouts/header' %>
-    <div class="container" style="height:auto;">
+    <div class="wrapper" style="width:80%;">
       <%= yield %>
 
+      <div class="push"></div>
     </div>
       <!-- Retira o rodapé, caso esteja na tela de login-->
       <% if request.original_fullpath != '/users/sign_in' %>
@@ -20,3 +21,23 @@
       <%end%>
   </body>
 </html>
+
+<style> 
+
+    * {
+    margin: 0;
+    }
+    html, body {
+    height: 100%;
+    }
+    .wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -4em;
+    }
+    .footer, .push {
+    height: 4em;
+    }
+
+</style>

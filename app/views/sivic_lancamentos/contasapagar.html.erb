@@ -27,12 +27,11 @@ Contas a Pagar
 
         <td align='right'>
           <div class="btn-group">
-            <%= link_to sivic_lancamento, :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-list-alt"></span> Exibir
-            <% end %>             
-            <%= link_to edit_sivic_lancamento_path(sivic_lancamento), :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-pencil"></span> Editar
-            <% end %>             
+
+            <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);">
+                <span class="glyphicon glyphicon-pencil"></span>
+                 Editar
+            </a>
             <%= link_to sivic_lancamento , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
               <span class="glyphicon glyphicon-trash"></span> Excluir
             <% end %>
@@ -56,7 +55,7 @@ Contas a Pagar
         Pagas(R$)
       </td>
       <td>
-        <spam style="color:rgb(211, 47, 47);">0,00</spam>
+        <spam style="color:rgb(211, 47, 47);"><%= number_to_currency(@total_pago, unit: "R$", separator: ",", delimiter: ".") %></spam>
       </td>
     </tr>
     <tr>
@@ -64,7 +63,7 @@ Contas a Pagar
         A Pagar(R$)
       </td>
       <td>
-        <spam style="color:rgb(211, 47, 47);">0,00</spam>
+        <spam style="color:rgb(211, 47, 47);"><%= number_to_currency(@a_pagar, unit: "R$", separator: ",", delimiter: ".") %></spam>
       </td>
     </tr>
 
@@ -73,7 +72,7 @@ Contas a Pagar
         Vencidas(R$)
       </td>
       <td>
-        <b><spam style="color:rgb(211, 47, 47);">0,00</spam></b>
+        <b><spam style="color:rgb(211, 47, 47);"><%= number_to_currency(@vencidas, unit: "R$", separator: ",", delimiter: ".") %></spam></b>
       </td>
     </tr>
 
@@ -82,7 +81,7 @@ Contas a Pagar
         Total de Pagamnetos(R$)
       </td>
       <td>
-        <b><spam style="color: rgb(56, 90, 122);"><%= number_to_currency(@total_lancamentos, unit: "R$", separator: ",", delimiter: "") %></label></b>
+        <b><spam style="color: rgb(56, 90, 122);"><%= number_to_currency(@total_lancamentos, unit: "R$", separator: ",", delimiter: ".") %></label></b>
       </td>
     </tr>            
   
@@ -181,7 +180,7 @@ Contas a Pagar
             <div class="col-xs-2">
               <div class="checkbox">
                 <label>
-                  <input id="chkPago" type="checkbox" onclick="desabilitapago();"> Pago
+                  <input id="chkPago" type="checkbox" value='True' onclick="desabilitapago();"> Pago
                 </label>
               </div>
             </div>
@@ -229,6 +228,59 @@ Contas a Pagar
 
 <script>
 
+function buscaLancamento(id){
+
+  $.ajax({
+    url: '<%= busca_lancamento_path %>',
+    data : 
+    {
+        id : id
+    },
+
+    success: function(data){
+          
+        //alert_boot('Pagamento salvo com sucesso.','success');
+
+        var options = "";
+        for (var i in data) {
+          var item = data[i];
+
+        $('#nome_lancamento').val(item.nome_lancamento);
+        $('#sivic_category_sivic_category_id').val(item.sivic_category_id);
+        $('#data_vencimento').val(item.data_vencimento);
+        $('#sivic_conta_id').val(item.sivic_contabanco_id);
+        $('#data_pagamento').val(item.data_pagamento);
+
+        //valores monetários
+        $("#valr_pago").val(item.valr_pago);
+        ///$("#valr_pago").maskMoney('mask', item.valr_pago);
+        $("#valr_jurosmulta").val(item.valr_jurosmulta);
+        //$("#valr_jurosmulta").maskMoney('mask', item.valr_jurosmulta);
+        $("#valr_descontotaxa").val(item.valr_descontotaxa);
+        //$("#valr_descontotaxa").maskMoney('mask', item.valr_descontotaxa);
+        $("#valr_lancamento").val(item.valr_lancamento);
+        //$("#valr_lancamento").maskMoney('mask', item.valr_lancamento);
+        };
+
+        //Desativar função de repetir
+        $("#chkRepetir").removeAttr("disabled");
+        $("#chkRepetir").attr("disabled", true);
+        $('#numr_recorrencia').prop( "disabled", true );
+        $('#selTemporizador').prop( "disabled", true );
+        $("#lblnumr_recorrencia").css("color", "gray");
+
+        //mascarando datas
+        $("#data_vencimento").mask("99/99/9999");
+        $("#data_pagamento").mask("99/99/9999");
+
+        //abre o modal
+        $('#myModal').modal('show');
+
+    }
+  })          
+
+}
+
 
 $(function() {
   $('#datetimepicker2').datetimepicker({language: 'pt', pickTime: false});
@@ -237,7 +289,9 @@ $(function() {
   $("#valr_descontotaxa").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
   $("#valr_jurosmulta").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
   $("#valr_pago").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
-  $('#myModal').on('hidden.bs.modal', function (e) { location.reload();})    
+  $('#myModal').on('hidden.bs.modal', function (e) { location.reload();})
+  $("#data_vencimento").mask("99/99/9999");
+  $("#data_pagamento").mask("99/99/9999");
 })
 
 function validates(){
@@ -291,25 +345,15 @@ function validates(){
 
 }
 
-
-
-function validaPagmaneto(){
-
-    $('#nome_lancamento').val('');
-    $('#sivic_category_sivic_category_id').val('');
-    $('#data_vencimento').val('');
-    $('#sivic_conta_id').val('');
-    $('#valr_lancamento').val('');
-    $('#selTemporizador').val('');
-    $('#numr_recorrencia').val('');
-    $('#data_pagamento').val('');
-    $('#valr_descontotaxa').val('');
-    $('#valr_jurosmulta').val('');
-    $('#valr_pago').val('');
-
-}
-
 function salvapagamento() {
+
+var pago;
+
+if($('#chkPago').is(':checked') == true){
+  pago = 'True';
+}  else {
+  pago = 'False';
+}
   
   $.ajax({
     url: '<%= inserePagamento_path %>',
@@ -318,13 +362,14 @@ function salvapagamento() {
         nome_lancamento : $('#nome_lancamento').val()
         ,sivic_category_id : $('#sivic_category_sivic_category_id').val()
         ,data_vencimento : $('#data_vencimento').val()
-        ,sivic_contabanco_id : $('#sivic_conta_id').val()
+        ,sivic_contabanco_id : $('#sivic_contabancos_sivic_conta_id').val()
         ,valr_lancamento : $('#valr_lancamento').val()
         ,numr_temporizador : $('#selTemporizador').val()
         ,numr_recorrencia : $('#numr_recorrencia').val()
         ,data_pagamento : $('#data_pagamento').val()
         ,valr_descontotaxa : $('#valr_descontotaxa').val()
         ,valr_jurosmulta : $('#valr_jurosmulta').val()
+        ,chkPago : pago
         ,valr_pago : $('#valr_pago').val()
     },
     success: function(data){
