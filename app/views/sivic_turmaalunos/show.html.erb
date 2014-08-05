@@ -1,24 +1,39 @@
 <p id="notice"><%= notice %></p>
 
+
+<% content_for :titlePage do %>
+  Exibir Matricula
+<% end %>
+
+<%= render 'layouts/panel' %>
+
+
 <p>
-  <strong>Sivic turma:</strong>
-  <%= @sivic_turmaaluno.sivic_turma %>
+  <strong>Aluno:</strong>
+  <%= @sivic_turmaaluno.sivic_pessoa.nome_pessoa %>
 </p>
 
 <p>
-  <strong>Sivic pessoa:</strong>
-  <%= @sivic_turmaaluno.sivic_pessoa %>
+  <strong>Curso:</strong>
+  <%= @sivic_turmaaluno.sivic_turma.sivic_curso.nome_curso %>
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @sivic_turmaaluno.user %>
+  <strong>Turma:</strong>
+  <%= @sivic_turmaaluno.sivic_turma.DESC_turma %>
 </p>
 
-<p>
-  <strong>Data bloqueio:</strong>
-  <%= @sivic_turmaaluno.data_bloqueio %>
-</p>
 
-<%= link_to 'Edit', edit_sivic_turmaaluno_path(@sivic_turmaaluno) %> |
-<%= link_to 'Back', sivic_turmaalunos_path %>
+</div></div>
+<div class="btn-group">
+
+  <%= link_to edit_sivic_turmaaluno_path(@sivic_turmaaluno), :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-pencil"></span> Editar
+  <% end %>
+
+
+  <%= link_to sivic_turmaalunos_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+
+</div>
