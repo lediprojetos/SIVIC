@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140804163050) do
+ActiveRecord::Schema.define(version: 20140805022914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -424,8 +424,10 @@ ActiveRecord::Schema.define(version: 20140804163050) do
     t.datetime "DATA_bloqueio"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sivic_igreja_id"
   end
 
+  add_index "sivic_professors", ["sivic_igreja_id"], name: "index_sivic_professors_on_sivic_igreja_id", using: :btree
   add_index "sivic_professors", ["sivic_pessoa_id"], name: "index_sivic_professors_on_sivic_pessoa_id", using: :btree
 
   create_table "sivic_profissaos", force: true do |t|
@@ -513,8 +515,10 @@ ActiveRecord::Schema.define(version: 20140804163050) do
     t.date     "data_bloqueio"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sivic_igreja_id"
   end
 
+  add_index "sivic_turmaalunos", ["sivic_igreja_id"], name: "index_sivic_turmaalunos_on_sivic_igreja_id", using: :btree
   add_index "sivic_turmaalunos", ["sivic_pessoa_id"], name: "index_sivic_turmaalunos_on_sivic_pessoa_id", using: :btree
   add_index "sivic_turmaalunos", ["sivic_turma_id"], name: "index_sivic_turmaalunos_on_sivic_turma_id", using: :btree
 
@@ -524,8 +528,10 @@ ActiveRecord::Schema.define(version: 20140804163050) do
     t.integer  "sivic_turma_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sivic_igreja_id"
   end
 
+  add_index "sivic_turmamoduloprofessors", ["sivic_igreja_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_igreja_id", using: :btree
   add_index "sivic_turmamoduloprofessors", ["sivic_moduloescola_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_moduloescola_id", using: :btree
   add_index "sivic_turmamoduloprofessors", ["sivic_professor_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_professor_id", using: :btree
   add_index "sivic_turmamoduloprofessors", ["sivic_turma_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_turma_id", using: :btree

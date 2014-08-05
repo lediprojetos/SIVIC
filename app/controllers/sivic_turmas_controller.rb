@@ -3,24 +3,23 @@ class SivicTurmasController < ApplicationController
 
   # GET /sivic_turmas
   # GET /sivic_turmas.json
-  def index
+  def index   
+  #  if params[:sivic_turma_situacao_id] == nil
+  #    params[:sivic_turma_situacao_id] = '0'
+  #  end
 
-   
-    if params[:sivic_turma_situacao_id] == nil
-      params[:sivic_turma_situacao_id] = '0'
-    end
-
-    if params[:sivic_turma_situacao_id] == '2'
-      @sivic_turmas = SivicTurma.all  
-    elsif params[:sivic_turma_situacao_id] == '0'
-      @sivic_turmas = SivicTurma.where(DATA_bloqueio: nil)
-    elsif  params[:sivic_turma_situacao_id] == '1'
-      @sivic_turmas = SivicTurma.where.not(DATA_bloqueio: nil)
-    elsif 
-      @sivic_turmas = SivicTurma.all
-    end
+  #  if params[:sivic_turma_situacao_id] == '2'
+  #    @sivic_turmas = SivicTurma.all  
+  #  elsif params[:sivic_turma_situacao_id] == '0'
+  #    @sivic_turmas = SivicTurma.where(DATA_bloqueio: nil)
+  #  elsif  params[:sivic_turma_situacao_id] == '1'
+  #    @sivic_turmas = SivicTurma.where.not(DATA_bloqueio: nil)
+  #  elsif 
+      @sivic_turmas = SivicTurma.find :all, :conditions => {:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id}
+  #  end
 
   end
+
 
   # GET /sivic_turmas/1
   # GET /sivic_turmas/1.json

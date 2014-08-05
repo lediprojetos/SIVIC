@@ -50,21 +50,20 @@
       </div>
     </div>
 
-
       <%= f.hidden_field :user_inclusao, :value => current_user.id %>
+      <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
 
     <br>
 
      </div>   
   </div>
 
-
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Turmas</h4>
+        <h4 class="modal-title" id="myModalLabel">Alunos</h4>
       </div>
       <div class="modal-body">
           <label >Nome</label><br>
@@ -109,15 +108,17 @@
         <h4 class="modal-title" id="myModalLabel">Turmas</h4>
       </div>
       <div class="modal-body">
-        <table id="table_aluno" name="table_aluno" class="table table-hover" onload="buscaAluno">
+        <table id="table_turma" name="table_turma" class="table table-hover" onload="listaTurma">
           <thead>
             <tr>
               <th>Turma</th>
+              <th>Curso</th>
               <th>Data Inicio</th>
-              <th>Data Fim</th>
             </tr>
           </thead>
-          <tbody id="tbodyaluno">
+          <tbody id="tbodyturma">
+              <tr>
+              </tr>
               <tr>
               </tr>
               <tr>
@@ -134,9 +135,6 @@
   </div>
 </div>
 
-
-
-
 <div class="btn-group">
   <button type="submit" class="btn btn-default btn">
     <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
@@ -151,6 +149,8 @@
 
 <% end %>
 
+
+
 <script>
 
 function buscaPessoa(fonte){
@@ -163,7 +163,7 @@ function buscaPessoa(fonte){
         pesquisa = $('#nome_pessoa_buscar').val();
       }
         
-       $.appendjax({
+       $.ajax({
         url : '<%= listarDiscipulos_path %>',
         data :
         {
@@ -188,20 +188,19 @@ function buscaPessoa(fonte){
      }
 
 
- function buscaEvento(){
+ function buscaTurma(){
        $.ajax({
-        url : '<%=listarEvento_path %>',
+        url : '<%=listarTurma_path %>',
         data :{},
         success: function(data){
-          $('#tbodyeventos').empty();
+          $('#tbodyturma').empty();
           for (var i in data){
             var item = data[i];
-            $('#table_evento').append('<tr><td><a type=date href="javascript:setaTurma(\''+ item.desc_evento+'\','+item.id+'\);">'+item.desc_evento+'</a></td><td><a href="javascript:setaEvento(\'' + item.desc_evento+'\','+item.id+'\);">'+item.DATA_Inicio+'</a></td><td><a href="javascript:setTurma(\'' + item.desc_evento+'\','+item.id+'\);">'+item.DATA_Fim+'</a></td></tr>')
+            $('#table_turma').append('<tr><td><a type=date href="javascript:setaTurma(\''+ item.DESC_turma+'\','+item.id+'\);">'+item.DESC_turma+'</a></td><td><a type=date href="javascript:setaTurma(\''+ item.DESC_turma+'\','+item.id+'\);">'+item.nome_curso+'</a></td><td><a href="javascript:setaTurma(\'' + item.DESC_turma+'\','+item.id+'\);">'+item.DATA_Inicio+'</a></td></tr>')
           };         
         }
        })
   }
-
 
   function setaNome(nome,id){    
       $('#nome_pessoa').val(nome);
@@ -209,5 +208,15 @@ function buscaPessoa(fonte){
 
       $('#myModal1').modal('hide');  
     }
+
+  function setaTurma(nome,id){    
+      $('#sivic_turma').val(nome);
+      $('#sivic_turmaaluno_sivic_turma_id').val(id);
+
+      $('#myModal2').modal('hide');  
+    }
+
+
+    buscaTurma()
 
 </script>

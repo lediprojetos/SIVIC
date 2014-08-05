@@ -4,13 +4,22 @@ class SivicTurmaalunosController < ApplicationController
   # GET /sivic_turmaalunos
   # GET /sivic_turmaalunos.json
   def index
-    @sivic_turmaalunos = SivicTurmaaluno.all
+    @sivic_turmaalunos = SivicTurmaaluno.find :all, :conditions => {:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id}
   end
 
   # GET /sivic_turmaalunos/1
   # GET /sivic_turmaalunos/1.json
   def show
   end
+
+
+ def busca_turmas
+    @sivic_turmas = SivicTurma.find :all, :conditions => {:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id}
+
+    @sivic_turmas_json = @sivic_turmas.map {|item| {:id => item.id, :DESC_turma => item.DESC_turma, :nome_curso => item.sivic_curso.nome_curso, :DATA_Inicio => item.DATA_Inicio, :DATA_Fim => item.DATA_Fim}}
+    render :json => @sivic_turmas_json
+      
+ end
 
   # GET /sivic_turmaalunos/new
   def new
@@ -80,6 +89,6 @@ class SivicTurmaalunosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_turmaaluno_params
-      params.require(:sivic_turmaaluno).permit(:sivic_turma_id, :sivic_pessoa_id, :user_inclusao, :user_inclusao, :data_bloqueio)
+      params.require(:sivic_turmaaluno).permit(:sivic_turma_id, :sivic_pessoa_id, :user_inclusao, :user_inclusao, :data_bloqueio, :sivic_igreja_id)
     end
 end
