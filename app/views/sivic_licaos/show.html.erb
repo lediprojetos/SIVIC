@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome licao:</strong>
+  <%= @sivic_licao.nome_licao %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @sivic_licao.user %>
+</p>
+
+<p>
+  <strong>Sivic igreja:</strong>
+  <%= @sivic_licao.sivic_igreja %>
+</p>
+
+<p>
+  <strong>Sivic turmamoduloprofessor:</strong>
+  <%= @sivic_licao.sivic_turmamoduloprofessor %>
+</p>
+
+<%= link_to 'Edit', edit_sivic_licao_path(@sivic_licao) %> |
+<%= link_to 'Back', sivic_licaos_path %>

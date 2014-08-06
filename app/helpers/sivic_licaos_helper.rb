@@ -1,0 +1,2 @@
+module SivicLicaosHelper
+end

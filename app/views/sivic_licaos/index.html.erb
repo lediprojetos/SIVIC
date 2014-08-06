@@ -1,0 +1,43 @@
+<% content_for :titlePage do %>
+  Disciplinas
+<% end %>
+
+<%=render '/layouts/panel' %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nome licao</th>
+      <th>User</th>
+      <th>Sivic igreja</th>
+      <th>Sivic turmamoduloprofessor</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_licaos.each do |sivic_licao| %>
+      <tr>
+        <td><%= sivic_licao.nome_licao %></td>
+        <td><%= sivic_licao.user %></td>
+        <td><%= sivic_licao.sivic_igreja %></td>
+        <td><%= sivic_licao.sivic_turmamoduloprofessor %></td>
+        <td><%= link_to 'Show', sivic_licao %></td>
+        <td><%= link_to 'Edit', edit_sivic_licao_path(sivic_licao) %></td>
+        <td><%= link_to 'Destroy', sivic_licao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
+</div></div>
+<div class="btn-group">
+  <%= link_to new_sivic_licao_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>

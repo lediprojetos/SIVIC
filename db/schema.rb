@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140805022914) do
+ActiveRecord::Schema.define(version: 20140806155821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -311,6 +311,19 @@ ActiveRecord::Schema.define(version: 20140805022914) do
   add_index "sivic_lancamentos", ["sivic_pessoa_id"], name: "index_sivic_lancamentos_on_sivic_pessoa_id", using: :btree
   add_index "sivic_lancamentos", ["sivic_rede_id"], name: "index_sivic_lancamentos_on_sivic_rede_id", using: :btree
   add_index "sivic_lancamentos", ["sivic_tipmovfinanceiro_id"], name: "index_sivic_lancamentos_on_sivic_tipmovfinanceiro_id", using: :btree
+
+  create_table "sivic_licaos", force: true do |t|
+    t.string   "nome_licao"
+    t.integer  "sivic_igreja_id"
+    t.integer  "sivic_turmamoduloprofessor_id"
+    t.integer  "user_inclusao"
+    t.integer  "integer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_licaos", ["sivic_igreja_id"], name: "index_sivic_licaos_on_sivic_igreja_id", using: :btree
+  add_index "sivic_licaos", ["sivic_turmamoduloprofessor_id"], name: "index_sivic_licaos_on_sivic_turmamoduloprofessor_id", using: :btree
 
   create_table "sivic_ministerios", force: true do |t|
     t.string   "nome_ministerio"
