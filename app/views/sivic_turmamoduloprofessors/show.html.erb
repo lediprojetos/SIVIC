@@ -1,19 +1,88 @@
 <p id="notice"><%= notice %></p>
 
+<% content_for :titlePage do %>
+  Nova lição
+<% end %>
+
+<%= render 'layouts/panel' %>
+
 <p>
-  <strong>Sivic professors:</strong>
-  <%= @sivic_turmamoduloprofessor.sivic_professors %>
+  <strong>Turma:</strong>
+  <%= @sivic_turmamoduloprofessor.sivic_turma.DESC_turma %>
 </p>
 
 <p>
-  <strong>Sivic moduloescolas:</strong>
-  <%= @sivic_turmamoduloprofessor.sivic_moduloescolas %>
+  <strong>Disciplina:</strong>
+  <%= @sivic_turmamoduloprofessor.sivic_moduloescola.nome_modulo %>
 </p>
 
-<p>
-  <strong>Sivic turmas:</strong>
-  <%= @sivic_turmamoduloprofessor.sivic_turmas %>
-</p>
+<hr>
+ <div class="field">
+    <a data-toggle="modal" href="#myModal" class="btn btn-success">Nova Lição</a>
+  </div>
+<hr>
 
-<%= link_to 'Edit', edit_sivic_turmamoduloprofessor_path(@sivic_turmamoduloprofessor) %> |
-<%= link_to 'Back', sivic_turmamoduloprofessors_path %>
+</div></div>
+
+<div class="btn-group">
+
+  <%= link_to sivic_licaos_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Cadastrar Lição</h4>
+      </div>
+      <div class="modal-body">
+
+       <table id="table_evento" name="table_evento" class="table table-hover" onload="buscaEvento()">
+        <%@sivic_licao = SivicLicao.new%>
+       	<%= form_for(@sivic_licao) do |f| %>
+ 
+		  <div class="field">
+		    <%= f.label :nome_licao %><br>
+		    <%= f.text_field :nome_licao %>
+		  </div>
+		  <div class="field">
+		    <%= f.label :user_id %><br>
+		    <%= f.text_field :user_inclusao %>
+		  </div>
+		  <div class="field">
+		    <%= f.label :sivic_igreja_id %><br>
+		    <%= f.text_field :sivic_igreja_id %>
+		  </div>
+		  <div class="field">
+		    <%= f.label :sivic_turmamoduloprofessor_id %><br>
+		    <%= f.text_field :sivic_turmamoduloprofessor_id %>
+		  </div>
+		<% end %>
+       
+        </table>
+      </div>
+
+      <div class="modal-footer">
+      <div class="row">
+         
+          <div class="col-xs-2">
+              <a data-toggle="modal" href="javascript:createModuloProfessor(this.value);" class="btn btn-success">Cadastrar</a>
+          </div>
+          
+          <div class="col-xs-8">
+          </div>
+
+           <div class="col-xs-2">
+             <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+          </div>
+          </div>        
+       </div> 
+
+      </div>
+    </div>
+  </div>

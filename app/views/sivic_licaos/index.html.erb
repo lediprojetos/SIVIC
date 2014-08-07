@@ -7,10 +7,9 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Nome licao</th>
-      <th>User</th>
-      <th>Sivic igreja</th>
-      <th>Sivic turmamoduloprofessor</th>
+      <th>Disciplina</th>
+      <th>Turma</th>
+      <th>Curso</th>
       <th></th>
       <th></th>
       <th></th>
@@ -18,15 +17,23 @@
   </thead>
 
   <tbody>
-    <% @sivic_licaos.each do |sivic_licao| %>
+    <% @sivic_turmamoduloprofessors.each do |sivic_turmamoduloprofessor| %>
       <tr>
-        <td><%= sivic_licao.nome_licao %></td>
-        <td><%= sivic_licao.user %></td>
-        <td><%= sivic_licao.sivic_igreja %></td>
-        <td><%= sivic_licao.sivic_turmamoduloprofessor %></td>
-        <td><%= link_to 'Show', sivic_licao %></td>
-        <td><%= link_to 'Edit', edit_sivic_licao_path(sivic_licao) %></td>
-        <td><%= link_to 'Destroy', sivic_licao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= sivic_turmamoduloprofessor.sivic_moduloescola.nome_modulo %></td>
+        <td><%= sivic_turmamoduloprofessor.sivic_turma.DESC_turma %></td>
+        <td><%= sivic_turmamoduloprofessor.sivic_turma.sivic_curso.nome_curso %></td>
+
+        <td align='right'>
+        <div class="btn-group">
+          <%= link_to sivic_turmamoduloprofessor, :class => "btn btn-default btn-sm" do %>
+            <span class="glyphicon glyphicon-play"></span> Nova Lição
+          <% end %>             
+           <%= link_to bloqueaTurma_path(sivic_turmamoduloprofessor), :confirm => 'Deseja bloquear a turma?', :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-forward"></span> Nova Aula
+            <% end %>                       
+        </div>
+        </td>
+
       </tr>
     <% end %>
   </tbody>
