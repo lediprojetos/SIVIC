@@ -1,25 +1,19 @@
 source 'https://rubygems.org'
 ruby '1.9.3'
-
 gem 'rails', '4.0.1'
-
 gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass', '~> 3.1.1'
-
 gem 'bcrypt-ruby', '3.1.2'
 gem 'bootstrap'
 gem 'validates_cpf_cnpj'
-
-
 gem 'execjs'
- 
+
 #Autenticação
 gem 'devise'
 gem 'cancan'
 
-#gem 'pg'  
-
-gem 'pg', '~> 0.17.1'
+gem 'pg'  
+#gem 'pg', '~> 0.17.1'
 
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
@@ -51,6 +45,6 @@ gem 'pdfkit'
 
 gem 'thinreports'
 
-
 gem 'momentjs-rails', '>= 2.5.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0.2'
+

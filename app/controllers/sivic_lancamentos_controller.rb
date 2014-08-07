@@ -1,11 +1,12 @@
 class SivicLancamentosController < ApplicationController
   before_action :set_sivic_lancamento, only: [:show, :edit, :update, :destroy]
 
+include ActionView::Helpers::NumberHelper
 
 def busca_lancamento
 
       sivic_lancamento = SivicLancamento.find :all, :conditions => {:id => params[:id]}
-      sivic_lancamento_json = sivic_lancamento.map {|item| {:id => item.id, :nome_lancamento => item.nome_lancamento, :valr_lancamento => item.valr_lancamento, :data_vencimento => (item.data_vencimento.blank? ? '' : item.data_vencimento.strftime("%d/%m/%Y")), :flag_pago => item.flag_pago, :sivic_category_id => item.sivic_category_id, :sivic_contabanco_id => item.sivic_contabanco_id, :data_pagamento => (item.data_pagamento.blank? ? '' : item.data_pagamento.strftime("%d/%m/%Y")), :valr_pago => item.valr_pago, :valr_jurosmulta => item.valr_jurosmulta, :valr_descontotaxa => item.valr_descontotaxa}}
+      sivic_lancamento_json = sivic_lancamento.map {|item| {:id => item.id, :nome_lancamento => item.nome_lancamento, :valr_lancamento =>number_to_currency( item.valr_lancamento, unit: "R$", separator: ",", delimiter: "."), :data_vencimento => (item.data_vencimento.blank? ? '' : item.data_vencimento.strftime("%d/%m/%Y")), :flag_pago => item.flag_pago, :sivic_category_id => item.sivic_category_id, :sivic_contabanco_id => item.sivic_contabanco_id, :data_pagamento => (item.data_pagamento.blank? ? '' : item.data_pagamento.strftime("%d/%m/%Y")), :valr_pago => number_to_currency( item.valr_pago, unit: "R$", separator: ",", delimiter: "."), :valr_jurosmulta => number_to_currency( item.valr_jurosmulta, unit: "R$", separator: ",", delimiter: "."), :valr_descontotaxa => number_to_currency( item.valr_descontotaxa, unit: "R$", separator: ",", delimiter: ".")}}
       render :json => sivic_lancamento_json
 
 end
@@ -13,6 +14,11 @@ end
   def create_pagamento
 
     date = Date.parse(params[:data_vencimento]).to_date
+
+    params[:valr_lancamento] = params[:valr_lancamento].gsub('.', '')
+    params[:valr_descontotaxa] = params[:valr_descontotaxa].gsub('.', '')
+    params[:valr_jurosmulta] = params[:valr_jurosmulta].gsub('.', '')
+    params[:valr_pago] = params[:valr_pago].gsub('.', '')
 
     params[:valr_lancamento] = ( - params[:valr_lancamento].gsub(',', '.').to_f)
     params[:valr_descontotaxa] = params[:valr_descontotaxa].gsub(',', '.')

@@ -15,8 +15,8 @@
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Novo <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a onclick="" href="#">Novo Recebimento</a></li>
-          <li><a onclick="$('#myModal').modal('show');">Novo Pagamento</a></li>
+          <li><a onclick="" href="#">Nova Receita</a></li>
+          <li><a onclick="$('#myModal').modal('show');">Nova Despesa</a></li>
           <li><a href="#">Nova Transferência</a></li>
         </ul>
       </li>
@@ -24,12 +24,12 @@
         <% if request.original_fullpath == '/contasapagar' %>
           class="active"
         <%end%>
-       ><a href="<%=contasapagar_path%>">Contas a Pagar</a></li>
+       ><a href="<%=contasapagar_path%>">Despesas</a></li>
       <li
         <% if request.original_fullpath == '/contasareceber' %>
           class="active"
         <%end%>
-      ><a href="<%=contasareceber_path%>">Contas a Receber</a></li>
+      ><a href="<%=contasareceber_path%>">Receitas</a></li>
       <li
         <% if request.original_fullpath == '/extrato' %>
           class="active"
