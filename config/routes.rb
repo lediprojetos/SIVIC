@@ -106,7 +106,8 @@ SIVIC::Application.routes.draw do
   get '/contasareceber', to: 'sivic_lancamentos#contasareceber',as: 'contasareceber'
   get '/extrato', to: 'sivic_lancamentos#extrato',as: 'extrato'
 
-
+  match '/criarLicao', to: 'sivic_licaos#create_licao', via: 'get'
+  match '/buscaLicao', to: 'sivic_licaos#busca_licao', via: 'get'
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 

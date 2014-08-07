@@ -22,6 +22,19 @@
   </div>
 <hr>
 
+<table class="table table-hover" id="tlblicao" name="tlblicao">
+  <thead>
+    <tr>
+      <th>Licão</th>
+      <th></th>     
+    </tr>
+  </thead>
+  <tbody id ="idbodylicao">
+      <tr>
+      </tr>
+  </tbody>
+</table>
+
 </div></div>
 
 <div class="btn-group">
@@ -46,15 +59,16 @@
         <%@sivic_licao = SivicLicao.new%>
        	<%= form_for(@sivic_licao) do |f| %>
  
-		  <div class="field">
-		    <%= f.label :nome_licao %><br>
-		    <%= f.text_field :nome_licao %>
-		  </div>
-		  <div class="field">
-		    <%= f.label :sivic_turmamoduloprofessor_id %><br>
-		    <%= f.text_field :sivic_turmamoduloprofessor_id %>
-		  </div>
-
+      <div class="row">
+        <div class="col-xs-12">
+    		  <div class="field">
+    		    <%= f.label :nome_licao %><br>
+    		    <%= f.text_field :nome_licao, :class =>  'form-control'%>
+    		  </div>
+        </div>
+      </div>
+       
+       <%= f.hidden_field :sivic_turmamoduloprofessor_id, :value => @sivic_turmamoduloprofessor.id %>
 		   <%= f.hidden_field :user_inclusao, :value => current_user.id %>
 		   <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
 
@@ -67,7 +81,7 @@
       <div class="row">
          
           <div class="col-xs-2">
-              <a data-toggle="modal" href="javascript:createModuloProfessor(this.value);" class="btn btn-success">Cadastrar</a>
+              <a data-toggle="modal" href="javascript:createLicao(this.value);" class="btn btn-success">Cadastrar</a>
           </div>
           
           <div class="col-xs-8">
@@ -82,3 +96,49 @@
       </div>
     </div>
   </div>
+
+
+<script>
+
+
+    function createLicao(){
+        
+       $.ajax({
+        url: '<%= criarLicao_path %>',
+        data :
+        {
+           nome_licao : $('#sivic_licao_nome_licao').val()
+          ,sivic_igreja_id : $('#sivic_licao_sivic_igreja_id').val()
+          ,sivic_turmamoduloprofessor_id: $('#sivic_licao_sivic_turmamoduloprofessor_id').val()
+          ,user_inclusao : $('#sivic_licao_user_inclusao').val()
+        },
+
+       success: function(data){
+          buscaLicao()
+          $('#myModal').modal('hide');
+         } 
+       })      
+     }
+
+     function buscaLicao(){
+       $.ajax({
+        url : '<%=buscaLicao_path %>',
+        data :
+        {
+          sivic_turmamoduloprofessor_id: $('#sivic_licao_sivic_turmamoduloprofessor_id').val()
+         },
+           success: function(data){         
+        $('#idbodylicao ').empty();
+         for (var i in data){
+              var item = data[i];
+
+           $('#tlblicao').append('<tr><td>'+item.nome_licao+'</td><td><a data-confirm="Deseja Excluir o registro?" data-method="delete" href="/sivic_licaos/'+item.id+'" rel="nofollow" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span> Excluir</a></td></tr>')
+           };   
+         }
+       })     
+   }
+
+   buscaLicao()
+
+</script>
+
