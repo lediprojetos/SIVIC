@@ -170,6 +170,7 @@ function buscaModuloProfessor(){
           user_id : '<%=current_user.id%>'
          },
           success: function(data){
+              buscaModuloProfessor();
           }
        })  
    }

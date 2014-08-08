@@ -22,14 +22,22 @@ class SivicTurmamoduloprofessorsController < ApplicationController
   end
 
   def create_turma_modulo_professor 
-      
+
       sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find :all, :conditions => {:sivic_professor_id => params[:sivic_professor_id], :sivic_moduloescola_id => params[:sivic_moduloescola_id], :sivic_turma_id => params[:sivic_turma_id]}
       @sivic_turma = SivicTurma.find(params[:sivic_turma_id])
 
     if sivic_turmamoduloprofessor.empty?
-       SivicTurmamoduloprofessor.create(:sivic_professor_id => params[:sivic_professor_id], :sivic_moduloescola_id => params[:sivic_moduloescola_id], :sivic_turma_id => params[:sivic_turma_id])    
-      sivic_turmamoduloprofessor_json = sivic_turmamoduloprofessor.map {|item| {:id => item.id, :sivic_turma_id => item.sivic_turma_id, :nome_turma => item.sivic_turma.DESC_turma, :nome_professor => item.sivic_professor.sivic_pessoa.nome_pessoa, :nome_modulo => item.sivic_moduloescola.nome_modulo}}
-      render :json => sivic_turmamoduloprofessor_json
+       @sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.new(:sivic_professor_id => params[:sivic_professor_id], :sivic_moduloescola_id => params[:sivic_moduloescola_id], :sivic_turma_id => params[:sivic_turma_id])    
+            
+      respond_to do |format|
+      if @sivic_turmamoduloprofessor.save
+        format.html { redirect_to @sivic_turma }
+        format.json { render action: 'show', status: :created, location: @sivic_turma }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @sivic_turma.errors, status: :unprocessable_entity }
+      end
+    end
 
     else
       sivic_turmamoduloprofessor_json = sivic_turmamoduloprofessor.map {|item| {:id => item.id, :sivic_turma_id => item.sivic_turma_id, :nome_turma => item.sivic_turma.DESC_turma, :nome_professor => item.sivic_professor.sivic_pessoa.nome_pessoa, :nome_modulo => item.sivic_moduloescola.nome_modulo}}

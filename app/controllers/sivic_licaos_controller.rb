@@ -44,7 +44,7 @@ class SivicLicaosController < ApplicationController
   # POST /sivic_licaos.json
   def create_licao
        
-      @sivic_licao = SivicLicao.create(:nome_licao => params[:nome_licao], :user_inclusao => params[:user_inclusao], :sivic_igreja_id => params[:sivic_igreja_id], :sivic_turmamoduloprofessor_id => params[:sivic_turmamoduloprofessor_id])
+      @sivic_licao = SivicLicao.new(:nome_licao => params[:nome_licao], :user_inclusao => params[:user_inclusao], :sivic_igreja_id => params[:sivic_igreja_id], :sivic_turmamoduloprofessor_id => params[:sivic_turmamoduloprofessor_id])
     
       @sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find(params[:sivic_turmamoduloprofessor_id])
 
@@ -85,11 +85,15 @@ class SivicLicaosController < ApplicationController
   # DELETE /sivic_licaos/1
   # DELETE /sivic_licaos/1.json
   def destroy
+
+    @sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find(@sivic_licao.sivic_turmamoduloprofessor_id)
     @sivic_licao.destroy
     respond_to do |format|
-      format.html { redirect_to sivic_licaos_url }
-      format.json { head :no_content }
+      format.html { redirect_to @sivic_turmamoduloprofessor}
+      format.json { render action: 'show', status: :created, location: @sivic_turmamoduloprofessor }
     end
+
+
   end
 
   private
