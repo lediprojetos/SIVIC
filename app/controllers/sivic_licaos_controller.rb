@@ -29,13 +29,15 @@ class SivicLicaosController < ApplicationController
   def create
     @sivic_licao = SivicLicao.create(sivic_licao_params)
 
+    @sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find(@sivic_licao.sivic_turmamoduloprofessor_id)
+
     respond_to do |format|
       if @sivic_licao.save
-        format.html { redirect_to @sivic_licao, notice: 'Sivic licao was successfully created.' }
+        format.html { redirect_to @sivic_turmamoduloprofessor, notice: 'Sivic licao was successfully created.' }
         format.json { render action: 'show', status: :created, location: @sivic_licao }
       else
         format.html { render action: 'new' }
-        format.json { render json: @sivic_licao.errors, status: :unprocessable_entity }
+        format.json { render json: @sivic_turmamoduloprofessor.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -85,10 +87,13 @@ class SivicLicaosController < ApplicationController
   # DELETE /sivic_licaos/1
   # DELETE /sivic_licaos/1.json
   def destroy
+
+    @sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find(@sivic_licao.sivic_turmamoduloprofessor_id)
+
     @sivic_licao.destroy
     respond_to do |format|
-      format.html { redirect_to sivic_licaos_url }
-      format.json { head :no_content }
+       format.html { redirect_to @sivic_turmamoduloprofessor}
+       format.json { head :no_content }
     end
   end
 

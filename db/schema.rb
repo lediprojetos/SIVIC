@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140806155821) do
+ActiveRecord::Schema.define(version: 20140808162036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,20 @@ ActiveRecord::Schema.define(version: 20140806155821) do
 
   add_index "observacoesrelatorios", ["sivic_pessoa_id"], name: "index_observacoesrelatorios_on_sivic_pessoa_id", using: :btree
   add_index "observacoesrelatorios", ["sivic_relatorioscelula_id"], name: "index_observacoesrelatorios_on_sivic_relatorioscelula_id", using: :btree
+
+  create_table "sivic_aulas", force: true do |t|
+    t.string   "nome_aula"
+    t.datetime "data_aula"
+    t.integer  "sivic_igreja_id"
+    t.integer  "sivic_tumamoduloprofessor_id"
+    t.integer  "user_inclusao"
+    t.integer  "integer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_aulas", ["sivic_igreja_id"], name: "index_sivic_aulas_on_sivic_igreja_id", using: :btree
+  add_index "sivic_aulas", ["sivic_tumamoduloprofessor_id"], name: "index_sivic_aulas_on_sivic_tumamoduloprofessor_id", using: :btree
 
   create_table "sivic_bancos", force: true do |t|
     t.string   "nome_banco"

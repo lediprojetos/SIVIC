@@ -1,5 +1,5 @@
 class SivicTurmamoduloprofessorsController < ApplicationController
-  before_action :set_sivic_turmamoduloprofessor, only: [:show, :edit, :update, :destroy]
+  before_action :set_sivic_turmamoduloprofessor, only: [:show, :edit, :update, :destroy, :aula]
 
   # GET /sivic_turmamoduloprofessors
   # GET /sivic_turmamoduloprofessors.json
@@ -10,6 +10,10 @@ class SivicTurmamoduloprofessorsController < ApplicationController
   # GET /sivic_turmamoduloprofessors/1
   # GET /sivic_turmamoduloprofessors/1.json
   def show
+  end
+
+  def aula
+    
   end
 
   # GET /sivic_turmamoduloprofessors/new

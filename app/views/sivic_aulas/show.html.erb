@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome aula:</strong>
+  <%= @sivic_aula.nome_aula %>
+</p>
+
+<p>
+  <strong>Data aula:</strong>
+  <%= @sivic_aula.data_aula %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @sivic_aula.user %>
+</p>
+
+<p>
+  <strong>Sivic igreja:</strong>
+  <%= @sivic_aula.sivic_igreja %>
+</p>
+
+<p>
+  <strong>Sivic tumamoduloprofessor:</strong>
+  <%= @sivic_aula.sivic_tumamoduloprofessor %>
+</p>
+
+<%= link_to 'Edit', edit_sivic_aula_path(@sivic_aula) %> |
+<%= link_to 'Back', sivic_aulas_path %>

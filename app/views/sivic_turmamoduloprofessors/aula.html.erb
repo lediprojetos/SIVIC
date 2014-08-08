@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<% content_for :titlePage do %>
+  Nova Aula
+<% end %>
+
+<%= render 'layouts/panel' %>
+
+
+<p>
+  <strong>Curso:</strong>
+  <%= @sivic_turmamoduloprofessor.sivic_turma.sivic_curso.nome_curso %>
+</p>
+
+<p>
+  <strong>Turma:</strong>
+  <%= @sivic_turmamoduloprofessor.sivic_turma.DESC_turma %>
+</p>
+
+<p>
+  <strong>Disciplina:</strong>
+  <%= @sivic_turmamoduloprofessor.sivic_moduloescola.nome_modulo %>
+</p>
+
+
+</div></div>
+
+<div class="btn-group">
+
+  <%= link_to sivic_licaos_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+
+</div>
