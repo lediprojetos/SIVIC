@@ -5,7 +5,7 @@
 Contas a Pagar
 <% end %>
 
-<input type="hidden" id="lblEditar" value="0">
+<input type="hidden" id="numgPagamento" value="0">
 
 <table class="table table-hover table-striped table-bordered table-condensed">
   <thead>
@@ -275,6 +275,7 @@ function buscaLancamento(id){
             $("#valr_lancamento").val(item.valr_lancamento.replace("-", ""));
           }
 
+          //alert(item.id);
           $("#numgPagamento").val(item.id);
         };
 
@@ -324,7 +325,8 @@ $(function() {
     $('#valr_pago').val('');
 
     $("#chkRepetir").removeAttr("disabled");
-    $("#chkRepetir").attr("disabled", false);    
+    $("#chkRepetir").attr("disabled", false);
+    $('#numgPagamento').val('');
     location.reload();
 
 
@@ -434,6 +436,8 @@ if($('#chkPago').is(':checked') == true){
         $('#valr_descontotaxa').val('');
         $('#valr_jurosmulta').val('');
         $('#valr_pago').val('');
+
+        $('#myModal').modal('hide');
 
     }
   })  

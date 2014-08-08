@@ -71,6 +71,11 @@ end
 
     date = Date.parse(params[:data_vencimento]).to_date
 
+    params[:valr_lancamento] = params[:valr_lancamento].gsub('R$', '')
+    params[:valr_descontotaxa] = params[:valr_descontotaxa].gsub('R$', '')
+    params[:valr_jurosmulta] = params[:valr_jurosmulta].gsub('R$', '')
+    params[:valr_pago] = params[:valr_pago].gsub('R$', '')
+
     params[:valr_lancamento] = params[:valr_lancamento].gsub('.', '')
     params[:valr_descontotaxa] = params[:valr_descontotaxa].gsub('.', '')
     params[:valr_jurosmulta] = params[:valr_jurosmulta].gsub('.', '')
@@ -89,7 +94,7 @@ end
 
       @lancamento = SivicLancamento.find_by_id(params[:id])
 
-      @lancamento.update(:nome_lancamento => params[:nome_lancamento],:sivic_category_id => params[:sivic_category_id],:data_vencimento => date,:sivic_contabanco_id => params[:sivic_contabanco_id],:valr_lancamento => params[:valr_lancamento],:data_pagamento => params[:data_pagamento],:valr_descontotaxa => params[:valr_descontotaxa],:valr_jurosmulta => params[:valr_jurosmulta],:valr_pago => params[:valr_pago], :flag_pago => flag_pago).where(:id => params[:id])
+      @lancamento.update(:nome_lancamento => params[:nome_lancamento],:sivic_category_id => params[:sivic_category_id],:data_vencimento => date,:sivic_contabanco_id => params[:sivic_contabanco_id],:valr_lancamento => params[:valr_lancamento],:data_pagamento => params[:data_pagamento],:valr_descontotaxa => params[:valr_descontotaxa],:valr_jurosmulta => params[:valr_jurosmulta],:valr_pago => params[:valr_pago], :flag_pago => flag_pago)
 
       sivic_lancamento = SivicLancamento.find :all, :conditions => {:id => params[:id]}
       sivic_lancamento_json = sivic_lancamento.map {|item| {:id => item.id, :nome_lancamento => item.nome_lancamento}}
