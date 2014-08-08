@@ -5,6 +5,8 @@
 Contas a Pagar
 <% end %>
 
+<input type="hidden" id="lblEditar" value="0">
+
 <table class="table table-hover table-striped table-bordered table-condensed">
   <thead>
     <tr>
@@ -273,9 +275,10 @@ function buscaLancamento(id){
             $("#valr_lancamento").val(item.valr_lancamento.replace("-", ""));
           }
 
+          $("#numgPagamento").val(item.id);
         };
 
-
+        //Identifica que será uma edição
 
         //Desativar função de repetir
         $("#chkRepetir").removeAttr("disabled");
@@ -304,7 +307,32 @@ $(function() {
   $("#valr_descontotaxa").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
   $("#valr_jurosmulta").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
   $("#valr_pago").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
-  $('#myModal').on('hidden.bs.modal', function (e) { location.reload();})
+
+  //ações ao fechar o modal
+  $('#myModal').on('hidden.bs.modal', function (e) { 
+
+    $('#nome_lancamento').val('');
+    $('#sivic_category_sivic_category_id').val('');
+    $('#data_vencimento').val('');
+    $('#sivic_conta_id').val('');
+    $('#valr_lancamento').val('');
+    $('#selTemporizador').val('');
+    $('#numr_recorrencia').val('');
+    $('#data_pagamento').val('');
+    $('#valr_descontotaxa').val('');
+    $('#valr_jurosmulta').val('');
+    $('#valr_pago').val('');
+
+    $("#chkRepetir").removeAttr("disabled");
+    $("#chkRepetir").attr("disabled", false);    
+    location.reload();
+
+
+
+  })
+  //----
+
+
   $("#data_vencimento").mask("99/99/9999");
   $("#data_pagamento").mask("99/99/9999");
 })
@@ -356,9 +384,61 @@ function validates(){
 
   }
 
-  salvapagamento();
+  if ($('#numgPagamento').val() != "0"){
+    editapagamento();
+  } else {
+    salvapagamento();
+  }
 
 }
+
+
+function editapagamento() {
+
+var pago;
+
+if($('#chkPago').is(':checked') == true){
+  pago = 'True';
+}  else {
+  pago = 'False';
+}
+  
+  $.ajax({
+    url: '<%= alteraPagamento_path %>',
+    data : 
+    {
+        id : $('#numgPagamento').val()
+        ,nome_lancamento : $('#nome_lancamento').val()
+        ,sivic_category_id : $('#sivic_category_sivic_category_id').val()
+        ,data_vencimento : $('#data_vencimento').val()
+        ,sivic_contabanco_id : $('#sivic_contabancos_sivic_conta_id').val()
+        ,valr_lancamento : $('#valr_lancamento').val()
+        ,data_pagamento : $('#data_pagamento').val()
+        ,valr_descontotaxa : $('#valr_descontotaxa').val()
+        ,valr_jurosmulta : $('#valr_jurosmulta').val()
+        ,chkPago : pago
+        ,valr_pago : $('#valr_pago').val()
+    },
+    success: function(data){
+          
+        alert_boot('Pagamento editado com sucesso.','success');
+
+        $('#nome_lancamento').val('');
+        $('#sivic_category_sivic_category_id').val('');
+        $('#data_vencimento').val('');
+        $('#sivic_conta_id').val('');
+        $('#valr_lancamento').val('');
+        $('#selTemporizador').val('');
+        $('#numr_recorrencia').val('');
+        $('#data_pagamento').val('');
+        $('#valr_descontotaxa').val('');
+        $('#valr_jurosmulta').val('');
+        $('#valr_pago').val('');
+
+    }
+  })  
+}          
+
 
 function salvapagamento() {
 
