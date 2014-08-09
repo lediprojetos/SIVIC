@@ -1,0 +1,35 @@
+<h1>Listing sivic_aulas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome aula</th>
+      <th>Data aula</th>
+      <th>User</th>
+      <th>Sivic igreja</th>
+      <th>Sivic tumamoduloprofessor</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_aulas.each do |sivic_aula| %>
+      <tr>
+        <td><%= sivic_aula.nome_aula %></td>
+        <td><%= sivic_aula.data_aula %></td>
+        <td><%= sivic_aula.user %></td>
+        <td><%= sivic_aula.sivic_igreja %></td>
+        <td><%= sivic_aula.sivic_tumamoduloprofessor %></td>
+        <td><%= link_to 'Show', sivic_aula %></td>
+        <td><%= link_to 'Edit', edit_sivic_aula_path(sivic_aula) %></td>
+        <td><%= link_to 'Destroy', sivic_aula, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic aula', new_sivic_aula_path %>

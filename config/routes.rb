@@ -1,12 +1,18 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_aulas
+
   resources :sivic_licaos
 
   resources :sivic_cursos
 
   resources :sivic_turmaalunos
 
-  resources :sivic_turmamoduloprofessors
+  resources :sivic_turmamoduloprofessors do
+    member do
+      get :aula
+     end
+   end
 
   resources :sivic_lancamentos
 
