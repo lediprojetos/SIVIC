@@ -108,14 +108,14 @@ SIVIC::Application.routes.draw do
 
   match '/listarTurma', to: 'sivic_turmaalunos#busca_turmas', via: 'get'
 
-
-
   get '/contasapagar', to: 'sivic_lancamentos#contasapagar',as: 'contasapagar'
   get '/contasareceber', to: 'sivic_lancamentos#contasareceber',as: 'contasareceber'
   get '/extrato', to: 'sivic_lancamentos#extrato',as: 'extrato'
 
   match '/criarLicao', to: 'sivic_licaos#create_licao', via: 'get'
   match '/buscaLicao', to: 'sivic_licaos#busca_licao', via: 'get'
+  match '/criarAula', to: 'sivic_aulas#create_aula', via: 'get'
+  match '/buscaAula', to: 'sivic_aulas#busca_aula', via: 'get'
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
