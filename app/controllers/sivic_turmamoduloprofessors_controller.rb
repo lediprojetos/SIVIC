@@ -13,7 +13,7 @@ class SivicTurmamoduloprofessorsController < ApplicationController
   end
 
   def aula
-    
+   
   end
 
   # GET /sivic_turmamoduloprofessors/new

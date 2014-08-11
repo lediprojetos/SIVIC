@@ -23,6 +23,28 @@
 </p>
 
 
+
+<hr>
+ <div class="field">
+    <a data-toggle="modal" href="#myModal" class="btn btn-success">Nova Aula</a>
+  </div>
+<hr>
+
+<table class="table table-hover" id="tlbaula" name="tlbaula">
+  <thead>
+    <tr>
+      <th>Aula</th>
+      <th></th>     
+    </tr>
+  </thead>
+  <tbody id ="idbodyaula">
+      <tr>
+      </tr>
+  </tbody>
+</table>
+
+
+
 </div></div>
 
 <div class="btn-group">
@@ -32,3 +54,128 @@
   <% end %>
 
 </div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Cadastrar Lição</h4>
+      </div>
+      <div class="modal-body">
+
+       <table id="table_evento" name="table_evento" class="table table-hover" onload="buscaEvento()">
+        <%@sivic_aula = SivicAula.new%>
+        <%= form_for(@sivic_aula) do |f| %>
+ 
+      <div class="row">
+        <div class="col-xs-8">
+          <div class="field">
+            <%= f.label :nome_aula %><br>
+            <%= f.text_field :nome_aula, :class =>  'form-control'%>
+          </div>
+        </div>
+
+        <div class='col-sm-4'>
+            <spam>Data Aula</spam>
+               <div class="form-group">
+                   <div class='input-group date' id='datetimepicker1'>
+                       <input id="data_aula" name="data_aula" type='text' class="form-control" />
+                       <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+               </div>
+          </div>
+        </div>
+      
+      </div>
+       
+       <%= f.hidden_field :sivic_turmamoduloprofessor_id, :value => @sivic_turmamoduloprofessor.id %>
+       <%= f.hidden_field :user_inclusao, :value => current_user.id %>
+       <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
+
+     <% end %>    
+       
+        </table>
+      </div>
+
+      <div class="modal-footer">
+      <div class="row">
+         
+          <div class="col-xs-2">
+              <a data-toggle="modal" href="javascript:createAula(this.value);" class="btn btn-success">Cadastrar</a>
+          </div>
+          
+          <div class="col-xs-8">
+          </div>
+
+           <div class="col-xs-2">
+             <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+          </div>
+          </div>        
+       </div> 
+
+      </div>
+    </div>
+  </div>
+
+
+<script>
+
+
+ $("#data_vencimento").mask("99/99/9999");
+
+
+  $(function() { 
+     $('#datetimepicker1').datetimepicker({language: 'pt', pickTime: false}); 
+         
+  })
+
+
+    function createAula(){
+        
+       $.ajax({
+        url: '<%= criarAula_path %>',
+        data :
+        {
+           nome_aula : $('#sivic_aula_nome_aula').val()
+          ,data_aula : $('#data_aula').val()
+          ,sivic_igreja_id : $('#sivic_aula_sivic_igreja_id').val()
+          ,sivic_turmamoduloprofessor_id: $('#sivic_aula_sivic_turmamoduloprofessor_id').val()
+          ,user_inclusao : $('#sivic_aula_user_inclusao').val()
+        },
+
+       success: function(data){
+          buscaAula()
+          $('#myModal').modal('hide');
+         } 
+       })      
+     }
+
+
+     function buscaAula(){
+       $.ajax({
+        url : '<%=buscaAula_path %>',
+        data :
+        {
+          sivic_turmamoduloprofessor_id: $('#sivic_aula_sivic_turmamoduloprofessor_id').val()
+         },
+           success: function(data){         
+        $('#idbodyaula').empty();
+         for (var i in data){
+              var item = data[i];
+
+           $('#tlbaula').append('<tr><td>'+item.nome_aula+'</td><td>'+item.data_aula+'</td><td><a data-confirm="Deseja Excluir o registro?" data-method="delete" href="/sivic_licaos/'+item.id+'" rel="nofollow" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span> Excluir</a></td></tr>')
+           };   
+         }
+       })     
+   }
+
+   buscaAula();
+
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
+</script>

@@ -37,6 +37,33 @@ class SivicAulasController < ApplicationController
     end
   end
 
+
+  def create_aula
+    
+   @sivic_aula = SivicAula.new(:nome_aula => params[:nome_aula], :data_aula => params[:data_aula], :sivic_igreja_id => params[:sivic_igreja_id], :sivic_turmamoduloprofessor_id => params[:sivic_turmamoduloprofessor_id], :user_inclusao => params[:user_inclusao])
+
+   @sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find(params[:sivic_turmamoduloprofessor_id])
+
+    respond_to do |format|
+      if @sivic_aula.save
+        format.html { redirect_to @sivic_turmamoduloprofessor, notice: 'Sivic aula was successfully created.' }
+        format.json { render action: 'aula', status: :created, location: @sivic_turmamoduloprofessor }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @sivic_turmamoduloprofessor.errors, status: :unprocessable_entity }
+      end
+    end 
+  end
+
+
+  def busca_aula
+
+    @sivic_aula =  SivicAula.find :all, :conditions => {:sivic_turmamoduloprofessor_id => params[:sivic_turmamoduloprofessor_id]}
+    @sivic_aula_json = @sivic_aula.map {|item| {:id => item.id, :nome_aula => item.nome_aula, :data_aula => item.data_aula}}
+    render :json => @sivic_aula_json
+  
+  end
+
   # PATCH/PUT /sivic_aulas/1
   # PATCH/PUT /sivic_aulas/1.json
   def update
@@ -69,6 +96,6 @@ class SivicAulasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_aula_params
-      params.require(:sivic_aula).permit(:nome_aula, :data_aula, :user_id, :sivic_igreja_id, :sivic_tumamoduloprofessor_id)
+      params.require(:sivic_aula).permit(:nome_aula, :data_aula, :user_inclusao, :sivic_igreja_id, :sivic_turmamoduloprofessor_id)
     end
 end
