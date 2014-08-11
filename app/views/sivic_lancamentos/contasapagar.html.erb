@@ -42,7 +42,7 @@ Contas a Pagar
             <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
                 <span class="glyphicon glyphicon-pencil"></span>
             </a>            
-            <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Excluir">
+            <a class="btn btn-default btn-sm" onclick="excluiLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Excluir">
                 <span class="glyphicon glyphicon-trash"></span>
             </a>
 
@@ -237,6 +237,23 @@ Contas a Pagar
 </div>
 
 <script>
+
+function excluiLancamento(id){
+  $.ajax({
+    url: '<%= deletaLancamento_path %>',
+    data : 
+    {
+        id : id
+    },
+
+    success: function(data){
+          
+        location.reload(); 
+
+    }
+  })   
+  
+}
 
 function pagaRecebe(id,act){
 

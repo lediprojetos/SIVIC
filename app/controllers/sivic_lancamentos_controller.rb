@@ -3,6 +3,21 @@ class SivicLancamentosController < ApplicationController
 
 include ActionView::Helpers::NumberHelper
 
+def deleta_lancamento
+
+    @lancamento = SivicLancamento.find_by_id(params[:id])
+
+    @lancamento.update(
+                      :data_exclusao => Date.today
+                      )
+
+
+    sivic_lancamento = SivicLancamento.find :all, :conditions => {:id => params[:id]}
+    sivic_lancamento_json = sivic_lancamento.map {|item| {:id => item.id, :nome_lancamento => item.nome_lancamento, :flag_pago => item.flag_pago}}
+    render :json => sivic_lancamento_json
+
+end
+
 def edita_pagaRecebe
 
     if params[:flag_pago] == 'True'
@@ -177,11 +192,11 @@ end
   end
 
   def contasapagar
-    @sivic_lancamentos = SivicLancamento.where(:sivic_tipmovfinanceiro_id => 1, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id).order(:data_vencimento)
-    @total_lancamentos = SivicLancamento.sum(:valr_lancamento, :conditions => {:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
-    @total_pago = SivicLancamento.sum(:valr_pago, :conditions => {:flag_pago => true, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
-    @a_pagar = SivicLancamento.sum(:valr_lancamento, :conditions => {:flag_pago => false, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
-    @vencidas = SivicLancamento.sum(:valr_lancamento, :conditions => ['data_vencimento < ?', Date.today])
+    @sivic_lancamentos = SivicLancamento.where(:sivic_tipmovfinanceiro_id => 1, :data_exclusao => nil, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id).order(:data_vencimento)
+    @total_lancamentos = SivicLancamento.sum(:valr_lancamento, :conditions => {:sivic_tipmovfinanceiro_id => 1, :data_exclusao => nil, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id,})
+    @total_pago = SivicLancamento.sum(:valr_pago, :conditions => {:sivic_tipmovfinanceiro_id => 1, :flag_pago => true, :data_exclusao => nil, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
+    @a_pagar = SivicLancamento.sum(:valr_lancamento, :conditions => {:sivic_tipmovfinanceiro_id => 1, :flag_pago => false, :data_exclusao => nil, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
+    @vencidas = SivicLancamento.sum(:valr_lancamento, :conditions => ['data_vencimento < ? and data_exclusao is null and sivic_tipmovfinanceiro_id = 1', Date.today])
   end
 
   def contasareceber
