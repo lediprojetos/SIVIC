@@ -36,8 +36,8 @@ Contas a Pagar
         <td align='right'>
 
 
-            <a class="btn btn-default btn-sm" onclick="" rel="tooltip" title="Pagar">
-                <span class="glyphicon glyphicon-ok"></span>
+            <a class="btn btn-default btn-sm" onclick="pagaRecebe(<%= sivic_lancamento.id %>,<%=sivic_lancamento.flag_pago == true ? '0' : '1'%>)" rel="tooltip" title="<%=sivic_lancamento.flag_pago == true ? 'Desfazer Pagamento' : 'Pagar'%>">
+                <span class="<%=sivic_lancamento.flag_pago == true ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-ok'%>"></span>
             </a>
             <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
                 <span class="glyphicon glyphicon-pencil"></span>
@@ -238,6 +238,31 @@ Contas a Pagar
 
 <script>
 
+function pagaRecebe(id,act){
+
+if (act == '0'){
+  act = 'False'
+} else {
+  act = 'True'
+}
+
+  $.ajax({
+    url: '<%= editaPagaRecebe_path %>',
+    data : 
+    {
+        id : id
+        ,flag_pago : act
+    },
+
+    success: function(data){
+          
+        location.reload(); 
+
+    }
+  })          
+
+}
+
 function buscaLancamento(id){
 
   $.ajax({
@@ -275,8 +300,16 @@ function buscaLancamento(id){
             $("#valr_lancamento").val(item.valr_lancamento.replace("-", ""));
           }
 
-          //alert(item.id);
           $("#numgPagamento").val(item.id);
+
+          if(item.flag_pago == true){
+            $('#chkPago').prop('checked', true);
+          } else {
+            $('#chkPago').prop('checked', false);
+          }
+
+          desabilitapago();
+
         };
 
         //Identifica que será uma edição

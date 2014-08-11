@@ -3,10 +3,44 @@ class SivicLancamentosController < ApplicationController
 
 include ActionView::Helpers::NumberHelper
 
+def edita_pagaRecebe
+
+    if params[:flag_pago] == 'True'
+      flag_pago = true
+    else
+      flag_pago = false
+    end
+
+    @lancamento = SivicLancamento.find_by_id(params[:id])
+
+    @lancamento.update(
+                      :data_pagamento => Date.today,
+                      :valr_pago => @lancamento.valr_lancamento,
+                      :flag_pago => flag_pago
+                      )
+
+    sivic_lancamento = SivicLancamento.find :all, :conditions => {:id => params[:id]}
+    sivic_lancamento_json = sivic_lancamento.map {|item| {:id => item.id, :nome_lancamento => item.nome_lancamento, :flag_pago => item.flag_pago}}
+    render :json => sivic_lancamento_json
+
+end
+
 def busca_lancamento
 
       sivic_lancamento = SivicLancamento.find :all, :conditions => {:id => params[:id]}
-      sivic_lancamento_json = sivic_lancamento.map {|item| {:id => item.id, :nome_lancamento => item.nome_lancamento, :valr_lancamento =>number_to_currency( item.valr_lancamento, unit: "R$", separator: ",", delimiter: "."), :data_vencimento => (item.data_vencimento.blank? ? '' : item.data_vencimento.strftime("%d/%m/%Y")), :flag_pago => item.flag_pago, :sivic_category_id => item.sivic_category_id, :sivic_contabanco_id => item.sivic_contabanco_id, :data_pagamento => (item.data_pagamento.blank? ? '' : item.data_pagamento.strftime("%d/%m/%Y")), :valr_pago => number_to_currency( item.valr_pago, unit: "R$", separator: ",", delimiter: "."), :valr_jurosmulta => number_to_currency( item.valr_jurosmulta, unit: "R$", separator: ",", delimiter: "."), :valr_descontotaxa => number_to_currency( item.valr_descontotaxa, unit: "R$", separator: ",", delimiter: ".")}}
+      sivic_lancamento_json = sivic_lancamento.map {|item| {
+                                                        :id => item.id, 
+                                                        :nome_lancamento => item.nome_lancamento,
+                                                        :valr_lancamento =>number_to_currency( item.valr_lancamento, unit: "R$", separator: ",", delimiter: "."),
+                                                        :data_vencimento => (item.data_vencimento.blank? ? '' : item.data_vencimento.strftime("%d/%m/%Y")),
+                                                        :flag_pago => item.flag_pago,
+                                                        :sivic_category_id => item.sivic_category_id,
+                                                        :sivic_contabanco_id => item.sivic_contabanco_id,
+                                                        :data_pagamento => (item.data_pagamento.blank? ? '' : item.data_pagamento.strftime("%d/%m/%Y")),
+                                                        :valr_pago => number_to_currency( item.valr_pago, unit: "R$", separator: ",", delimiter: "."),
+                                                        :valr_jurosmulta => number_to_currency( item.valr_jurosmulta, unit: "R$", separator: ",", delimiter: "."),
+                                                        :valr_descontotaxa => number_to_currency( item.valr_descontotaxa, unit: "R$", separator: ",", delimiter: ".")}
+                                                           }
       render :json => sivic_lancamento_json
 
 end
@@ -36,7 +70,21 @@ end
 
       params[:numr_recorrencia].to_i.times do
 
-        SivicLancamento.create(:nome_lancamento => params[:nome_lancamento],:sivic_category_id => params[:sivic_category_id],:data_vencimento => date,:sivic_contabanco_id => params[:sivic_contabanco_id],:valr_lancamento => params[:valr_lancamento],:numr_recorrencia => params[:numr_recorrencia],:data_pagamento => params[:data_pagamento],:valr_descontotaxa => params[:valr_descontotaxa],:valr_jurosmulta => params[:valr_jurosmulta],:valr_pago => params[:valr_pago],:sivic_tipmovfinanceiro_id => 1, :flag_pago => flag_pago, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id)
+        SivicLancamento.create(
+                                :nome_lancamento => params[:nome_lancamento],
+                                :sivic_category_id => params[:sivic_category_id],
+                                :data_vencimento => date,
+                                :sivic_contabanco_id => params[:sivic_contabanco_id],
+                                :valr_lancamento => params[:valr_lancamento],
+                                :numr_recorrencia => params[:numr_recorrencia],
+                                :data_pagamento => params[:data_pagamento],
+                                :valr_descontotaxa => params[:valr_descontotaxa],
+                                :valr_jurosmulta => params[:valr_jurosmulta],
+                                :valr_pago => params[:valr_pago],
+                                :sivic_tipmovfinanceiro_id => 1,
+                                :flag_pago => flag_pago,
+                                :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id
+                              )
 
         if params[:numr_temporizador] == 'D'
           date = (date + 1.days)
@@ -90,11 +138,26 @@ end
       flag_pago = true
     else
       flag_pago = false
+      params[:valr_pago] = nil
+      params[:valr_jurosmulta] = nil
+      params[:data_pagamento] = nil
+      params[:valr_descontotaxa] = nil
     end
 
       @lancamento = SivicLancamento.find_by_id(params[:id])
 
-      @lancamento.update(:nome_lancamento => params[:nome_lancamento],:sivic_category_id => params[:sivic_category_id],:data_vencimento => date,:sivic_contabanco_id => params[:sivic_contabanco_id],:valr_lancamento => params[:valr_lancamento],:data_pagamento => params[:data_pagamento],:valr_descontotaxa => params[:valr_descontotaxa],:valr_jurosmulta => params[:valr_jurosmulta],:valr_pago => params[:valr_pago], :flag_pago => flag_pago)
+      @lancamento.update(
+                        :nome_lancamento => params[:nome_lancamento],
+                        :sivic_category_id => params[:sivic_category_id],
+                        :data_vencimento => date,
+                        :sivic_contabanco_id => params[:sivic_contabanco_id],
+                        :valr_lancamento => params[:valr_lancamento],
+                        :data_pagamento => params[:data_pagamento],
+                        :valr_descontotaxa => params[:valr_descontotaxa],
+                        :valr_jurosmulta => params[:valr_jurosmulta],
+                        :valr_pago => params[:valr_pago],
+                        :flag_pago => flag_pago
+                        )
 
       sivic_lancamento = SivicLancamento.find :all, :conditions => {:id => params[:id]}
       sivic_lancamento_json = sivic_lancamento.map {|item| {:id => item.id, :nome_lancamento => item.nome_lancamento}}
@@ -114,9 +177,9 @@ end
   end
 
   def contasapagar
-    @sivic_lancamentos = SivicLancamento.all(:conditions => {:sivic_tipmovfinanceiro_id => 1, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
+    @sivic_lancamentos = SivicLancamento.where(:sivic_tipmovfinanceiro_id => 1, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id).order(:data_vencimento)
     @total_lancamentos = SivicLancamento.sum(:valr_lancamento, :conditions => {:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
-    @total_pago = SivicLancamento.sum(:valr_lancamento, :conditions => {:flag_pago => true, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
+    @total_pago = SivicLancamento.sum(:valr_pago, :conditions => {:flag_pago => true, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
     @a_pagar = SivicLancamento.sum(:valr_lancamento, :conditions => {:flag_pago => false, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
     @vencidas = SivicLancamento.sum(:valr_lancamento, :conditions => ['data_vencimento < ?', Date.today])
   end

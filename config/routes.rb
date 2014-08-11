@@ -103,6 +103,7 @@ SIVIC::Application.routes.draw do
   match '/inserePagamento', to: 'sivic_lancamentos#create_pagamento', via: 'get'
   match '/alteraPagamento', to: 'sivic_lancamentos#edita_pagamento', via: 'get'
   match '/busca_lancamento', to: 'sivic_lancamentos#busca_lancamento', via: 'get'
+  match '/editaPagaRecebe', to: 'sivic_lancamentos#edita_pagaRecebe', via: 'get'
 
   match '/listarTurma', to: 'sivic_turmaalunos#busca_turmas', via: 'get'
 
