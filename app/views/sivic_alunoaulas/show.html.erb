@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sivic turmaaluno:</strong>
+  <%= @sivic_alunoaula.sivic_turmaaluno %>
+</p>
+
+<p>
+  <strong>Sivic aula:</strong>
+  <%= @sivic_alunoaula.sivic_aula %>
+</p>
+
+<p>
+  <strong>Flag ausente:</strong>
+  <%= @sivic_alunoaula.flag_ausente %>
+</p>
+
+<%= link_to 'Edit', edit_sivic_alunoaula_path(@sivic_alunoaula) %> |
+<%= link_to 'Back', sivic_alunoaulas_path %>

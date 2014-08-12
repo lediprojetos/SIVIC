@@ -1,0 +1,31 @@
+<h1>Listing sivic_alunoaulas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sivic turmaaluno</th>
+      <th>Sivic aula</th>
+      <th>Flag ausente</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_alunoaulas.each do |sivic_alunoaula| %>
+      <tr>
+        <td><%= sivic_alunoaula.sivic_turmaaluno %></td>
+        <td><%= sivic_alunoaula.sivic_aula %></td>
+        <td><%= sivic_alunoaula.flag_ausente %></td>
+        <td><%= link_to 'Show', sivic_alunoaula %></td>
+        <td><%= link_to 'Edit', edit_sivic_alunoaula_path(sivic_alunoaula) %></td>
+        <td><%= link_to 'Destroy', sivic_alunoaula, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic alunoaula', new_sivic_alunoaula_path %>

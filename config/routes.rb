@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_alunoaulas
+
   resources :sivic_aulas
 
   resources :sivic_licaos
