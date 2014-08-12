@@ -240,23 +240,7 @@ Contas a Pagar
 
 <script>
 
-function setaPeriodo(tempo){
 
-  $.ajax({
-    url: '<%= setaPeriodo_path %>',
-    data : 
-    {
-        tempo : tempo
-    },
-
-    success: function(data){
-          
-        location.reload(); 
-
-    }
-  })
-
-}
 
 function excluiLancamento(id){
 

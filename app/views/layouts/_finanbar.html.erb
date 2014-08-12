@@ -16,7 +16,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Novo <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a onclick="" href="#">Nova Receita</a></li>
-          <li><a onclick="$('#myModal').modal('show');">Nova Despesa</a></li>
+          <li><a data-toggle="modal" data-target="#myModal" href="#">Nova Despesa</a></li>
           <li><a href="#">Nova Transferência</a></li>
         </ul>
       </li>
@@ -42,14 +42,14 @@
 
 
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=(Time.now - 30.days).strftime("%d/%m/%Y")%> - <%=Time.now.strftime("%d/%m/%Y")%> <b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=session[:data_ini].to_date.strftime("%d/%m/%Y")%> - <%=session[:data_fim].to_date.strftime("%d/%m/%Y")%> <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a onclick="" href="#">Hoje</a></li>
-          <li><a onclick="" href="#">Esta Semana</a></li>
-          <li><a onclick="" href="#">Este Mês</a></li>
-          <li><a onclick="" href="#">Ultimos 30 Dias</a></li>
+          <li><a onclick="" href="javascript:setaPeriodo('hoje');">Hoje</a></li>
+          <li><a onclick="" href="javascript:setaPeriodo('semana');">Esta Semana</a></li>
+          <li><a onclick="" href="javascript:setaPeriodo('mes');">Este Mês</a></li>
+          <li><a onclick="" href="javascript:setaPeriodo('30dias');">Ultimos 30 Dias</a></li>
            <li role="presentation" class="divider"></li>
-          <li><a onclick="" href="#">Outro Período</a></li>
+          <li><a data-toggle="modal" data-target="#myModalperiodo" href="#">Outro Período</a></li>
         </ul>
       </li>
 
@@ -65,3 +65,83 @@
     </ul>
   </div><!-- /.navbar-collapse -->
 </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="myModalperiodo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+        <h4 class="modal-title" id="myModalLabel">Definir Período</h4>
+      </div>
+      <div class="modal-body">
+        
+        <div id = "alert_placeholder"></div>  
+        <div class="row">
+
+
+            <div class='col-sm-4'>
+              <spam>Data Inicial</spam>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input id="data_ini" name="data_ini" type='text' class="form-control" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>            
+            <div class='col-sm-4'>
+              <spam>Data Final</spam>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker2'>
+                        <input id="data_fim" name="data_fim" type='text' class="form-control" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+         
+        </div>
+
+        
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button id="bntSalvar" type="button" class="btn btn-primary" onclick="validates();">Savar Pagamento</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  $("#data_ini").mask("99/99/9999");
+  $("#data_fim").mask("99/99/9999");  
+  $('#datetimepicker1').datetimepicker({language: 'pt', pickTime: false});
+  $('#datetimepicker2').datetimepicker({language: 'pt', pickTime: false});
+
+
+function setaPeriodo(tempo){
+
+  //alert(tempo);
+
+  $.ajax({
+    url: '<%= setaPeriodo_path %>',
+    data : 
+    {
+        tempo : tempo
+        data_ini : $('#data_ini').val()
+        data_fim : $('#data_fim').val()
+    },
+
+    success: function(data){
+          
+        location.reload(); 
+
+    }
+  })
+
+}
+</script>
