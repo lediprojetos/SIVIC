@@ -15,6 +15,7 @@ Contas a Pagar
       <th>Categoria</th>
       <th>Lançamento</th>
       <th>Valor</th>
+      <th>Valor Pago</th>
       <th></th>
     </tr>
   </thead>
@@ -32,6 +33,7 @@ Contas a Pagar
         <td><%= sivic_lancamento.sivic_category.nome_categoria %></td>
         <td><%= sivic_lancamento.nome_lancamento %></td>
         <td><%= number_to_currency(sivic_lancamento.valr_lancamento, unit: "R$", separator: ",", delimiter: ".") %></td>
+        <td><%= number_to_currency(sivic_lancamento.valr_pago, unit: "R$", separator: ",", delimiter: ".") %></td>
 
         <td align='right'>
 
@@ -238,7 +240,26 @@ Contas a Pagar
 
 <script>
 
+function setaPeriodo(tempo){
+
+  $.ajax({
+    url: '<%= setaPeriodo_path %>',
+    data : 
+    {
+        tempo : tempo
+    },
+
+    success: function(data){
+          
+        location.reload(); 
+
+    }
+  })
+
+}
+
 function excluiLancamento(id){
+
   $.ajax({
     url: '<%= deletaLancamento_path %>',
     data : 
@@ -376,7 +397,8 @@ $(function() {
 
     $("#chkRepetir").removeAttr("disabled");
     $("#chkRepetir").attr("disabled", false);
-    $('#numgPagamento').val('');
+    $('#numgPagamento').val('0');
+
     location.reload();
 
 

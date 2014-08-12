@@ -105,6 +105,8 @@ SIVIC::Application.routes.draw do
   match '/busca_lancamento', to: 'sivic_lancamentos#busca_lancamento', via: 'get'
   match '/editaPagaRecebe', to: 'sivic_lancamentos#edita_pagaRecebe', via: 'get'
   match '/deletaLancamento', to: 'sivic_lancamentos#deleta_lancamento', via: 'get'
+  match '/setaPeriodo', to: 'sivic_lancamentos#seta_periodo', via: 'get'
+
 
   match '/listarTurma', to: 'sivic_turmaalunos#busca_turmas', via: 'get'
 
