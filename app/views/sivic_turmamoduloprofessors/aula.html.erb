@@ -44,7 +44,6 @@
 </table>
 
 
-
 </div></div>
 
 <div class="btn-group">
@@ -61,7 +60,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Cadastrar Lição</h4>
+        <h4 class="modal-title" id="myModalLabel">Cadastrar Aula</h4>
       </div>
       <div class="modal-body">
 
@@ -165,7 +164,7 @@
          for (var i in data){
               var item = data[i];
 
-           $('#tlbaula').append('<tr><td>'+item.nome_aula+'</td><td>'+item.data_aula+'</td><td><a data-confirm="Deseja Excluir o registro?" data-method="delete" href="/sivic_licaos/'+item.id+'" rel="nofollow" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span> Excluir</a></td></tr>')
+           $('#tlbaula').append('<tr><td>'+item.nome_aula+'</td><td>'+item.data_aula+'</td><td><a data-confirm="Deseja Excluir o registro?" data-method="delete" href="/sivic_aulas/'+item.id+'" rel="nofollow" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span> Excluir</a></td></tr>')
            };   
          }
        })     

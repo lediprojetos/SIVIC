@@ -49,7 +49,7 @@ class SivicAulasController < ApplicationController
         format.html { redirect_to @sivic_turmamoduloprofessor, notice: 'Sivic aula was successfully created.' }
         format.json { render action: 'aula', status: :created, location: @sivic_turmamoduloprofessor }
       else
-        format.html { render action: 'new' }
+        format.html { render action: 'aula' }
         format.json { render json: @sivic_turmamoduloprofessor.errors, status: :unprocessable_entity }
       end
     end 
@@ -59,7 +59,7 @@ class SivicAulasController < ApplicationController
   def busca_aula
 
     @sivic_aula =  SivicAula.find :all, :conditions => {:sivic_turmamoduloprofessor_id => params[:sivic_turmamoduloprofessor_id]}
-    @sivic_aula_json = @sivic_aula.map {|item| {:id => item.id, :nome_aula => item.nome_aula, :data_aula => item.data_aula}}
+    @sivic_aula_json = @sivic_aula.map {|item| {:id => item.id, :nome_aula => item.nome_aula, :data_aula => item.data_aula.blank? ? '' : item.data_aula.strftime("%d/%m/%Y")}}
     render :json => @sivic_aula_json
   
   end
@@ -81,11 +81,14 @@ class SivicAulasController < ApplicationController
   # DELETE /sivic_aulas/1
   # DELETE /sivic_aulas/1.json
   def destroy
+
+    @sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find(@sivic_aula.sivic_turmamoduloprofessor_id)
+
     @sivic_aula.destroy
     respond_to do |format|
-      format.html { redirect_to sivic_aulas_url }
-      format.json { head :no_content }
-    end
+       format.html { redirect_to aula_sivic_turmamoduloprofessor_path(@sivic_turmamoduloprofessor)}
+       format.json { head :no_content }
+      end
   end
 
   private
