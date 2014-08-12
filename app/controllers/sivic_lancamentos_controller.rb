@@ -4,16 +4,35 @@ class SivicLancamentosController < ApplicationController
 include ActionView::Helpers::NumberHelper
 
 def seta_periodo
+  if params[:tempo] == 'hoje'
+    #Hoje
+    session[:data_ini] = Date.today  
+    session[:data_fim] = Date.today
+  elsif params[:tempo] == 'semana'
+    #Esta Semana
+    session[:data_ini] = Date.today
+    session[:data_fim] = Date.today
+    session[:data_ini] = session[:data_ini].at_beginning_of_week.strftime
+    session[:data_fim] = session[:data_fim].at_end_of_week.strftime
+  elsif params[:tempo] == 'mes'
+    #Esta Mês
+    session[:data_ini] = Date.today
+    session[:data_fim] = Date.today
+    session[:data_ini] = session[:data_ini].at_beginning_of_month.strftime
+    session[:data_fim] = session[:data_fim].at_end_of_month.strftime  
+  elsif params[:tempo] == '30dias'
+    #Últimos 30 Dias
+    session[:data_ini] = (Date.today - 1.month)
+    session[:data_fim] = Date.today
+  elsif params[:tempo] == 'custom'
+    #Customizado
+    session[:data_ini] = params[:data_ini]
+    session[:data_fim] = params[:data_fim]
+  end
 
-if params[:tempo] == 'hoje'
-
-  session[:data_ini] = Date.today  
-  session[:data_fim] = Date.today
-  
-end
-
-
-  
+  respond_to do |format|
+    format.html { redirect_to contasapagar_path}
+  end
 end
 
 def deleta_lancamento
@@ -220,18 +239,17 @@ end
   end
 
   def contasapagar
-  session[:data_ini] = Date.today  
-  session[:data_fim] = Date.today
 
-  #session[:data_ini] = Date.at_begining_of_month  
-  #session[:data_fim] = Date.at_end_of_month
-    #@sivic_lancamentos = SivicLancamento.where(:sivic_tipmovfinanceiro_id => 1, :data_exclusao => nil, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id).order(:data_vencimento)
-    
+    if session[:data_ini] == nil
+
+      session[:data_ini] = Date.today
+      session[:data_fim] = Date.today
+      session[:data_ini] = session[:data_ini].at_beginning_of_month.strftime
+      session[:data_fim] = session[:data_fim].at_end_of_month.strftime
+
+    end    
 
     @sivic_lancamentos = SivicLancamento.where(['data_vencimento >= ? and data_vencimento <= ? and sivic_tipmovfinanceiro_id = 1 and data_exclusao is null and sivic_igreja_id =' + current_user.sivic_pessoa.sivic_igreja_id.to_s, session[:data_ini], session[:data_fim]]).order(:data_vencimento)
-    
-
-
     @total_lancamentos = SivicLancamento.sum(:valr_lancamento, :conditions => {:sivic_tipmovfinanceiro_id => 1, :data_exclusao => nil, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id,})
     @total_pago = SivicLancamento.sum(:valr_pago, :conditions => {:sivic_tipmovfinanceiro_id => 1, :flag_pago => true, :data_exclusao => nil, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
     @a_pagar = SivicLancamento.sum(:valr_lancamento, :conditions => {:sivic_tipmovfinanceiro_id => 1, :flag_pago => false, :data_exclusao => nil, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
