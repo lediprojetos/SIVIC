@@ -15,7 +15,8 @@ class SivicLancamento < ActiveRecord::Base
 
 def self.fing_by_data_vencida
 
-  self.where{data_vencimento < Date.today}
+  self.where('data_vencimento >= ? and data_vencimento <= ?',session[:data_ini], session[:data_fim])
+
 end
 
 end

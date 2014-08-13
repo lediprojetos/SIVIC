@@ -1,3 +1,6 @@
+<input type="hidden" id="numgPagamento" value="0">
+<input type="hidden" id="tipoLancamento" value="">
+
 <nav class="navbar navbar-default" role="navigation">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
@@ -15,8 +18,8 @@
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Novo <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a onclick="" href="#">Nova Receita</a></li>
-          <li><a data-toggle="modal" data-target="#myModal" href="#">Nova Despesa</a></li>
+          <li><a onclick="chamaModal('R')" href="#">Nova Receita</a></li>
+          <li><a onclick="chamaModal('D')" href="#">Nova Despesa</a></li>
           <li><a href="#">Nova Transferência</a></li>
         </ul>
       </li>
@@ -42,7 +45,7 @@
 
 
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=session[:data_ini].to_date.strftime("%d/%m/%Y")%> - <%=session[:data_fim].to_date.strftime("%d/%m/%Y")%> <b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=session[:data_ini].blank? ? '' : session[:data_ini].to_date.strftime("%d/%m/%Y")%> - <%=session[:data_fim].blank? ? '' : session[:data_fim].to_date.strftime("%d/%m/%Y")%> <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a onclick="" href="javascript:setaPeriodo('hoje');">Hoje</a></li>
           <li><a onclick="" href="javascript:setaPeriodo('semana');">Esta Semana</a></li>
@@ -66,8 +69,10 @@
   </div><!-- /.navbar-collapse -->
 </nav>
 
-<!-- Modal -->
-<div class="modal fade" id="myModalperiodo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+
+<!-- Data de Busca -->
+<div class="modal fade bs-example-modal-sm" id="myModalperiodo" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">  
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -76,14 +81,13 @@
       </div>
       <div class="modal-body">
         
-        <div id = "alert_placeholder"></div>  
         <div class="row">
-
-
+            <div class='col-sm-2'>
+            </div>           
             <div class='col-sm-4'>
               <spam>Data Inicial</spam>
                 <div class="form-group">
-                    <div class='input-group date' id='datetimepicker1'>
+                    <div class='input-group date' id='datetimepicker3'>
                         <input id="data_ini" name="data_ini" type='text' class="form-control" />
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -93,18 +97,148 @@
             <div class='col-sm-4'>
               <spam>Data Final</spam>
                 <div class="form-group">
-                    <div class='input-group date' id='datetimepicker2'>
+                    <div class='input-group date' id='datetimepicker4'>
                         <input id="data_fim" name="data_fim" type='text' class="form-control" />
                         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
                 </div>
             </div>
-
-         
         </div>
 
-        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button id="bntSalvar" type="button" class="btn btn-primary" onclick="setaPeriodo('custom');">Buscar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Despesas -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+        <div id="myModalLabelTitle"></div>  
+      </div>
+      <div class="modal-body">
+        <div id = "alert_placeholder"></div>  
+        <div class="row">
+          <div class="col-xs-6">
+              <spam>Descrição</spam>
+              <input id="nome_lancamento" name="nome_lancamento" type="text" class="form-control" placeholder="Descrição do lançamento"> 
+          </div>
+
+          <div class="col-xs-6">
+              <spam>Categoria</spam>
+              <%=  fields_for :sivic_category do |f| %>
+                <%= f.select :sivic_category_id, options_from_collection_for_select(SivicCategory.all, 'id', 'nome_categoria'),{:include_blank => true},{ :class =>  'form-control'}%>
+              <% end %>
+          </div>
+        </div>
+        </br>
+        <div class="row">
+
+            <div class='col-sm-4'>
+              <spam>Data Vencimento</spam>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input id="data_vencimento" name="data_vencimento" type='text' class="form-control" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+          <div class="col-xs-8">
+              <spam>Conta</spam>
+              <%=  fields_for :sivic_contabancos do |f| %>
+                <%= f.select :sivic_conta_id, options_from_collection_for_select(SivicContabanco.all, 'id', 'nome_conta'),{:include_blank => true},{ :class =>  'form-control'}%>
+              <% end %>          
+          </div>          
+        </div>
+
+        <div class="row">
+          <div class="col-xs-4">
+              <spam>Valor</spam>
+              <input id="valr_lancamento" name="valr_lancamento" type="text" class="form-control"> 
+          </div>
+        </div>
+
+        <hr>
+
+        <div style="margin-left:10px;">
+
+          <div class="row">
+            <div class="col-xs-2">
+              <div class="checkbox">
+                <label>
+                  <input id="chkRepetir" type="checkbox" onclick="desabilitarepetir();"> Repetir
+                </label>
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <select id="selTemporizador" class="form-control" disabled="disabled">
+                <option value='D'>Diariamente</option>
+                <option value='S'>Semanalmente</option>
+                <option value='M'>Mensalmente</option>
+                <option value='B'>Bimestralmente</option>
+                <option value='T'>Trimestralmente</option>
+                <option value='SM'>Semestralmente</option>
+                <option value='A'>Anualmente</option>
+              </select>
+            </div>
+              
+            <div class="col-xs-2">
+              <spam id="lblnumr_recorrencia" style="color:gray;">Ocorrência:</spam>
+            </div>            
+            <div class="col-xs-2">
+              <input id="numr_recorrencia" name="numr_recorrencia" type="text" class="form-control" disabled="disabled"> 
+            </div>            
+
+          </div>
+
+          <hr>
+
+          <div class="row">
+            <div class="col-xs-2">
+              <div class="checkbox">
+                <label>
+                  <input id="chkPago" type="checkbox" value='True' onclick="desabilitapago();"> Pago
+                </label>
+              </div>
+            </div>
+            <div class='col-sm-4'>
+              <spam id="lbldata_pagamento" style="color:gray;" >Data Pagamento</spam>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker2'>
+                        <input id="data_pagamento" name="data_pagamento" type='text' class="form-control" disabled="disabled"/>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="col-xs-3">
+              <spam id="lblvalr_descontotaxa" style="color:gray;">Descontos/Taxas:</spam>
+              <input id="valr_descontotaxa" name="valr_descontotaxa" type="text" class="form-control" disabled="disabled" value="0,00"> 
+            </div>             
+            <div class="col-xs-3">
+              <spam id="lblvalr_jurosmulta" style="color:gray;">Juros/Multa:</spam>
+              <input id="valr_jurosmulta" name="valr_jurosmulta" type="text" class="form-control" disabled="disabled" value="0,00"> 
+            </div>             
+          </div>  
+          <div class="row">
+            <div class="col-xs-2">
+            </div>             
+            <div class="col-xs-4">
+              <spam id="lblvalr_pago" style="color:gray;">Valor Pago</spam>
+              <input id="valr_pago" name="valr_pago" type="text" class="form-control" disabled="disabled" value="0,00">
+            </div> 
+          </div>
+        </div>
 
       </div>
       <div class="modal-footer">
@@ -117,23 +251,88 @@
 
 <script>
 
+$(function() {
+  $('#datetimepicker2').datetimepicker({language: 'pt', pickTime: false});
+  $('#datetimepicker1').datetimepicker({language: 'pt', pickTime: false});      
+  $("#valr_lancamento").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+  $("#valr_descontotaxa").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+  $("#valr_jurosmulta").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+  $("#valr_pago").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+
+  $("#data_vencimento").mask("99/99/9999");
+  $("#data_pagamento").mask("99/99/9999");
   $("#data_ini").mask("99/99/9999");
   $("#data_fim").mask("99/99/9999");  
-  $('#datetimepicker1').datetimepicker({language: 'pt', pickTime: false});
-  $('#datetimepicker2').datetimepicker({language: 'pt', pickTime: false});
+  $('#datetimepicker3').datetimepicker({language: 'pt', pickTime: false});
+  $('#datetimepicker4').datetimepicker({language: 'pt', pickTime: false});
+
+  //ações ao fechar o modal
+  $('#myModal').on('hidden.bs.modal', function (e) { 
+
+    $('#nome_lancamento').val('');
+    $('#sivic_category_sivic_category_id').val('');
+    $('#data_vencimento').val('');
+    $('#sivic_conta_id').val('');
+    $('#valr_lancamento').val('');
+    $('#selTemporizador').val('');
+    $('#numr_recorrencia').val('');
+    $('#data_pagamento').val('');
+    $('#valr_descontotaxa').val('');
+    $('#valr_jurosmulta').val('');
+    $('#valr_pago').val('');
+
+    $("#chkRepetir").removeAttr("disabled");
+    $("#chkRepetir").attr("disabled", false);
+    $('#numgPagamento').val('0');
+
+    //location.reload();
+
+
+
+  })
+  //----
+
+})
+
+
+
+function chamaModal(tipo){
+
+  if (tipo == 'D'){
+    $('#myModalLabelTitle').html('<h4 class="modal-title" id="myModalLabel">Nova Despesa</h4>');  
+  } else {
+    $('#myModalLabelTitle').html('<h4 class="modal-title" id="myModalLabel">Nova Receita</h4>');
+  }
+
+  $('#tipoLancamento').val(tipo);
+  $('#myModal').modal('show');
+}
 
 
 function setaPeriodo(tempo){
 
-  //alert(tempo);
+  if (tempo == 'custom'){
 
-  $.ajax({
+      if ($('#data_ini').val() == ""){
+        alert_boot('Digite uma data de inicio para pesquisa.','warning')
+        return false;
+      }  
+
+      if ($('#data_fim').val() == ""){
+        alert_boot('Digite uma data de fim para pesquisa.','warning')
+        return false;
+      }  
+
+
+  }
+
+    $.ajax({
     url: '<%= setaPeriodo_path %>',
     data : 
     {
         tempo : tempo
-        data_ini : $('#data_ini').val()
-        data_fim : $('#data_fim').val()
+        ,data_ini : $('#data_ini').val()
+        ,data_fim : $('#data_fim').val()
     },
 
     success: function(data){
@@ -144,4 +343,329 @@ function setaPeriodo(tempo){
   })
 
 }
+
+
+
+function excluiLancamento(id){
+
+  $.ajax({
+    url: '<%= deletaLancamento_path %>',
+    data : 
+    {
+        id : id
+    },
+
+    success: function(data){
+          
+        location.reload(); 
+
+    }
+  })   
+  
+}
+
+function pagaRecebe(id,act){
+
+if (act == '0'){
+  act = 'False'
+} else {
+  act = 'True'
+}
+
+  $.ajax({
+    url: '<%= editaPagaRecebe_path %>',
+    data : 
+    {
+        id : id
+        ,flag_pago : act
+    },
+
+    success: function(data){
+          
+        location.reload(); 
+
+    }
+  })          
+
+}
+
+function buscaLancamento(id){
+
+  $.ajax({
+    url: '<%= busca_lancamento_path %>',
+    data : 
+    {
+        id : id
+    },
+
+    success: function(data){
+          
+        //alert_boot('Pagamento salvo com sucesso.','success');
+
+        var options = "";
+        for (var i in data) {
+          var item = data[i];
+
+          $('#nome_lancamento').val(item.nome_lancamento);
+          $('#sivic_category_sivic_category_id').val(item.sivic_category_id);
+          $('#data_vencimento').val(item.data_vencimento);
+          $('#sivic_conta_id').val(item.sivic_contabanco_id);
+          $('#data_pagamento').val(item.data_pagamento);
+
+          //valores monetários
+          if (item.valr_pago){
+            $("#valr_pago").val(item.valr_pago.replace("-", ""));
+          };
+          if (item.valr_jurosmulta){
+            $("#valr_jurosmulta").val(item.valr_jurosmulta.replace("-", ""));
+          };
+          if (item.valr_descontotaxa){
+            $("#valr_descontotaxa").val(item.valr_descontotaxa.replace("-", ""));
+          }
+          if (item.valr_lancamento){
+            $("#valr_lancamento").val(item.valr_lancamento.replace("-", ""));
+          }
+
+          $("#numgPagamento").val(item.id);
+
+          if(item.flag_pago == true){
+            $('#chkPago').prop('checked', true);
+          } else {
+            $('#chkPago').prop('checked', false);
+          }
+
+          desabilitapago();
+
+        };
+
+        //Identifica que será uma edição
+
+        //Desativar função de repetir
+        $("#chkRepetir").removeAttr("disabled");
+        $("#chkRepetir").attr("disabled", true);
+        $('#numr_recorrencia').prop( "disabled", true );
+        $('#selTemporizador').prop( "disabled", true );
+        $("#lblnumr_recorrencia").css("color", "gray");
+
+        //mascarando datas
+        $("#data_vencimento").mask("99/99/9999");
+        $("#data_pagamento").mask("99/99/9999");
+
+        //abre o modal
+        $('#myModal').modal('show');
+
+    }
+  })          
+
+}
+
+
+
+function validates(){
+
+  if ($('#nome_lancamento').val() == ""){
+    alert_boot('Digite um nome para o lançamento','danger');
+    return false;
+  }
+  if ($('#sivic_category_sivic_category_id').val() == ""){
+    alert_boot('Escolha uma categoria para o lançamento.','warning')
+    return false;
+  }  
+  if ($('#data_vencimento').val() == ""){
+    alert_boot('Digite uma data de vencimento.','warning')
+    return false;
+  }   
+  if ($('#sivic_contabancos_sivic_conta_id').val() == ""){
+    alert_boot('Escolha uma conta.','warning')
+    return false;
+  }    
+  if ($('#valr_lancamento').val() == ""){
+    alert_boot('Digite o valor do lançamento.','warning')
+    return false;
+  }  
+
+  if($('#chkRepetir').is(':checked') == true){
+
+      if ($('#numr_recorrencia').val() == ""){
+        alert_boot('Digite a quantidade de parcela no campo recorrência.','warning')
+        return false;
+      }  
+
+  }
+
+  if($('#chkPago').is(':checked') == true){
+
+      if ($('#data_pagamento').val() == ""){
+        alert_boot('Digite a data do pagamento.','warning')
+        return false;
+      }  
+
+      if ($('#valr_pago').val() == ""){
+        alert_boot('Digite o valor pago.','warning')
+        return false;
+      }  
+
+  }
+
+  if ($('#numgPagamento').val() != "0"){
+    editaLancamento();
+  } else {
+    salvaLancamento();
+  }
+
+}
+
+
+function editaLancamento() {
+
+var pago;
+
+if($('#chkPago').is(':checked') == true){
+  pago = 'True';
+}  else {
+  pago = 'False';
+}
+  
+  $.ajax({
+    url: '<%= alteraPagamento_path %>',
+    data : 
+    {
+        id : $('#numgPagamento').val()
+        ,nome_lancamento : $('#nome_lancamento').val()
+        ,sivic_category_id : $('#sivic_category_sivic_category_id').val()
+        ,data_vencimento : $('#data_vencimento').val()
+        ,sivic_contabanco_id : $('#sivic_contabancos_sivic_conta_id').val()
+        ,valr_lancamento : $('#valr_lancamento').val()
+        ,data_pagamento : $('#data_pagamento').val()
+        ,valr_descontotaxa : $('#valr_descontotaxa').val()
+        ,valr_jurosmulta : $('#valr_jurosmulta').val()
+        ,chkPago : pago
+        ,valr_pago : $('#valr_pago').val()
+    },
+    success: function(data){
+          
+        alert_boot('Pagamento editado com sucesso.','success');
+
+        $('#nome_lancamento').val('');
+        $('#sivic_category_sivic_category_id').val('');
+        $('#data_vencimento').val('');
+        $('#sivic_conta_id').val('');
+        $('#valr_lancamento').val('');
+        $('#selTemporizador').val('');
+        $('#numr_recorrencia').val('');
+        $('#data_pagamento').val('');
+        $('#valr_descontotaxa').val('');
+        $('#valr_jurosmulta').val('');
+        $('#valr_pago').val('');
+
+        $('#myModal').modal('hide');
+
+    }
+  })  
+}          
+
+
+function salvaLancamento() {
+
+var pago;
+
+if($('#chkPago').is(':checked') == true){
+  pago = 'True';
+}  else {
+  pago = 'False';
+}
+  
+  $.ajax({
+    url: '<%= inserePagamento_path %>',
+    data : 
+    {
+        nome_lancamento : $('#nome_lancamento').val()
+        ,sivic_category_id : $('#sivic_category_sivic_category_id').val()
+        ,data_vencimento : $('#data_vencimento').val()
+        ,sivic_contabanco_id : $('#sivic_contabancos_sivic_conta_id').val()
+        ,valr_lancamento : $('#valr_lancamento').val()
+        ,numr_temporizador : $('#selTemporizador').val()
+        ,numr_recorrencia : $('#numr_recorrencia').val()
+        ,data_pagamento : $('#data_pagamento').val()
+        ,valr_descontotaxa : $('#valr_descontotaxa').val()
+        ,valr_jurosmulta : $('#valr_jurosmulta').val()
+        ,chkPago : pago
+        ,valr_pago : $('#valr_pago').val()
+        ,sivic_tipmovfinanceiro_id : $('#tipoLancamento').val()
+    },
+    success: function(data){
+          
+        alert_boot('Pagamento salvo com sucesso.','success');
+
+        $('#nome_lancamento').val('');
+        $('#sivic_category_sivic_category_id').val('');
+        $('#data_vencimento').val('');
+        $('#sivic_conta_id').val('');
+        $('#valr_lancamento').val('');
+        $('#selTemporizador').val('');
+        $('#numr_recorrencia').val('');
+        $('#data_pagamento').val('');
+        $('#valr_descontotaxa').val('');
+        $('#valr_jurosmulta').val('');
+        $('#valr_pago').val('');
+
+    }
+  })  
+}
+
+
+
+function desabilitapago(){
+
+  if($('#chkPago').is(':checked') == true){
+
+    $('#data_pagamento').prop( "disabled", false );
+    $('#valr_descontotaxa').prop( "disabled", false );
+    $('#valr_jurosmulta').prop( "disabled", false );
+    $('#valr_pago').prop( "disabled", false );
+    $("#lbldata_pagamento").css("color", "black");
+    $("#lblvalr_descontotaxa").css("color", "black");
+    $("#lblvalr_jurosmulta").css("color", "black");
+    $("#lblvalr_pago").css("color", "black");
+
+  } else {
+    $('#data_pagamento').prop( "disabled", true );
+    $('#valr_descontotaxa').prop( "disabled", true );
+    $('#valr_jurosmulta').prop( "disabled", true );
+    $('#valr_pago').prop( "disabled", true );
+    $("#lbldata_pagamento").css("color", "gray");
+    $("#lblvalr_descontotaxa").css("color", "gray");
+    $("#lblvalr_jurosmulta").css("color", "gray");
+    $("#lblvalr_pago").css("color", "gray");
+  }
+
+}
+
+function desabilitarepetir(){
+
+  if($('#chkRepetir').is(':checked') == true){
+
+    $('#numr_recorrencia').prop( "disabled", false );
+    $('#selTemporizador').prop( "disabled", false );
+    $("#lblnumr_recorrencia").css("color", "black");
+
+  } else {
+    $('#numr_recorrencia').prop( "disabled", true );
+    $('#selTemporizador').prop( "disabled", true );
+    $("#lblnumr_recorrencia").css("color", "gray");
+  }
+  
+}
+
+
+function alert_boot(message,color) {
+
+  $('#alert_placeholder').html('<div class="alert alert-'+color+'" role="alert">'+message+'<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> </div>')
+}
+
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
 </script>

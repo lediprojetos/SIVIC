@@ -1,23 +1,21 @@
 <%=render '/layouts/finanbar' %>
 
+
 <% content_for :titlePage do %>
+Contas a Pagar
 <% end %>
 
-<%=render '/layouts/panel' %>
+<input type="hidden" id="numgPagamento" value="0">
 
-<table class="table table-hover">
+<table class="table table-hover table-striped table-bordered table-condensed">
   <thead>
     <tr>
-      <th>Nome</th>
-      <th>Valr lancamento</th>
-      <th>Data vencimento</th>
-      <th>Data competencia</th>
-      <th>Flag pago</th>
-      <th>Flag dizimo</th>
-      <th>Numr recorrencia</th>
-      <th>Sivic category</th>
       <th></th>
-      <th></th>
+      <th>Data</th>
+      <th>Categoria</th>
+      <th>Lançamento</th>
+      <th>Valor</th>
+      <th>Valor Pago</th>
       <th></th>
     </tr>
   </thead>
@@ -25,24 +23,221 @@
   <tbody>
     <% @sivic_lancamentos.each do |sivic_lancamento| %>
       <tr>
+        <td align="center">
+              <%if sivic_lancamento.flag_pago %>
+                <span style="color:green;"class="glyphicon glyphicon-ok"></span>
+              <%else%>
+              <%end%>
+        </td>
+        <td><%= (sivic_lancamento.data_vencimento.blank? ? '' : sivic_lancamento.data_vencimento.strftime("%d/%m/%Y")) %></td>
+        <td><%= sivic_lancamento.sivic_category.nome_categoria %></td>
         <td><%= sivic_lancamento.nome_lancamento %></td>
-        <td><%= sivic_lancamento.valr_lancamento %></td>
-        <td><%= sivic_lancamento.data_vencimento %></td>
-        <td><%= sivic_lancamento.data_competencia %></td>
-        <td><%= sivic_lancamento.flag_pago %></td>
-        <td><%= sivic_lancamento.flag_dizimo %></td>
-        <td><%= sivic_lancamento.numr_recorrencia %></td>
-        <td><%= sivic_lancamento.sivic_category %></td>
-        <td><%= link_to 'Show', sivic_lancamento %></td>
-        <td><%= link_to 'Edit', edit_sivic_lancamento_path(sivic_lancamento) %></td>
-        <td><%= link_to 'Destroy', sivic_lancamento, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= number_to_currency(sivic_lancamento.valr_lancamento, unit: "R$", separator: ",", delimiter: ".") %></td>
+        <td><%= number_to_currency(sivic_lancamento.valr_pago, unit: "R$", separator: ",", delimiter: ".") %></td>
+
+        <td align='right'>
+
+
+            <a class="btn btn-default btn-sm" onclick="pagaRecebe(<%= sivic_lancamento.id %>,<%=sivic_lancamento.flag_pago == true ? '0' : '1'%>)" rel="tooltip" title="<%=sivic_lancamento.flag_pago == true ? 'Desfazer Recebimento' : 'Receber'%>">
+                <span class="<%=sivic_lancamento.flag_pago == true ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-ok'%>"></span>
+            </a>
+            <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>            
+            <a class="btn btn-default btn-sm" onclick="excluiLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Excluir">
+                <span class="glyphicon glyphicon-trash"></span>
+            </a>
+
+        </td>  
+
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Totais</div>
+
+  <!-- Table -->
+  <table class="table">
+  
+    <tr>
+      <td>
+        Recebidas(R$)
+      </td>
+      <td align="right">
+        <spam style="color: rgb(74, 186, 88);"><%= number_to_currency(@total_pago, unit: "R$", separator: ",", delimiter: ".") %></spam>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        A Receber(R$)
+      </td>
+      <td align="right">
+        <spam style="color: rgb(74, 186, 88);"><%= number_to_currency(@a_pagar, unit: "R$", separator: ",", delimiter: ".") %></spam>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Vencidas(R$)
+      </td>
+      <td align="right">
+        <b><spam style="color: rgb(74, 186, 88);"><%= number_to_currency(@vencidas, unit: "R$", separator: ",", delimiter: ".") %></spam></b>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Total de Recebimentos(R$)
+      </td>
+      <td align="right">
+        <b><spam style="color: rgb(56, 90, 122);"><%= number_to_currency(@total_lancamentos, unit: "R$", separator: ",", delimiter: ".") %></label></b>
+      </td>
+    </tr>            
+  
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+        <h4 class="modal-title" id="myModalLabel">Novo Pagamento</h4>
+      </div>
+      <div class="modal-body">
+        
+        <div id = "alert_placeholder"></div>  
+        <div class="row">
+          <div class="col-xs-6">
+              <spam>Descrição</spam>
+              <input id="nome_lancamento" name="nome_lancamento" type="text" class="form-control" placeholder="Descrição do lançamento"> 
+          </div>
+
+          <div class="col-xs-6">
+              <spam>Categoria</spam>
+              <%=  fields_for :sivic_category do |f| %>
+                <%= f.select :sivic_category_id, options_from_collection_for_select(SivicCategory.all, 'id', 'nome_categoria'),{:include_blank => true},{ :class =>  'form-control'}%>
+              <% end %>
+          </div>
+        </div>
+        </br>
+        <div class="row">
+
+            <div class='col-sm-4'>
+              <spam>Data Vencimento</spam>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input id="data_vencimento" name="data_vencimento" type='text' class="form-control" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+          <div class="col-xs-8">
+              <spam>Conta</spam>
+              <%=  fields_for :sivic_contabancos do |f| %>
+                <%= f.select :sivic_conta_id, options_from_collection_for_select(SivicContabanco.all, 'id', 'nome_conta'),{:include_blank => true},{ :class =>  'form-control'}%>
+              <% end %>          
+          </div>          
+        </div>
+
+        <div class="row">
+          <div class="col-xs-4">
+              <spam>Valor</spam>
+              <input id="valr_lancamento" name="valr_lancamento" type="text" class="form-control"> 
+          </div>
+        </div>
+
+        <hr>
+
+        <div style="margin-left:10px;">
+
+          <div class="row">
+            <div class="col-xs-2">
+              <div class="checkbox">
+                <label>
+                  <input id="chkRepetir" type="checkbox" onclick="desabilitarepetir();"> Repetir
+                </label>
+              </div>
+            </div>
+            <div class="col-xs-4">
+              <select id="selTemporizador" class="form-control" disabled="disabled">
+                <option value='D'>Diariamente</option>
+                <option value='S'>Semanalmente</option>
+                <option value='M'>Mensalmente</option>
+                <option value='B'>Bimestralmente</option>
+                <option value='T'>Trimestralmente</option>
+                <option value='SM'>Semestralmente</option>
+                <option value='A'>Anualmente</option>
+              </select>
+            </div>
+              
+            <div class="col-xs-2">
+              <spam id="lblnumr_recorrencia" style="color:gray;">Ocorrência:</spam>
+            </div>            
+            <div class="col-xs-2">
+              <input id="numr_recorrencia" name="numr_recorrencia" type="text" class="form-control" disabled="disabled"> 
+            </div>            
+
+          </div>
+
+          <hr>
+
+          <div class="row">
+            <div class="col-xs-2">
+              <div class="checkbox">
+                <label>
+                  <input id="chkPago" type="checkbox" value='True' onclick="desabilitapago();"> Pago
+                </label>
+              </div>
+            </div>
+            <div class='col-sm-4'>
+              <spam id="lbldata_pagamento" style="color:gray;" >Data Pagamento</spam>
+                <div class="form-group">
+                    <div class='input-group date' id='datetimepicker2'>
+                        <input id="data_pagamento" name="data_pagamento" type='text' class="form-control" disabled="disabled"/>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="col-xs-3">
+              <spam id="lblvalr_descontotaxa" style="color:gray;">Descontos/Taxas:</spam>
+              <input id="valr_descontotaxa" name="valr_descontotaxa" type="text" class="form-control" disabled="disabled" value="0,00"> 
+            </div>             
+            <div class="col-xs-3">
+              <spam id="lblvalr_jurosmulta" style="color:gray;">Juros/Multa:</spam>
+              <input id="valr_jurosmulta" name="valr_jurosmulta" type="text" class="form-control" disabled="disabled" value="0,00"> 
+            </div>             
+          </div>  
+          <div class="row">
+            <div class="col-xs-2">
+            </div>             
+            <div class="col-xs-4">
+              <spam id="lblvalr_pago" style="color:gray;">Valor Pago</spam>
+              <input id="valr_pago" name="valr_pago" type="text" class="form-control" disabled="disabled" value="0,00">
+            </div> 
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button id="bntSalvar" type="button" class="btn btn-primary" onclick="validates();">Savar Pagamento</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </div></div>
-<%= link_to 'New Sivic lancamento', new_sivic_lancamento_path %>
 </div>
+
+<script>
+
+</script>

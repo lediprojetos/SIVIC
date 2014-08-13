@@ -26,8 +26,29 @@ def seta_periodo
     session[:data_fim] = Date.today
   elsif params[:tempo] == 'custom'
     #Customizado
-    session[:data_ini] = params[:data_ini]
-    session[:data_fim] = params[:data_fim]
+
+  #Tratando datas inválidas vindas da view
+  begin
+     Date.parse(params[:data_ini])
+     session[:data_ini] = params[:data_ini]
+  rescue ArgumentError
+    session[:data_ini] = Date.today
+    session[:data_fim] = Date.today
+    session[:data_ini] = session[:data_ini].at_beginning_of_month.strftime
+    session[:data_fim] = session[:data_fim].at_end_of_month.strftime 
+  end
+
+  #Tratando datas inválidas vindas da view
+  begin
+     Date.parse(params[:data_fim])
+     session[:data_fim] = params[:data_fim]
+  rescue ArgumentError
+    session[:data_ini] = Date.today
+    session[:data_fim] = Date.today
+    session[:data_ini] = session[:data_ini].at_beginning_of_month.strftime
+    session[:data_fim] = session[:data_fim].at_end_of_month.strftime 
+  end  
+    
   end
 
   respond_to do |format|
@@ -97,17 +118,29 @@ end
 
   def create_pagamento
 
-    date = Date.parse(params[:data_vencimento]).to_date
-
     params[:valr_lancamento] = params[:valr_lancamento].gsub('.', '')
     params[:valr_descontotaxa] = params[:valr_descontotaxa].gsub('.', '')
     params[:valr_jurosmulta] = params[:valr_jurosmulta].gsub('.', '')
     params[:valr_pago] = params[:valr_pago].gsub('.', '')
 
-    params[:valr_lancamento] = ( - params[:valr_lancamento].gsub(',', '.').to_f)
     params[:valr_descontotaxa] = params[:valr_descontotaxa].gsub(',', '.')
     params[:valr_jurosmulta] = params[:valr_jurosmulta].gsub(',', '.')
-    params[:valr_pago] = ( - params[:valr_pago].gsub(',', '.').to_f)
+    
+    if params[:sivic_tipmovfinanceiro_id] == 'D'
+      params[:sivic_tipmovfinanceiro_id] = 1
+      #se for Despesas recebe valor negativo
+      params[:valr_pago] = ( - params[:valr_pago].gsub(',', '.').to_f)
+      params[:valr_lancamento] = ( - params[:valr_lancamento].gsub(',', '.').to_f)
+    elsif params[:sivic_tipmovfinanceiro_id] == 'R'
+      params[:sivic_tipmovfinanceiro_id] = 2
+      #se for Despesas recebe valor positivo
+      params[:valr_pago] = params[:valr_pago].gsub(',', '.').to_f
+      params[:valr_lancamento] = params[:valr_lancamento].gsub(',', '.').to_f
+    end
+
+    date = Date.parse(params[:data_vencimento]).to_date
+
+
 
     if params[:chkPago] == 'True'
       flag_pago = true
@@ -131,7 +164,7 @@ end
                                 :valr_descontotaxa => params[:valr_descontotaxa],
                                 :valr_jurosmulta => params[:valr_jurosmulta],
                                 :valr_pago => params[:valr_pago],
-                                :sivic_tipmovfinanceiro_id => 1,
+                                :sivic_tipmovfinanceiro_id => params[:sivic_tipmovfinanceiro_id],
                                 :flag_pago => flag_pago,
                                 :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id
                               )
@@ -165,7 +198,7 @@ end
                              :valr_descontotaxa => params[:valr_descontotaxa],
                              :valr_jurosmulta => params[:valr_jurosmulta],
                              :valr_pago => params[:valr_pago],
-                             :sivic_tipmovfinanceiro_id => 1, 
+                             :sivic_tipmovfinanceiro_id => params[:sivic_tipmovfinanceiro_id], 
                              :flag_pago => flag_pago, 
                              :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id)
     end
@@ -178,6 +211,7 @@ end
 
   def edita_pagamento
 
+    @lancamento = SivicLancamento.find_by_id(params[:id])
 
     date = Date.parse(params[:data_vencimento]).to_date
 
@@ -191,10 +225,16 @@ end
     params[:valr_jurosmulta] = params[:valr_jurosmulta].gsub('.', '')
     params[:valr_pago] = params[:valr_pago].gsub('.', '')
 
-    params[:valr_lancamento] = ( - params[:valr_lancamento].gsub(',', '.').to_f)
     params[:valr_descontotaxa] = params[:valr_descontotaxa].gsub(',', '.')
     params[:valr_jurosmulta] = params[:valr_jurosmulta].gsub(',', '.')
-    params[:valr_pago] = ( - params[:valr_pago].gsub(',', '.').to_f)
+    
+    if @lancamento.sivic_tipmovfinanceiro_id == 1
+      params[:valr_lancamento] = ( - params[:valr_lancamento].gsub(',', '.').to_f)
+      params[:valr_pago] = ( - params[:valr_pago].gsub(',', '.').to_f)
+    elsif @lancamento.sivic_tipmovfinanceiro_id == 2
+      params[:valr_lancamento] = params[:valr_lancamento].gsub(',', '.').to_f
+      params[:valr_pago] = params[:valr_pago].gsub(',', '.').to_f
+    end
 
     if params[:chkPago] == 'True'
       flag_pago = true
@@ -206,7 +246,6 @@ end
       params[:valr_descontotaxa] = '0.0'
     end
 
-      @lancamento = SivicLancamento.find_by_id(params[:id])
 
       @lancamento.update(
                         :nome_lancamento => params[:nome_lancamento],
@@ -238,30 +277,65 @@ end
     @sivic_lancamento = SivicLancamento.new
   end
 
-  def contasapagar
+
+  def find_by_ContasPagar
 
     if session[:data_ini] == nil
-
       session[:data_ini] = Date.today
       session[:data_fim] = Date.today
       session[:data_ini] = session[:data_ini].at_beginning_of_month.strftime
       session[:data_fim] = session[:data_fim].at_end_of_month.strftime
+    end     
 
-    end    
+    SivicLancamento.where('data_vencimento >= ? and data_vencimento <= ? and sivic_igreja_id = ? and data_exclusao is null and sivic_tipmovfinanceiro_id = 1',session[:data_ini], session[:data_fim], current_user.sivic_pessoa.sivic_igreja_id)
+  end
 
-    @sivic_lancamentos = SivicLancamento.where(['data_vencimento >= ? and data_vencimento <= ? and sivic_tipmovfinanceiro_id = 1 and data_exclusao is null and sivic_igreja_id =' + current_user.sivic_pessoa.sivic_igreja_id.to_s, session[:data_ini], session[:data_fim]]).order(:data_vencimento)
-    @total_lancamentos = SivicLancamento.sum(:valr_lancamento, :conditions => {:sivic_tipmovfinanceiro_id => 1, :data_exclusao => nil, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id,})
-    @total_pago = SivicLancamento.sum(:valr_pago, :conditions => {:sivic_tipmovfinanceiro_id => 1, :flag_pago => true, :data_exclusao => nil, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
-    @a_pagar = SivicLancamento.sum(:valr_lancamento, :conditions => {:sivic_tipmovfinanceiro_id => 1, :flag_pago => false, :data_exclusao => nil, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
-    @vencidas = SivicLancamento.sum(:valr_lancamento, :conditions => ['data_vencimento < ? and data_exclusao is null and sivic_tipmovfinanceiro_id = 1 and flag_pago = False', Date.today])
+  def find_by_ContasReceber
+    
+    if session[:data_ini] == nil
+      session[:data_ini] = Date.today
+      session[:data_fim] = Date.today
+      session[:data_ini] = session[:data_ini].at_beginning_of_month.strftime
+      session[:data_fim] = session[:data_fim].at_end_of_month.strftime
+    end     
+
+    SivicLancamento.where('data_vencimento >= ? and data_vencimento <= ? and sivic_igreja_id = ? and data_exclusao is null and sivic_tipmovfinanceiro_id = 2',session[:data_ini], session[:data_fim], current_user.sivic_pessoa.sivic_igreja_id)
+  end
+
+     def find_by_Extrato
+    
+    if session[:data_ini] == nil
+      session[:data_ini] = Date.today
+      session[:data_fim] = Date.today
+      session[:data_ini] = session[:data_ini].at_beginning_of_month.strftime
+      session[:data_fim] = session[:data_fim].at_end_of_month.strftime
+    end     
+
+    SivicLancamento.where('data_vencimento >= ? and data_vencimento <= ? and sivic_igreja_id = ? and data_exclusao is null',session[:data_ini], session[:data_fim], current_user.sivic_pessoa.sivic_igreja_id)
+  end  
+
+  def contasapagar
+    @sivic_lancamentos = find_by_ContasPagar.order(:data_vencimento)
+    @total_lancamentos = find_by_ContasPagar.sum(:valr_lancamento)
+    @total_pago = find_by_ContasPagar.sum(:valr_pago, :conditions => {:flag_pago => true})
+    @a_pagar = find_by_ContasPagar.sum(:valr_lancamento, :conditions => {:flag_pago => false})
+    @vencidas = find_by_ContasPagar.sum(:valr_lancamento, :conditions => ['data_vencimento < ? and flag_pago = False', Date.today])
   end
 
   def contasareceber
-    @sivic_lancamentos = SivicLancamento.all(:conditioins => {:sivic_tipmovfinanceiro_id => 2, :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id})
-  end    
+    @sivic_lancamentos = find_by_ContasReceber.order(:data_vencimento)
+    @total_lancamentos = find_by_ContasReceber.sum(:valr_lancamento)
+    @total_pago = find_by_ContasReceber.sum(:valr_pago, :conditions => {:flag_pago => true})
+    @a_pagar = find_by_ContasReceber.sum(:valr_lancamento, :conditions => {:flag_pago => false})
+    @vencidas = find_by_ContasReceber.sum(:valr_lancamento, :conditions => ['data_vencimento < ? and flag_pago = False', Date.today])
+  end
 
   def extrato
-    @sivic_lancamentos = SivicLancamento.all
+    @sivic_lancamentos = find_by_Extrato.order(:data_vencimento)
+    @total_lancamentos = find_by_Extrato.sum(:valr_lancamento)
+    @total_pago = find_by_Extrato.sum(:valr_pago, :conditions => {:flag_pago => true})
+    @a_pagar = find_by_Extrato.sum(:valr_lancamento, :conditions => {:flag_pago => false})
+    @vencidas = find_by_Extrato.sum(:valr_lancamento, :conditions => ['data_vencimento < ? and flag_pago = False', Date.today])
   end      
 
 
