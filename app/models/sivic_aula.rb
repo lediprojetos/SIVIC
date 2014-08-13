@@ -8,14 +8,16 @@ class SivicAula < ActiveRecord::Base
    after_create :sincroniza_aulas
 
    def sincroniza_aulas
+     
 
 
-     @alunos =  SivicTurmaaluno.find :all, :conditions => {:id => self.sivic_turmamoduloprofessor.sivic_turma_id}
-    
+     @alunos =  SivicTurmaaluno.find :all, :conditions => {:sivic_turma_id => self.sivic_turmamoduloprofessor.sivic_turma_id}
 
-     self.id
-
-   	
+     @alunos.each do |alunos|
+      
+      	SivicAlunoaula.create(:sivic_turmaaluno_id => alunos.id, :sivic_aula_id => self.id, :flag_ausente => 1)
+      
+      end
    end
 
 end

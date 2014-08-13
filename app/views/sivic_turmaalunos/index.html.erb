@@ -23,20 +23,18 @@
         <td><%= sivic_turmaaluno.sivic_turma.sivic_curso.nome_curso %></td>
         <td><%= sivic_turmaaluno.sivic_turma.DESC_turma %></td> 
         <td align='right'>
-        <div class="btn-group">
-          <%= link_to sivic_turmaaluno, :class => "btn btn-default btn-sm" do %>
-            <span class="glyphicon glyphicon-list-alt"></span> Exibir
+          <%= link_to sivic_turmaaluno, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
           <% end %>             
-          <%= link_to edit_sivic_turmaaluno_path(sivic_turmaaluno), :class => "btn btn-default btn-sm" do %>
-            <span class="glyphicon glyphicon-pencil"></span> Editar
+          <%= link_to edit_sivic_turmaaluno_path(sivic_turmaaluno), :class => "btn btn-default btn-sm", :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Editar" do %>
+            <span class="glyphicon glyphicon-pencil"></span> 
           <% end %> 
-           <%= link_to bloqueaTurma_path(sivic_turmaaluno), :confirm => 'Deseja bloquear a turma?', :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-ban-circle"></span> Bloquear
+           <%= link_to bloqueaTurma_path(sivic_turmaaluno), :confirm => 'Deseja bloquear a turma?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Bloquear" do %>
+              <span class="glyphicon glyphicon-ban-circle"></span> 
             <% end %>             
-            <%= link_to sivic_turmaaluno , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-trash"></span> Excluir
-            <% end %>           
-        </div>
+            <%= link_to sivic_turmaaluno, :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Excluir" do %>
+              <span class="glyphicon glyphicon-trash"></span>
+            <% end %>  
         </td>             
       </tr>
     <% end %>
@@ -51,3 +49,12 @@
     <span class="glyphicon glyphicon-file"></span> Nova Matrícula
   <% end %>
 </div>
+
+
+<script>
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
+</script>
