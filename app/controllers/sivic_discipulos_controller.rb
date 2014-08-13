@@ -27,7 +27,6 @@ class SivicDiscipulosController < ApplicationController
 def BuscaPessoas2(id)
   sivic_dados = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id where father_id = ' + id.to_s)
 
-
   if sivic_dados
 
     sivic_dados.each do |sivic_dados|

@@ -10,12 +10,10 @@ class SivicAula < ActiveRecord::Base
    def sincroniza_aulas
      
 
-
-     @alunos =  SivicTurmaaluno.find :all, :conditions => {:sivic_turma_id => self.sivic_turmamoduloprofessor.sivic_turma_id}
-
-     @alunos.each do |alunos|
-      
-      	SivicAlunoaula.create(:sivic_turmaaluno_id => alunos.id, :sivic_aula_id => self.id, :flag_ausente => 1)
+      @alunos =  SivicTurmaaluno.find :all, :conditions => {:sivic_turma_id => self.sivic_turmamoduloprofessor.sivic_turma_id}
+      @alunos.each do |aluno|
+    
+      	SivicAlunoaula.create(:sivic_turmaaluno_id => aluno.id, :sivic_aula_id => self.id, :flag_ausente => 1)
       
       end
    end
