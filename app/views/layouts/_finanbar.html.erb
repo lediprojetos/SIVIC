@@ -20,7 +20,7 @@
         <ul class="dropdown-menu">
           <li><a onclick="chamaModal('R')" href="#">Nova Receita</a></li>
           <li><a onclick="chamaModal('D')" href="#">Nova Despesa</a></li>
-          <li><a href="#">Nova Transferência</a></li>
+          <li><a data-toggle="modal" data-target="#myModalTransferencia" href="#">Nova Transferência</a></li>
         </ul>
       </li>
       <li
@@ -80,7 +80,7 @@
         <h4 class="modal-title" id="myModalLabel">Definir Período</h4>
       </div>
       <div class="modal-body">
-        
+        <div id = "alert_placeholder_periodo"></div>  
         <div class="row">
             <div class='col-sm-2'>
             </div>           
@@ -115,7 +115,7 @@
   </div>
 </div>
 
-<!--Despesas -->
+<!--Despesas - Receitas -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -249,22 +249,84 @@
   </div>
 </div>
 
+<!-- Transferência -->
+<div class="modal fade" id="myModalTransferencia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+        <h4 class="modal-title" id="myModalLabel">Transferência</h4>
+      </div>
+      <div class="modal-body">
+        <div id = "alert_placeholder_transfer"></div>  
+        <div class="row">
+          <div class="col-xs-8">
+              <spam>Descrição</spam>
+              <input id="nome_lancamentoTrans" name="nome_lancamentoTrans" type="text" class="form-control" placeholder="Descrição do lançamento"> 
+          </div>
+
+          <div class='col-sm-4'>
+            <spam>Data Transferência</spam>
+              <div class="form-group">
+                  <div class='input-group date' id='datetimepicker5'>
+                      <input id="data_transferencia" name="data_transferencia" type='text' class="form-control" />
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-xs-6">
+              <spam>Conta Origem</spam>
+              <%=  fields_for :sivic_contabancos do |f| %>
+                <%= f.select :trans_ori_sivic_conta_id, options_from_collection_for_select(SivicContabanco.all, 'id', 'nome_conta'),{:include_blank => true},{ :class =>  'form-control'}%>
+              <% end %>          
+          </div>
+          <div class="col-xs-6">
+              <spam>Conta Destino</spam>
+              <%=  fields_for :sivic_contabancos do |f| %>
+                <%= f.select :trans_des_sivic_conta_id, options_from_collection_for_select(SivicContabanco.all, 'id', 'nome_conta'),{:include_blank => true},{ :class =>  'form-control'}%>
+              <% end %>          
+          </div>                     
+        </div>
+
+        </br>
+
+        <div class="row">
+          <div class="col-xs-4">
+              <spam>Valor</spam>
+              <input id="valr_lancamento_trans" name="valr_lancamento_trans" type="text" class="form-control"> 
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button id="bntSalvar" type="button" class="btn btn-primary" onclick="validatesTrans();">Transferir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 
 $(function() {
   $('#datetimepicker2').datetimepicker({language: 'pt', pickTime: false});
   $('#datetimepicker1').datetimepicker({language: 'pt', pickTime: false});      
+  $('#datetimepicker3').datetimepicker({language: 'pt', pickTime: false});
+  $('#datetimepicker4').datetimepicker({language: 'pt', pickTime: false});
+  $('#datetimepicker5').datetimepicker({language: 'pt', pickTime: false});
   $("#valr_lancamento").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+  $("#valr_lancamento_trans").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
   $("#valr_descontotaxa").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
   $("#valr_jurosmulta").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
   $("#valr_pago").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
 
+  $("#data_transferencia").mask("99/99/9999");
   $("#data_vencimento").mask("99/99/9999");
   $("#data_pagamento").mask("99/99/9999");
   $("#data_ini").mask("99/99/9999");
   $("#data_fim").mask("99/99/9999");  
-  $('#datetimepicker3').datetimepicker({language: 'pt', pickTime: false});
-  $('#datetimepicker4').datetimepicker({language: 'pt', pickTime: false});
 
   //ações ao fechar o modal
   $('#myModal').on('hidden.bs.modal', function (e) { 
@@ -285,12 +347,9 @@ $(function() {
     $("#chkRepetir").attr("disabled", false);
     $('#numgPagamento').val('0');
 
-    //location.reload();
-
-
+    location.reload();
 
   })
-  //----
 
 })
 
@@ -314,15 +373,14 @@ function setaPeriodo(tempo){
   if (tempo == 'custom'){
 
       if ($('#data_ini').val() == ""){
-        alert_boot('Digite uma data de inicio para pesquisa.','warning')
+        alert_boot('Digite uma data de inicio para pesquisa.','warning','#alert_placeholder_periodo')
         return false;
       }  
 
       if ($('#data_fim').val() == ""){
-        alert_boot('Digite uma data de fim para pesquisa.','warning')
+        alert_boot('Digite uma data de fim para pesquisa.','warning','#alert_placeholder_periodo')
         return false;
       }  
-
 
   }
 
@@ -441,6 +499,7 @@ function buscaLancamento(id){
         //Identifica que será uma edição
 
         //Desativar função de repetir
+        $('#chkRepetir').prop( "checked", false );
         $("#chkRepetir").removeAttr("disabled");
         $("#chkRepetir").attr("disabled", true);
         $('#numr_recorrencia').prop( "disabled", true );
@@ -459,35 +518,88 @@ function buscaLancamento(id){
 
 }
 
+function validatesTrans(){
 
+  if ($('#nome_lancamentoTrans').val() == ""){
+    alert_boot('Digite um descrição para a transferência','warning','#alert_placeholder_transfer');
+    return false;
+  }
+ 
+  if ($('#data_transferencia').val() == ""){
+    alert_boot('Digite uma data para a transferência.','warning','#alert_placeholder_transfer')
+    return false;
+  }   
+  if ($('#sivic_contabancos_trans_ori_sivic_conta_id').val() == ""){
+    alert_boot('Escolha uma conta de origem.','warning','#alert_placeholder_transfer')
+    return false;
+  }     
+  if ($('#sivic_contabancos_trans_des_sivic_conta_id').val() == ""){
+    alert_boot('Escolha uma conta de destino.','warning','#alert_placeholder_transfer')
+    return false;
+  }    
+  if ($('#valr_lancamento_trans').val() == ""){
+    alert_boot('Digite o valor da transferência.','warning','#alert_placeholder_transfer')
+    return false;
+  }  
+
+  salvaTransferencia();
+
+}
+
+function salvaTransferencia(){
+
+  $.ajax({
+    url: '<%= insereTransferencia_path %>',
+    data : 
+    {
+        nome_lancamento : $('#nome_lancamentoTrans').val()
+        ,sivic_contabanco_id : $('#sivic_contabancos_trans_ori_sivic_conta_id').val()
+        ,sivic_contabanco_des_id : $('#sivic_contabancos_trans_des_sivic_conta_id').val()
+        ,data_pagamento : $('#data_transferencia').val()
+        ,valr_pago : $('#valr_lancamento_trans').val()
+    },
+    success: function(data){
+          
+        alert_boot('Transferência efetuada com sucesso.','success','#alert_placeholder_transfer');
+
+        $('#nome_lancamentoTrans').val('');
+        $('#sivic_contabancos_trans_ori_sivic_conta_id').val('');
+        $('#sivic_contabancos_trans_des_sivic_conta_id').val('');
+        $('#data_transferencia').val('');
+        $('#valr_lancamento_trans').val('');
+
+    }
+  })  
+
+}
 
 function validates(){
 
   if ($('#nome_lancamento').val() == ""){
-    alert_boot('Digite um nome para o lançamento','danger');
+    alert_boot('Digite um nome para o lançamento','warning','#alert_placeholder');
     return false;
   }
   if ($('#sivic_category_sivic_category_id').val() == ""){
-    alert_boot('Escolha uma categoria para o lançamento.','warning')
+    alert_boot('Escolha uma categoria para o lançamento.','warning','#alert_placeholder')
     return false;
   }  
   if ($('#data_vencimento').val() == ""){
-    alert_boot('Digite uma data de vencimento.','warning')
+    alert_boot('Digite uma data de vencimento.','warning','#alert_placeholder')
     return false;
   }   
   if ($('#sivic_contabancos_sivic_conta_id').val() == ""){
-    alert_boot('Escolha uma conta.','warning')
+    alert_boot('Escolha uma conta.','warning','#alert_placeholder')
     return false;
   }    
   if ($('#valr_lancamento').val() == ""){
-    alert_boot('Digite o valor do lançamento.','warning')
+    alert_boot('Digite o valor do lançamento.','warning','#alert_placeholder')
     return false;
   }  
 
   if($('#chkRepetir').is(':checked') == true){
 
       if ($('#numr_recorrencia').val() == ""){
-        alert_boot('Digite a quantidade de parcela no campo recorrência.','warning')
+        alert_boot('Digite a quantidade de parcela no campo recorrência.','warning','#alert_placeholder')
         return false;
       }  
 
@@ -496,12 +608,12 @@ function validates(){
   if($('#chkPago').is(':checked') == true){
 
       if ($('#data_pagamento').val() == ""){
-        alert_boot('Digite a data do pagamento.','warning')
+        alert_boot('Digite a data do pagamento.','warning','#alert_placeholder')
         return false;
       }  
 
       if ($('#valr_pago').val() == ""){
-        alert_boot('Digite o valor pago.','warning')
+        alert_boot('Digite o valor pago.','warning','#alert_placeholder')
         return false;
       }  
 
@@ -544,7 +656,7 @@ if($('#chkPago').is(':checked') == true){
     },
     success: function(data){
           
-        alert_boot('Pagamento editado com sucesso.','success');
+        alert_boot('Pagamento editado com sucesso.','success','#alert_placeholder');
 
         $('#nome_lancamento').val('');
         $('#sivic_category_sivic_category_id').val('');
@@ -595,7 +707,7 @@ if($('#chkPago').is(':checked') == true){
     },
     success: function(data){
           
-        alert_boot('Pagamento salvo com sucesso.','success');
+        alert_boot('Pagamento salvo com sucesso.','success','#alert_placeholder');
 
         $('#nome_lancamento').val('');
         $('#sivic_category_sivic_category_id').val('');
@@ -658,9 +770,9 @@ function desabilitarepetir(){
 }
 
 
-function alert_boot(message,color) {
+function alert_boot(message,color,place) {
 
-  $('#alert_placeholder').html('<div class="alert alert-'+color+'" role="alert">'+message+'<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> </div>')
+  $(place).html('<div class="alert alert-'+color+'" role="alert">'+message+'<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> </div>')
 }
 
 
@@ -668,4 +780,5 @@ $(function(){
   $("a[rel='tooltip']").tooltip();
 })
 
+//alert_placeholder
 </script>
