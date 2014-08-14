@@ -1,26 +1,34 @@
-<h1>Listing sivic_alunoaulas</h1>
+<% content_for :titlePage do %>
+  Disciplinas
+<% end %>
 
-<table>
+<%=render '/layouts/panel' %>
+
+<table class="table table-hover">
   <thead>
     <tr>
-      <th>Sivic turmaaluno</th>
-      <th>Sivic aula</th>
-      <th>Flag ausente</th>
-      <th></th>
-      <th></th>
+      <th>Disciplina</th>
+      <th>Turma</th>
+      <th>Curso</th>
       <th></th>
     </tr>
   </thead>
-
   <tbody>
-    <% @sivic_alunoaulas.each do |sivic_alunoaula| %>
+    <% @sivic_turmamoduloprofessors.each do |sivic_turmamoduloprofessor| %>
       <tr>
-        <td><%= sivic_alunoaula.sivic_turmaaluno %></td>
-        <td><%= sivic_alunoaula.sivic_aula %></td>
-        <td><%= sivic_alunoaula.flag_ausente %></td>
-        <td><%= link_to 'Show', sivic_alunoaula %></td>
-        <td><%= link_to 'Edit', edit_sivic_alunoaula_path(sivic_alunoaula) %></td>
-        <td><%= link_to 'Destroy', sivic_alunoaula, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= sivic_turmamoduloprofessor.sivic_moduloescola.nome_modulo %></td>
+        <td><%= sivic_turmamoduloprofessor.sivic_turma.DESC_turma %></td>
+        <td><%= sivic_turmamoduloprofessor.sivic_turma.sivic_curso.nome_curso %></td>
+
+        <td align='right'>
+          <%= link_to frequencia_sivic_alunoaula_path(sivic_turmamoduloprofessor), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Frequencia" do %>
+            <span class="glyphicon glyphicon-asterisk"></span>
+          <% end %>             
+
+          <%= link_to aula_sivic_turmamoduloprofessor_path(sivic_turmamoduloprofessor), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Lançar Notas" do%>
+                <span class="glyphicon glyphicon-th-list"></span>   
+            <% end %>     
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +36,18 @@
 
 <br>
 
-<%= link_to 'New Sivic alunoaula', new_sivic_alunoaula_path %>
+</div></div>
+<div class="btn-group">
+  <%= link_to new_sivic_licao_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>
+
+
+<script>
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
+</script>

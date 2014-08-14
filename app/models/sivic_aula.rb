@@ -9,7 +9,6 @@ class SivicAula < ActiveRecord::Base
 
    def sincroniza_aulas
      
-
       @alunos =  SivicTurmaaluno.find :all, :conditions => {:sivic_turma_id => self.sivic_turmamoduloprofessor.sivic_turma_id}
       @alunos.each do |aluno|
     

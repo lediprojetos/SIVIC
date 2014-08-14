@@ -5,11 +5,17 @@ class SivicAlunoaulasController < ApplicationController
   # GET /sivic_alunoaulas.json
   def index
     @sivic_alunoaulas = SivicAlunoaula.all
+    @sivic_turmamoduloprofessors = SivicTurmamoduloprofessor.find :all, :conditions => {:sivic_professor_id => current_user.sivic_pessoa.sivic_professor}
   end
 
   # GET /sivic_alunoaulas/1
   # GET /sivic_alunoaulas/1.json
   def show
+  end
+
+  def frequencia
+     @sivic_alunoaulas = SivicAlunoaula.all
+
   end
 
   # GET /sivic_alunoaulas/new
