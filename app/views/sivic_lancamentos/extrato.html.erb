@@ -26,18 +26,28 @@ Contas a Pagar
         <td align="center">
               <%if sivic_lancamento.flag_pago %>
                 <span style="color:green;"class="glyphicon glyphicon-ok"></span>
-              <%else%>
               <%end%>
         </td>
         <td><%= (sivic_lancamento.data_vencimento.blank? ? '' : sivic_lancamento.data_vencimento.strftime("%d/%m/%Y")) %></td>
-        <td><%= sivic_lancamento.sivic_category.nome_categoria %></td>
-        <td><%= sivic_lancamento.nome_lancamento %></td>
+        <td><%= sivic_lancamento.sivic_category.nome_categoria rescue nil%></td>
+        <%if sivic_lancamento.numr_parcela %>
+          <td><%= sivic_lancamento.nome_lancamento + ' (' + sivic_lancamento.numr_parcela.to_s + '/' + sivic_lancamento.numr_recorrencia.to_s + ')' %></td>
+        <%else%>
+          <td><%= sivic_lancamento.nome_lancamento%></td>
+        <%end%>
         <td><%= number_to_currency(sivic_lancamento.valr_lancamento, unit: "R$", separator: ",", delimiter: ".") %></td>
-        <td><%= number_to_currency(sivic_lancamento.valr_pago, unit: "R$", separator: ",", delimiter: ".") %></td>
+        <td>
+          <%if sivic_lancamento.valr_pago < 0%>
+            <spam style='color: rgb(211, 47, 47);'>
+          <%else%>
+            <span style='color: rgb(74, 186, 88);'>
+          <%end%>
+          <%= number_to_currency(sivic_lancamento.valr_pago, unit: "R$", separator: ",", delimiter: ".") %>
+        </spam>
+        </td>
 
+        <%if sivic_lancamento.sivic_tipmovfinanceiro_id == 2%>
         <td align='right'>
-
-
             <a class="btn btn-default btn-sm" onclick="pagaRecebe(<%= sivic_lancamento.id %>,<%=sivic_lancamento.flag_pago == true ? '0' : '1'%>)" rel="tooltip" title="<%=sivic_lancamento.flag_pago == true ? 'Desfazer Recebimento' : 'Receber'%>">
                 <span class="<%=sivic_lancamento.flag_pago == true ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-ok'%>"></span>
             </a>
@@ -47,8 +57,35 @@ Contas a Pagar
             <a class="btn btn-default btn-sm" onclick="excluiLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Excluir">
                 <span class="glyphicon glyphicon-trash"></span>
             </a>
+        </td>
 
-        </td>  
+        <%elsif sivic_lancamento.sivic_tipmovfinanceiro_id == 1%>
+        <td align='right'>
+            <a class="btn btn-default btn-sm" onclick="pagaRecebe(<%= sivic_lancamento.id %>,<%=sivic_lancamento.flag_pago == true ? '0' : '1'%>)" rel="tooltip" title="<%=sivic_lancamento.flag_pago == true ? 'Desfazer Pagamento' : 'Pagar'%>">
+                <span class="<%=sivic_lancamento.flag_pago == true ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-ok'%>"></span>
+            </a>
+            <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>            
+            <a class="btn btn-default btn-sm" onclick="excluiLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Excluir">
+                <span class="glyphicon glyphicon-trash"></span>
+            </a>
+        </td>
+
+        <%elsif sivic_lancamento.sivic_tipmovfinanceiro_id == 3%>
+        <td align='right'>
+            <a class="btn btn-default btn-sm" onclick="pagaRecebe(<%= sivic_lancamento.id %>,<%=sivic_lancamento.flag_pago == true ? '0' : '1'%>)" rel="tooltip" title="<%=sivic_lancamento.flag_pago == true ? 'Desfazer Pagamento' : 'Pagar'%>">
+                <span class="<%=sivic_lancamento.flag_pago == true ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-ok'%>"></span>
+            </a>
+            <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>            
+            <a class="btn btn-default btn-sm" onclick="excluiLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Excluir">
+                <span class="glyphicon glyphicon-trash"></span>
+            </a>
+        </td>
+
+        <%end%>
 
       </tr>
     <% end %>
@@ -64,36 +101,34 @@ Contas a Pagar
   
     <tr>
       <td>
-        Recebidas(R$)
-      </td>
-      <td align="right">
-        <spam style="color: rgb(74, 186, 88);"><%= number_to_currency(@total_pago, unit: "R$", separator: ",", delimiter: ".") %></spam>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        A Receber(R$)
-      </td>
-      <td align="right">
-        <spam style="color: rgb(74, 186, 88);"><%= number_to_currency(@a_pagar, unit: "R$", separator: ",", delimiter: ".") %></spam>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
-        Vencidas(R$)
-      </td>
-      <td align="right">
-        <b><spam style="color: rgb(74, 186, 88);"><%= number_to_currency(@vencidas, unit: "R$", separator: ",", delimiter: ".") %></spam></b>
-      </td>
-    </tr>
-
-    <tr>
-      <td>
         Total de Recebimentos(R$)
       </td>
       <td align="right">
-        <b><spam style="color: rgb(56, 90, 122);"><%= number_to_currency(@total_lancamentos, unit: "R$", separator: ",", delimiter: ".") %></label></b>
+        <spam style="color: rgb(74, 186, 88);"><%= number_to_currency(@total_recebimento, unit: "R$", separator: ",", delimiter: ".") %></spam>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Total de Pagamentos(R$)
+      </td>
+      <td align="right">
+        <spam style="color: rgb(211, 47, 47);"><%= number_to_currency(@total_pagamento, unit: "R$", separator: ",", delimiter: ".") %></spam>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Total do Período(R$)
+      </td>
+      <td align="right">
+        <b>
+          <%if @total_periodo < 0%>
+            <label style='color: rgb(211, 47, 47);'>
+          <%elsif @total_periodo >= 0%>
+            <label style='color: rgb(56, 90, 122);'>
+          <%end%>        
+          <%= number_to_currency(@total_periodo, unit: "R$", separator: ",", delimiter: ".") %>
+            </label>
+        </b>
       </td>
     </tr>            
   

@@ -3,6 +3,79 @@ class SivicLancamentosController < ApplicationController
 
 include ActionView::Helpers::NumberHelper
 
+def edita_transferencia
+
+  #Tratando valores numéricos
+  params[:valr_pago] = params[:valr_pago].gsub('.', '')
+  params[:valr_pago] = params[:valr_pago].gsub(',', '.').to_f
+
+  #Definindo Origem e destino
+  objTransferencia_ori = SivicLancamento.find_by_codi_parcela(params[:id]).where(:valr_pago < 0)
+  objTransferencia_des = SivicLancamento.find_by_codi_parcela(params[:id]).where(:valr_pago > 0)
+
+  #Origem
+  objTransferencia_ori.nome_lancamento = params[:nome_lancamento]
+  objTransferencia_ori.sivic_contabanco_id = params[:sivic_contabanco_ori_id]
+  objTransferencia_ori.data_pagamento = params[:data_pagamento]
+  objTransferencia_ori.data_vencimento = params[:data_pagamento]
+  objTransferencia_ori.valr_lancamento = (-params[:valr_pago])
+  objTransferencia_ori.valr_pago = (-params[:valr_pago])
+  objTransferencia_ori.save
+
+  #Destino
+  objTransferencia_des.nome_lancamento = params[:nome_lancamento]
+  objTransferencia_des.sivic_contabanco_id = params[:sivic_contabanco_ori_id]
+  objTransferencia_des.data_pagamento = params[:data_pagamento]
+  objTransferencia_des.data_vencimento = params[:data_pagamento]
+  objTransferencia_des.valr_lancamento = params[:valr_pago]
+  objTransferencia_des.valr_pago = params[:valr_pago]
+  objTransferencia_des.save  
+
+end
+
+
+def create_transferencia
+
+  #Tratando valores numéricos
+  params[:valr_pago] = params[:valr_pago].gsub('.', '')
+  params[:valr_pago] = params[:valr_pago].gsub(',', '.').to_f
+
+  objTransferencia = SivicLancamento.new
+
+  objTransferencia.nome_lancamento = params[:nome_lancamento]
+  objTransferencia.sivic_contabanco_id = params[:sivic_contabanco_ori_id]
+  objTransferencia.data_pagamento = params[:data_pagamento]
+  objTransferencia.data_vencimento = params[:data_pagamento]
+  objTransferencia.valr_lancamento = (-params[:valr_pago])
+  objTransferencia.valr_pago = (-params[:valr_pago])
+  objTransferencia.sivic_tipmovfinanceiro_id = 3
+  objTransferencia.flag_pago = true
+  objTransferencia.sivic_igreja_id = current_user.sivic_pessoa.sivic_igreja_id
+  objTransferencia.save
+  objTransferencia.codi_parcela = objTransferencia.id
+  objTransferencia.save
+
+  objTransferencia2 = SivicLancamento.new
+
+  objTransferencia2.nome_lancamento = params[:nome_lancamento]
+  objTransferencia2.sivic_contabanco_id = params[:sivic_contabanco_des_id]
+  objTransferencia2.data_vencimento = params[:data_pagamento]
+  objTransferencia2.data_pagamento = params[:data_pagamento]
+  objTransferencia2.valr_lancamento = params[:valr_pago]
+  objTransferencia2.valr_pago = params[:valr_pago]
+  objTransferencia2.sivic_tipmovfinanceiro_id = 3
+  objTransferencia2.flag_pago = true
+  objTransferencia2.sivic_igreja_id = current_user.sivic_pessoa.sivic_igreja_id
+  objTransferencia2.codi_parcela = objTransferencia.id
+
+  objTransferencia2.save    
+
+  sivic_lancamento = SivicLancamento.find :all, :conditions => {:id => objTransferencia2.id}
+  sivic_lancamento_json = sivic_lancamento.map {|item| {:id => item.id}}
+  render :json => sivic_lancamento_json
+
+end
+
 def seta_periodo
   if params[:tempo] == 'hoje'
     #Hoje
@@ -22,7 +95,7 @@ def seta_periodo
     session[:data_fim] = session[:data_fim].at_end_of_month.strftime  
   elsif params[:tempo] == '30dias'
     #Últimos 30 Dias
-    session[:data_ini] = (Date.today - 1.month)
+    session[:data_ini] = (Time.now - 1.month)
     session[:data_fim] = Date.today
   elsif params[:tempo] == 'custom'
     #Customizado
@@ -140,7 +213,7 @@ end
 
     date = Date.parse(params[:data_vencimento]).to_date
 
-
+    parcela = 1
 
     if params[:chkPago] == 'True'
       flag_pago = true
@@ -160,6 +233,7 @@ end
                                 :sivic_contabanco_id => params[:sivic_contabanco_id],
                                 :valr_lancamento => params[:valr_lancamento],
                                 :numr_recorrencia => params[:numr_recorrencia],
+                                :numr_parcela => parcela,
                                 :data_pagamento => params[:data_pagamento],
                                 :valr_descontotaxa => params[:valr_descontotaxa],
                                 :valr_jurosmulta => params[:valr_jurosmulta],
@@ -168,6 +242,8 @@ end
                                 :flag_pago => flag_pago,
                                 :sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id
                               )
+
+        parcela = parcela + 1
 
         if params[:numr_temporizador] == 'D'
           date = (date + 1.days)
@@ -332,10 +408,10 @@ end
 
   def extrato
     @sivic_lancamentos = find_by_Extrato.order(:data_vencimento)
-    @total_lancamentos = find_by_Extrato.sum(:valr_lancamento)
-    @total_pago = find_by_Extrato.sum(:valr_pago, :conditions => {:flag_pago => true})
-    @a_pagar = find_by_Extrato.sum(:valr_lancamento, :conditions => {:flag_pago => false})
-    @vencidas = find_by_Extrato.sum(:valr_lancamento, :conditions => ['data_vencimento < ? and flag_pago = False', Date.today])
+    
+    @total_recebimento = find_by_ContasReceber.sum(:valr_pago, :conditions => {:flag_pago => true})
+    @total_pagamento = find_by_ContasPagar.sum(:valr_pago, :conditions => {:flag_pago => true})
+    @total_periodo = find_by_Extrato.sum(:valr_pago)
   end      
 
 
@@ -396,6 +472,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_lancamento_params
-      params.require(:sivic_lancamento).permit(:nome_lancamento, :valr_lancamento, :data_vencimento, :data_competencia, :flag_pago, :flag_dizimo, :numr_recorrencia, :sivic_category_id, :sivic_centrocusto_id, :sivic_rede_id, :sivic_tipmovfinanceiro_id, :sivic_pessoa_id, :sivic_fornecedor_id, :sivic_igreja_id, :user_id, :user_id, :data_exclusao, :sivic_contabanco_id, :data_pagamento_id, :valr_pago, :valr_jurosmulta, :valr_descontotaxa)
+      params.require(:sivic_lancamento).permit(:nome_lancamento, :valr_lancamento, :data_vencimento, :data_competencia, :flag_pago, :flag_dizimo, :numr_recorrencia, :sivic_category_id, :sivic_centrocusto_id, :sivic_rede_id, :sivic_tipmovfinanceiro_id, :sivic_pessoa_id, :sivic_fornecedor_id, :sivic_igreja_id, :user_id, :user_id, :data_exclusao, :sivic_contabanco_id, :data_pagamento_id, :valr_pago, :valr_jurosmulta, :valr_descontotaxa, :numr_parcela)
     end
 end

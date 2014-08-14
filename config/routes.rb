@@ -109,6 +109,11 @@ SIVIC::Application.routes.draw do
   match '/deletaLancamento', to: 'sivic_lancamentos#deleta_lancamento', via: 'get'
   match '/setaPeriodo', to: 'sivic_lancamentos#seta_periodo', via: 'get'
 
+  match '/insereTransferencia', to: 'sivic_lancamentos#create_transferencia', via: 'get'
+  match '/editaTransferencia', to: 'sivic_lancamentos#edita_transferencia', via: 'get'
+  match '/deletaTransferencia', to: 'sivic_lancamentos#deleta_transferencia', via: 'get'
+  match '/buscaTransferencia', to: 'sivic_lancamentos#busca_transferencia', via: 'get'
+
 
   match '/listarTurma', to: 'sivic_turmaalunos#busca_turmas', via: 'get'
 
