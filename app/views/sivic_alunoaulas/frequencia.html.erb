@@ -1,35 +1,18 @@
-<table class="table table-hover">
+
+
+
+<table class="table table-hover" id="tlbalunoaulas" name="tlbalunoaulas">
   <thead>
     <tr>
-      <th>Sivic turmaaluno</th>
-      <th>Sivic aula</th>
-      <th>Flag ausente</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Aluno</th>
+      <th></th>     
     </tr>
   </thead>
-
-  <tbody>
-    <% @sivic_alunoaulas.each do |sivic_alunoaula| %>
+  <tbody id ="idbodyalunoaulas">
       <tr>
-        <td><%= sivic_alunoaula.sivic_turmaaluno.sivic_pessoa.nome_pessoa %></td>
-              <% @sivic_alunoaulas.each do |sivic_alunoaula| %>
-              <td><%= sivic_alunoaula.sivic_aula.nome_aula %></td>
-              <td><%= sivic_alunoaula.flag_ausente %></td>
-              <td><%= link_to 'Show', sivic_alunoaula %></td>
-              <td><%= link_to 'Edit', edit_sivic_alunoaula_path(sivic_alunoaula) %></td>
-              <td><%= link_to 'Destroy', sivic_alunoaula, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-          <% end %>
-    <% end %>
+      </tr>
   </tbody>
 </table>
-
-<br>
-
-
-
 
 
 <script>
@@ -42,11 +25,11 @@
           sivic_turma_id : '<%=@sivic_turmamoduloprofessor.sivic_turma.id%>'
          },
       success: function(data){         
-        $('#idbodymodulo ').empty();
+        $('#idbodyalunoaulas').empty();
          for (var i in data){
               var item = data[i];
 
-           $('#tlbmoduloprofessor').append('<tr><td>'+item.nome_modulo+'</td><td>'+item.nome_professor+'</td><td><a data-confirm="Deseja Excluir o registro?" data-method="delete" href="/sivic_turmamoduloprofessors/'+item.id+'" rel="nofollow" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span> Excluir</a></td></tr>')
+           $('#tlbalunoaulas').append('<tr><td>'+item.nome_pessoa+'</td><td><a data-confirm="Deseja Excluir o registro?" data-method="delete" href="/sivic_turmamoduloprofessors/'+item.id+'" rel="nofollow" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span> Excluir</a></td></tr>')
            };   
          }
        })     

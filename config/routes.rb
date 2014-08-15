@@ -2,6 +2,9 @@ SIVIC::Application.routes.draw do
 
   resources :sivic_alunoaulas do
    member do
+      get :aulafrequencia
+  end
+   member do
       get :frequencia
   end
 end
