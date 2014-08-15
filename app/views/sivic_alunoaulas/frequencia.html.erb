@@ -1,4 +1,4 @@
-<table>
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Sivic turmaaluno</th>
@@ -13,15 +13,45 @@
   <tbody>
     <% @sivic_alunoaulas.each do |sivic_alunoaula| %>
       <tr>
-        <td><%= sivic_alunoaula.sivic_turmaaluno %></td>
-        <td><%= sivic_alunoaula.sivic_aula %></td>
-        <td><%= sivic_alunoaula.flag_ausente %></td>
-        <td><%= link_to 'Show', sivic_alunoaula %></td>
-        <td><%= link_to 'Edit', edit_sivic_alunoaula_path(sivic_alunoaula) %></td>
-        <td><%= link_to 'Destroy', sivic_alunoaula, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <td><%= sivic_alunoaula.sivic_turmaaluno.sivic_pessoa.nome_pessoa %></td>
+              <% @sivic_alunoaulas.each do |sivic_alunoaula| %>
+              <td><%= sivic_alunoaula.sivic_aula.nome_aula %></td>
+              <td><%= sivic_alunoaula.flag_ausente %></td>
+              <td><%= link_to 'Show', sivic_alunoaula %></td>
+              <td><%= link_to 'Edit', edit_sivic_alunoaula_path(sivic_alunoaula) %></td>
+              <td><%= link_to 'Destroy', sivic_alunoaula, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
     <% end %>
   </tbody>
 </table>
 
 <br>
+
+
+
+
+
+<script>
+  
+  function buscaAlunoTurma(){
+       $.ajax({
+        url : '<%=buscaAlunoTurma_path %>',
+        data :
+        {
+          sivic_turma_id : '<%=@sivic_turmamoduloprofessor.sivic_turma.id%>'
+         },
+      success: function(data){         
+        $('#idbodymodulo ').empty();
+         for (var i in data){
+              var item = data[i];
+
+           $('#tlbmoduloprofessor').append('<tr><td>'+item.nome_modulo+'</td><td>'+item.nome_professor+'</td><td><a data-confirm="Deseja Excluir o registro?" data-method="delete" href="/sivic_turmamoduloprofessors/'+item.id+'" rel="nofollow" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span> Excluir</a></td></tr>')
+           };   
+         }
+       })     
+   }
+
+   buscaAlunoTurma();
+
+</script>

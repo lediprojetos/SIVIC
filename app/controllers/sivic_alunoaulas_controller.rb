@@ -16,6 +16,21 @@ class SivicAlunoaulasController < ApplicationController
   def frequencia
      @sivic_alunoaulas = SivicAlunoaula.all
 
+     @sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find(params[:id])
+
+  end
+
+  def busca_aluno_turma
+
+    @aulas =  SivicAula.joins(:sivic_turmamoduloprofessor).where(sivic_turmamoduloprofessors: {sivic_turma_id: params[:sivic_turma_id]})
+
+    @aulas_json = @aulas.map {|item| {:id => item.id, :nome_aula => item.nome_aula, :data_aula => item.data_aula}}
+    render :json => @aulas_json
+      
+  end
+
+  def busca_aulas_aluno
+    @sivic_turmamoduloprofessors = SivicTurmamoduloprofessor.find :all, :conditions => {:sivic_professor_id => current_user.sivic_pessoa.sivic_professor}
   end
 
   # GET /sivic_alunoaulas/new

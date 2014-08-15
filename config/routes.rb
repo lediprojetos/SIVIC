@@ -129,6 +129,7 @@ end
   match '/buscaLicao', to: 'sivic_licaos#busca_licao', via: 'get'
   match '/criarAula', to: 'sivic_aulas#create_aula', via: 'get'
   match '/buscaAula', to: 'sivic_aulas#busca_aula', via: 'get'
+  match '/buscaAlunoTurma', to: 'sivic_alunoaulas#busca_aluno_turma', via: 'get'
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 
