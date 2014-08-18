@@ -106,18 +106,18 @@ pt:
   errors: &errors
     format: ! '%{attribute} %{message}'
     messages:
-      accepted: deve ser aceito
-      blank: não pode ficar em branco
-      present: deve ficar em branco
-      confirmation: não está de acordo com a confirmação
-      empty: não pode ficar vazio
-      equal_to: deve ser igual a %{count}
-      even: deve ser par
-      exclusion: não está disponível
-      greater_than: deve ser maior que %{count}
+      accepted: deve ser aceito.
+      blank: não pode ficar em branco.
+      present: deve ficar em branco.
+      confirmation: não está de acordo com a confirmação.
+      empty: não pode ficar vazio.
+      equal_to: deve ser igual a %{count}.
+      even: deve ser par.
+      exclusion: não está disponível.
+      greater_than: deve ser maior que %{count}.
       greater_than_or_equal_to: deve ser maior ou igual a %{count}
       inclusion: não está incluído na lista
-      invalid: não é válido
+      invalid: não é válido.
       less_than: deve ser menor que %{count}
       less_than_or_equal_to: deve ser menor ou igual a %{count}
       not_a_number: não é um número
@@ -216,5 +216,19 @@ pt:
     errors:
       <<: *errors
   activerecord:
+    models:
+      sivic_discipulo: Discipulo
+      sivic_endereco: ''
+      sivic_pessoa: ''
+    attributes:
+      sivic_discipulo:
+        NUMR_CPF: CPF
+        sivic_pessoa_id: ''
+        sivic_endereco_id: ''
+      sivic_endereco:
+        sivic_cidade_id: ''
+      sivic_pessoa:
+        nome_pessoa: ''
+        father_id: ''
     errors:
       <<: *errors

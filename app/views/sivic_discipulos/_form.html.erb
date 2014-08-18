@@ -6,16 +6,16 @@
 
   <%= form_for(@sivic_discipulo) do |f| %>
     <% if @sivic_discipulo.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@sivic_discipulo.errors.count, "error") %> prohibited this sivic_discipulo from being saved:</h2>
+      <div class="alert alert-danger" role="alert">
+      <% if @sivic_discipulo.errors.any? %>
 
-        <ul>
-        <% @sivic_discipulo.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+          <% @sivic_discipulo.errors.full_messages.each do |msg| %>
+            
+     <%= msg %></br>       
+          <% end %>
+      <% end %>
+     </div>
+   <%end%>
 
     <div class="tabbable">
       <ul class="nav nav-tabs">

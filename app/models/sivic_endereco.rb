@@ -4,7 +4,7 @@ class SivicEndereco < ActiveRecord::Base
   has_one :sivic_celula
 
 
-  validates :sivic_cidade_id, :presence => { :message => ' - Escolha uma Cidade' }
+  validates :sivic_cidade_id, :presence => { :message => 'Escolha um estado e uma cidade.' }
 
   before_validation :retiraMascara
 

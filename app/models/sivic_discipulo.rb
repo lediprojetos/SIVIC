@@ -23,12 +23,12 @@ class SivicDiscipulo < ActiveRecord::Base
 
   # - Validações
   #validates :NUMR_CPF, :cpf => { :message => ' - Digite um CPF valido' }
-  validates :sivic_profissao_id, :presence => { :message => ' - Escolha uma profissao' }
-  #validates :sivic_pessoa_id, :presence => { :message => ' - Escolha um lider' }
-  #validates :NUMR_CPF, uniqueness: true, uniqueness: {message: ' - CPF ja esta sendo utlizado'}
-  #validates :sivic_endereco_id, :presence => { :message => ' - Informe um endereco' }
-  validates :sivic_escolaridade_id, :presence => { :message => ' - Informe a escolaridade' }
-  validates :sivic_rede_id, :presence => { :message => ' - Informe uma rede' }
+  #validates :sivic_profissao_id, :presence => { :message => ' - Escolha uma profissao' }
+  #validates :sivic_pessoa_id, presence: true
+  #validates :NUMR_CPF, uniqueness: true, uniqueness: {:message => 'ja esta sendo utlizado.'}
+  #validates :sivic_endereco_id, :presence => { :message => 'Informe um endereco.' }
+  #validates :sivic_escolaridade_id, :presence => { :message => ' - Informe a escolaridade' }
+  #validates :sivic_rede_id, :presence => { :message => ' - Informe uma rede.' }
   #validates :DATA_Nascimento, :presence => { :message => ' - Informe a data de nascimento' }
   #validates :NUMR_RG, :presence => { :message => ' - Informe o RG' }
   #validates :NUMR_RG, uniqueness: true, uniqueness: {message: ' - RG ja esta sendo utlizado'}

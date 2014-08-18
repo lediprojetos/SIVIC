@@ -348,9 +348,6 @@ $(function() {
     $("#chkRepetir").attr("disabled", false);
     $('#numgPagamento').val('0');
 
-    $('#sivic_contabancos_trans_ori_sivic_conta_id').prop( "disabled", false );
-    $('#sivic_contabancos_trans_des_sivic_conta_id').prop( "disabled", false );    
-
     location.reload();
 
   })
@@ -510,9 +507,6 @@ function buscaTransferencia(codi_parcela){
 
           //Identifica que será uma edição
           $("#numgTransferencia").val(item.codi_parcela);
-
-          $('#sivic_contabancos_trans_ori_sivic_conta_id').prop( "disabled", true );
-          $('#sivic_contabancos_trans_des_sivic_conta_id').prop( "disabled", true );
 
         };
 

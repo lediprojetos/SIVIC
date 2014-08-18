@@ -45,25 +45,22 @@
           <td><%= sivic_discipulo.DATA_Batismo %></td>
 
         <td align='right'>
-          <div class="btn-group">
-            <%= link_to sivic_discipulo, :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-list-alt"></span> Exibir
+            <%= link_to sivic_discipulo, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+              <span class="glyphicon glyphicon-list-alt"></span>
             <% end %>             
-            <%= link_to edit_sivic_discipulo_path(sivic_discipulo), :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-pencil"></span> Editar
+            <%= link_to edit_sivic_discipulo_path(sivic_discipulo), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
+              <span class="glyphicon glyphicon-pencil"></span>
             <% end %>             
-            <%= link_to relDiscipulos_path(sivic_discipulo), :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-user"></span> Diagrama
+            <%= link_to relDiscipulos_path(sivic_discipulo), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Diagrama" do %>
+              <span class="glyphicon glyphicon-user"></span> 
             <% end %>            
-            <%= link_to relGeracoes_path(sivic_discipulo, format: 'pdf'), {:class => "btn btn-default btn-sm", :target => '_blank'} do %>
-              <span class="glyphicon glyphicon-tasks"></span> Geração
+            <%= link_to relGeracoes_path(sivic_discipulo, format: 'pdf'), {:class => "btn btn-default btn-sm", :target => '_blank', :rel=>"tooltip", :title=>"Geração"} do %>
+              <span class="glyphicon glyphicon-tasks"></span>
             <% end %>
 
-            <%= link_to sivic_discipulo , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-trash"></span> Excluir
-            <% end %>
-
-          </div>
+            <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_discipulos/<%=sivic_discipulo.id%>" data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir">
+                <span class="glyphicon glyphicon-trash" data-original-title="Geração" title="" rel="tooltip"></span>
+            </a>            
         </td> 
                   
         </tr>
@@ -87,4 +84,10 @@
 jQuery(function($){
   $('#q').focus();
 });  
+
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
 </script>
