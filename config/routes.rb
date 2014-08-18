@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_notaalunos
+
   resources :sivic_alunoaulas do
    member do
       get :aulafrequencia
@@ -132,7 +134,12 @@ end
   match '/buscaLicao', to: 'sivic_licaos#busca_licao', via: 'get'
   match '/criarAula', to: 'sivic_aulas#create_aula', via: 'get'
   match '/buscaAula', to: 'sivic_aulas#busca_aula', via: 'get'
-  match '/buscaAlunoTurma', to: 'sivic_alunoaulas#busca_aluno_turma', via: 'get'
+  match '/buscaAlunoAula', to: 'sivic_alunoaulas#busca_aluno_aula', via: 'get'
+  match '/marcaAusente', to: 'sivic_alunoaulas#marcar_ausente', via: 'get'
+  match '/marcaPresenca', to: 'sivic_alunoaulas#marcar_presenca', via: 'get'
+
+
+  
 
   devise_for :users, :controllers => {:registrations => "users/registrations"}
 

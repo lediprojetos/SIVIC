@@ -1,40 +1,97 @@
+<% content_for :titlePage do %>
+  Alunos  da aula: <%=@sivic_aula.nome_aula%>
+<% end %>
 
-
+<%=render '/layouts/panel' %>
 
 <table class="table table-hover" id="tlbalunoaulas" name="tlbalunoaulas">
   <thead>
     <tr>
       <th>Aluno</th>
-      <th></th>     
+      <th></th>
     </tr>
   </thead>
   <tbody id ="idbodyalunoaulas">
       <tr>
       </tr>
+      <tr>
+      </tr>
   </tbody>
 </table>
 
+</div></div>
+
+<div class="btn-group">
+  <%= link_to aulafrequencia_sivic_alunoaula_path(@sivic_aula.sivic_turmamoduloprofessor_id), :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+</div>
 
 <script>
   
-  function buscaAlunoTurma(){
+  function buscaAlunoAula(){
        $.ajax({
-        url : '<%=buscaAlunoTurma_path %>',
+        url : '<%=buscaAlunoAula_path %>',
         data :
         {
-          sivic_turma_id : '<%=@sivic_turmamoduloprofessor.sivic_turma.id%>'
+          sivic_aula_id : '<%=@sivic_aula.id%>'
          },
       success: function(data){         
         $('#idbodyalunoaulas').empty();
          for (var i in data){
               var item = data[i];
 
-           $('#tlbalunoaulas').append('<tr><td>'+item.nome_pessoa+'</td><td><a data-confirm="Deseja Excluir o registro?" data-method="delete" href="/sivic_turmamoduloprofessors/'+item.id+'" rel="nofollow" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-trash"></span> Excluir</a></td></tr>')
+             if (item.flag_ausente == 1){
+                    $('#tlbalunoaulas').append('<tr><td>'+item.nome_pessoa+'</td><td><a class="btn btn-default btn-sm" onclick="marcarAusente(' + item.id + ');"   rel="tooltip" title="Alterar"><span class="glyphicon glyphicon-ok"></span></a></td></tr>')
+
+            }else if(item.flag_ausente == 2){ 
+                  $('#tlbalunoaulas').append('<tr><td>'+item.nome_pessoa+'</td><td><a class="btn btn-default btn-sm" onclick="marcarPresente(' + item.id + ');" rel="tooltip" title="Marcar Como Presente"><span class="glyphicon glyphicon-remove"></span></a></td></tr>')
+            }
+
            };   
          }
        })     
    }
 
-   buscaAlunoTurma();
+
+function marcarAusente(id){
+     $.ajax({
+        url : '<%=marcaAusente_path %>',
+        data :
+        {
+          id_aula : id
+         },
+    success: function(data){                    
+      
+         buscaAlunoAula();
+      
+         }
+       })     
+
+     }
+
+  function marcarPresente(id){
+     $.ajax({
+        url : '<%=marcaPresenca_path %>',
+        data :
+        {
+          id_aula : id
+         },
+    success: function(data){                    
+        
+         buscaAlunoAula();
+        
+         }
+       })     
+
+     }
+
+
+   $(function(){
+    $("a[rel='tooltip']").tooltip();
+   })
+
+
+   buscaAlunoAula();
 
 </script>

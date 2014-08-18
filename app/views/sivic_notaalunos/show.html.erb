@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nota:</strong>
+  <%= @sivic_notaaluno.nota %>
+</p>
+
+<p>
+  <strong>Sivic licao:</strong>
+  <%= @sivic_notaaluno.sivic_licao %>
+</p>
+
+<p>
+  <strong>Sivic turmaaluno:</strong>
+  <%= @sivic_notaaluno.sivic_turmaaluno %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @sivic_notaaluno.user %>
+</p>
+
+<%= link_to 'Edit', edit_sivic_notaaluno_path(@sivic_notaaluno) %> |
+<%= link_to 'Back', sivic_notaalunos_path %>

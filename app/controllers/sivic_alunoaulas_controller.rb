@@ -14,41 +14,55 @@ class SivicAlunoaulasController < ApplicationController
   end
 
   def frequencia
-     @sivic_alunoaulas = SivicAlunoaula.all
 
-     @sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find(params[:id])
-
+    @sivic_aula = SivicAula.find(params[:id]) 
+  
+    #@sivic_alunoaulas = SivicAlunoaula.all
+    #@sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find(params[:id])
+    #sivic_aula.sivic_turmamoduloprofessor.sivic_turma_id
   end
 
   def aulafrequencia
+       @sivic_aulas  = SivicAula.joins(:sivic_turmamoduloprofessor).where(sivic_turmamoduloprofessors: {sivic_turma_id: params[:id]})
+       @sivic_turma_id = params[:id]
+  end
 
-    @sivic_aula  = SivicAula.joins(:sivic_turmamoduloprofessor).where(sivic_turmamoduloprofessors: {sivic_turma_id: params[:sivic_turma_id]})
+  def busca_aluno_aula
+    @sivic_alunosaula = SivicAlunoaula.find :all, :conditions => {:sivic_aula_id => params[:sivic_aula_id]}
+    @sivic_alunosaula_json = @sivic_alunosaula.map {|item| {:id => item.id, :nome_pessoa => item.sivic_turmaaluno.sivic_pessoa.nome_pessoa, :flag_ausente =>item.flag_ausente}}
+    render :json => @sivic_alunosaula_json
+    
+  end
+
+  def marcar_ausente
+
+      @sivic_alunoaula = SivicAlunoaula.find(params[:id_aula])
+  
+      respond_to do |format|
+      if @sivic_alunoaula.update(:flag_ausente => 2)
+        format.html { redirect_to @sivic_alunoaula, notice: '' }
+        format.json { render action: 'frequencia', status: :created, location: @sivic_alunoaula }
+      else
+        format.html { render action: 'frequencia' }
+        format.json { render json: @sivic_alunoaula.errors, status: :unprocessable_entity }
+      end
+    end    
 
   end
 
-  def busca_aluno_turma
+ def marcar_presenca
 
-    #@aulas =  SivicAula.joins(:sivic_turmamoduloprofessor).where(sivic_turmamoduloprofessors: {sivic_turma_id: params[:sivic_turma_id]})
-    #@aulas_json = @aulas.map {|item| {:id => item.id, :nome_aula => item.nome_aula, :data_aula => item.data_aula}}
-    #render :json => @aulas_json
-    
-    #@alunos =  SivicAlunoaula.joins(:sivic_turmaaluno).where(sivic_turmaalunos: {sivic_turma_id: params[:sivic_turma_id]})
-
-    #@alunos = 
-
-    @alunos = SivicTurmaaluno.find :all, :conditions => {:sivic_turma_id => params[:sivic_turma_id]}
-
-    @aulas =  SivicAula.joins(:sivic_turmamoduloprofessor).where(sivic_turmamoduloprofessors: {sivic_turma_id: params[:sivic_turma_id]})
-
-
-
-    @alunos_json = @alunos.map {|item| {:id => item.id, :nome_pessoa => item.sivic_pessoa.nome_pessoa}}
-    render :json => @alunos_json
-    
-
-
-
-
+      @sivic_alunoaula = SivicAlunoaula.find(params[:id_aula])
+  
+      respond_to do |format|
+      if @sivic_alunoaula.update(:flag_ausente => 1)
+        format.html { redirect_to @sivic_alunoaula, notice: '' }
+        format.json { render action: 'frequencia', status: :created, location: @sivic_alunoaula }
+      else
+        format.html { render action: 'frequencia' }
+        format.json { render json: @sivic_alunoaula.errors, status: :unprocessable_entity }
+      end
+    end    
   end
 
   def busca_aulas_aluno

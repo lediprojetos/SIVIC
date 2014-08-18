@@ -1,0 +1,33 @@
+<h1>Listing sivic_notaalunos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nota</th>
+      <th>Sivic licao</th>
+      <th>Sivic turmaaluno</th>
+      <th>User</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_notaalunos.each do |sivic_notaaluno| %>
+      <tr>
+        <td><%= sivic_notaaluno.nota %></td>
+        <td><%= sivic_notaaluno.sivic_licao %></td>
+        <td><%= sivic_notaaluno.sivic_turmaaluno %></td>
+        <td><%= sivic_notaaluno.user %></td>
+        <td><%= link_to 'Show', sivic_notaaluno %></td>
+        <td><%= link_to 'Edit', edit_sivic_notaaluno_path(sivic_notaaluno) %></td>
+        <td><%= link_to 'Destroy', sivic_notaaluno, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic notaaluno', new_sivic_notaaluno_path %>
