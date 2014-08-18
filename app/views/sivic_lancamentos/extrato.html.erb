@@ -74,13 +74,10 @@ Contas a Pagar
 
         <%elsif sivic_lancamento.sivic_tipmovfinanceiro_id == 3%>
         <td align='right'>
-            <a class="btn btn-default btn-sm" onclick="pagaRecebe(<%= sivic_lancamento.id %>,<%=sivic_lancamento.flag_pago == true ? '0' : '1'%>)" rel="tooltip" title="<%=sivic_lancamento.flag_pago == true ? 'Desfazer Pagamento' : 'Pagar'%>">
-                <span class="<%=sivic_lancamento.flag_pago == true ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-ok'%>"></span>
-            </a>
-            <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
+            <a class="btn btn-default btn-sm" onclick="buscaTransferencia(<%= sivic_lancamento.codi_parcela %>);" rel="tooltip" title="Alterar">
                 <span class="glyphicon glyphicon-pencil"></span>
             </a>            
-            <a class="btn btn-default btn-sm" onclick="excluiLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Excluir">
+            <a class="btn btn-default btn-sm" onclick="excluiTransferencia(<%= sivic_lancamento.codi_parcela %>);" rel="tooltip" title="Excluir">
                 <span class="glyphicon glyphicon-trash"></span>
             </a>
         </td>

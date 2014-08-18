@@ -3,33 +3,79 @@ class SivicLancamentosController < ApplicationController
 
 include ActionView::Helpers::NumberHelper
 
+def deleta_transferencia
+
+  objTransferencia_ori = SivicLancamento.where('valr_pago < 0 and codi_parcela = ?', params[:codi_parcela])
+  objTransferencia_des = SivicLancamento.where('valr_pago > 0 and codi_parcela = ?', params[:codi_parcela])
+
+  objTransferencia_ori.first.data_exclusao = Date.today
+  objTransferencia_des.first.data_exclusao = Date.today
+
+  objTransferencia_ori.first.save
+  objTransferencia_des.first.save
+
+    sivic_lancamento_json = objTransferencia_des.map {|item| {:id => item.id}}
+    render :json => sivic_lancamento_json
+
+end
+
+def busca_transferencia
+
+  objTransferencia_ori = SivicLancamento.where('valr_pago < 0 and codi_parcela = ?', params[:codi_parcela])
+  objTransferencia_des = SivicLancamento.where('valr_pago > 0 and codi_parcela = ?', params[:codi_parcela])
+
+
+      sivic_lancamento_json = objTransferencia_ori.map {|item| {
+                                                        :id => item.id, 
+                                                        :codi_parcela => item.codi_parcela, 
+                                                        :nome_lancamento => item.nome_lancamento,
+                                                        :valr_lancamento =>number_to_currency( item.valr_lancamento, unit: "R$", separator: ",", delimiter: "."),
+                                                        :data_vencimento => (item.data_vencimento.blank? ? '' : item.data_vencimento.strftime("%d/%m/%Y")),
+                                                        :flag_pago => item.flag_pago,
+                                                        :sivic_category_id => item.sivic_category_id,
+                                                        :sivic_contabanco_id_ori => item.sivic_contabanco_id,
+                                                        :sivic_contabanco_id_des => objTransferencia_des.first.sivic_contabanco_id,
+                                                        :data_pagamento => (item.data_pagamento.blank? ? '' : item.data_pagamento.strftime("%d/%m/%Y")),
+                                                        :valr_pago => number_to_currency( item.valr_pago, unit: "R$", separator: ",", delimiter: "."),
+                                                        :valr_jurosmulta => number_to_currency( item.valr_jurosmulta, unit: "R$", separator: ",", delimiter: "."),
+                                                        :valr_descontotaxa => number_to_currency( item.valr_descontotaxa, unit: "R$", separator: ",", delimiter: ".")}
+                                                           }
+      render :json => sivic_lancamento_json
+
+end
+
 def edita_transferencia
 
   #Tratando valores numéricos
+  params[:valr_pago] = params[:valr_pago].gsub('R$', '')
   params[:valr_pago] = params[:valr_pago].gsub('.', '')
   params[:valr_pago] = params[:valr_pago].gsub(',', '.').to_f
 
   #Definindo Origem e destino
-  objTransferencia_ori = SivicLancamento.find_by_codi_parcela(params[:id]).where(:valr_pago < 0)
-  objTransferencia_des = SivicLancamento.find_by_codi_parcela(params[:id]).where(:valr_pago > 0)
+  objTransferencia_ori = SivicLancamento.where('valr_pago < 0 and codi_parcela = ?', params[:codi_parcela])
+  objTransferencia_des = SivicLancamento.where('valr_pago > 0 and codi_parcela = ?', params[:codi_parcela])
 
-  #Origem
-  objTransferencia_ori.nome_lancamento = params[:nome_lancamento]
-  objTransferencia_ori.sivic_contabanco_id = params[:sivic_contabanco_ori_id]
-  objTransferencia_ori.data_pagamento = params[:data_pagamento]
-  objTransferencia_ori.data_vencimento = params[:data_pagamento]
-  objTransferencia_ori.valr_lancamento = (-params[:valr_pago])
-  objTransferencia_ori.valr_pago = (-params[:valr_pago])
-  objTransferencia_ori.save
+    #Origem
+    objTransferencia_ori.first.nome_lancamento = params[:nome_lancamento]
+    objTransferencia_ori.first.sivic_contabanco_id = params[:sivic_contabanco_ori_id]
+    objTransferencia_ori.first.data_pagamento = params[:data_pagamento]
+    objTransferencia_ori.first.data_vencimento = params[:data_pagamento]
+    objTransferencia_ori.first.valr_lancamento = (-params[:valr_pago])
+    objTransferencia_ori.first.valr_pago = (-params[:valr_pago])
+    objTransferencia_ori.first.save
 
-  #Destino
-  objTransferencia_des.nome_lancamento = params[:nome_lancamento]
-  objTransferencia_des.sivic_contabanco_id = params[:sivic_contabanco_ori_id]
-  objTransferencia_des.data_pagamento = params[:data_pagamento]
-  objTransferencia_des.data_vencimento = params[:data_pagamento]
-  objTransferencia_des.valr_lancamento = params[:valr_pago]
-  objTransferencia_des.valr_pago = params[:valr_pago]
-  objTransferencia_des.save  
+    #Destino
+    objTransferencia_des.first.nome_lancamento = params[:nome_lancamento]
+    objTransferencia_des.first.sivic_contabanco_id = params[:sivic_contabanco_des_id]
+    objTransferencia_des.first.data_pagamento = params[:data_pagamento]
+    objTransferencia_des.first.data_vencimento = params[:data_pagamento]
+    objTransferencia_des.first.valr_lancamento = params[:valr_pago]
+    objTransferencia_des.first.valr_pago = params[:valr_pago]
+    objTransferencia_des.first.save  
+
+      #sivic_lancamento = SivicLancamento.find :all, :conditions => {:id => params[:id]}
+      sivic_lancamento_json = objTransferencia_des.map {|item| {:id => item.id, :nome_lancamento => item.nome_lancamento}}
+      render :json => sivic_lancamento_json  
 
 end
 

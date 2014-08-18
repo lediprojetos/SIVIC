@@ -1,4 +1,5 @@
 <input type="hidden" id="numgPagamento" value="0">
+<input type="hidden" id="numgTransferencia" value="0">
 <input type="hidden" id="tipoLancamento" value="">
 
 <nav class="navbar navbar-default" role="navigation">
@@ -18,9 +19,9 @@
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Novo <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a onclick="chamaModal('R')" href="#">Nova Receita</a></li>
-          <li><a onclick="chamaModal('D')" href="#">Nova Despesa</a></li>
-          <li><a data-toggle="modal" data-target="#myModalTransferencia" href="#">Nova Transferência</a></li>
+          <li><a onclick="chamaModal('R')" href="javascript:return false;">Nova Receita</a></li>
+          <li><a onclick="chamaModal('D')" href="javascript:return false;">Nova Despesa</a></li>
+          <li><a data-toggle="modal" data-target="#myModalTransferencia" href="javascript:return false;">Nova Transferência</a></li>
         </ul>
       </li>
       <li
@@ -347,9 +348,26 @@ $(function() {
     $("#chkRepetir").attr("disabled", false);
     $('#numgPagamento').val('0');
 
+    $('#sivic_contabancos_trans_ori_sivic_conta_id').prop( "disabled", false );
+    $('#sivic_contabancos_trans_des_sivic_conta_id').prop( "disabled", false );    
+
     location.reload();
 
   })
+
+  //ações ao fechar o modal transferencia
+  $('#myModalTransferencia').on('hidden.bs.modal', function (e) { 
+
+    $('#nome_lancamentoTrans').val('');
+    $('#data_transferencia').val('');
+    $('#sivic_contabancos_trans_ori_sivic_conta_id').val('');
+    $('#sivic_contabancos_trans_des_sivic_conta_id').val('');
+    $('#valr_lancamento_trans').val('');
+    $('#numgTransferencia').val('0');
+
+    location.reload();
+
+  })  
 
 })
 
@@ -422,6 +440,24 @@ function excluiLancamento(id){
   
 }
 
+function excluiTransferencia(codi_parcela){
+
+  $.ajax({
+    url: '<%= deletaTransferencia_path %>',
+    data : 
+    {
+        codi_parcela : codi_parcela
+    },
+
+    success: function(data){
+          
+        location.reload(); 
+
+    }
+  })   
+  
+}
+
 function pagaRecebe(id,act){
 
 if (act == '0'){
@@ -441,6 +477,50 @@ if (act == '0'){
     success: function(data){
           
         location.reload(); 
+
+    }
+  })          
+
+}
+
+function buscaTransferencia(codi_parcela){
+
+  $.ajax({
+    url: '<%= buscaTransferencia_path %>',
+    data : 
+    {
+        codi_parcela : codi_parcela
+    },
+
+    success: function(data){
+          
+        var options = "";
+        for (var i in data) {
+          var item = data[i];
+
+          $('#nome_lancamentoTrans').val(item.nome_lancamento);
+          $('#data_transferencia').val(item.data_vencimento);
+          $('#sivic_contabancos_trans_ori_sivic_conta_id').val(item.sivic_contabanco_id_ori);
+          $('#sivic_contabancos_trans_des_sivic_conta_id').val(item.sivic_contabanco_id_des);
+
+          //valores monetários
+          if (item.valr_pago){
+            $("#valr_lancamento_trans").val(item.valr_pago.replace("-", ""));
+          };
+
+          //Identifica que será uma edição
+          $("#numgTransferencia").val(item.codi_parcela);
+
+          $('#sivic_contabancos_trans_ori_sivic_conta_id').prop( "disabled", true );
+          $('#sivic_contabancos_trans_des_sivic_conta_id').prop( "disabled", true );
+
+        };
+
+
+        $("#data_transferencia").mask("99/99/9999");
+
+        //abre o modal
+        $('#myModalTransferencia').modal('show');
 
     }
   })          
@@ -542,7 +622,46 @@ function validatesTrans(){
     return false;
   }  
 
-  salvaTransferencia();
+
+  if ($('#numgTransferencia').val() != "0"){
+    editaTransferencia();
+  } else {
+    salvaTransferencia();
+  }  
+
+}
+
+function editaTransferencia(){
+
+if ($('#valr_lancamento_trans').val() == '0,00'){
+  alert_boot('Não é permitido transferências com valores zerados.','warning','#alert_placeholder_transfer');
+  return false
+}
+
+
+  $.ajax({
+    url: '<%= editaTransferencia_path %>',
+    data : 
+    {
+        nome_lancamento : $('#nome_lancamentoTrans').val()
+        ,sivic_contabanco_ori_id : $('#sivic_contabancos_trans_ori_sivic_conta_id').val()
+        ,sivic_contabanco_des_id : $('#sivic_contabancos_trans_des_sivic_conta_id').val()
+        ,data_pagamento : $('#data_transferencia').val()
+        ,valr_pago : $('#valr_lancamento_trans').val()
+        ,codi_parcela : $('#numgTransferencia').val()
+    },
+    success: function(data){
+          
+        alert_boot('Transferência alterada com sucesso.','success','#alert_placeholder_transfer');
+
+        $('#nome_lancamentoTrans').val('');
+        $('#sivic_contabancos_trans_ori_sivic_conta_id').val('');
+        $('#sivic_contabancos_trans_des_sivic_conta_id').val('');
+        $('#data_transferencia').val('');
+        $('#valr_lancamento_trans').val('');
+
+    }
+  })  
 
 }
 
@@ -553,7 +672,7 @@ function salvaTransferencia(){
     data : 
     {
         nome_lancamento : $('#nome_lancamentoTrans').val()
-        ,sivic_contabanco_id : $('#sivic_contabancos_trans_ori_sivic_conta_id').val()
+        ,sivic_contabanco_ori_id : $('#sivic_contabancos_trans_ori_sivic_conta_id').val()
         ,sivic_contabanco_des_id : $('#sivic_contabancos_trans_des_sivic_conta_id').val()
         ,data_pagamento : $('#data_transferencia').val()
         ,valr_pago : $('#valr_lancamento_trans').val()
@@ -637,7 +756,6 @@ if($('#chkPago').is(':checked') == true){
 }  else {
   pago = 'False';
 }
-  
   $.ajax({
     url: '<%= alteraPagamento_path %>',
     data : 
