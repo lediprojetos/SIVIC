@@ -46,9 +46,12 @@ class SivicDiscipulo < ActiveRecord::Base
   @@codigo 
   @@pessoa 
 
-  def self.find_by_name_or_all(query)
+  def self.find_by_name_or_all(query,sivic_igreja_id)
+
+    
     if query
-      self.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('sp.NOME_pessoa like ?', "%#{query}%")
+      query = query.downcase
+      self.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('lower(sp.NOME_pessoa) like ? and sp.sivic_igreja_id = ?', "%#{query}%", sivic_igreja_id)
     else
       self.all
     end    
