@@ -1,15 +1,22 @@
 SIVIC::Application.routes.draw do
 
-  resources :sivic_notaalunos
+  resources :sivic_notaalunos do
+     member do
+       get :licaonota
+     end
+      member do
+       get :notaaluno
+     end
+  end
 
   resources :sivic_alunoaulas do
-   member do
-      get :aulafrequencia
-  end
-   member do
+    member do
+       get :aulafrequencia
+    end
+    member do
       get :frequencia
+    end
   end
-end
 
   resources :sivic_aulas
 

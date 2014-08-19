@@ -1,5 +1,5 @@
 <% content_for :titlePage do %>
-  Alunos  da aula: <%=@sivic_aula.nome_aula%>
+  Alunos  da aula: <%=@sivic_aula.nome_aula%>, dia: <%= @sivic_aula.data_aula.blank? ? '' : @sivic_aula.data_aula.strftime("%d/%m/%Y") %> 
 <% end %>
 
 <%=render '/layouts/panel' %>
@@ -42,7 +42,7 @@
               var item = data[i];
 
              if (item.flag_ausente == 1){
-                    $('#tlbalunoaulas').append('<tr><td>'+item.nome_pessoa+'</td><td><a class="btn btn-default btn-sm" onclick="marcarAusente(' + item.id + ');"   rel="tooltip" title="Alterar"><span class="glyphicon glyphicon-ok"></span></a></td></tr>')
+                    $('#tlbalunoaulas').append('<tr><td>'+item.nome_pessoa+'</td><td><a class="btn btn-default btn-sm" onclick="marcarAusente(' + item.id + ');" rel="tooltip" title="Marcar com Ausente"><span class="glyphicon glyphicon-ok"></span></a></td></tr>')
 
             }else if(item.flag_ausente == 2){ 
                   $('#tlbalunoaulas').append('<tr><td>'+item.nome_pessoa+'</td><td><a class="btn btn-default btn-sm" onclick="marcarPresente(' + item.id + ');" rel="tooltip" title="Marcar Como Presente"><span class="glyphicon glyphicon-remove"></span></a></td></tr>')

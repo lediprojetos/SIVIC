@@ -21,6 +21,22 @@ class SivicNotaalunosController < ApplicationController
   def edit
   end
 
+  def licaonota
+
+    @sivic_licao = SivicLicao.find :all, :conditions => {sivic_turmamoduloprofessor_id: params[:id]}
+
+  end
+
+  def notaaluno
+  
+  end
+
+  def busca_aluno_nota
+        @sivic_alunosaula = SivicAlunoaula.find :all, :conditions => {:sivic_aula_id => params[:sivic_aula_id]}
+        @sivic_alunosaula_json = @sivic_alunosaula.map {|item| {:id => item.id, :nome_pessoa => item.sivic_turmaaluno.sivic_pessoa.nome_pessoa, :flag_ausente =>item.flag_ausente}}
+        render :json => @sivic_alunosaula_json 
+  end
+
   # POST /sivic_notaalunos
   # POST /sivic_notaalunos.json
   def create
