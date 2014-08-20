@@ -30,14 +30,16 @@ textarea {
   resize: vertical;
 }
 
+/*
 .center {
   text-align: center;
   h1 {
     margin-bottom: 10px;
   }
 }
+*/
 
-/* typography */
+/* typography
 
 h1, h2, h3, h4, h5, h6 {
   line-height: 1;
@@ -58,7 +60,7 @@ p {
   line-height: 1.7em;
 }
 
-
+ */
 
 /* footer */
 
@@ -186,4 +188,28 @@ a:hover img {
 .txtareachat {
   width:80%; 
   float:left;
+}
+
+.promo{
+  
+    font-family: "Lato","Helvetica Neue","Helvetica",sans-serif;    font-size: 30px;
+    line-height: 44px;
+    font-weight: 200;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    color:#006983
+
+}
+
+.gradiente{
+  
+background: #d6f9ff; /* Old browsers */
+background: -moz-linear-gradient(45deg,  #d6f9ff 0%, #9ee8fa 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,#d6f9ff), color-stop(100%,#9ee8fa)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(45deg,  #d6f9ff 0%,#9ee8fa 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(45deg,  #d6f9ff 0%,#9ee8fa 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(45deg,  #d6f9ff 0%,#9ee8fa 100%); /* IE10+ */
+background: linear-gradient(45deg,  #d6f9ff 0%,#9ee8fa 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d6f9ff', endColorstr='#9ee8fa',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
 }

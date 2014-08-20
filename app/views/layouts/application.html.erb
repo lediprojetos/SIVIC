@@ -9,7 +9,9 @@
     <%= render 'layouts/shim' %>
   </head>
   <body>
-    <%= render 'layouts/header' %>
+      <% if request.original_fullpath != '/' %>
+        <%= render 'layouts/header' %>
+      <%end%>  
     <div class="wrapper" style="width:80%;">
       <%= yield %>
 
