@@ -44,7 +44,7 @@ def render_civic_discipulo_geracao_list(tasks)
   report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'discipulos_geracao.tlf')
 
   for n in tasks
-    dados_pessoa = SivicDiscipulo.find_by_sivic_pessoa_id(n)
+    dados_pessoa = SivicDiscipulo.find_by_sivic_pessoa_id(n) rescue nil
 
     report.list.add_row do |row|
       row.values lblId: dados_pessoa.sivic_pessoa_id
