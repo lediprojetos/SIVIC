@@ -2,42 +2,22 @@
 <html>
   <head>
     <title><%= full_title(yield(:title)) %></title>
-    <%= stylesheet_link_tag "application", media: "all",
-                                           "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
   </head>
   <body>
-        <%= render 'layouts/header' %>
-    <div class="wrapper" style="width:80%;">
-      <%= yield %>
 
-      <div class="push"></div>
-    </div>
-      <!-- Retira o rodapé, caso esteja na tela de login-->
-      <% if request.original_fullpath != '/users/sign_in' %>
+      <% if request.original_fullpath == '/' %>
+        <%= render 'layouts/header2' %>
+      <%end%>
+
+      <% if request.original_fullpath != '/' %>
+        <%= render 'layouts/header' %>
+        <%= yield %>
         <%= render 'layouts/footer' %>
       <%end%>
   </body>
 </html>
 
-<style> 
-
-    * {
-    margin: 0;
-    }
-    html, body {
-    height: 100%;
-    }
-    .wrapper {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -4em;
-    }
-    .footer, .push {
-    height: 4em;
-    }
-
-</style>
