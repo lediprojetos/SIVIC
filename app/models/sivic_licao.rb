@@ -10,7 +10,7 @@ class SivicLicao < ActiveRecord::Base
       @alunos =  SivicTurmaaluno.find :all, :conditions => {:sivic_turma_id => self.sivic_turmamoduloprofessor.sivic_turma_id}
       @alunos.each do |aluno|
       	
-      	SivicNotaaluno.create(:nota => 0, :sivic_licao_id => self.id, :sivic_turmaaluno_id => aluno.id, :user_inclusao => current_user.id)
+      	SivicNotaaluno.create(:nota => 0, :sivic_licao_id => self.id, :sivic_turmaaluno_id => aluno.id)
 
       end
   end

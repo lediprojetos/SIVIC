@@ -28,6 +28,8 @@ class SivicNotaalunosController < ApplicationController
   end
 
   def notaaluno
+
+    @sivic_notaaluno = SivicNotaaluno.find :all, :conditions => {sivic_licao_id: params[:id]}
   
   end
 
