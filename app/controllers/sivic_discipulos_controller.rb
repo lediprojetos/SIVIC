@@ -46,14 +46,16 @@ def render_civic_discipulo_geracao_list(tasks)
   for n in tasks
     dados_pessoa = SivicDiscipulo.find_by_sivic_pessoa_id(n) rescue nil
 
-    report.list.add_row do |row|
-      row.values lblId: dados_pessoa.sivic_pessoa_id
-      row.values lblNome: dados_pessoa.sivic_pessoa.nome_pessoa
-      row.values lblNascimento: dados_pessoa.DATA_Nascimento
-      row.values lblEndereco: dados_pessoa.sivic_endereco.DESC_Rua + ' ' + dados_pessoa.sivic_endereco.DESC_Complemento + ' ' + dados_pessoa.sivic_endereco.NUMR_Cep
-      row.values lblBairro: dados_pessoa.sivic_endereco.DESC_Bairro
-      row.values lblCelular: dados_pessoa.DESC_TelefoneCelular
-      row.values lblTelefone: dados_pessoa.DESC_TelefoneCelular
+    if dados_pessoa
+      report.list.add_row do |row|
+        row.values lblId: dados_pessoa.sivic_pessoa_id
+        row.values lblNome: dados_pessoa.sivic_pessoa.nome_pessoa
+        row.values lblNascimento: dados_pessoa.DATA_Nascimento
+        row.values lblEndereco: dados_pessoa.sivic_endereco.DESC_Rua + ' ' + dados_pessoa.sivic_endereco.DESC_Complemento + ' ' + dados_pessoa.sivic_endereco.NUMR_Cep
+        row.values lblBairro: dados_pessoa.sivic_endereco.DESC_Bairro
+        row.values lblCelular: dados_pessoa.DESC_TelefoneCelular
+        row.values lblTelefone: dados_pessoa.DESC_TelefoneCelular
+      end
     end
   end
 
