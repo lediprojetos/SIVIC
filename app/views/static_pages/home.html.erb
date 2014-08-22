@@ -1,9 +1,192 @@
-<div class="center hero-unit" style='background-image: url(assets/logo_transp.png); background-repeat:no-repeat;'>
- <%= image_tag('logo_index.png') %>
-  <%#= render 'layouts/user_widget' %>
+   <div class="col-md-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">Membros
+                <a class="btn btn-primary btn-xs pull-right" id="add" href="/membros/create">Novo Membro</a>
+            </div>
 
-<br />
-<br />
-<br />
-<br />
+            <!-- Table -->
+            <table class="table">
+                <tr>
+                    <td class="col-md-10">Total de Membros</td>
+                    <td class="col-md-2">1</td>
+                </tr>
+                <tr>
+                    <td>Ativos</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Transferidos</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Afastados</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>Visitantes</td>
+                    <td>0</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">Resumo Financeiro de Agosto
+                <a class="btn btn-primary btn-xs pull-right" href="/fluxo-mensal">Fluxo de Caixa</a>
+            </div>
+
+            <!-- Table -->
+            <table class="table">
+                <tr>
+                    <td class="col-md-8"><b>Saldo Atual</b></td>
+                    <td class="col-md-4"><b>R$ 244.23</b></td>
+                </tr>
+                <tr>
+                    <td class="col-md-8">Total de Receitas</td>
+                    <td class="col-md-4">R$ 244.23</td>
+                </tr>
+                <tr>
+                    <td>Total de Despesas</td>
+                    <td>R$ 0.00</td>
+                </tr>
+                <tr>
+                    <td>Saldo Previsto</td>
+                    <td>R$ 244.23</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+<div style="clear: both;"></div>
+
+
+    <div class="col-md-6">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                Últimas Receitas
+                <a class="btn btn-success btn-xs pull-right" id="add" href="/receitas/create">Nova Receita</a>
+            </div>
+
+            
+                <!-- Table -->
+                <table class="table">
+                    
+                    <tr>
+                        <td>
+                            fsadfsadf
+                        </td>
+                        <td>
+                            
+                            <span>Sem Categoria</span>
+                            
+                        </td>
+                        <td style="white-space:nowrap;">
+                            R$ 234.23
+                        </td>
+                        <td>
+                            
+                            <span>20/08/2014</span>
+                            
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            dizimo do fulano
+                        </td>
+                        <td>
+                            
+                            <span>Dízimo</span>
+                            
+                        </td>
+                        <td style="white-space:nowrap;">
+                            R$ 10.00
+                        </td>
+                        <td>
+                            
+                            <span>19/08/2014</span>
+                            
+                        </td>
+                    </tr>
+                    
+                </table>
+            
+        </div>
+    </div>
+
+
+
+    <div class="col-md-6">
+        <div class="panel panel-danger">
+            <div class="panel-heading">Despesas a Pagar
+                <a class="btn btn-danger btn-xs pull-right" id="add" href="/despesas/create">Nova Despesa</a>
+            </div>
+
+            
+            <table class="table">
+                <tr>
+                    <td>Nenhum resultado encontrado</td>
+                </tr>
+            </table>
+            
+        </div>
+    </div>
+
+
+<div style="clear: both;"></div>
+
+
+    <div class="col-md-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">Aniversariantes de Agosto
+                <a class="btn btn-info btn-xs pull-right" id="add" href="/membros/aniversariantes">Veja mais</a>
+            </div>
+
+            
+            <!-- Table -->
+            <table class="table">
+                
+                <tr>
+                    <td>
+                        Jew
+                    </td>
+                    <td>
+                        
+                            18
+                        
+                    </td>
+                </tr>
+                
+            </table>
+            
+        </div>
+    </div>
+
+
+
+    <div class="col-md-6">
+        <div class="panel panel-info">
+            <div class="panel-heading">Eventos de Agosto
+                <a class="btn btn-info btn-xs pull-right" id="add" href="/eventos">Veja mais</a>
+            </div>
+            
+            <table class="table">
+                <tr>
+                    <td>Nenhum resultado encontrado</td>
+                </tr>
+            </table>
+            
+        </div>
+    </div>
+
+
+
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
 </div>

@@ -1,0 +1,17 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * 
+ * 
+ * application-all.css
+ *= require_self
+ *= require_tree ./all
+*/
+
+@import "bootstrap/theme";
+@import 'bootstrap';
+@import 'bootstrap-datetimepicker';

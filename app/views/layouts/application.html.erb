@@ -1,43 +1,30 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= full_title(yield(:title)) %></title>
-    <%= stylesheet_link_tag "application", media: "all",
-                                           "data-turbolinks-track" => true %>
-    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-    <%= csrf_meta_tags %>
-    <%= render 'layouts/shim' %>
-  </head>
-  <body>
-        <%= render 'layouts/header' %>
-    <div class="wrapper" style="width:80%;">
-      <%= yield %>
 
-      <div class="push"></div>
-    </div>
-      <!-- Retira o rodapé, caso esteja na tela de login-->
-      <% if request.original_fullpath != '/users/sign_in' %>
-        <%= render 'layouts/footer' %>
+
+      <% if (not user_signed_in? ) && request.original_fullpath == '/' %>
+
+        <%= render 'layouts/header2' %>
+
+      <%else%>
+
+
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title><%= full_title(yield(:title)) %></title>
+            <%= stylesheet_link_tag "application-all", media: "all", "data-turbolinks-track" => true %>
+            <%= javascript_include_tag "application-all", "data-turbolinks-track" => true %>
+            <%= csrf_meta_tags %>
+            <%= render 'layouts/shim' %>
+          </head>
+          <body>
+
+          <% if request.original_fullpath != '/users/sign_in' %>
+            <%= render 'layouts/header' %>
+          <%end%>
+
+          <%= yield %>
+          
+          </body>
+        </html>
       <%end%>
-  </body>
-</html>
 
-<style> 
-
-    * {
-    margin: 0;
-    }
-    html, body {
-    height: 100%;
-    }
-    .wrapper {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -4em;
-    }
-    .footer, .push {
-    height: 4em;
-    }
-
-</style>
