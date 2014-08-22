@@ -16,6 +16,8 @@ class SivicAlunoaulasController < ApplicationController
   def frequencia
 
     @sivic_aula = SivicAula.find(params[:id]) 
+    @sivic_alunosaula = SivicAlunoaula.find :all, :conditions => {:sivic_aula_id => params[:id]}
+
   
     #@sivic_alunoaulas = SivicAlunoaula.all
     #@sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find(params[:id])

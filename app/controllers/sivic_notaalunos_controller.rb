@@ -1,5 +1,5 @@
 class SivicNotaalunosController < ApplicationController
-  before_action :set_sivic_notaaluno, only: [:show, :edit, :update, :destroy]
+  before_action :set_sivic_notaaluno, only: [:show, :edit, :destroy]
 
   # GET /sivic_notaalunos
   # GET /sivic_notaalunos.json
@@ -29,14 +29,28 @@ class SivicNotaalunosController < ApplicationController
 
   def notaaluno
 
-    @sivic_notaaluno = SivicNotaaluno.find :all, :conditions => {sivic_licao_id: params[:id]}
+     @sivic_notaaluno = SivicNotaaluno.find :all, :conditions => {sivic_licao_id: params[:id]}
+
+     @sivic_licao = SivicLicao.find(params[:id])
   
+  end
+
+  def atualizar
+      
+       @sivic_notaaluno.update_all("nota = ?", params[:nota])
+
   end
 
   def busca_aluno_nota
         @sivic_alunosaula = SivicAlunoaula.find :all, :conditions => {:sivic_aula_id => params[:sivic_aula_id]}
         @sivic_alunosaula_json = @sivic_alunosaula.map {|item| {:id => item.id, :nome_pessoa => item.sivic_turmaaluno.sivic_pessoa.nome_pessoa, :flag_ausente =>item.flag_ausente}}
         render :json => @sivic_alunosaula_json 
+  end
+
+  def busca_nota_aluno
+      @sivic_notaaluno = SivicNotaaluno.find :all, :conditions => {sivic_licao_id: params[:sivic_licao_id]}
+      @sivic_notaaluno_json = @sivic_notaaluno.map{|item|{:id=> item.id, :nota => item.nota, :nome_pessoa => item.sivic_turmaaluno.sivic_pessoa.nome_pessoa}}
+      render :json =>  @sivic_notaaluno_json
   end
 
   # POST /sivic_notaalunos
@@ -58,16 +72,47 @@ class SivicNotaalunosController < ApplicationController
   # PATCH/PUT /sivic_notaalunos/1
   # PATCH/PUT /sivic_notaalunos/1.json
   def update
-    respond_to do |format|
-      if @sivic_notaaluno.update(sivic_notaaluno_params)
+    
+   @sivic_notaaluno = SivicNotaaluno.find :all, :conditions => {sivic_licao_id: params[:id]}
+
+   @notas = params[:nota]
+   @idnota = params[:idnota]
+
+   #debugger
+
+   @cont = 0
+
+     @sivic_notaaluno.each do |notaaluno|
+
+       @notas.each_with_index do |nota, indice|
+       
+            if indice = @cont
+                @teste = SivicNotaaluno.find(notaaluno.id)
+                @teste.nota = nota
+
+                @teste.save 
+            end
+       end
+
+       @cont = @cont + 1
+
+     end
+      
+      respond_to do |format|
+        
         format.html { redirect_to @sivic_notaaluno, notice: 'Sivic notaaluno was successfully updated.' }
         format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @sivic_notaaluno.errors, status: :unprocessable_entity }
+
       end
-    end
+
+
+
+   
+   #@sivic_notaaluno.update
+
+
   end
+
 
   # DELETE /sivic_notaalunos/1
   # DELETE /sivic_notaalunos/1.json
@@ -87,6 +132,6 @@ class SivicNotaalunosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_notaaluno_params
-      params.require(:sivic_notaaluno).permit(:nota, :sivic_licao_id, :sivic_turmaaluno_id, :user_id)
+      params.require(:sivic_notaaluno).permit(:nota, :sivic_licao_id, :sivic_turmaaluno_id, :user_inclusao)
     end
 end

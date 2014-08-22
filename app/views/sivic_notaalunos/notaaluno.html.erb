@@ -1,26 +1,72 @@
 <% content_for :titlePage do %>
-  Nota Alunos 
+  Notas Alunos 
 <% end %>
 
 <%=render '/layouts/panel' %>
 
-<table class = "table table-hover">
- <tbody>
-  	<%@sivic_notaaluno.each do |f| %>
-	     <div class="field">
-	    	<%= f.label :nota %><br>
-	    	<%= f.text_field :nota %>
-	    </div>
-		 <div class="field">
-		    <%= f.label :sivic_turmaaluno_id %><br>
-		    <%= f.text_field :sivic_turmaaluno_id %>
-		 </div>		     
-  	<%end%>
- </tbody>
+
+    <%= form_tag sivic_notaaluno_path, :method => :PUT do %>
+      <% @sivic_notaaluno.each do |f| %>
+        <tr>
+          <td>Nome:<%= text_field_tag "idnota[]", f.id %></td>
+          <td>Nome:<%= text_field_tag "nome_pessoa[]", f.sivic_turmaaluno.sivic_pessoa.nome_pessoa %></td>
+          <td><%= text_field_tag "nota[]", f.nota %></td> <br>
+ 
+      <% end %>
+      	<%= submit_tag "atualizar" %>
+    <% end %>
+
+
+<table class="table table-hover" id="tlbnotaluano" name="tlbnotaluano">
+  <thead>
+    <tr>
+      <th>Aluno</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id ="idbodynotaluno">
+      <tr>
+      </tr>
+      <tr>
+      </tr>
+  </tbody>
 </table>
 
-</div>
-</div>
+</div></div>
 
 
 
+<script>
+
+
+  function buscaAlunoAula(){
+       $.ajax({
+        url : '<%=buscaNotaAluno_path %>',
+        data :
+        {
+          sivic_licao_id : '<%=@sivic_licao.id%>'
+         },
+      success: function(data){         
+        $('#idbodynotaluno').empty();
+         for (var i in data){
+              var item = data[i];
+                    $('#tlbnotaluano').append('<tr><td>'+item.nome_pessoa+'</td><td><input type="text" value = "'+item.nota+'"name="nota" id="nota"></td><td align="right"><a class="btn btn-default btn-sm" onclick="alert(' + $('#nota').val() + ');" rel="tooltip" title="Marcar com Ausente"><span class="glyphicon glyphicon-ok"></span></a></td></tr>')
+           };   
+         }
+       })     
+   }
+
+   function atualizarNota(nota){
+
+   	alert(nota);
+
+   }
+
+
+
+$('#NOME_lider_buscar').val();
+
+
+//buscaAlunoAula()
+
+</script>

@@ -12,10 +12,17 @@
     </tr>
   </thead>
   <tbody id ="idbodyalunoaulas">
-      <tr>
-      </tr>
-      <tr>
-      </tr>
+
+    <% @sivic_alunosaula.each do |f| %>
+        <tr>
+          <td><%= f.sivic_turmaaluno.sivic_pessoa.nome_pessoa %></td>
+          <%if f.flag_ausente == 1%>
+            <td align="right"><a class="btn btn-default btn-sm" onclick="marcarAusente('<%= f.id %>');" rel="tooltip" title="Marcar como Ausente"><span class="glyphicon glyphicon-ok"></span></a></td>
+          <%elsif f.flag_ausente ==2%>
+            <td align="right"><a class="btn btn-default btn-sm" onclick="marcarPresente('<%= f.id %>');" rel="tooltip" title="Marcar como Presente"><span class="glyphicon glyphicon-remove"></span></a></td>
+          <%end%>
+        </tr>
+    <%end%>
   </tbody>
 </table>
 
@@ -42,10 +49,10 @@
               var item = data[i];
 
              if (item.flag_ausente == 1){
-                    $('#tlbalunoaulas').append('<tr><td>'+item.nome_pessoa+'</td><td><a class="btn btn-default btn-sm" onclick="marcarAusente(' + item.id + ');" rel="tooltip" title="Marcar com Ausente"><span class="glyphicon glyphicon-ok"></span></a></td></tr>')
+                    $('#tlbalunoaulas').append('<tr><td>'+item.nome_pessoa+'</td><td align="right"><a class="btn btn-default btn-sm" onclick="marcarAusente(' + item.id + ');" rel="tooltip" title="Marcar com Ausente"><span class="glyphicon glyphicon-ok"></span></a></td></tr>')
 
             }else if(item.flag_ausente == 2){ 
-                  $('#tlbalunoaulas').append('<tr><td>'+item.nome_pessoa+'</td><td><a class="btn btn-default btn-sm" onclick="marcarPresente(' + item.id + ');" rel="tooltip" title="Marcar Como Presente"><span class="glyphicon glyphicon-remove"></span></a></td></tr>')
+                  $('#tlbalunoaulas').append('<tr><td>'+item.nome_pessoa+'</td><td align="right"><a class="btn btn-default btn-sm" onclick="marcarPresente(' + item.id + ');" rel="tooltip" title="Marcar Como Presente"><span class="glyphicon glyphicon-remove"></span></a></td></tr>')
             }
 
            };   
@@ -92,6 +99,6 @@ function marcarAusente(id){
    })
 
 
-   buscaAlunoAula();
+  // buscaAlunoAula();
 
 </script>

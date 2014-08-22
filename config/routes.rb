@@ -7,6 +7,7 @@ SIVIC::Application.routes.draw do
       member do
        get :notaaluno
      end
+   
   end
 
   resources :sivic_alunoaulas do
@@ -144,7 +145,7 @@ SIVIC::Application.routes.draw do
   match '/buscaAlunoAula', to: 'sivic_alunoaulas#busca_aluno_aula', via: 'get'
   match '/marcaAusente', to: 'sivic_alunoaulas#marcar_ausente', via: 'get'
   match '/marcaPresenca', to: 'sivic_alunoaulas#marcar_presenca', via: 'get'
-
+  match '/buscaNotaAluno', to: 'sivic_notaalunos#busca_nota_aluno', via: 'get'
 
   
 
