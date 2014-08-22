@@ -1,0 +1,26 @@
+<% content_for :titlePage do %>
+  Nota Alunos 
+<% end %>
+
+<%=render '/layouts/panel' %>
+
+<table class = "table table-hover">
+ <tbody>
+  	<%@sivic_notaaluno.each do |f| %>
+	     <div class="field">
+	    	<%= f.label :nota %><br>
+	    	<%= f.text_field :nota %>
+	    </div>
+		 <div class="field">
+		    <%= f.label :sivic_turmaaluno_id %><br>
+		    <%= f.text_field :sivic_turmaaluno_id %>
+		 </div>		     
+  	<%end%>
+ </tbody>
+</table>
+
+</div>
+</div>
+
+
+
