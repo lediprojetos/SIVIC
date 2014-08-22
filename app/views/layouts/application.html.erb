@@ -1,6 +1,6 @@
 
 
-      <% if request.original_fullpath == '/' %>
+      <% if (not user_signed_in? ) && request.original_fullpath == '/' %>
 
         <%= render 'layouts/header2' %>
 
@@ -24,10 +24,6 @@
 
           <%= yield %>
           
-          <% if request.original_fullpath != '/users/sign_in' %>
-            <%= render 'layouts/footer' %>
-          <%end%>
-
           </body>
         </html>
       <%end%>
