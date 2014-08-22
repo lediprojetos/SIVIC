@@ -1,6 +1,6 @@
 class SivicRelatorioscelula < ActiveRecord::Base
   belongs_to :sivic_celula
-  has_many :sivic_partevenrelacelula
+  has_many :sivic_partevenrelacelula, :dependent => :destroy
   belongs_to :sivic_situacoesrelatorio
 
 
