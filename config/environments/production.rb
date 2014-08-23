@@ -59,7 +59,8 @@ SIVIC::Application.configure do
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-  config.assets.precompile += %w(*.js, application-all.css, application-template.css )
+  config.assets.precompile += %w(*.js, application-all.css, application-template.css template/isotope.css, template/fancybox/jquery.fancybox.css, template/bootstrap.css, template/bootstrap-theme.css, template/style.css, template/default.css)
+
 
   config.assets.paths << Rails.root.join("app","assets","fonts")
 
