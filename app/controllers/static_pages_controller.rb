@@ -1,6 +1,5 @@
 class StaticPagesController < ApplicationController
 
-  #layout 'application_no_user'
 
   def home
   end
