@@ -25,20 +25,15 @@ class SivicNotaalunosController < ApplicationController
 
     @sivic_licao = SivicLicao.find :all, :conditions => {sivic_turmamoduloprofessor_id: params[:id]}
 
+
   end
 
   def notaaluno
 
      @sivic_notaaluno = SivicNotaaluno.find :all, :conditions => {sivic_licao_id: params[:id]}
-
      @sivic_licao = SivicLicao.find(params[:id])
+     
   
-  end
-
-  def atualizar
-      
-       @sivic_notaaluno.update_all("nota = ?", params[:nota])
-
   end
 
   def busca_aluno_nota
@@ -74,41 +69,28 @@ class SivicNotaalunosController < ApplicationController
   def update
     
    @sivic_notaaluno = SivicNotaaluno.find :all, :conditions => {sivic_licao_id: params[:id]}
+   @sivic_licao_id = params[:id]
 
    @notas = params[:nota]
-   @idnota = params[:idnota]
 
-   #debugger
-
-   @cont = 0
-
+    @cont = 0
      @sivic_notaaluno.each do |notaaluno|
-
-       @notas.each_with_index do |nota, indice|
-       
-            if indice = @cont
-                @teste = SivicNotaaluno.find(notaaluno.id)
-                @teste.nota = nota
-
-                @teste.save 
+         @notas.each_with_index do |nota, indice|
+            if indice == @cont                
+                @notaaluno = SivicNotaaluno.find(notaaluno.id)
+                @notaaluno.nota = nota
+                @notaaluno.save 
             end
-       end
-
+        end
        @cont = @cont + 1
-
      end
       
       respond_to do |format|
-        
-        format.html { redirect_to @sivic_notaaluno, notice: 'Sivic notaaluno was successfully updated.' }
-        format.json { head :no_content }
+
+      format.html { redirect_to notaaluno_sivic_notaaluno_path(@sivic_licao_id), notice: 'Sivic notaaluno was successfully updated.' }
+      format.json { head :no_content }
 
       end
-
-
-
-   
-   #@sivic_notaaluno.update
 
 
   end
