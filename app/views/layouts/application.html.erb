@@ -1,20 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
 
 
       <% if (not user_signed_in? ) && request.original_fullpath == '/' %>
 
-        <%= stylesheet_link_tag "application-template" %>
+        <%#= stylesheet_link_tag "application-template" %>
         <%= render 'layouts/header2' %>
-        <%= javascript_include_tag "application-template"%>
-
-          </body>
-        </html>        
+        <%#= javascript_include_tag "application-template"%>
+      
 
       <%else%>
-        <html>
-          <head>
 
 
-        <!DOCTYPE html>
             <title><%= full_title(yield(:title)) %></title>
             <%= stylesheet_link_tag "application-all", media: "all", "data-turbolinks-track" => true %>
             <%= javascript_include_tag "application-all", "data-turbolinks-track" => true %>
@@ -29,7 +27,8 @@
 
           <%= yield %>
           
-          </body>
-        </html>
+ 
       <%end%>
 
+  </body>
+</html> 
