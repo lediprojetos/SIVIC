@@ -2,14 +2,54 @@
 
       <% if (not user_signed_in? ) && request.original_fullpath == '/' %>
 
+        <%= stylesheet_link_tag "application-template" %>
         <%= render 'layouts/header2' %>
+        <%= javascript_include_tag "application-template"%>
+        <!--
+        <script src="/assets/template/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="/assets/template/jquery.js"></script>
+        <script src="/assets/template/jquery.easing.1.3.js"></script>
+        <script src="/assets/template/bootstrap.min.js"></script>
+        <script src="/assets/template/jquery.isotope.min.js"></script>
+        <script src="/assets/template/jquery.nicescroll.min.js"></script>
+        <script src="/assets/template/fancybox/jquery.fancybox.pack.js"></script>
+        <script src="/assets/template/skrollr.min.js"></script>   
+        <script src="/assets/template/jquery.scrollTo-1.4.3.1-min.js"></script>
+        <script src="/assets/template/jquery.localscroll-1.2.7-min.js"></script>
+        <script src="/assets/template/stellar.js"></script>
+        <script src="/assets/template/jquery.appear.js"></script>
+        <script src="/assets/template/validate.js"></script>
+        <script src="/assets/template/main.js"></script>    
+        -->    
+
+ <!-- 
+        <link href="/assets/application-template.css?body=1" media="template" rel="stylesheet" />
+        <link href="/assets/template/animate.css?body=1" media="template" rel="stylesheet" />
+        <link href="/assets/template/bootstrap-theme.css?body=1" media="template" rel="stylesheet" />
+        <link href="/assets/template/bootstrap.css?body=1" media="template" rel="stylesheet" />
+        <link href="/assets/template/default.css?body=1" media="template" rel="stylesheet" />
+        <link href="/assets/template/font-awesome.css?body=1" media="template" rel="stylesheet" />
+        <link href="/assets/template/font-awesome.min.css?body=1" media="template" rel="stylesheet" />
+        <link href="/assets/template/isotope.css?body=1" media="template" rel="stylesheet" />
+        <link href="/assets/template/overwrite.css?body=1" media="template" rel="stylesheet" />
+        <link href="/assets/template/style.css?body=1" media="template" rel="stylesheet" /> 
+        
+    <link rel="stylesheet" type="text/css" href="/assets/template/isotope.css" media="screen" />  
+    <link rel="stylesheet" href="/assets/template/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/assets/template/bootstrap.css">
+    <link rel="stylesheet" href="/assets/template/bootstrap-theme.css">
+    <link rel="stylesheet" href="/assets/template/style.css">
+    <link rel="stylesheet" href="/assets/template/default.css">  -->             
+
+  </body>
+</html>        
 
       <%else%>
+        <html>
+          <head>
 
 
         <!DOCTYPE html>
-        <html>
-          <head>
             <title><%= full_title(yield(:title)) %></title>
             <%= stylesheet_link_tag "application-all", media: "all", "data-turbolinks-track" => true %>
             <%= javascript_include_tag "application-all", "data-turbolinks-track" => true %>
