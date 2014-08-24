@@ -50,4 +50,4 @@ gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0.2'
 
 
 
-gem "font-awesome-rails"
+#gem "font-awesome-rails"
