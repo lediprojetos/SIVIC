@@ -19,18 +19,17 @@
         <td><%= sivic_ministerio.nome_ministerio %></td>
         <td><%= sivic_ministerio.sigl_ministerio %></td>
         <td align='right'>
-          <div class="btn-group">
-            <%= link_to sivic_ministerio, :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-list-alt"></span> Exibir
+            <%= link_to sivic_ministerio, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+              <span class="glyphicon glyphicon-list-alt"></span>
             <% end %>             
-            <%= link_to edit_sivic_ministerio_path(sivic_ministerio), :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-pencil"></span> Editar
+            <%= link_to edit_sivic_ministerio_path(sivic_ministerio), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
+              <span class="glyphicon glyphicon-pencil"></span>
             <% end %>             
-            <%= link_to sivic_ministerio , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-trash"></span> Excluir
-            <% end %>
 
-          </div>
+            <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_ministerios/<%=sivic_ministerio.id%>  "data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir">
+                <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
+            </a>   
+
         </td>             
       </tr>
     <% end %>
@@ -48,3 +47,11 @@
   <% end %>
 </div>
 
+<script>
+
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
+</script>

@@ -26,26 +26,27 @@
         <td><%= sivic_celula.DATA_Bloqueio.blank? ? '' : sivic_celula.DATA_Bloqueio.strftime("%d/%m/%Y") %></td>
 
         <td align='right'>
-          <div class="btn-group">
-            <%= link_to sivic_celula, :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-list-alt"></span> Exibir
+
+            <%= link_to sivic_celula, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+              <span class="glyphicon glyphicon-list-alt"></span>
             <% end %>             
-            <%= link_to edit_sivic_celula_path(sivic_celula), :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-pencil"></span> Editar
+            <%= link_to edit_sivic_celula_path(sivic_celula), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar"  do %>
+              <span class="glyphicon glyphicon-pencil"></span> 
             <% end %>             
-            <%= link_to sivic_celula , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-trash"></span> Excluir
-            <% end %>
             <%if not sivic_celula.DATA_Bloqueio %>
-            <a class="btn btn-default btn-sm" onclick="chamaModal('<%=sivic_celula.id%>')">
-              <span class="glyphicon glyphicon-ban-circle"></span> Bloquear
+            <a class="btn btn-default btn-sm" title="" rel="tooltip" onclick="chamaModal('<%=sivic_celula.id%>')" data-original-title="Bloquear">
+              <span class="glyphicon glyphicon-ban-circle"></span> 
             </a>            
             <%else%>
-            <a class="btn btn-default btn-sm" onclick="chamaModal2('<%=sivic_celula.id%>')">
-              <span class="glyphicon glyphicon-ok-circle"></span> Desbloquear
+            <a class="btn btn-default btn-sm" title="" rel="tooltip" onclick="chamaModal2('<%=sivic_celula.id%>')" data-original-title="Desbloquear">
+              <span class="glyphicon glyphicon-ok-circle"></span>
             </a>
             <%end%>
-          </div>
+
+             <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_celulas/<%=sivic_celula.id%>" data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir">
+                <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
+            </a>  
+
         </td>  
 
       </tr> 
@@ -164,7 +165,6 @@ function desbloquear(){
         
    }
 
-
 function chamaModal(id){  
    
    $('#myModal1').modal('show');
@@ -177,6 +177,11 @@ function chamaModal(id){
    $('#id_celula').val(id);
 
   }
+
+  $(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
 
 </script>
 

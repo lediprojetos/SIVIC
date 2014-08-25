@@ -36,6 +36,7 @@ class SivicAlunoaulasController < ApplicationController
     
   end
 
+
   def marcar_ausente
 
       @sivic_alunoaula = SivicAlunoaula.find(params[:id_aula])
