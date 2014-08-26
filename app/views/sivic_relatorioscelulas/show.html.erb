@@ -178,8 +178,10 @@
         <td><%= sivic_partevenrelacelula.sivic_participantecelula.NUMR_Telefone %></td>
         <td><%= sivic_partevenrelacelula.sivic_sitpartcelula.DESC_situacao %></td>
         <%if not @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 3 %>
-        <td><%= link_to image_tag('trash.png', :title => 'Excluir', class: 'exibirico'), [sivic_partevenrelacelula.sivic_relatorioscelula, sivic_partevenrelacelula],:confirm => 'Deseja excluir o registro?',:method => :delete %>
-         </td>
+        <td align='right'>
+        <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_relatorioscelulas/<%=sivic_partevenrelacelula.sivic_relatorioscelula.id%>/sivic_partevenrelacelulas/<%=sivic_partevenrelacelula.id%>" data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir"><span class="glyphicon glyphicon-trash" rel="tooltip"></span>
+        </a>  
+        </div>
          <%end%>
       </tr>
     <% end %>
@@ -287,9 +289,20 @@
                     </div>
                   </div>
                 <%end%>
-                <div class="modal-footer">
-                  <a data-toggle="modal" href="javascript:createPessoa();" class="btn btn-default">Cadastrar</a>
+
+                  
+              <div class="modal-footer">
+                <div class="row">
+                   
+                <div class="col-xs-9">
                 </div>
+                
+                <div class="col-xs-2">
+                      <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
+                </div>
+                
+                </div>        
+             </div> 
               </div>
             </div>
           </div>
@@ -459,7 +472,8 @@ jQuery(function($){
             //$('#tlbparticipantes').append('<tr><td>'+item.nome_participante+'</td><td>'+item.DESC_Email+'</td><td>'+item.NUMR_Telefone+'</td><td>'+item.DESC_SituacaoParticipante+'</td><td><a data-confirm="Deseja excluir o registro?" data-method="delete" href="/sivic_relatorioscelulas/'+$('#sivic_relatorioscelula_id').val()+'/sivic_partevenrelacelulas/'+item.id+'" rel="nofollow">Excluir</a></td></tr>');
             //alert(item.id);
 
-            $('#tlbparticipantes').append('<tr><td>'+item.nome_participante+'</td><td>'+item.DESC_Email+'</td><td>'+item.NUMR_Telefone+'</td><td>'+item.DESC_SituacaoParticipante+'</td><td><a data-confirm="Deseja excluir o registro?" data-method="delete" href="/sivic_relatorioscelulas/'+$('#sivic_relatorioscelula_id').val()+'/sivic_partevenrelacelulas/'+item.id+'" rel="nofollow"><img alt="Trash" class="exibirico" src="/assets/trash.png" title="Excluir" /></a>')
+             $('#tlbparticipantes').append('<tr><td>'+item.nome_participante+'</td><td>'+item.DESC_Email+'</td><td>'+item.NUMR_Telefone+'</td><td>'+item.DESC_SituacaoParticipante+'</td><td align="right"><a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_relatorioscelulas/'+$('#sivic_relatorioscelula_id').val()+'/sivic_partevenrelacelulas/'+item.id+'" data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir"><span class="glyphicon glyphicon-trash" rel="tooltip"></span></a></td>')
+
           };
  
         }

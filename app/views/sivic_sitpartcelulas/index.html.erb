@@ -1,10 +1,14 @@
-<h1>Listing sivic_sitpartcelulas</h1>
+<% content_for :titlePage do %>
+  Situação Participantes Celulas
+<% end %>
 
-<table>
+
+<%=render '/layouts/panel' %>
+
+<table class="table table-hover">
   <thead>
     <tr>
-      <th>Desc situacao</th>
-      <th>Sivic igreja</th>
+      <th>Situacão</th>
       <th></th>
       <th></th>
       <th></th>
@@ -15,10 +19,17 @@
     <% @sivic_sitpartcelulas.each do |sivic_sitpartcelula| %>
       <tr>
         <td><%= sivic_sitpartcelula.DESC_situacao %></td>
-        <td><%= sivic_sitpartcelula.sivic_igreja %></td>
-        <td><%= link_to 'Show', sivic_sitpartcelula %></td>
-        <td><%= link_to 'Edit', edit_sivic_sitpartcelula_path(sivic_sitpartcelula) %></td>
-        <td><%= link_to 'Destroy', sivic_sitpartcelula, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        
+        <%= link_to sivic_sitpartcelula, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+               <span class="glyphicon glyphicon-list-alt"></span> %>
+          <% end %>
+        <%= link_to edit_sivic_sitpartcelula_path(sivic_sitpartcelula), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar"  do %>
+                <span class="glyphicon glyphicon-pencil"></span> 
+          <% end %>
+        <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_sitpartcelulas/<%=sivic_sitpartcelula.id%>" data-method="delete" data-confirm="       Deseja excluir o registro?" data-original-title="Excluir">
+            <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
+        </a>
+
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +37,8 @@
 
 <br>
 
-<%= link_to 'New Sivic sitpartcelula', new_sivic_sitpartcelula_path %>
+</div></div>
+
+  <%= link_to new_sivic_sitpartcelula_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>

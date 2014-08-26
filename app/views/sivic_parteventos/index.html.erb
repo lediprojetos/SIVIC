@@ -13,8 +13,6 @@
       <th>Evento</th>
       <th>Valor Pago</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -24,20 +22,22 @@
         <td><%= sivic_partevento.sivic_evento.desc_evento %></td>
         <td><%= number_to_currency(sivic_partevento.sivic_movimentofinanceiro.VALR_movimento, unit: "R$", separator: ",", delimiter: "") %></td>
         <td align='right'>         
-        <div class="btn-group">
-          <%= link_to sivic_partevento, :class => "btn btn-default btn-sm" do %>
-            <span class="glyphicon glyphicon-list-alt"></span> Exibir
+          <%= link_to sivic_partevento, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
           <% end %>             
-          <%= link_to edit_sivic_partevento_path(sivic_partevento), :class => "btn btn-default btn-sm" do %>
-            <span class="glyphicon glyphicon-pencil"></span> Editar
+          <%= link_to edit_sivic_partevento_path(sivic_partevento), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
+            <span class="glyphicon glyphicon-pencil"></span>
           <% end %>
-          <%= link_to pEventos_path(sivic_partevento), :confirm => 'Tem ceteza que esta pessoa não participou?', :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-remove-circle"></span> Não foi
-            <% end %>              
-           <%= link_to sivic_partevento , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-trash"></span> Excluir
-            <% end %> 
-        </div>         
+
+          <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/pEventos/<%=sivic_partevento.id%>" data-confirm="Tem ceteza que esta pessoa não participou?" data-original-title="Não foi"> 
+            <span class="glyphicon glyphicon-remove-circle" rel="tooltip"></span>
+          </a>
+
+           <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_parteventos/<%=sivic_partevento.id%>" data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir">
+                <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
+            </a>   
+      </td>
+
       </tr>
     <% end %>
   </tbody>
@@ -59,3 +59,12 @@
 </div>
 
 
+
+<script>
+
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
+</script>

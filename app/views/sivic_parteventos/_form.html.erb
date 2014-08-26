@@ -26,7 +26,7 @@
             <%= f.hidden_field :sivic_pessoa_id%>
             <%#= f.text_field :sivic_pessoa_id, disabled="disabled" %>
             <div class="input-group">
-             <input id="nome_pessoa" name="nome_pessoa" value="<%=@sivic_partevento.sivic_pessoa.nome_pessoa rescue nil%>" onkeypress="" type="text" class="form-control" placeholder="Nome">
+             <input id="nome_pessoa" name="nome_pessoa" disabled="true" value="<%=@sivic_partevento.sivic_pessoa.nome_pessoa rescue nil%>" onkeypress="" type="text" class="form-control" placeholder="Nome pessoa">
             <span class="input-group-btn">
               <button class="btn btn-success" type="button" onclick="$('#myModal2').modal('show');">Buscar Pessoa</button>
             </span>
@@ -43,7 +43,7 @@
              <%= f.label :Evento %>
              <%= f.hidden_field :sivic_evento_id%>
             <div class="input-group">
-             <input id="sivic_evento" name="sivic_evento" value="<%=@sivic_partevento.sivic_evento.desc_evento rescue nil%>" onkeypress="" type="text" class="form-control" placeholder="Nome">
+             <input id="sivic_evento" name="sivic_evento" disabled="true" value="<%=@sivic_partevento.sivic_evento.desc_evento rescue nil%>" onkeypress="" type="text" class="form-control" placeholder="Nome evento">
             <span class="input-group-btn">
               <button class="btn btn-success" type="button" onclick="$('#myModal3').modal('show');">Buscar Evento</button>
             </span>
