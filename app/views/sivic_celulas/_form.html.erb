@@ -6,14 +6,14 @@
 
   <%= form_for(@sivic_celula) do |f| %>
     <% if @sivic_celula.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@sivic_celula.errors.count, "error") %> prohibited this sivic_celula from being saved:</h2>
+      <div class="alert alert-danger" role="alert">
+        <% if @sivic_celula.errors.any? %>
+  
+            <% @sivic_celula.errors.full_messages.each do |msg| %>
 
-        <ul>
-        <% @sivic_celula.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
+          <%= msg %></br>
         <% end %>
-        </ul>
+      <% end %>
       </div>
     <% end %>
 

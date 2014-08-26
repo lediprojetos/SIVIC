@@ -230,5 +230,7 @@ pt:
       sivic_pessoa:
         nome_pessoa: ''
         father_id: ''
+      sivic_celula:
+        sivic_pessoa_id: ''
     errors:
       <<: *errors

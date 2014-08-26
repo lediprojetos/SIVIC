@@ -13,7 +13,7 @@ class SivicCelula < ActiveRecord::Base
   SEXO = %w[MASCULINO FEMININO OUTROS]
 
 
-  #validates :sivic_pessoa_id, :presence => { :message => ' - Escolha o lider de celula' }
+  validates :sivic_pessoa_id, :presence => { :message => 'Escolha o lider de celula' }
 
 
 
