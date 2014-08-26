@@ -35,31 +35,36 @@
         <%= f.label :Tipo_do_Evento %>
         <%= f.select :sivic_tipo_evento_id, options_from_collection_for_select(SivicTipoEvento.all, 'id', 'desc_tipoevento',@sivic_evento.sivic_tipo_evento_id),{:include_blank => true},{:class =>  'form-control'}%>
       </div>
-      <div class="col-xs-3">
-        <%= f.label :Evento %>
+      <div class="col-xs-5">
+        <%= f.label :Nome_Evento %>
         <%= f.text_field :desc_evento, :class =>  'form-control'  %>
       </div>
-      <div class="col-xs-3">
-        <%= f.label :Valor_inscricao %>
-        <%= f.text_field :VARL_inscricao, :class =>  'form-control'  %>
-      </div>          
-      <div class="col-xs-3">
+       <div class="col-xs-4">
         <%= f.label :Resumo %>
         <%= f.text_area :DESC_resumo, :class =>  'form-control' %>
-      </div>
-    <div class="col-xs-3">
-      <%= f.label :DATA_inicio %>
-      <%= f.text_field :DATA_inicio, :class =>  'form-control' %>
+      </div>   
     </div>  
-    <div class="col-xs-3">
-      <%= f.label :DATA_fim %>
-      <%= f.text_field :DATA_fim, :class =>  'form-control' %>
-    </div>
+    <div class="row">  
+     
+      <div class="col-xs-2">
+          <%= f.label :Valor_inscricao %>
+          <%= f.text_field :VARL_inscricao, :class =>  'form-control'  %>
+       </div>
+        <div class="col-xs-2">
+          <%= f.label :DATA_inicio %>
+          <%= f.text_field :DATA_inicio, :class =>  'form-control' %>
+      </div>
 
-    <div class="col-xs-3">
-      <%= f.label :Qtd_Vagas %>
-      <%= f.number_field :NUMR_qdtVagas, :class =>  'form-control'  %>
-    </div> 
+      <div class="col-xs-2">
+        <%= f.label :DATA_fim %>
+        <%= f.text_field :DATA_fim, :class =>  'form-control' %>
+      </div>
+      <div class="col-xs-3">
+        <%= f.label :Qtd_Vagas %>
+        <%= f.number_field :NUMR_qdtVagas, :class =>  'form-control'  %>
+      </div> 
+     
+
   </div>
 
 </div>
