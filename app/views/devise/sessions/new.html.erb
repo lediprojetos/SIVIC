@@ -1,43 +1,53 @@
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<div style='width:250px; margin-left:50%; position:relative; left: -125px;'>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Login</h3>
-    </div>
-    <div class="panel-body">
-            <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-            <div class="row">
-              <div class="col-xs-12">
-                <%= f.label :email %>
-                <%= f.email_field :email, :autofocus => true, :class => 'form-control' %>
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-xs-12">
-              <%= f.label :Senha %>
-              <%= f.password_field :password, :class => 'form-control' %>
-              </div>
-            </div>
-            <br />
-            <div class="row">
-              <div class="col-xs-12">
-                <% if devise_mapping.rememberable? -%>
-                    <%= f.label :Lembrar_Senha %>
-                    <%= f.check_box :remember_me %>
-                <% end %>
-              </div>
-            </div>
-            <br />
-              <%= f.submit "Fazer Login" , class: "btn btn-mediun btn-primary"%>
-              <% end %>
-      <%#= render "devise/shared/links" %>
-      </div>
-    </div> 
-  </div> 
-</div>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
+  </head>
+
+  <body>
+
+  <div class="container" style="width:250px;">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Login</h3>
+      </div>
+      <div class="panel-body">
+              <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+              <div class="row">
+                <div class="col-xs-12">
+                  <%= f.label :email %>
+                  <%= f.email_field :email, :autofocus => true, :class => 'form-control' %>
+                </div>
+              </div>
+              <br />
+              <div class="row">
+                <div class="col-xs-12">
+                <%= f.label :Senha %>
+                <%= f.password_field :password, :class => 'form-control' %>
+                </div>
+              </div>
+              <br />
+              <div class="row">
+                <div class="col-xs-12">
+                  <% if devise_mapping.rememberable? -%>
+                      <%= f.label :Lembrar_Senha %>
+                      <%= f.check_box :remember_me %>
+                  <% end %>
+                </div>
+              </div>
+              <br />
+                <%= f.submit "Fazer Login" , class: "btn btn-mediun btn-primary"%>
+                <% end %>
+        <%#= render "devise/shared/links" %>
+        </div>
+      </div> 
+    </div> 
+  </div>
+
+
+  </body>
+</html>
