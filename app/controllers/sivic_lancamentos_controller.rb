@@ -3,6 +3,78 @@ class SivicLancamentosController < ApplicationController
 
 include ActionView::Helpers::NumberHelper
 
+def edita_dizimo
+
+  #Tratando valores numéricos
+  params[:valr_pago] = params[:valr_pago].gsub('R$', '')
+  params[:valr_pago] = params[:valr_pago].gsub('.', '')
+  params[:valr_pago] = params[:valr_pago].gsub(',', '.').to_f
+
+  #Definindo Origem e destino
+  objDizimo = SivicLancamento.find_by_id(params[:id])
+
+  #Origem
+  objDizimo.sivic_contabanco_id = params[:sivic_contabanco_id]
+  objDizimo.data_pagamento = params[:data_pagamento]
+  objDizimo.data_vencimento = params[:data_pagamento]
+  objDizimo.valr_lancamento = params[:valr_pago]
+  objDizimo.valr_pago = params[:valr_pago]
+  objDizimo.sivic_pessoa_id = params[:sivic_pessoa_id]
+  objDizimo.sivic_igreja_id = current_user.sivic_pessoa.sivic_igreja_id
+  objDizimo.save
+
+      sivic_lancamento = SivicLancamento.find :all, :conditions => {:id => params[:id]}
+      sivic_lancamento_json = sivic_lancamento.map {|item| {:id => item.id, :nome_lancamento => item.nome_lancamento}}
+      render :json => sivic_lancamento_json  
+
+end
+
+def busca_dizimo
+
+      sivic_lancamento = SivicLancamento.find :all, :conditions => {:id => params[:id]}
+      sivic_lancamento_json = sivic_lancamento.map {|item| {
+                                                        :id => item.id, 
+                                                        :valr_lancamento =>number_to_currency( item.valr_lancamento, unit: "R$", separator: ",", delimiter: "."),
+                                                        :sivic_contabanco_id => item.sivic_contabanco_id,
+                                                        :data_pagamento => (item.data_pagamento.blank? ? '' : item.data_pagamento.strftime("%d/%m/%Y")),
+                                                        :valr_pago => number_to_currency( item.valr_pago, unit: "R$", separator: ",", delimiter: "."),
+                                                        :sivic_pessoa_id => item.sivic_pessoa_id,
+                                                        :nome_pessoa => item.sivic_pessoa.nome_pessoa}
+                                                           }
+      render :json => sivic_lancamento_json
+
+end
+
+def create_dizimo
+
+  #Tratando valores numéricos
+  params[:valr_pago] = params[:valr_pago].gsub('.', '')
+  params[:valr_pago] = params[:valr_pago].gsub(',', '.').to_f
+
+  objDizimo = SivicLancamento.new
+
+  objDizimo.nome_lancamento = 'Dizimo'
+  objDizimo.sivic_contabanco_id = params[:sivic_contabanco_id]
+  objDizimo.data_pagamento = params[:data_pagamento]
+  objDizimo.data_vencimento = params[:data_pagamento]
+  objDizimo.valr_lancamento = params[:valr_pago]
+  objDizimo.valr_pago = params[:valr_pago]
+  objDizimo.sivic_tipmovfinanceiro_id = 2
+  objDizimo.sivic_category_id = 1
+  objDizimo.flag_pago = true
+  objDizimo.sivic_pessoa_id = params[:sivic_pessoa_id]
+  objDizimo.sivic_igreja_id = current_user.sivic_pessoa.sivic_igreja_id
+
+  objDizimo.save
+
+  sivic_lancamento = SivicLancamento.find :all, :conditions => {:id => objDizimo.id}
+  sivic_lancamento_json = sivic_lancamento.map {|item| {:id => item.id}}
+  render :json => sivic_lancamento_json
+
+end
+
+
+
 def deleta_transferencia
 
   objTransferencia_ori = SivicLancamento.where('valr_pago < 0 and codi_parcela = ?', params[:codi_parcela])

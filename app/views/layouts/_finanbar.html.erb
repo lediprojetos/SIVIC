@@ -1,5 +1,6 @@
 <input type="hidden" id="numgPagamento" value="0">
 <input type="hidden" id="numgTransferencia" value="0">
+<input type="hidden" id="numgDizimo" value="0" />
 <input type="hidden" id="tipoLancamento" value="">
 
 <nav class="navbar navbar-default" role="navigation">
@@ -22,6 +23,7 @@
           <li><a onclick="chamaModal('R')" href="javascript:return false;">Nova Receita</a></li>
           <li><a onclick="chamaModal('D')" href="javascript:return false;">Nova Despesa</a></li>
           <li><a data-toggle="modal" data-target="#myModalTransferencia" href="javascript:return false;">Nova Transferência</a></li>
+          <li><a data-toggle="modal" data-target="#myModalDizimo" href="javascript:return false;">Dízimo</a></li>
         </ul>
       </li>
       <li
@@ -309,6 +311,113 @@
   </div>
 </div>
 
+<!-- Dízimo -->
+<div class="modal fade" id="myModalDizimo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+        <h4 class="modal-title" id="myModalLabel">Dízimo</h4>
+      </div>
+      <div class="modal-body">
+        <div id = "alert_placeholder_dizimo"></div>  
+        <div class="row">
+
+          <div class="col-xs-12">
+            <label for="sivic_pessoa_dizimo_nome">Nome</label>
+              <input class="form-control" id="sivic_pessoa_dizimo_nome" name="sivic_pessoa_dizimo_nome" type="text" />
+
+              <script>
+                  $("#sivic_pessoa_dizimo_nome" ).click(function() {
+                    $('#myModalDizimista').modal('show');
+                  });                  
+              </script>
+
+              <input id="sivic_pessoa_dizimo_id" name="sivic_pessoa_dizimo_id" type="hidden" value="" />
+              
+
+          </div>      
+
+          <div class="col-xs-12">
+              <label for="sivic_pessoa_dizimo_nome">Conta</label>
+              <%=  fields_for :sivic_contabancos do |f| %>
+                <%= f.select :sivic_conta_dizimo_id, options_from_collection_for_select(SivicContabanco.all, 'id', 'nome_conta'),{:include_blank => true},{ :class =>  'form-control'}%>
+              <% end %>          
+          </div>           
+
+        </div>      
+        <div class="row">
+          <div class='col-sm-6'>
+            <label for="data_dizimo">Data Dízimo</label>
+              <div class="form-group">
+                  <div class='input-group date' id='datetimepicker6'>
+                      <input id="data_dizimo" name="data_dizimo" type='text' class="form-control" />
+                      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                  </div>
+              </div>
+          </div>
+
+
+        <div class="col-xs-6">
+            <spam>Valor</spam>
+            <input id="valr_dizimo" name="valr_dizimo" type="text" class="form-control"> 
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button id="bntSalvar" type="button" class="btn btn-primary" onclick="validatesDizimo();">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" id="myModalDizimista" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Buscar Pessoas</h4>
+      </div>
+      <div class="modal-body">
+
+        <label >Nome</label><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <input id="nome_pessoa_buscar" name="nome_pessoa_buscar" onkeypress="buscaPessoa('pessoa')" type="text" class="form-control" placeholder="Nome">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" onclick="usaNome();">Buscar</button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <br />
+
+        <table id="table_user" name="table_user" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyid">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 
 $(function() {
@@ -317,11 +426,13 @@ $(function() {
   $('#datetimepicker3').datetimepicker({language: 'pt', pickTime: false});
   $('#datetimepicker4').datetimepicker({language: 'pt', pickTime: false});
   $('#datetimepicker5').datetimepicker({language: 'pt', pickTime: false});
+  $('#datetimepicker6').datetimepicker({language: 'pt', pickTime: false});
   $("#valr_lancamento").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
   $("#valr_lancamento_trans").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
   $("#valr_descontotaxa").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
   $("#valr_jurosmulta").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
   $("#valr_pago").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+  $("#valr_dizimo").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
 
   $("#data_transferencia").mask("99/99/9999");
   $("#data_vencimento").mask("99/99/9999");
@@ -364,11 +475,68 @@ $(function() {
 
     location.reload();
 
+  }) 
+
+  //ações ao fechar o modal dizimo
+  $('#myModalDizimo').on('hidden.bs.modal', function (e) { 
+
+    $('#sivic_pessoa_dizimo_nome').val('');
+    $('#sivic_pessoa_dizimo_id').val('');
+    $('#data_dizimo').val('');
+    $('#sivic_conta_dizimo_id').val('');
+    $('#valr_dizimo').val('');
+    $('#numgDizimo').val('0');
+
+    location.reload();
+
+  })   
+
+  $('#myModalDizimista').on('shown.bs.modal', function () {
+      $("#nome_pessoa_buscar" ).val("");  
+      $("#sivic_pessoa_dizimo_id" ).val("");  
+      $('#nome_pessoa_buscar').focus();
   })  
 
 })
 
 
+function buscaPessoa(fonte){
+
+      var pesquisa;
+
+
+      pesquisa = $('#nome_pessoa_buscar').val();
+
+
+      $.ajax({
+        url: '<%= listarDiscipulos_path %>',
+        data : 
+        {
+            nome_pessoa : pesquisa
+        },
+        success: function(data){
+          $("#tbodyid").empty();
+          $("#tbodyid2").empty();
+          for (var i in data) {
+            var item = data[i];
+
+
+              $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
+
+          };
+ 
+        }
+      })
+    }
+
+  function setaNome(nome,id){
+
+      $('#sivic_pessoa_dizimo_id').val(id)
+      $('#sivic_pessoa_dizimo_nome').val(nome)
+
+      $('#myModalDizimista').modal('hide');
+
+  }      
 
 function chamaModal(tipo){
 
@@ -592,6 +760,81 @@ function buscaLancamento(id){
 
 }
 
+function buscaDizimo(id){
+
+  $.ajax({
+    url: '<%= busca_dizimo_path %>',
+    data : 
+    {
+        id : id
+    },
+
+    success: function(data){
+          
+        //alert_boot('Pagamento salvo com sucesso.','success');
+
+        var options = "";
+        for (var i in data) {
+          var item = data[i];
+
+          $('#sivic_pessoa_dizimo_nome').val(item.nome_pessoa);
+          $('#sivic_pessoa_dizimo_id').val(item.sivic_pessoa_id);
+          $('#data_dizimo').val(item.data_pagamento);
+          $('#sivic_contabancos_sivic_conta_dizimo_id').val(item.sivic_contabanco_id);
+
+          //valores monetários
+          if (item.valr_pago){
+            $("#valr_dizimo").val(item.valr_pago);
+          };
+
+          //Identifica que será uma edição
+            $("#numgDizimo").val(item.id);
+
+        };
+
+        //abre o modal
+        $('#myModalDizimo').modal('show');
+
+    }
+  })          
+
+}
+
+function validatesDizimo(){
+
+  if ($('#sivic_pessoa_dizimo_nome').val() == ""){
+    alert_boot('Digite o nome do dizimista.','warning','#alert_placeholder_dizimo');
+    return false;
+  }
+
+  if ($('#sivic_pessoa_dizimo_id').val() == ""){
+    alert_boot('Digite o nome do dizimista.','warning','#alert_placeholder_dizimo');
+    return false;
+  }  
+
+  if ($('#sivic_contabancos_sivic_conta_dizimo_id').val() == ""){
+    alert_boot('Escolha uma conta.','warning','#alert_placeholder_dizimo')
+    return false;
+  }     
+ 
+  if ($('#data_dizimo').val() == ""){
+    alert_boot('Digite uma data para o lançamento.','warning','#alert_placeholder_dizimo')
+    return false;
+  }   
+
+  if ($('#valr_dizimo').val() == ""){
+    alert_boot('Digite o valor do dízimo.','warning','#alert_placeholder_dizimo')
+    return false;
+  }     
+
+  if ($('#numgDizimo').val() != "0"){
+    editaDizimo();
+  } else {
+    salvaDizimo();
+  }    
+
+}
+
 function validatesTrans(){
 
   if ($('#nome_lancamentoTrans').val() == ""){
@@ -629,6 +872,40 @@ function editaTransferencia(){
 
 if ($('#valr_lancamento_trans').val() == '0,00'){
   alert_boot('Não é permitido transferências com valores zerados.','warning','#alert_placeholder_transfer');
+  return false
+}
+
+
+  $.ajax({
+    url: '<%= editaTransferencia_path %>',
+    data : 
+    {
+        nome_lancamento : $('#nome_lancamentoTrans').val()
+        ,sivic_contabanco_ori_id : $('#sivic_contabancos_trans_ori_sivic_conta_id').val()
+        ,sivic_contabanco_des_id : $('#sivic_contabancos_trans_des_sivic_conta_id').val()
+        ,data_pagamento : $('#data_transferencia').val()
+        ,valr_pago : $('#valr_lancamento_trans').val()
+        ,codi_parcela : $('#numgTransferencia').val()
+    },
+    success: function(data){
+          
+        alert_boot('Transferência alterada com sucesso.','success','#alert_placeholder_transfer');
+
+        $('#nome_lancamentoTrans').val('');
+        $('#sivic_contabancos_trans_ori_sivic_conta_id').val('');
+        $('#sivic_contabancos_trans_des_sivic_conta_id').val('');
+        $('#data_transferencia').val('');
+        $('#valr_lancamento_trans').val('');
+
+    }
+  })  
+
+}
+
+function editaTransferencia(){
+
+if ($('#valr_dizimo').val() == '0,00'){
+  alert_boot('Não é permitido dízimos com valores zerados.','warning','#alert_placeholder_dizimo');
   return false
 }
 
@@ -788,6 +1065,56 @@ if($('#chkPago').is(':checked') == true){
   })  
 }          
 
+function salvaDizimo() {
+
+  $.ajax({
+    url: '<%= insereDizimo_path %>',
+    data : 
+    {
+        sivic_pessoa_id : $('#sivic_pessoa_dizimo_id').val()
+        ,data_pagamento : $('#data_dizimo').val()
+        ,valr_pago : $('#valr_dizimo').val()
+        ,sivic_contabanco_id : $('#sivic_contabancos_sivic_conta_dizimo_id').val()
+    },
+    success: function(data){
+          
+        alert_boot('Dízimo salvo com sucesso.','success','#alert_placeholder_dizimo');
+
+        $('#sivic_pessoa_dizimo_nome').val('');
+        $('#sivic_pessoa_dizimo_id').val('');
+        $('#data_dizimo').val('');
+        $('#valr_pago').val('');
+
+
+    }
+  })  
+}
+
+function editaDizimo() {
+
+  $.ajax({
+    url: '<%= editaDizimo_path %>',
+    data : 
+    {
+        id : $('#numgDizimo').val()
+        ,sivic_pessoa_id : $('#sivic_pessoa_dizimo_id').val()
+        ,data_pagamento : $('#data_dizimo').val()
+        ,valr_pago : $('#valr_dizimo').val()
+        ,sivic_contabanco_id : $('#sivic_contabancos_sivic_conta_dizimo_id').val()
+    },
+    success: function(data){
+          
+        alert_boot('Dízimo salvo com sucesso.','success','#alert_placeholder_dizimo');
+
+        $('#sivic_pessoa_dizimo_nome').val('');
+        $('#sivic_pessoa_dizimo_id').val('');
+        $('#data_dizimo').val('');
+        $('#valr_pago').val('');
+
+
+    }
+  })  
+}
 
 function salvaLancamento() {
 
