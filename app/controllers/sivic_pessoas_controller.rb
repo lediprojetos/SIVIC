@@ -2,6 +2,18 @@ class SivicPessoasController < ApplicationController
   before_action :set_sivic_pessoa, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
+  def edita_nome
+    
+    objPessoa = SivicPessoa.find_by_id(params[:id])
+
+    objPessoa.nome_pessoa = params[:nome_novo]
+    objPessoa.save
+
+
+    sivic_pessoa = SivicPessoa.find :all, :conditions => {:id =>  params[:id]}
+    sivic_pessoa_json = sivic_pessoa.map {|item| {:id => item.id, :nome_pessoa => item.nome_pessoa, :DESC_email => item.DESC_email}}
+    render :json => sivic_pessoa_json
+  end
 
   def create_pessoa
     SivicPessoa.create(:father_id => params[:father_id],:nome_pessoa => params[:nome_pessoa],:DESC_email => params[:DESC_email],:DESC_observacao => params[:DESC_observacao],:sivic_igreja_id => params[:sivic_igreja_id])

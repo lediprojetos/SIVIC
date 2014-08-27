@@ -44,12 +44,20 @@ Contas a Pagar
         <td align='right'>
 
 
+          <%if sivic_lancamento.sivic_category_id != 1%>
             <a class="btn btn-default btn-sm" onclick="pagaRecebe(<%= sivic_lancamento.id %>,<%=sivic_lancamento.flag_pago == true ? '0' : '1'%>)" rel="tooltip" title="<%=sivic_lancamento.flag_pago == true ? 'Desfazer Recebimento' : 'Receber'%>">
                 <span class="<%=sivic_lancamento.flag_pago == true ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-ok'%>"></span>
             </a>
-            <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
+          <%end%>            
+          <%if sivic_lancamento.sivic_category_id == 1%>
+            <a class="btn btn-default btn-sm" onclick="buscaDizimo(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
                 <span class="glyphicon glyphicon-pencil"></span>
             </a>            
+          <%else%>            
+            <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>          
+          <%end%>            
             <a class="btn btn-default btn-sm" onclick="excluiLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Excluir">
                 <span class="glyphicon glyphicon-trash"></span>
             </a>
