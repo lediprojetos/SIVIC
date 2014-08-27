@@ -102,6 +102,8 @@ SIVIC::Application.routes.draw do
   match '/listarCidade', to: 'sivic_igrejas#get_cities', via: 'get'
   match '/criarPessoa', to: 'sivic_pessoas#create_pessoa', via: 'get'
   match '/listarPessoa', to: 'sivic_pessoas#busca_pessoa', via: 'get'
+  match '/editarNome', to: 'sivic_pessoas#edita_nome', via: 'get'
+
   match '/listarDiscipulos', to: 'sivic_discipulos#busca_discipulos', via: 'get'
   match '/listarCelulas', to: 'sivic_celulas#busca_celulas', via: 'get'
 
@@ -125,6 +127,9 @@ SIVIC::Application.routes.draw do
   match '/editaPagaRecebe', to: 'sivic_lancamentos#edita_pagaRecebe', via: 'get'
   match '/deletaLancamento', to: 'sivic_lancamentos#deleta_lancamento', via: 'get'
   match '/setaPeriodo', to: 'sivic_lancamentos#seta_periodo', via: 'get'
+  match '/insereDizimo', to: 'sivic_lancamentos#create_dizimo', via: 'get'
+  match '/busca_dizimo', to: 'sivic_lancamentos#busca_dizimo', via: 'get'
+  match '/editaDizimo', to: 'sivic_lancamentos#edita_dizimo', via: 'get'
 
   match '/insereTransferencia', to: 'sivic_lancamentos#create_transferencia', via: 'get'
   match '/editaTransferencia', to: 'sivic_lancamentos#edita_transferencia', via: 'get'

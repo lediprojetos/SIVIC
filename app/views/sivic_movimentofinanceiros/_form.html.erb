@@ -1,3 +1,9 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= 'Cadastro movimento Financeiro'%></h3>
+  </div>
+  <div class="panel-footer">
+
 <%= form_for(@sivic_movimentofinanceiro) do |f| %>
   <% if @sivic_movimentofinanceiro.errors.any? %>
     <div id="error_explanation">
@@ -11,32 +17,50 @@
     </div>
   <% end %>
 
-  <div class="containermininmo">
-    <table style="width:40%" align='center'>
-      <tr>
-        <td>
-          <div class="field">
+        
+  <div class="row">
+          <div class="col-xs-2">
+          </div>
+          <div class="col-xs-4">
             <%= f.label :Evento %>
-            <%= f.select :sivic_evento_id, options_from_collection_for_select(SivicEvento.all, 'id', 'desc_evento',@sivic_movimentofinanceiro.sivic_evento_id), {:include_blank => true},{:class => 'form-control-100'}%>
+            <%= f.select :sivic_evento_id, options_from_collection_for_select(SivicEvento.all, 'id', 'desc_evento',@sivic_movimentofinanceiro.sivic_evento_id), {:include_blank => true},{:class => 'form-control'}%>
           </div>
-          <div class="field">
+          <div class="col-xs-4">
             <%= f.label :Tipo_Movimento %>
-            <%= f.select :sivic_tipmovfinanceiro_id, options_from_collection_for_select(SivicTipmovfinanceiro.all, 'id', 'DESC_movimento',@sivic_movimentofinanceiro.sivic_tipmovfinanceiro_id),{:include_blank => true}, {:class => 'form-control-100'}%>
+            <%= f.select :sivic_tipmovfinanceiro_id, options_from_collection_for_select(SivicTipmovfinanceiro.all, 'id', 'DESC_movimento',@sivic_movimentofinanceiro.sivic_tipmovfinanceiro_id),{:include_blank => true}, {:class => 'form-control'}%>
           </div>
-          <div class="field">
+  </div>
+  <div class="row">
+        <div class="col-xs-4">
+        </div>
+        <div class="col-xs-2">
             <%= f.label :Valor %>
-            <%= f.text_field :VALR_movimento %>
-          </div>
-            <div class="field">
+            <%= f.text_field :VALR_movimento, :class => 'form-control' %>
+        </div>
+        <div class="col-xs-2">
             <%= f.label :Descricão_Movimento %>
-            <%= f.text_area :DESC_movimento, :class => 'form-control-100' %>
-          </div>
-        </td>
-      </tr>
-    </table>
+            <%= f.text_area :DESC_movimento, :class => 'form-control' %>
+        </div>
+  </div>
+        
 
-<!--Capturando Usuario logado-->
+  <!--Capturando Usuario logado-->
   <%=f.hidden_field :user_inclusao, :value => current_user.id%>  
+    
+    </div>
+  </div>
+</div>
 
-  <%=render '/layouts/iconsalvar' %>
+<div class="btn-group">
+  <button type="submit" class="btn btn-default btn">
+    <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+  </button>
+
+  <%= yield(:iconexibir) %>
+
+  <%= link_to sivic_parteventos_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+</div>
+
 <% end %>
