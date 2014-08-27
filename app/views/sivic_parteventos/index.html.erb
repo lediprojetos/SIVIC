@@ -19,7 +19,7 @@
     <% @sivic_parteventos.each do |sivic_partevento| %>
       <tr>
         <td><%= sivic_partevento.sivic_pessoa.nome_pessoa %></td>
-        <td><%= sivic_partevento.sivic_evento.desc_evento %></td>
+        <td><%= sivic_partevento.sivic_evento.desc_evento rescue nil %></td>
         <td><%= number_to_currency(sivic_partevento.sivic_movimentofinanceiro.VALR_movimento, unit: "R$", separator: ",", delimiter: "") %></td>
         <td align='right'>         
           <%= link_to sivic_partevento, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
