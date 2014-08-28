@@ -1,32 +1,24 @@
 
- <!--
+ 
    <div class="col-md-6">
         <div class="panel panel-info">
             <div class="panel-heading">Membros
-                <a class="btn btn-primary btn-xs pull-right" id="add" href="/membros/create">Novo Membro</a>
+                <a class="btn btn-primary btn-xs pull-right" id="add" href="<%=sivic_discipulos_path %>">Novo Membro</a>
             </div>
 
             
             <table class="table">
                 <tr>
-                    <td class="col-md-10">Total de Membros</td>
-                    <td class="col-md-2">1</td>
+                    <td class="col-md-10">Total de Membros Ativos</td>
+                    <td class="col-md-2"><%=@total_discipulos%></td>
+                </tr>                
+                <tr>
+                    <td class="col-md-10">Total de Membros Bloqueados</td>
+                    <td class="col-md-2"><%=@total_discipulos%></td>
                 </tr>
                 <tr>
-                    <td>Ativos</td>
-                    <td>1</td>
-                </tr>
-                <tr>
-                    <td>Transferidos</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>Afastados</td>
-                    <td>0</td>
-                </tr>
-                <tr>
-                    <td>Visitantes</td>
-                    <td>0</td>
+                    <td>Total de Células</td>
+                    <td><%=@total_celulas%></td>
                 </tr>
             </table>
         </div>
@@ -36,31 +28,36 @@
 
     <div class="col-md-6">
         <div class="panel panel-info">
-            <div class="panel-heading">Resumo Financeiro de Agosto
-                <a class="btn btn-primary btn-xs pull-right" href="/fluxo-mensal">Fluxo de Caixa</a>
+            <div class="panel-heading">Resumo Financeiro do Mês
+                <a class="btn btn-primary btn-xs pull-right" href="/extrato">Fluxo de Caixa</a>
             </div>
 
             <table class="table">
                 <tr>
-                    <td class="col-md-8"><b>Saldo Atual</b></td>
-                    <td class="col-md-4"><b>R$ 244.23</b></td>
+                    <td class="col-md-8"><b>Total de Receitas(R$)</b></td>
+                    <td class="col-md-4"><b><spam style="color: rgb(74, 186, 88);"><%= number_to_currency(@total_recebimento, unit: "R$", separator: ",", delimiter: ".") %></spam></b></td>
                 </tr>
                 <tr>
-                    <td class="col-md-8">Total de Receitas</td>
-                    <td class="col-md-4">R$ 244.23</td>
+                    <td class="col-md-8">Total de Despesas(R$)</td>
+                    <td class="col-md-4"><spam style="color: rgb(211, 47, 47);"><%= number_to_currency(@total_pagamento, unit: "R$", separator: ",", delimiter: ".") %></spam></td>
                 </tr>
                 <tr>
-                    <td>Total de Despesas</td>
-                    <td>R$ 0.00</td>
-                </tr>
-                <tr>
-                    <td>Saldo Previsto</td>
-                    <td>R$ 244.23</td>
+                    <td>Total do Período(R$)</td>
+                    <td>          
+                        <%if @total_periodo < 0%>
+                        <label style='color: rgb(211, 47, 47);'>
+                        <%elsif @total_periodo >= 0%>
+                        <label style='color: rgb(56, 90, 122);'>
+                        <%end%>        
+                        <%= number_to_currency(@total_periodo, unit: "R$", separator: ",", delimiter: ".") %>
+                        </label>
+                    </td>
                 </tr>
             </table>
         </div>
     </div>
 
+<!--
 
 <div style="clear: both;"></div>
 

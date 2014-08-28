@@ -122,9 +122,9 @@ class SivicParteventosController < ApplicationController
 
     tasks.each do |task|
       report.list.add_row do |row|
-        row.values lblNome: task.sivic_pessoa.nome_pessoa
-        row.values lblLider: task.sivic_pessoa.father.nome_pessoa
-        row.values lblConvidadoPor: task.desc_convidadopor
+        row.values lblNome: task.sivic_pessoa.nome_pessoa rescue nil
+        row.values lblLider: task.sivic_pessoa.father.nome_pessoa rescue nil
+        row.values lblConvidadoPor: task.desc_convidadopor rescue nil
         row.values lblCont: cont
 
         cont += 1

@@ -30,11 +30,15 @@ Contas a Pagar
         </td>
         <td><%= (sivic_lancamento.data_vencimento.blank? ? '' : sivic_lancamento.data_vencimento.strftime("%d/%m/%Y")) %></td>
         <td><%= sivic_lancamento.sivic_category.nome_categoria rescue nil%></td>
-        <%if sivic_lancamento.numr_parcela %>
-          <td><%= sivic_lancamento.nome_lancamento + ' (' + sivic_lancamento.numr_parcela.to_s + '/' + sivic_lancamento.numr_recorrencia.to_s + ')' %></td>
-        <%else%>
-          <td><%= sivic_lancamento.nome_lancamento%></td>
-        <%end%>
+
+        <td>
+          <%if sivic_lancamento.numr_parcela %>
+            <%= sivic_lancamento.nome_lancamento + ' (' + sivic_lancamento.numr_parcela.to_s + '/' + sivic_lancamento.numr_recorrencia.to_s + ')' %>
+          <%else%>
+            <%= sivic_lancamento.nome_lancamento%>
+          <%end%>
+        </td>
+
         <td><%= number_to_currency(sivic_lancamento.valr_lancamento, unit: "R$", separator: ",", delimiter: ".") %></td>
         <td>
           <%if sivic_lancamento.valr_pago < 0%>
@@ -63,9 +67,9 @@ Contas a Pagar
             </a>          
           <%end%> 
             </a>            
-            <a class="btn btn-default btn-sm" onclick="excluiLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Excluir">
+            <a class="btn btn-default btn-sm" onclick="var answer = confirm('Deseja excluir o lançamento?');if(answer){ excluiLancamento(<%= sivic_lancamento.id %>);}else{ false;};" rel="tooltip" title="Excluir">
                 <span class="glyphicon glyphicon-trash"></span>
-            </a>
+            </a>            
         </td>
 
         <%elsif sivic_lancamento.sivic_tipmovfinanceiro_id == 1%>
@@ -76,17 +80,21 @@ Contas a Pagar
             <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
                 <span class="glyphicon glyphicon-pencil"></span>
             </a>            
-            <a class="btn btn-default btn-sm" onclick="excluiLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Excluir">
+            <a class="btn btn-default btn-sm" onclick="var answer = confirm('Deseja excluir o lançamento?');if(answer){ excluiLancamento(<%= sivic_lancamento.id %>);}else{ false;};" rel="tooltip" title="Excluir">
                 <span class="glyphicon glyphicon-trash"></span>
             </a>
         </td>
 
         <%elsif sivic_lancamento.sivic_tipmovfinanceiro_id == 3%>
         <td align='right'>
+
+              <a class="btn btn-default btn-sm" rel="tooltip" title="Conta: <%=sivic_lancamento.sivic_contabanco.nome_conta%>">
+                  <span class="glyphicon glyphicon-tag"></span>
+              </a>           
             <a class="btn btn-default btn-sm" onclick="buscaTransferencia(<%= sivic_lancamento.codi_parcela %>);" rel="tooltip" title="Alterar">
                 <span class="glyphicon glyphicon-pencil"></span>
             </a>            
-            <a class="btn btn-default btn-sm" onclick="excluiTransferencia(<%= sivic_lancamento.codi_parcela %>);" rel="tooltip" title="Excluir">
+            <a class="btn btn-default btn-sm" onclick="var answer = confirm('Deseja excluir o lançamento?');if(answer){ excluiTransferencia(<%= sivic_lancamento.id %>);}else{ false;};" rel="tooltip" title="Excluir">
                 <span class="glyphicon glyphicon-trash"></span>
             </a>
         </td>
@@ -107,7 +115,7 @@ Contas a Pagar
   
     <tr>
       <td>
-        Total de Recebimentos(R$)
+        Total de Receitas(R$)
       </td>
       <td align="right">
         <spam style="color: rgb(74, 186, 88);"><%= number_to_currency(@total_recebimento, unit: "R$", separator: ",", delimiter: ".") %></spam>
@@ -115,7 +123,7 @@ Contas a Pagar
     </tr>
     <tr>
       <td>
-        Total de Pagamentos(R$)
+        Total de Despesas(R$)
       </td>
       <td align="right">
         <spam style="color: rgb(211, 47, 47);"><%= number_to_currency(@total_pagamento, unit: "R$", separator: ",", delimiter: ".") %></spam>

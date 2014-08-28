@@ -472,41 +472,7 @@ end
   end
 
 
-  def find_by_ContasPagar
 
-    if session[:data_ini] == nil
-      session[:data_ini] = Date.today
-      session[:data_fim] = Date.today
-      session[:data_ini] = session[:data_ini].at_beginning_of_month.strftime
-      session[:data_fim] = session[:data_fim].at_end_of_month.strftime
-    end     
-
-    SivicLancamento.where('data_vencimento >= ? and data_vencimento <= ? and sivic_igreja_id = ? and data_exclusao is null and sivic_tipmovfinanceiro_id = 1',session[:data_ini], session[:data_fim], current_user.sivic_pessoa.sivic_igreja_id)
-  end
-
-  def find_by_ContasReceber
-    
-    if session[:data_ini] == nil
-      session[:data_ini] = Date.today
-      session[:data_fim] = Date.today
-      session[:data_ini] = session[:data_ini].at_beginning_of_month.strftime
-      session[:data_fim] = session[:data_fim].at_end_of_month.strftime
-    end     
-
-    SivicLancamento.where('data_vencimento >= ? and data_vencimento <= ? and sivic_igreja_id = ? and data_exclusao is null and sivic_tipmovfinanceiro_id = 2',session[:data_ini], session[:data_fim], current_user.sivic_pessoa.sivic_igreja_id)
-  end
-
-     def find_by_Extrato
-    
-    if session[:data_ini] == nil
-      session[:data_ini] = Date.today
-      session[:data_fim] = Date.today
-      session[:data_ini] = session[:data_ini].at_beginning_of_month.strftime
-      session[:data_fim] = session[:data_fim].at_end_of_month.strftime
-    end     
-
-    SivicLancamento.where('data_vencimento >= ? and data_vencimento <= ? and sivic_igreja_id = ? and data_exclusao is null',session[:data_ini], session[:data_fim], current_user.sivic_pessoa.sivic_igreja_id)
-  end  
 
   def contasapagar
     @sivic_lancamentos = find_by_ContasPagar.order(:data_vencimento)
