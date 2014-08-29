@@ -1,0 +1,35 @@
+<h1>Listing sivic_situacaodiscipulos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sivic igrejas</th>
+      <th>User</th>
+      <th>User</th>
+      <th>Nome situacao</th>
+      <th>Data exclusao</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_situacaodiscipulos.each do |sivic_situacaodiscipulo| %>
+      <tr>
+        <td><%= sivic_situacaodiscipulo.sivic_igrejas %></td>
+        <td><%= sivic_situacaodiscipulo.user %></td>
+        <td><%= sivic_situacaodiscipulo.user %></td>
+        <td><%= sivic_situacaodiscipulo.nome_situacao %></td>
+        <td><%= sivic_situacaodiscipulo.data_exclusao %></td>
+        <td><%= link_to 'Show', sivic_situacaodiscipulo %></td>
+        <td><%= link_to 'Edit', edit_sivic_situacaodiscipulo_path(sivic_situacaodiscipulo) %></td>
+        <td><%= link_to 'Destroy', sivic_situacaodiscipulo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic situacaodiscipulo', new_sivic_situacaodiscipulo_path %>
