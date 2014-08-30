@@ -235,6 +235,11 @@ pt:
       sivic_movimentofinanceiro:
         sivic_tipmovfinanceiro_id: ''
         VALR_movimento: ''
+      sivic_evento:
+        desc_evento: ''
+        sivic_tipo_evento_id: ''
+        DATA_inicio: ''
+        DATA_fim: ''        
 
     errors:
       <<: *errors
