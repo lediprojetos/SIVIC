@@ -6,4 +6,8 @@ class SivicMovimentofinanceiro < ActiveRecord::Base
 
   has_one :sivic_partevento
 
+
+  validates :sivic_tipmovfinanceiro_id, :presence => { :message => 'Escolha o tipo movimento.' }
+  validates :VALR_movimento, :presence => { :message => 'Informe o valor do movimento.' }
+
 end

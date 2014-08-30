@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_situacaodiscipulos
+
   resources :sivic_notaalunos do
      member do
        get :licaonota

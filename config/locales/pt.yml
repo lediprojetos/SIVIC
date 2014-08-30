@@ -232,5 +232,9 @@ pt:
         father_id: ''
       sivic_celula:
         sivic_pessoa_id: ''
+      sivic_movimentofinanceiro:
+        sivic_tipmovfinanceiro_id: ''
+        VALR_movimento: ''
+
     errors:
       <<: *errors
