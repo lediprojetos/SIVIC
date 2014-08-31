@@ -10,11 +10,8 @@
  *
  *= require_self
  *= require_tree ./all
- *= require bootstrap
- *= require bootstrap-datetimepicker 
 */
 
 
-@import 'bootstrap-datetimepicker';
 @import "bootstrap/theme";
 @import 'bootstrap';

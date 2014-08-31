@@ -7,12 +7,8 @@
  *
  * 
  * 
- * application-template.css
- *= require_self
- *= require_tree ./template
+ * 
  */
 
 
-@import "bootstrap/theme";
 @import 'bootstrap';
-@import 'bootstrap-datetimepicker';
