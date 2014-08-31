@@ -8,7 +8,10 @@
  * 
  * 
  * 
+ *= require_self
+ *= require_tree ./template
  */
 
 
+@import "bootstrap/theme";
 @import 'bootstrap';

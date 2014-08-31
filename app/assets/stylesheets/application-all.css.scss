@@ -10,8 +10,8 @@
  *
  *= require_self
  *= require_tree ./all
+ *= require bootstrap
 */
 
 
 @import "bootstrap/theme";
-@import 'bootstrap';
