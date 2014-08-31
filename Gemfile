@@ -48,9 +48,7 @@ gem 'pdfkit'
 
 gem 'thinreports'
 
-gem 'momentjs-rails', '>= 2.5.0'
-gem 'bootstrap3-datetimepicker-rails', '~> 3.0.0.2'
-
-
+gem 'momentjs-rails', '>= 2.8.1'
+gem 'bootstrap3-datetimepicker-rails', '~> 3.1.2'
 
 #gem "font-awesome-rails"

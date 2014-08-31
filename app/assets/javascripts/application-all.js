@@ -15,8 +15,7 @@
 //= require bootstrap
 //= require turbolinks
 //= require moment
-//= require bootstrap-datetimepicker
 //= require moment/pt
-//= require locales/bootstrap-datetimepicker.pt.js
+//= require bootstrap-datetimepicker
 //= require_tree ./all
 

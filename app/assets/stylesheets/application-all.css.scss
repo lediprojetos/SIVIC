@@ -7,11 +7,14 @@
  *
  * 
  * 
- * application-all.css
+ *
  *= require_self
  *= require_tree ./all
+ *= require bootstrap
+ *= require bootstrap-datetimepicker 
 */
 
+
+@import 'bootstrap-datetimepicker';
 @import "bootstrap/theme";
 @import 'bootstrap';
-@import 'bootstrap-datetimepicker';
