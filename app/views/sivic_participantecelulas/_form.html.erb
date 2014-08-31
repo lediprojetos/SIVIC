@@ -5,17 +5,18 @@
   <div class="panel-footer">
 
     <%= form_for(@sivic_participantecelula) do |f| %>
-      <% if @sivic_participantecelula.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@sivic_participantecelula.errors.count, "error") %> prohibited this sivic_participantecelula from being saved:</h2>
+    <% if @sivic_participantecelula.errors.any? %>
+      <div class="alert alert-danger" role="alert">
+        <% if @sivic_participantecelula.errors.any? %>
+  
+            <% @sivic_participantecelula.errors.full_messages.each do |msg| %>
 
-          <ul>
-          <% @sivic_participantecelula.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-          </ul>
-        </div>
+          <%= msg %></br>
+        <% end %>
       <% end %>
+      </div>
+    <% end %>
+
       <div class="row">
 
         <div class="col-xs-4">
@@ -41,7 +42,7 @@
         <div class="col-xs-4">
           <%if current_user.role == 'LIDER_DE_CELULAS'%>
             <%= f.hidden_field :sivic_celula_id, :value => SivicCelula.find_by_sivic_pessoa_id(current_user.sivic_pessoa_id).sivic_pessoa_id rescue nil%>
-          <%else%>
+          <%else %>
             <%= f.label :Célula, :class => 'lblForms'  %>
             <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.all, 'id', 'NOME_Celula'),{},{:include_blank => true,  :class => 'form-control'}%>
           <%end%>
@@ -49,7 +50,7 @@
 
       </div>
 
-    
+    </br>
   </div>
 
 </div>
@@ -68,7 +69,7 @@
 
 </div>
 
-    <% end %>
+<% end %>
 
 
 <script>

@@ -1,5 +1,8 @@
-<p id="notice"><%= notice %></p>
-
+<%if notice %>
+  <div class="alert alert-success" role="alert">
+    <%= notice %>
+  </div>
+<%end%>
 
 <% content_for :titlePage do %>
   Exibir Evento
@@ -37,7 +40,7 @@
 
 <p>
   <strong>Data fim:</strong>
-  <%= @sivic_evento.DATA_fim %>
+  <%= @sivic_evento.DATA_fim.blank? ? '' : @sivic_evento.DATA_inicio.strftime("%d/%m/%Y") %>
 </p>
 
 
