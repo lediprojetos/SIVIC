@@ -50,7 +50,7 @@ class SivicParticipantecelulasController < ApplicationController
 
     respond_to do |format|
       if @sivic_participantecelula.save
-        format.html { redirect_to @sivic_participantecelula, notice: 'Sivic participantecelula was successfully created.' }
+        format.html { redirect_to @sivic_participantecelula, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_participantecelula }
       else
         format.html { render action: 'new' }
@@ -64,7 +64,7 @@ class SivicParticipantecelulasController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_participantecelula.update(sivic_participantecelula_params)
-        format.html { redirect_to @sivic_participantecelula, notice: 'Sivic participantecelula was successfully updated.' }
+        format.html { redirect_to @sivic_participantecelula, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

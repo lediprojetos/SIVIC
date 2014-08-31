@@ -52,12 +52,12 @@
        </div>
         <div class="col-xs-2">
           <%= f.label :DATA_inicio %>
-          <%= f.text_field :DATA_inicio, :class =>  'form-control' %>
+          <%= f.text_field :DATA_inicio, :value => (@sivic_evento.DATA_inicio.blank? ? '' : @sivic_evento.DATA_inicio.strftime("%d/%m/%Y")), :class =>  'form-control' %>
       </div>
 
       <div class="col-xs-2">
         <%= f.label :DATA_fim %>
-        <%= f.text_field :DATA_fim, :class =>  'form-control' %>
+        <%= f.text_field :DATA_fim, :value => (@sivic_evento.DATA_fim.blank? ? '' : @sivic_evento.DATA_fim.strftime("%d/%m/%Y")), :class =>  'form-control' %>
       </div>
       <div class="col-xs-3">
         <%= f.label :Qtd_Vagas %>

@@ -239,7 +239,9 @@ pt:
         desc_evento: ''
         sivic_tipo_evento_id: ''
         DATA_inicio: ''
-        DATA_fim: ''        
+        DATA_fim: ''
+      sivic_participantecelula:
+        nome_participante: ''       
 
     errors:
       <<: *errors
