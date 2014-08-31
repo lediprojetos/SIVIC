@@ -90,21 +90,13 @@
             <div class='col-sm-4'>
               <spam>Data Inicial</spam>
                 <div class="form-group">
-                    <div class='input-group date' id='datetimepicker3'>
                         <input id="data_ini" name="data_ini" type='text' class="form-control" />
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
                 </div>
             </div>            
             <div class='col-sm-4'>
               <spam>Data Final</spam>
                 <div class="form-group">
-                    <div class='input-group date' id='datetimepicker4'>
                         <input id="data_fim" name="data_fim" type='text' class="form-control" />
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -147,11 +139,7 @@
             <div class='col-sm-4'>
               <spam>Data Vencimento</spam>
                 <div class="form-group">
-                    <div class='input-group date' id='datetimepicker1'>
                         <input id="data_vencimento" name="data_vencimento" type='text' class="form-control" />
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
                 </div>
             </div>
 
@@ -216,11 +204,7 @@
             <div class='col-sm-4'>
               <spam id="lbldata_pagamento" style="color:gray;" >Data Pagamento</spam>
                 <div class="form-group">
-                    <div class='input-group date' id='datetimepicker2'>
                         <input id="data_pagamento" name="data_pagamento" type='text' class="form-control" disabled="disabled"/>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
                 </div>
             </div>
                 
@@ -271,11 +255,8 @@
           <div class='col-sm-4'>
             <spam>Data Transferência</spam>
               <div class="form-group">
-                  <div class='input-group date' id='datetimepicker5'>
                       <input id="data_transferencia" name="data_transferencia" type='text' class="form-control" />
-                      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
                       </span>
-                  </div>
               </div>
           </div>
 
@@ -350,17 +331,13 @@
           <div class='col-sm-6'>
             <label for="data_dizimo">Data Dízimo</label>
               <div class="form-group">
-                  <div class='input-group date' id='datetimepicker6'>
                       <input id="data_dizimo" name="data_dizimo" type='text' class="form-control" />
-                      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                      </span>
-                  </div>
               </div>
           </div>
 
 
         <div class="col-xs-6">
-            <spam>Valor</spam>
+            <label for="valr_dizimo">Valor</label>
             <input id="valr_dizimo" name="valr_dizimo" type="text" class="form-control"> 
         </div>
 
@@ -421,12 +398,6 @@
 <script>
 
 $(function() {
-  $('#datetimepicker2').datetimepicker({language: 'pt', pickTime: false});
-  $('#datetimepicker1').datetimepicker({language: 'pt', pickTime: false});      
-  $('#datetimepicker3').datetimepicker({language: 'pt', pickTime: false});
-  $('#datetimepicker4').datetimepicker({language: 'pt', pickTime: false});
-  $('#datetimepicker5').datetimepicker({language: 'pt', pickTime: false});
-  $('#datetimepicker6').datetimepicker({language: 'pt', pickTime: false});
   $("#valr_lancamento").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
   $("#valr_lancamento_trans").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
   $("#valr_descontotaxa").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
@@ -439,6 +410,7 @@ $(function() {
   $("#data_pagamento").mask("99/99/9999");
   $("#data_ini").mask("99/99/9999");
   $("#data_fim").mask("99/99/9999");  
+  $("#data_dizimo").mask("99/99/9999");  
 
   //ações ao fechar o modal
   $('#myModal').on('hidden.bs.modal', function (e) { 

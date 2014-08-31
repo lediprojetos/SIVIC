@@ -5,11 +5,9 @@
 
       <% if (not user_signed_in? ) && request.original_fullpath == '/' %>
 
-        <%#= stylesheet_link_tag "application-template" %>
         <%= render 'layouts/header2' %>
         </head>
         <body>
-        <%#= javascript_include_tag "application-template"%>
 
       <%else%>
 

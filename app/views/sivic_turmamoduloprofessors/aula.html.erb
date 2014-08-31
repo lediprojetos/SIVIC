@@ -79,10 +79,7 @@
         <div class='col-sm-4'>
             <spam>Data Aula</spam>
                <div class="form-group">
-                   <div class='input-group date' id='datetimepicker1'>
                        <input id="data_aula" name="data_aula" type='text' class="form-control" />
-                       <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
-                      </span>
                </div>
           </div>
         </div>
@@ -123,13 +120,6 @@
 
 
  $("#data_vencimento").mask("99/99/9999");
-
-
-  $(function() { 
-     $('#datetimepicker1').datetimepicker({language: 'pt', pickTime: false}); 
-         
-  })
-
 
     function createAula(){
         

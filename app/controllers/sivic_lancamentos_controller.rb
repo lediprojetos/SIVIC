@@ -81,7 +81,9 @@ def deleta_transferencia
   objTransferencia_des = SivicLancamento.where('valr_pago > 0 and codi_parcela = ?', params[:codi_parcela])
 
   objTransferencia_ori.first.data_exclusao = Date.today
+  objTransferencia_ori.first.user_exclusao = current_user.sivic_pessoa_id
   objTransferencia_des.first.data_exclusao = Date.today
+  objTransferencia_des.first.user_exclusao = current_user.sivic_pessoa_id
 
   objTransferencia_ori.first.save
   objTransferencia_des.first.save
@@ -252,7 +254,8 @@ def deleta_lancamento
     @lancamento = SivicLancamento.find_by_id(params[:id])
 
     @lancamento.update(
-                      :data_exclusao => Date.today
+                      :data_exclusao => Date.today,
+                      :user_exclusao => current_user.sivic_pessoa_id
                       )
 
 
