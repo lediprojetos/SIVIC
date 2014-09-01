@@ -11,7 +11,6 @@
       <th>Email</th>
       <th>Telefone</th>
       <th>Situação</th>
-      <th></th>
     </tr>
   </thead>
 
@@ -21,20 +20,19 @@
         <td><%= sivic_participantecelula.nome_participante %></td>
         <td><%= sivic_participantecelula.DESC_Email %></td>
         <td><%= sivic_participantecelula.NUMR_Telefone %></td>
-        <td align='right'>
-          <div class="btn-group">
-            <%= link_to sivic_participantecelula, :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-list-alt"></span> Exibir
-            <% end %>             
-            <%= link_to edit_sivic_participantecelula_path(sivic_participantecelula), :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-pencil"></span> Editar
-            <% end %>             
-            <%= link_to sivic_participantecelula , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-trash"></span> Excluir
-            <% end %>   
+            
+        <td align='right'>     
+              <%= link_to sivic_participantecelula, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+          <% end %>             
+          <%= link_to edit_sivic_participantecelula_path(sivic_participantecelula), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
+            <span class="glyphicon glyphicon-pencil"></span>
+          <% end %>
 
-          </div>
-        </td>
+            <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_participantecelulas/<%=sivic_participantecelula.id%>"     data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir">
+                <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
+            </a>       
+       </td>
 
       </tr>
     <% end %>
@@ -51,3 +49,11 @@
     <span class="glyphicon glyphicon-file"></span> Novo
   <% end %>
 </div>
+
+<script>
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
+</script>

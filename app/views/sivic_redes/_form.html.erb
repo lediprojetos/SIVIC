@@ -4,23 +4,24 @@
   </div>
   <div class="panel-footer">
 
-<%= form_for(@sivic_rede) do |f| %>
-  <% if @sivic_rede.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sivic_rede.errors.count, "error") %> prohibited this sivic_rede from being saved:</h2>
+  <%= form_for(@sivic_rede) do |f| %>
+    <% if @sivic_rede.errors.any? %>
+      <div class="alert alert-danger" role="alert">
+        <% if @sivic_rede.errors.any? %>
+  
+            <% @sivic_rede.errors.full_messages.each do |msg| %>
 
-      <ul>
-      <% @sivic_rede.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+          <%= msg %></br>
+        <% end %>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
+      </div>
+    <% end %>
+
 
   <div class="row">
-    <div class="col-xs-4">
+    <div class="col-xs-3">
     </div>
-    <div class="col-xs-4">
+    <div class="col-xs-6">
       <%= f.label :Rede,  :class => 'lblForms' %>
       <%= f.text_field :nome_rede, :class => 'form-control' %>
       
@@ -34,6 +35,8 @@
     </div>
   </div>
 
+</br>
+
 
   </div>            
 </div>
@@ -46,7 +49,7 @@
 
   <%= yield(:iconexibir) %>
 
-  <%= link_to sivic_discipulos_path, :class => "btn btn-default" do %>
+  <%= link_to sivic_redes_path, :class => "btn btn-default" do %>
     <span class="glyphicon glyphicon-arrow-left"></span> Voltar
   <% end %>
 

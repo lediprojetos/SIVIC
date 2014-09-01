@@ -241,7 +241,8 @@ pt:
         DATA_inicio: ''
         DATA_fim: ''
       sivic_participantecelula:
-        nome_participante: ''       
-
+        nome_participante: '' 
+      sivic_rede: 
+        nome_rede: ''      
     errors:
       <<: *errors
