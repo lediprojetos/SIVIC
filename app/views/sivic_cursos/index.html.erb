@@ -8,9 +8,6 @@
   <thead>
     <tr>
       <th>Nome curso</th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -18,19 +15,21 @@
     <% @sivic_cursos.each do |sivic_curso| %>
       <tr>
         <td><%= sivic_curso.nome_curso %></td>
-        <td align='right'>
-        <div class="btn-group">
-          <%= link_to sivic_curso, :class => "btn btn-default btn-sm" do %>
-            <span class="glyphicon glyphicon-list-alt"></span> Exibir
+
+         <td align='right'>   
+          <%= link_to sivic_curso, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
           <% end %>             
-          <%= link_to edit_sivic_curso_path(sivic_curso), :class => "btn btn-default btn-sm" do %>
-            <span class="glyphicon glyphicon-pencil"></span> Editar
-          <% end %>             
-            <%= link_to sivic_curso , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-trash"></span> Excluir
-            <% end %>           
-        </div>
+          <%= link_to edit_sivic_curso_path(sivic_curso), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
+            <span class="glyphicon glyphicon-pencil"></span>
+          <% end %>
+          
+           <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_cursos/<%=sivic_curso.id%>"    
+               data-method="delete" data-confirm=" Deseja excluir o registro?" data-original-title="Excluir">
+                <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
+            </a>       
         </td>
+
       </tr>
     <% end %>
   </tbody>
@@ -43,3 +42,14 @@
     <span class="glyphicon glyphicon-file"></span> Novo
   <% end %>
 </div>
+
+
+
+
+<script>
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
+</script>

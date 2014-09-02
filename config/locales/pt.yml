@@ -252,6 +252,11 @@ pt:
         sivic_banco_id: ''
       sivic_fornecedor:
         nome_fornecedor: ''
-        
+      sivic_category:
+        nome_categoria: ''
+      sivic_curso:
+        nome_curso: ''
+      sivic_professor:
+        sivic_pessoa_id: ''
     errors:
       <<: *errors

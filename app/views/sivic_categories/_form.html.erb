@@ -4,18 +4,18 @@
   </div>
   <div class="panel-footer">
 
-<%= form_for(@sivic_category) do |f| %>
-  <% if @sivic_category.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sivic_category.errors.count, "error") %> prohibited this sivic_category from being saved:</h2>
+  <%= form_for(@sivic_category) do |f| %>
+    <% if @sivic_category.errors.any? %>
+      <div class="alert alert-danger" role="alert">
+        <% if @sivic_category.errors.any? %>
+  
+            <% @sivic_category.errors.full_messages.each do |msg| %>
 
-      <ul>
-      <% @sivic_category.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+          <%= msg %></br>
+        <% end %>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
+      </div>
+    <% end %>
 
   <div class = "row">
     <div class="col-xs-3">

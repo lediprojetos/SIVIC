@@ -30,8 +30,6 @@
       <th>Professor</th>
       <th>Data bloqueio</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -41,24 +39,36 @@
         <td><%= sivic_professor.sivic_pessoa.nome_pessoa %></td>  
         <td><%= sivic_professor.DATA_bloqueio.blank? ? '' : sivic_professor.DATA_bloqueio.strftime("%d/%m/%Y") %></td>
 
-
-       <td align='right'>
-
-        <div class="btn-group">
-          <%= link_to sivic_professor, :class => "btn btn-default btn-sm" do %>
-            <span class="glyphicon glyphicon-list-alt"></span> Exibir
+         <td align='right'>   
+          <%= link_to sivic_professor, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
           <% end %>             
-          <%= link_to edit_sivic_professor_path(sivic_professor), :class => "btn btn-default btn-sm" do %>
-            <span class="glyphicon glyphicon-pencil"></span> Editar
-          <% end %> 
-           <%= link_to bloqueaProfessor_path(sivic_professor), :confirm => 'Deseja bloquear o professor?', :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-ban-circle"></span> Bloquear
-            <% end %>             
-            <%= link_to sivic_professor , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
-              <span class="glyphicon glyphicon-trash"></span> Excluir
-            <% end %>           
-        </div>
+          <!--<%= link_to edit_sivic_professor_path(sivic_professor), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
+            <span class="glyphicon glyphicon-pencil"></span>
+          <% end %>-->
+          
 
+        <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/bloqueaProfessor<%=sivic_professor.id%>"    
+               data-confirm="Deseja desbloquear o professor?" data-original-title="Bloquear">
+                  <span class="glyphicon glyphicon-ban-circle" rel="tooltip"></span>
+        </a>
+
+                
+        <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/desbloqueaProfessor<%=sivic_professor.id%>"    
+            data-confirm="Deseja bloquear o professor?" data-original-title="Desbloquear">
+            <span class="glyphicon glyphicon-ok-circle" rel="tooltip"></span>
+        </a>
+
+
+
+       
+
+          
+
+            <!--<a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_professors/<%=sivic_professor.id%>"    
+               data-method="delete" data-confirm=" Deseja excluir o registro?" data-original-title="Excluir">
+                <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
+            </a> -->          
         </td>
 
       </tr>
@@ -102,6 +112,11 @@ function chamaPesquisa(){
 
   }
 
+
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
 
 
 </script>

@@ -68,6 +68,25 @@ class SivicProfessorsController < ApplicationController
     end
   end
 
+
+    # Metodo para encerrar o evento
+  def desbloquea
+
+    #@sivic_professor = SivicProfessor.find("#{params[:id]}")
+
+    @sivic_professor = SivicProfessor.find(params[:id])
+
+    @sivic_professor.update(:DATA_bloqueio => nil, :user_bloqueio => nil)
+
+    respond_to do |format|
+    format.html { redirect_to sivic_professors_path }
+    format.json { head :no_content }
+
+    end
+  end
+
+
+
   # PATCH/PUT /sivic_professors/1
   # PATCH/PUT /sivic_professors/1.json
   def update

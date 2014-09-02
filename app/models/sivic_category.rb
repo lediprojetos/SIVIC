@@ -6,4 +6,8 @@ class SivicCategory < ActiveRecord::Base
   has_many :children, :class_name => "SivicCategory", :foreign_key => "father_id"
   belongs_to :father, :class_name => "SivicCategory", :foreign_key => "father_id"
 
+
+  validates :nome_categoria, :presence => { :message => 'Digite o nome da categoria' }
+
+
 end

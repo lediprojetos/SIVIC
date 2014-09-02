@@ -32,7 +32,7 @@ class SivicCategoriesController < ApplicationController
 
     respond_to do |format|
       if @sivic_category.save
-        format.html { redirect_to @sivic_category, notice: 'Sivic category was successfully created.' }
+        format.html { redirect_to @sivic_category, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_category }
       else
         format.html { render action: 'new' }
@@ -46,7 +46,7 @@ class SivicCategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_category.update(sivic_category_params)
-        format.html { redirect_to @sivic_category, notice: 'Sivic category was successfully updated.' }
+        format.html { redirect_to @sivic_category, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

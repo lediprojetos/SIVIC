@@ -3,19 +3,20 @@
     <h3 class="panel-title"><%= 'Cadastro de Cursos'%></h3>
   </div>
   <div class="panel-footer">
-<%= form_for(@sivic_curso) do |f| %>
-  <% if @sivic_curso.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sivic_curso.errors.count, "error") %> prohibited this sivic_curso from being saved:</h2>
-
-      <ul>
-      <% @sivic_curso.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
    
+  <%= form_for(@sivic_curso) do |f| %>
+    <% if @sivic_curso.errors.any? %>
+      <div class="alert alert-danger" role="alert">
+        <% if @sivic_curso.errors.any? %>
+  
+            <% @sivic_curso.errors.full_messages.each do |msg| %>
+
+          <%= msg %></br>
+        <% end %>
+      <% end %>
+      </div>
+    <% end %>
+
   <div class="row">
     <div class="col-xs-3">
     </div>
@@ -24,7 +25,7 @@
       <%= f.text_field :nome_curso, :class => "form-control"  %>
     </div>
   </div>
-
+ <br>
   <div class="row">
     <div class="col-xs-3">
     </div>    

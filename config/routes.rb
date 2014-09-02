@@ -168,8 +168,12 @@ SIVIC::Application.routes.draw do
 
    get '/pEventos/:id', to: 'sivic_parteventos#naoParticipou', as: 'pEventos'
    get '/encerraEvento/:id', to: 'sivic_eventos#encerrar', as: 'encerraEvento'
+
    get '/bloqueaProfessor:id', to: 'sivic_professors#bloquea', as: 'bloqueaProfessor'
+   get '/desbloqueaProfessor:id', to: 'sivic_professors#desbloquea', as: 'desbloqueaProfessor'
+   
    get '/bloqueaTurma:id', to: 'sivic_turmas#bloquea', as: 'bloqueaTurma'
    get '/bloqueaTurmaaluno:id', to: 'sivic_turmaalunoss#bloquea', as: 'bloqueaTurmaaluno'
+
 
 end
