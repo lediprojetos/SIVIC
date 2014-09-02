@@ -1,0 +1,29 @@
+<%= form_for(@sivic_ministeriodiscipulo) do |f| %>
+  <% if @sivic_ministeriodiscipulo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_ministeriodiscipulo.errors.count, "error") %> prohibited this sivic_ministeriodiscipulo from being saved:</h2>
+
+      <ul>
+      <% @sivic_ministeriodiscipulo.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :sivic_discipulo_id %><br>
+    <%= f.text_field :sivic_discipulo_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_ministerio_id %><br>
+    <%= f.text_field :sivic_ministerio_id %>
+  </div>
+  <div class="field">
+    <%= f.label :flag_ministerioativo %><br>
+    <%= f.check_box :flag_ministerioativo %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

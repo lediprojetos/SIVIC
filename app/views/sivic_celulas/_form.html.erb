@@ -55,10 +55,15 @@
           <%= f.label :Sexo %>
           <%= f.collection_select :DESC_sexo, SivicCelula::SEXO, :to_s, :humanize, {}, {:class => "form-control"}%>
           </div>
-          <br />
-          <br />
-          <br />
-          <br />
+    
+
+          <div class="col-xs-1">
+            <%= f.label :Gerar_relatorio?%>
+            <%= f.check_box :flag_gerarelatorio %>
+          </div>
+      </div>
+      <br>
+      <div class="row">
           <div class="col-xs-2">
             <%= f.label :Dia_da_Semana %>
             <%= f.collection_select :NUMR_Dia, SivicCelula::DIAS, :to_s, :humanize, {}, {:class => "form-control"}%>
@@ -83,7 +88,9 @@
               <%= f.label :Adulto %>
             </div>
           </div>
+
         </div>
+
       </div>
 
   <div class="tab-pane" id="tab2">

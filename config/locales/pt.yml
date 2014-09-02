@@ -243,6 +243,15 @@ pt:
       sivic_participantecelula:
         nome_participante: '' 
       sivic_rede: 
-        nome_rede: ''      
+        nome_rede: ''
+      sivic_contabanco:
+        nome_conta: ''
+        numr_agencia: ''
+        numr_conta: ''
+        numr_dvconta: ''
+        sivic_banco_id: ''
+      sivic_fornecedor:
+        nome_fornecedor: ''
+        
     errors:
       <<: *errors

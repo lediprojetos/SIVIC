@@ -1,0 +1,31 @@
+<h1>Listing sivic_ministeriodiscipulos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sivic discipulo</th>
+      <th>Sivic ministerio</th>
+      <th>Flag ministerioativo</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_ministeriodiscipulos.each do |sivic_ministeriodiscipulo| %>
+      <tr>
+        <td><%= sivic_ministeriodiscipulo.sivic_discipulo %></td>
+        <td><%= sivic_ministeriodiscipulo.sivic_ministerio %></td>
+        <td><%= sivic_ministeriodiscipulo.flag_ministerioativo %></td>
+        <td><%= link_to 'Show', sivic_ministeriodiscipulo %></td>
+        <td><%= link_to 'Edit', edit_sivic_ministeriodiscipulo_path(sivic_ministeriodiscipulo) %></td>
+        <td><%= link_to 'Destroy', sivic_ministeriodiscipulo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic ministeriodiscipulo', new_sivic_ministeriodiscipulo_path %>

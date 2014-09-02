@@ -28,6 +28,15 @@
   <%= @sivic_celula.DATA_Bloqueio %>
 </p>
 
+<p>
+<strong>Gerar Relatório?:</strong>
+  <% if @sivic_celula.flag_gerarelatorio == true %>
+         Sim
+      <% else %>
+         Não    
+    <% end %>
+</p>
+
 <legend>Endereço</legend>
 
 <p>

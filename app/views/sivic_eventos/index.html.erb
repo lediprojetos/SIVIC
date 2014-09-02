@@ -28,9 +28,8 @@
         <td><%= sivic_evento.DATA_inicio.blank? ? '' : sivic_evento.DATA_inicio.strftime("%d/%m/%Y") %></td>
         <td><%= sivic_evento.DATA_fim.blank? ? '' : sivic_evento.DATA_fim.strftime("%d/%m/%Y") %></td>
         <td><%= sivic_evento.NUMR_qdtVagas %></td>
-        <td align='right'>
-
-      
+       
+        <td align='right'>   
           <%= link_to sivic_evento, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
             <span class="glyphicon glyphicon-list-alt"></span>
           <% end %>             

@@ -1,0 +1,2 @@
+module SivicMinisteriodiscipulosHelper
+end
