@@ -1,6 +1,8 @@
-<h1>Editing sivic_situacaodiscipulo</h1>
+<% content_for :iconexibir do %>
+  <%= link_to @sivic_situacaodiscipulo, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-list-alt"></span> Exibir
+  <% end %>  
+<% end %>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @sivic_situacaodiscipulo %> |
-<%= link_to 'Back', sivic_situacaodiscipulos_path %>

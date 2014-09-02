@@ -69,6 +69,6 @@ class SivicMinisteriodiscipulosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_ministeriodiscipulo_params
-      params.require(:sivic_ministeriodiscipulo).permit(:sivic_discipulo_id, :sivic_ministerio_id, :flag_ministerioativo :user_inclusao, :user_exclusao)
+      params.require(:sivic_ministeriodiscipulo).permit(:sivic_discipulo_id, :sivic_ministerio_id, :flag_ministerioativo)
     end
 end
