@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20140903044202) do
     t.string   "nome_aula"
     t.datetime "data_aula"
     t.integer  "sivic_igreja_id"
-    t.integer  "sivic_tumamoduloprofessor_id"
+    t.integer  "sivic_turmamoduloprofessor_id"
     t.integer  "user_inclusao"
     t.integer  "integer"
     t.datetime "created_at"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20140903044202) do
   end
 
   add_index "sivic_aulas", ["sivic_igreja_id"], name: "index_sivic_aulas_on_sivic_igreja_id", using: :btree
-  add_index "sivic_aulas", ["sivic_tumamoduloprofessor_id"], name: "index_sivic_aulas_on_sivic_tumamoduloprofessor_id", using: :btree
+  add_index "sivic_aulas", ["sivic_turmamoduloprofessor_id"], name: "index_sivic_aulas_on_sivic_turmamoduloprofessor_id", using: :btree
 
   create_table "sivic_bancos", force: true do |t|
     t.string   "nome_banco"
@@ -365,7 +365,6 @@ ActiveRecord::Schema.define(version: 20140903044202) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "data_inclusao"
-    t.date     "data_exclusao"
   end
 
   add_index "sivic_ministeriodiscipulos", ["sivic_discipulo_id"], name: "index_sivic_ministeriodiscipulos_on_sivic_discipulo_id", using: :btree

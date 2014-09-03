@@ -11,8 +11,6 @@
       <th>Curso</th>
       <th>Turma</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -29,12 +27,15 @@
           <%= link_to edit_sivic_turmaaluno_path(sivic_turmaaluno), :class => "btn btn-default btn-sm", :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Editar" do %>
             <span class="glyphicon glyphicon-pencil"></span> 
           <% end %> 
-           <%= link_to bloqueaTurma_path(sivic_turmaaluno), :confirm => 'Deseja bloquear a turma?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Bloquear" do %>
+           <%= link_to bloqueaTurmaaluno_path(sivic_turmaaluno), :confirm => 'Deseja bloquear a matricula?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Bloquear" do %>
               <span class="glyphicon glyphicon-ban-circle"></span> 
-            <% end %>             
-            <%= link_to sivic_turmaaluno, :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Excluir" do %>
+            <% end %> 
+            <%= link_to desbloqueaTurma_path(sivic_turmaaluno), :confirm => 'Deseja desbloquear a matricula?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Bloquear" do %>
+              <span class="glyphicon glyphicon-ok-circle"></span> 
+            <% end %>              
+            <!--<%= link_to sivic_turmaaluno, :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Excluir" do %>
               <span class="glyphicon glyphicon-trash"></span>
-            <% end %>  
+            <% end %>-->  
         </td>             
       </tr>
     <% end %>

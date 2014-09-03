@@ -5,6 +5,9 @@ class SivicTurma < ActiveRecord::Base
   belongs_to :sivic_curso
 
 
+  
+  validates :sivic_curso_id, :presence => {:message => 'Selecione um curso'}
   validates :DESC_turma, :presence =>{ :message => 'Digite a descricao da turma'}
+
 
 end

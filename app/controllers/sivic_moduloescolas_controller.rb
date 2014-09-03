@@ -28,7 +28,7 @@ class SivicModuloescolasController < ApplicationController
 
     respond_to do |format|
       if @sivic_moduloescola.save
-        format.html { redirect_to @sivic_moduloescola, notice: 'Sivic moduloescola was successfully created.' }
+        format.html { redirect_to @sivic_moduloescola, notice: 'Registro incluido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_moduloescola }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class SivicModuloescolasController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_moduloescola.update(sivic_moduloescola_params)
-        format.html { redirect_to @sivic_moduloescola, notice: 'Sivic moduloescola was successfully updated.' }
+        format.html { redirect_to @sivic_moduloescola, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

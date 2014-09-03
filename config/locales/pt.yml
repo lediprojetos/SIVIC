@@ -258,5 +258,13 @@ pt:
         nome_curso: ''
       sivic_professor:
         sivic_pessoa_id: ''
+      sivic_turma:
+        DESC_turma: ''
+        sivic_curso_id: ''
+      sivic_moduloescola:
+        nome_modulo: ''
+      sivic_turmaaluno:
+        sivic_turma_id: ''
+        sivic_pessoa_id: ''
     errors:
       <<: *errors
