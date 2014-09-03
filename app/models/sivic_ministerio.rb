@@ -3,6 +3,6 @@ class SivicMinisterio < ActiveRecord::Base
 
 
  validates :nome_ministerio, :presence => { :message => 'Digite o nome do ministerio' }
- validates :sigl_ministerio, :presence => { :message => 'Digite a SIGLA para o ministerio' }
+ validates :sigl_ministerio, :presence => { :message => 'Digite a SIGLA para o ministerio' }	
  	
 end

@@ -5,11 +5,18 @@ class SivicMinisteriodiscipulosController < ApplicationController
   # GET /sivic_ministeriodiscipulos.json
   def index
     @sivic_ministeriodiscipulos = SivicMinisteriodiscipulo.all
+	@sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('lower(sp.NOME_pessoa) like ? and sp.sivic_igreja_id = ?', "%#{params[:q]}%", current_user.sivic_pessoa.sivic_igreja_id)        
   end
 
   # GET /sivic_ministeriodiscipulos/1
   # GET /sivic_ministeriodiscipulos/1.json
   def show
+  end
+
+  def adicionaministerio
+  	@sivic_ministeriodiscipulo = SivicMinisteriodiscipulo.new
+  	@sivic_discipulo = SivicDiscipulo.find_by_id(params[:id])
+  	@sivic_ministerios = SivicMinisteriodiscipulo.where(:sivic_discipulo_id => params[:id])
   end
 
   # GET /sivic_ministeriodiscipulos/new
@@ -26,9 +33,17 @@ class SivicMinisteriodiscipulosController < ApplicationController
   def create
     @sivic_ministeriodiscipulo = SivicMinisteriodiscipulo.new(sivic_ministeriodiscipulo_params)
 
+    @sivic_ministeriodiscipulo.data_inclusao = Date.today
+
+    if @sivic_ministeriodiscipulo.flag_ministerioativo
+		#@sivic_ministeriodiscipulos = SivicMinisteriodiscipulo.where()
+	end
+
+    #debugger
+
     respond_to do |format|
       if @sivic_ministeriodiscipulo.save
-        format.html { redirect_to @sivic_ministeriodiscipulo, notice: 'Sivic ministeriodiscipulo was successfully created.' }
+        format.html { redirect_to adicionaministerio_sivic_ministeriodiscipulo_path(sivic_ministeriodiscipulo_params.first[1]), notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_ministeriodiscipulo }
       else
         format.html { render action: 'new' }
@@ -69,6 +84,6 @@ class SivicMinisteriodiscipulosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_ministeriodiscipulo_params
-      params.require(:sivic_ministeriodiscipulo).permit(:sivic_discipulo_id, :sivic_ministerio_id, :flag_ministerioativo)
+      params.require(:sivic_ministeriodiscipulo).permit(:sivic_discipulo_id, :sivic_ministerio_id, :flag_ministerioativo, :data_inclusao)
     end
 end

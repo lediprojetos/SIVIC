@@ -1,5 +1,26 @@
+#encoding: utf-8
 class SivicSituacaodiscipulosController < ApplicationController
   before_action :set_sivic_situacaodiscipulo, only: [:show, :edit, :update, :destroy]
+
+
+  def deletasituacao
+    @sivic_situacaodiscipulo = SivicSituacaodiscipulo.find_by_id(params[:id])
+
+    @sivic_situacaodiscipulo.user_exclusao = @sivic_situacaodiscipulo.user_exclusao.blank? ?  current_user.sivic_pessoa_id : nil
+
+    @sivic_situacaodiscipulo.save
+
+    respond_to do |format|
+      if @sivic_situacaodiscipulo.save
+        format.html { redirect_to @sivic_situacaodiscipulo, notice: 'Situação alterada com sucesso.' }
+        format.json { render action: 'show', status: :created, location: @sivic_situacaodiscipulo }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @sivic_situacaodiscipulo.errors, status: :unprocessable_entity }
+      end
+    end
+
+  end
 
   # GET /sivic_situacaodiscipulos
   # GET /sivic_situacaodiscipulos.json
@@ -28,7 +49,7 @@ class SivicSituacaodiscipulosController < ApplicationController
 
     respond_to do |format|
       if @sivic_situacaodiscipulo.save
-        format.html { redirect_to @sivic_situacaodiscipulo, notice: 'Sivic situacaodiscipulo was successfully created.' }
+        format.html { redirect_to @sivic_situacaodiscipulo, notice: 'Situação criada com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_situacaodiscipulo }
       else
         format.html { render action: 'new' }
@@ -42,7 +63,7 @@ class SivicSituacaodiscipulosController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_situacaodiscipulo.update(sivic_situacaodiscipulo_params)
-        format.html { redirect_to @sivic_situacaodiscipulo, notice: 'Sivic situacaodiscipulo was successfully updated.' }
+        format.html { redirect_to @sivic_situacaodiscipulo, notice: 'Situação alterada com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

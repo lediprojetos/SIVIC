@@ -1,8 +1,19 @@
 SIVIC::Application.routes.draw do
 
-  resources :sivic_ministeriodiscipulos
+  resources :sivic_ministeriodiscipulos do
+      member do
+        get :adicionaministerio
+      end
+  end
 
-  resources :sivic_situacaodiscipulos
+
+  resources :sivic_situacaodiscipulos do
+    member do
+      get :deletasituacao
+    end
+  end
+  #get '/deletasituacao/:id', to: 'sivic_situacaodiscipulos#deleta_situacao', as: 'deletasituacao'
+  #match '/deletasituacao/:id', to: 'sivic_situacaodiscipulos#deleta_situacao', via: 'patch'
 
   resources :sivic_notaalunos do
      member do
@@ -99,6 +110,7 @@ SIVIC::Application.routes.draw do
 
   get '/relDiscipulos/:id', to: 'sivic_discipulos#relDiscipulos', as: 'relDiscipulos'
   get '/relGeracoes/:id', to: 'sivic_discipulos#relGeracoes', as: 'relGeracoes'
+
 
   get '/relparticipantesEventos/:id/:tipo', to: 'sivic_parteventos#relparticipantesEventos', as: 'relparticipantesEventos'
 

@@ -1,31 +1,64 @@
-<h1>Listing sivic_ministeriodiscipulos</h1>
+<% content_for :titlePage do %>
+  Cadastrar Ministérios
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Sivic discipulo</th>
-      <th>Sivic ministerio</th>
-      <th>Flag ministerioativo</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @sivic_ministeriodiscipulos.each do |sivic_ministeriodiscipulo| %>
+<%=render '/layouts/panel' %>
+
+<%= form_tag nil, method: 'GET' do %>
+  <label >Nome</label><br>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="input-group">
+        <input id="q" name="q" type="text" class="form-control" placeholder="Nome">
+        <span class="input-group-btn">
+          <button class="btn btn-success" type="submit" >Buscar</button>
+        </span>
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+  </div><!-- /.row -->
+  <br />  
+<% end %>
+
+  <table class="table table-hover">
+    <thead>
       <tr>
-        <td><%= sivic_ministeriodiscipulo.sivic_discipulo %></td>
-        <td><%= sivic_ministeriodiscipulo.sivic_ministerio %></td>
-        <td><%= sivic_ministeriodiscipulo.flag_ministerioativo %></td>
-        <td><%= link_to 'Show', sivic_ministeriodiscipulo %></td>
-        <td><%= link_to 'Edit', edit_sivic_ministeriodiscipulo_path(sivic_ministeriodiscipulo) %></td>
-        <td><%= link_to 'Destroy', sivic_ministeriodiscipulo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th><strong class='titleTable'>Id</strong></th>
+        <th><strong class='titleTable'>Nome</strong></th>
+        <th><strong class='titleTable'>Data de Nascimento</strong></th>
+        <th><strong class='titleTable'>CPF</strong></th>
+        <th><strong class='titleTable'>Data batismo</strong></th>
+        <th></th>
+
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @sivic_discipulos.each do |sivic_discipulo| %>
+        <tr>
+          <td><%= sivic_discipulo.NUMR_Codigo %></td>
+          <td><%= sivic_discipulo.sivic_pessoa.nome_pessoa %></td>
+          <td><%= sivic_discipulo.DATA_Nascimento.blank? ? '' : sivic_discipulo.DATA_Nascimento.strftime("%d/%m/%Y")  %></td>
+          <td><%= sivic_discipulo.NUMR_CPF %></td>
+          <td><%= sivic_discipulo.DATA_Batismo %></td>
 
-<%= link_to 'New Sivic ministeriodiscipulo', new_sivic_ministeriodiscipulo_path %>
+        <td align='right'>
+          <%= link_to adicionaministerio_sivic_ministeriodiscipulo_path(sivic_discipulo.id), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Ministérios" do%>
+                <span class="glyphicon glyphicon-list" rel="tooltip"></span>
+          <% end %>
+        </td> 
+                  
+        </tr>
+      <% end %>
+    </tbody>
+  </table>  
+</div>
+</div>
+
+<script>
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
+</script>

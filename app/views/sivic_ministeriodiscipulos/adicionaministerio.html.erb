@@ -1,0 +1,97 @@
+
+<%if notice %>
+  <div class="alert alert-success" role="alert">
+    <%= notice %>
+  </div>
+<%end%>
+
+<% content_for :titlePage do %>
+  <%= @sivic_discipulo.sivic_pessoa.nome_pessoa %></b>
+<% end %>
+
+<%= render 'layouts/panel' %>
+
+<%= form_for(@sivic_ministeriodiscipulo) do |f| %>
+  <% if @sivic_ministeriodiscipulo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_ministeriodiscipulo.errors.count, "error") %> prohibited this sivic_ministeriodiscipulo from being saved:</h2>
+
+      <ul>
+      <% @sivic_ministeriodiscipulo.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.hidden_field :sivic_discipulo_id, :value => @sivic_discipulo.id  %>
+
+    <hr>
+    
+
+  <div class="row mar-bot40">
+
+    <div class="col-lg-2" >
+    </div>        
+    <div class="col-lg-4" >
+      <div class="field">
+        <%= f.label :Ministerio %>
+        <%= f.select :sivic_ministerio_id, options_from_collection_for_select(SivicMinisterio.all, 'id', 'nome_ministerio'),{}, :class =>  'form-control'%>	    
+      </div>
+    </div>    
+    <div class="col-lg-1" >
+    </div>        
+    <div class="col-lg-1" >
+      <div class="field">
+	    <%= f.label :Ativo? %><br/>
+	    <%= f.check_box :flag_ministerioativo %>
+      </div>
+    </div>
+    <div class="col-lg-1" >
+    </div>       
+    <div class="col-lg-1" >
+      <div class="field" style="padding-top:15px;">
+		<%= f.submit "Salvar" , class: "btn btn-large btn-success"%>
+      </div>
+    </div>
+    <div class="col-lg-2" >
+    </div>        
+  </div>
+<% end %>
+
+    <hr>
+
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th><strong class='titleTable'>Ministerio</strong></th>
+        <th><strong class='titleTable'>Ativo</strong></th>
+        <th><strong class='titleTable'>Data Inclusão</strong></th>
+        <th><th>
+        <th><th>
+        <th><th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @sivic_ministerios.each do |sivic_discipuloministerio| %>
+        <tr>
+          <td><%= sivic_discipuloministerio.sivic_ministerio.nome_ministerio %></td>
+          <td><%= sivic_discipuloministerio.flag_ministerioativo? ? '<span class="glyphicon glyphicon-ok"></span>'.html_safe : '<span class="glyphicon glyphicon-remove"></span>'.html_safe %></td>
+          <td><%= sivic_discipuloministerio.data_inclusao.blank? ? '' : sivic_discipuloministerio.data_inclusao.strftime("%d/%m/%Y")  %></td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+        </tr>
+
+      <% end %>
+    </tbody>
+  </table>
+
+
+<hr>
+
+
+</div></div>
+

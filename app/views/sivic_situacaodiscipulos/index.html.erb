@@ -7,11 +7,10 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Sivic igrejas</th>
-      <th>User</th>
-      <th>User</th>
-      <th>Nome situacao</th>
-      <th>Data exclusao</th>
+      <th>Descrição</th>
+      <th>Usuário de Inclusão</th>
+      <th>Usuário de Exclusão</th>
+      <th>Data de Exclusao</th>
       <th></th>
     </tr>
   </thead>
@@ -19,10 +18,9 @@
   <tbody>
     <% @sivic_situacaodiscipulos.each do |sivic_situacaodiscipulo| %>
       <tr>
-        <td><%= sivic_situacaodiscipulo.sivic_igreja.NOME_igreja %></td>
+        <td><%= sivic_situacaodiscipulo.nome_situacao %></td>
         <td><%= sivic_situacaodiscipulo.user_inclusao %></td>
         <td><%= sivic_situacaodiscipulo.user_exclusao %></td>
-        <td><%= sivic_situacaodiscipulo.nome_situacao %></td>
         <td><%= sivic_situacaodiscipulo.data_exclusao %></td>
 
         <td align='right'>
@@ -33,9 +31,9 @@
               <span class="glyphicon glyphicon-pencil"></span>
             <% end %>             
 
-            <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_situacaodiscipulos/<%=sivic_situacaodiscipulo.id%>  "data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir">
+          <%= link_to deletasituacao_sivic_situacaodiscipulo_path(sivic_situacaodiscipulo), data: { confirm: 'Deseja bloquear a situação?' }, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>sivic_situacaodiscipulo.user_exclusao.blank? ? "Bloquear" : "Desbloquear" do%>
                 <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
-            </a>   
+          <% end %> 
 
         </td>
       </tr>
@@ -49,3 +47,10 @@
     <span class="glyphicon glyphicon-file"></span> Novo
   <% end %>
 </div>
+
+<script>
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
+</script>

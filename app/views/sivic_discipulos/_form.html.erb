@@ -85,19 +85,16 @@
                 <%= pessoa.label :Observação %>
                 <%= pessoa.text_field :DESC_observacao, :class => 'form-control'%>
               </div>
-
               <div class="col-xs-4">
-                <%= pessoa.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
-              </div>
-
-              <div class="col-xs-4">
-                <%= pessoa.hidden_field :User_id, :value => current_user.id%>
+                <%= f.label :Situacao %>
+                <%= f.select :sivic_situacaodiscipulo_id, options_from_collection_for_select(SivicSituacaodiscipulo.all, 'id', 'nome_situacao',@sivic_discipulo.sivic_situacaodiscipulo_id),{}, :class =>  'form-control'%>
               </div>              
+             </div>
 
-              <div class="col-xs-4">
+                <%= pessoa.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
+                <%= pessoa.hidden_field :User_id, :value => current_user.id%>
                 <%= f.hidden_field :sivic_pessoa_id%>
-              </div>
-            </div>
+            
               <!--Endereço-->
             <hr>
 
