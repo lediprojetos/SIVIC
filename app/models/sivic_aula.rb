@@ -4,6 +4,9 @@ class SivicAula < ActiveRecord::Base
   belongs_to :inclusao, :class_name => "User", :foreign_key => "user_inclusao"	
 
 
+  validates :nome_aula, :presence => { :message => 'Digite o nome da aula'}
+
+  validates :data_aula, :presence => { :message => 'Digite o nome da aula'}
 
    after_create :sincroniza_aulas
 

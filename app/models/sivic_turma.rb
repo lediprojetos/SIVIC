@@ -7,7 +7,8 @@ class SivicTurma < ActiveRecord::Base
 
   
   validates :sivic_curso_id, :presence => {:message => 'Selecione um curso'}
-  validates :DESC_turma, :presence =>{ :message => 'Digite a descricao da turma'}
+  validates :DESC_turma, :presence => {:message => 'Digite a descricao da turma'}
+
 
 
 end

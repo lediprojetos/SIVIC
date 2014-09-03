@@ -47,21 +47,18 @@
             <span class="glyphicon glyphicon-pencil"></span>
           <% end %>-->
           
+        <%if sivic_professor.user_bloqueio %>
+          <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/desbloqueaProfessor<%=sivic_professor.id%>"    
+              data-confirm="Deseja bloquear o professor?" data-original-title="Desbloquear">
+              <span class="glyphicon glyphicon-ok-circle" rel="tooltip"></span>
+          </a>
+        <%else%>
+          <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/bloqueaProfessor<%=sivic_professor.id%>"    
+                 data-confirm="Deseja desbloquear o professor?" data-original-title="Bloquear">
+                    <span class="glyphicon glyphicon-ban-circle" rel="tooltip"></span>
+          </a>
+        <%end%>
 
-        <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/bloqueaProfessor<%=sivic_professor.id%>"    
-               data-confirm="Deseja desbloquear o professor?" data-original-title="Bloquear">
-                  <span class="glyphicon glyphicon-ban-circle" rel="tooltip"></span>
-        </a>
-
-                
-        <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/desbloqueaProfessor<%=sivic_professor.id%>"    
-            data-confirm="Deseja bloquear o professor?" data-original-title="Desbloquear">
-            <span class="glyphicon glyphicon-ok-circle" rel="tooltip"></span>
-        </a>
-
-
-
-       
 
           
 
