@@ -25,7 +25,7 @@ class SivicSituacaodiscipulosController < ApplicationController
   # GET /sivic_situacaodiscipulos
   # GET /sivic_situacaodiscipulos.json
   def index
-    @sivic_situacaodiscipulos = SivicSituacaodiscipulo.all
+    @sivic_situacaodiscipulos = SivicSituacaodiscipulo.where(:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id)
   end
 
   # GET /sivic_situacaodiscipulos/1

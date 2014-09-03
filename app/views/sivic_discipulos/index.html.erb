@@ -42,7 +42,7 @@
           <td><%= sivic_discipulo.sivic_pessoa.nome_pessoa %></td>
           <td><%= sivic_discipulo.DATA_Nascimento.blank? ? '' : sivic_discipulo.DATA_Nascimento.strftime("%d/%m/%Y")  %></td>
           <td><%= sivic_discipulo.NUMR_CPF %></td>
-          <td><%= sivic_discipulo.DATA_Batismo %></td>
+          <td><%= sivic_discipulo.DATA_Batismo.blank? ? '' : sivic_discipulo.DATA_Batismo.strftime("%d/%m/%Y")  %></td>
 
         <td align='right'>
             <%= link_to sivic_discipulo, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>

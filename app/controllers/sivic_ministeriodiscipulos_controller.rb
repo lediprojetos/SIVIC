@@ -1,3 +1,4 @@
+#encoding: utf-8
 class SivicMinisteriodiscipulosController < ApplicationController
   before_action :set_sivic_ministeriodiscipulo, only: [:show, :edit, :update, :destroy]
 
@@ -5,7 +6,7 @@ class SivicMinisteriodiscipulosController < ApplicationController
   # GET /sivic_ministeriodiscipulos.json
   def index
     @sivic_ministeriodiscipulos = SivicMinisteriodiscipulo.all
-	@sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('lower(sp.NOME_pessoa) like ? and sp.sivic_igreja_id = ?', "%#{params[:q]}%", current_user.sivic_pessoa.sivic_igreja_id)        
+    @sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('lower(sp.NOME_pessoa) like ? and sp.sivic_igreja_id = ?', "%#{params[:q]}%", current_user.sivic_pessoa.sivic_igreja_id).order('sp.NOME_pessoa ASC').paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /sivic_ministeriodiscipulos/1
@@ -16,7 +17,7 @@ class SivicMinisteriodiscipulosController < ApplicationController
   def adicionaministerio
   	@sivic_ministeriodiscipulo = SivicMinisteriodiscipulo.new
   	@sivic_discipulo = SivicDiscipulo.find_by_id(params[:id])
-  	@sivic_ministerios = SivicMinisteriodiscipulo.where(:sivic_discipulo_id => params[:id])
+  	@sivic_ministerios = SivicMinisteriodiscipulo.where(:sivic_discipulo_id => params[:id]).order("created_at DESC")
   end
 
   # GET /sivic_ministeriodiscipulos/new
@@ -31,19 +32,24 @@ class SivicMinisteriodiscipulosController < ApplicationController
   # POST /sivic_ministeriodiscipulos
   # POST /sivic_ministeriodiscipulos.json
   def create
+    sivic_discipulo_id = sivic_ministeriodiscipulo_params.first[1]
     @sivic_ministeriodiscipulo = SivicMinisteriodiscipulo.new(sivic_ministeriodiscipulo_params)
 
     @sivic_ministeriodiscipulo.data_inclusao = Date.today
 
     if @sivic_ministeriodiscipulo.flag_ministerioativo
-		#@sivic_ministeriodiscipulos = SivicMinisteriodiscipulo.where()
+  		@sivic_ministeriodiscipulos = SivicMinisteriodiscipulo.find_by_sivic_discipulo_id(sivic_discipulo_id)
+      if @sivic_ministeriodiscipulos
+        @sivic_ministeriodiscipulos.flag_ministerioativo = false
+        @sivic_ministeriodiscipulos.save
+      end
 	end
 
     #debugger
 
     respond_to do |format|
       if @sivic_ministeriodiscipulo.save
-        format.html { redirect_to adicionaministerio_sivic_ministeriodiscipulo_path(sivic_ministeriodiscipulo_params.first[1]), notice: 'Registro inserido com sucesso.' }
+        format.html { redirect_to adicionaministerio_sivic_ministeriodiscipulo_path(sivic_discipulo_id), notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_ministeriodiscipulo }
       else
         format.html { render action: 'new' }
@@ -70,9 +76,10 @@ class SivicMinisteriodiscipulosController < ApplicationController
   # DELETE /sivic_ministeriodiscipulos/1.json
   def destroy
     @sivic_ministeriodiscipulo.destroy
+
     respond_to do |format|
-      format.html { redirect_to sivic_ministeriodiscipulos_url }
-      format.json { head :no_content }
+        format.html { redirect_to adicionaministerio_sivic_ministeriodiscipulo_path(@sivic_ministeriodiscipulo.sivic_discipulo_id), notice: 'Registro excluído com sucesso.' }
+        format.json { render action: 'show', status: :created, location: @sivic_ministeriodiscipulo }
     end
   end
 
