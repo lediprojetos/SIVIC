@@ -184,8 +184,8 @@ SIVIC::Application.routes.draw do
    get '/bloqueaProfessor:id', to: 'sivic_professors#bloquea', as: 'bloqueaProfessor'
    get '/desbloqueaProfessor:id', to: 'sivic_professors#desbloquea', as: 'desbloqueaProfessor'
 
-   get '/bloqueaTurmaaluno/:id', to: 'sivic_turmaalunoss#bloquea', as: 'bloqueaTurmaaluno'
-  get '/desbloqueaTurmaaluno/:id', to: 'sivic_turmas#desbloquea', as: 'desbloqueaTurmaaluno'
+   get '/bloqueaTurmaaluno/:id', to: 'sivic_turmaalunos#bloquea', as: 'bloqueaTurmaaluno'
+   get '/desbloqueaTurmaaluno/:id', to: 'sivic_turmaalunos#desbloquea', as: 'desbloqueaTurmaaluno'
 
    get '/bloqueaTurma/:id', to: 'sivic_turmas#bloquea', as: 'bloqueaTurma'
    get '/desbloqueaTurma/:id', to: 'sivic_turmas#desbloquea', as: 'desbloqueaTurma'

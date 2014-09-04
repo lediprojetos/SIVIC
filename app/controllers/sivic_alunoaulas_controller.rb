@@ -17,7 +17,6 @@ class SivicAlunoaulasController < ApplicationController
 
     @sivic_aula = SivicAula.find(params[:id]) 
     @sivic_alunosaula = SivicAlunoaula.find :all, :conditions => {:sivic_aula_id => params[:id]}
-
   
     #@sivic_alunoaulas = SivicAlunoaula.all
     #@sivic_turmamoduloprofessor = SivicTurmamoduloprofessor.find(params[:id])
@@ -25,7 +24,7 @@ class SivicAlunoaulasController < ApplicationController
   end
 
   def aulafrequencia
-       @sivic_aulas  = SivicAula.joins(:sivic_turmamoduloprofessor).where(sivic_turmamoduloprofessors: {sivic_turma_id: params[:id]})
+       @sivic_aulas  = SivicAula.joins(:sivic_turmamoduloprofessor).where(sivic_turmamoduloprofessors: {id: params[:id]})
        @sivic_turma_id = params[:id]
   end
 

@@ -71,6 +71,17 @@ class SivicTurmaalunosController < ApplicationController
     end
   end
 
+
+  def desbloquea
+    @sivic_turmaaluno = SivicTurmaaluno.find(params[:id])
+    @sivic_turmaaluno.update(:data_bloqueio => nil, :user_bloqueio => nil )
+
+    respond_to do |format|
+    format.html {  redirect_to sivic_turmaalunos_url }
+    format.json { head :no_content }
+    end
+  end
+
   # DELETE /sivic_turmaalunos/1
   # DELETE /sivic_turmaalunos/1.json
   def destroy

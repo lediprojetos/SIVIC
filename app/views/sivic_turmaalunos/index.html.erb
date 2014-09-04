@@ -27,12 +27,15 @@
           <%= link_to edit_sivic_turmaaluno_path(sivic_turmaaluno), :class => "btn btn-default btn-sm", :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Editar" do %>
             <span class="glyphicon glyphicon-pencil"></span> 
           <% end %> 
-           <%= link_to bloqueaTurmaaluno_path(sivic_turmaaluno), :confirm => 'Deseja bloquear a matricula?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Bloquear" do %>
-              <span class="glyphicon glyphicon-ban-circle"></span> 
-            <% end %> 
-            <%= link_to desbloqueaTurma_path(sivic_turmaaluno), :confirm => 'Deseja desbloquear a matricula?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Bloquear" do %>
-              <span class="glyphicon glyphicon-ok-circle"></span> 
-            <% end %>              
+           <%if sivic_turmaaluno.user_bloqueio%>               
+            <%= link_to desbloqueaTurmaaluno_path(sivic_turmaaluno), :confirm => 'Deseja desbloquear a matricula?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Desbloquear" do %>
+                 <span class="glyphicon glyphicon-ok-circle"></span> 
+               <% end %> 
+            <% else %>
+              <%= link_to bloqueaTurmaaluno_path(sivic_turmaaluno), :confirm => 'Deseja bloquear a matricula?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Bloquear" do %>
+                <span class="glyphicon glyphicon-ban-circle"></span> 
+              <% end %>                           
+          <% end %> 
             <!--<%= link_to sivic_turmaaluno, :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Excluir" do %>
               <span class="glyphicon glyphicon-trash"></span>
             <% end %>-->  
