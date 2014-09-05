@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140903044202) do
+ActiveRecord::Schema.define(version: 20140905162227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -633,6 +633,10 @@ ActiveRecord::Schema.define(version: 20140903044202) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sivic_curso_id"
+    t.float    "numr_mediareprovado"
+    t.float    "numr_mediarecuperacao"
+    t.float    "numr_mediaaprovado"
+    t.integer  "numr_faltareprovado"
   end
 
   add_index "sivic_turmas", ["sivic_curso_id"], name: "index_sivic_turmas_on_sivic_curso_id", using: :btree

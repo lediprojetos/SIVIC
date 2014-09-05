@@ -17,7 +17,6 @@
       </div>
     <% end %>
 
-
   <div class="row">
       <div class="col-xs-6">
         <%= f.label :Curso %>
@@ -45,8 +44,16 @@
     </div>
   </div>
 
-  <div class="row" >
-      
+  <hr>
+
+<p>Para prenchimentos dos campos abaixo execto campo referênte a falta deve ser considerado valores de 0 a 100</p>
+
+  <div class="row" >  
+     <div class="col-xs-2">
+      <%= f.label :Média_reprovado %> 
+      <%= f.number_field :NUMR_QdtVagas, :class =>  'form-control' %>
+    </div>
+
   </div>
 
     <!--Capturando dados automaticos-->
