@@ -1,0 +1,39 @@
+<h1>Listing sivic_inscricaos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome igreja</th>
+      <th>Nome pessoa</th>
+      <th>Desc telefone</th>
+      <th>Numg cidade</th>
+      <th>Desc email</th>
+      <th>Desc senha</th>
+      <th>Desc confirmasenha</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_inscricaos.each do |sivic_inscricao| %>
+      <tr>
+        <td><%= sivic_inscricao.nome_igreja %></td>
+        <td><%= sivic_inscricao.nome_pessoa %></td>
+        <td><%= sivic_inscricao.desc_telefone %></td>
+        <td><%= sivic_inscricao.numg_cidade %></td>
+        <td><%= sivic_inscricao.desc_email %></td>
+        <td><%= sivic_inscricao.desc_senha %></td>
+        <td><%= sivic_inscricao.desc_confirmasenha %></td>
+        <td><%= link_to 'Show', sivic_inscricao %></td>
+        <td><%= link_to 'Edit', edit_sivic_inscricao_path(sivic_inscricao) %></td>
+        <td><%= link_to 'Destroy', sivic_inscricao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic inscricao', new_sivic_inscricao_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140903044202) do
+ActiveRecord::Schema.define(version: 20140905182918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -338,6 +338,19 @@ ActiveRecord::Schema.define(version: 20140903044202) do
   end
 
   add_index "sivic_igrejas", ["sivic_endereco_id"], name: "index_sivic_igrejas_on_sivic_endereco_id", using: :btree
+
+  create_table "sivic_inscricaos", force: true do |t|
+    t.string   "nome_igreja"
+    t.string   "nome_pessoa"
+    t.string   "desc_telefone"
+    t.integer  "numg_cidade"
+    t.string   "desc_email"
+    t.string   "desc_senha"
+    t.string   "desc_confirmasenha"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "desc_confirmaemail"
+  end
 
   create_table "sivic_lancamentos", force: true do |t|
     t.string   "nome_lancamento"
