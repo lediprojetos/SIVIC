@@ -3,6 +3,9 @@ class SivicLicao < ActiveRecord::Base
   belongs_to :sivic_turmamoduloprofessor
   belongs_to :inclusao, :class_name => "User", :foreign_key => "user_inclusao"	
 
+  validates :nome_licao, :presence => { :message => 'Digite a Data Fim' }
+
+
   after_create :sincroniza_notas
 
   def sincroniza_notas

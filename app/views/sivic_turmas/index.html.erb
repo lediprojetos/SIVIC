@@ -53,16 +53,18 @@
           <% end %>
           
 
-          <%#if sivic_turma.user_bloqueio = ''%>
-            <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/bloqueaTurma/<%=sivic_turma.id%>" data-confirm="Bloquear a Turma?" data-original-title="Bloquear">
-                <span class="glyphicon glyphicon-ban-circle" rel="tooltip"></span>
-            </a> 
-            <%#else%>
+          <%if sivic_turma.user_bloqueio %>
+          
             <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/desbloqueaTurma/<%=sivic_turma.id%>" data-confirm="Desbloquear a Turma?" data-original-title="Desbloquear">
                 <span class="glyphicon glyphicon-ok-circle" rel="tooltip"></span>
+            </a>
+            
+            <%else%>
+              <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/bloqueaTurma/<%=sivic_turma.id%>" data-confirm="Bloquear a Turma?" data-original-title="Bloquear">
+                <span class="glyphicon glyphicon-ban-circle" rel="tooltip"></span>
             </a> 
 
-            <%#end%>
+            <%end%>
   
                <!-- <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_turmas/<%=sivic_turma.id%>"     data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir"> 
                 <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
