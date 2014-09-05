@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_inscricaos
+
   resources :sivic_ministeriodiscipulos do
       member do
         get :adicionaministerio

@@ -21,3 +21,5 @@ module SIVIC
     # config.i18n.default_locale = :de
   end
 end
+
+ActionView::Base.field_error_proc = Proc.new{ |html_tag, instance| "<div class=\"form-group has-error\">#{html_tag}</div>".html_safe }

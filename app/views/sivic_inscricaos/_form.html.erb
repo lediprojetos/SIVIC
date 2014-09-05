@@ -1,0 +1,124 @@
+  <%= form_for(@sivic_inscricao) do |f| %>
+    <% if @sivic_inscricao.errors.any? %>
+      <div class="alert alert-danger" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> 
+      <% if @sivic_inscricao.errors.any? %>
+          <% @sivic_inscricao.errors.full_messages.each do |msg| %>
+            <%= msg %></br>       
+          <% end %>
+      <% end %>
+     </div>
+   <%end%>  
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= 'Inscrição'%></h3>
+  </div>
+  <div class="panel-footer">
+
+
+  <div class="row mar-bot40">
+    <div class="col-lg-2" >
+    </div>
+    <div class="col-lg-4" >
+    <%= f.label :nome_da_igreja %><br>
+    <%= f.text_field :nome_igreja, :class => 'form-control' %>
+    </div>
+    <div class="col-lg-4" >
+    <%= f.label :nome_da_pessoa %><br>
+    <%= f.text_field :nome_pessoa, :class => 'form-control' %>
+    </div>
+    <div class="col-lg-2" >
+    </div>
+  </div>
+  <br/>
+  <div class="row mar-bot40">
+    <div class="col-lg-2" >
+    </div>    
+    <div class="col-lg-3" >  
+    <%=  f.fields_for :sivic_estado do |estado| %>
+      <%= estado.label :Estado %>
+      <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',9), {:include_blank => true}, {:onchange => 'changeState(this)',  :class =>  'form-control'}%>
+    <%end%>
+    </div>
+    <div class="col-lg-3" >
+        <%= f.label :Cidade %>
+        <%= f.select :numg_cidade, options_from_collection_for_select(SivicCidade.where(:sivic_estado_id => 9), 'id', 'nome_cidade',977),{},{ :class =>  'form-control'}%>    
+    </div>
+    <div class="col-lg-2" >
+    <%= f.label :Telefone %><br>
+    <%= f.text_field :desc_telefone, :class => 'form-control' %>
+    </div>
+    <div class="col-lg-2" >
+    </div>    
+  </div>    
+  <br/>
+  <div class="row mar-bot40">
+    <div class="col-lg-2" >
+    </div>    
+    <div class="col-lg-4" >
+    <%= f.label :Email %><br>
+    <%= f.email_field :desc_email, :class => 'form-control' %>
+    </div>
+    <div class="col-lg-4" >
+    <%= f.label :Confirma_Email %><br>
+    <%= f.email_field :desc_confirmaemail, :class => 'form-control' %>
+    </div>    
+  </div>
+  <br/>
+  <div class="row mar-bot40">
+    <div class="col-lg-2" >
+    </div>     
+    <div class="col-lg-4" >
+    <%= f.label :Senha %><br>
+    <%= f.password_field :desc_senha, :class => 'form-control' %>
+    </div>    
+    <div class="col-lg-4" >
+    <%= f.label :Confirma_Senha %><br>
+    <%= f.password_field :desc_confirmasenha, :class => 'form-control' %>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <div class="row mar-bot40">
+    <div class="col-md-14 text-center"> 
+        <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-lg">Começar!</button> 
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <% end %>
+
+
+  </div>
+</div>
+
+
+<script>
+
+
+  function changeState(state){
+      $.ajax({
+        url: '<%= listarCidade_path %>',
+        data : {id : state.value},
+        success: function(data){
+          $('#sivic_inscricao_numg_cidade').empty();
+          $('#sivic_inscricao_numg_cidade').html('<option>Carregando...</option>');
+          $('#sivic_inscricao_numg_cidade').attr('disabled', 'disabled');
+          var options = "";
+          for (var i in data) {
+            var item = data[i];
+            options += "<option value='"+item.id+"'>"+item.name+"</option>"
+          };
+ 
+          $('#sivic_inscricao_numg_cidade').html(options);
+          $('#sivic_inscricao_numg_cidade').removeAttr('disabled');          
+        }
+      })
+    }
+
+jQuery(function($){
+   $("#sivic_inscricao_desc_telefone").mask("(99)9999-9999");
+});
+  
+</script>
