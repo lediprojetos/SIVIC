@@ -32,30 +32,40 @@ class SivicMinisteriodiscipulosController < ApplicationController
   # POST /sivic_ministeriodiscipulos
   # POST /sivic_ministeriodiscipulos.json
   def create
+
+   
     sivic_discipulo_id = sivic_ministeriodiscipulo_params.first[1]
     @sivic_ministeriodiscipulo = SivicMinisteriodiscipulo.new(sivic_ministeriodiscipulo_params)
 
-    @sivic_ministeriodiscipulo.data_inclusao = Date.today
+    @result = SivicMinisteriodiscipulo.where(sivic_discipulo_id: sivic_discipulo_id, sivic_ministerio_id: @sivic_ministeriodiscipulo.sivic_ministerio_id)
 
-    if @sivic_ministeriodiscipulo.flag_ministerioativo
-  		@sivic_ministeriodiscipulos = SivicMinisteriodiscipulo.find_by_sivic_discipulo_id(sivic_discipulo_id)
-      if @sivic_ministeriodiscipulos
-        @sivic_ministeriodiscipulos.flag_ministerioativo = false
-        @sivic_ministeriodiscipulos.save
+        @sivic_ministeriodiscipulo.data_inclusao = Date.today
+
+          if @sivic_ministeriodiscipulo.flag_ministerioativo
+        		@sivic_ministeriodiscipulos = SivicMinisteriodiscipulo.find_by_sivic_discipulo_id(sivic_discipulo_id)
+            if @sivic_ministeriodiscipulos
+              @sivic_ministeriodiscipulos.flag_ministerioativo = false
+              @sivic_ministeriodiscipulos.savesivic_ministerio_id
+            end
+      	end
+
+  if @result.empty?
+      respond_to do |format|
+        if @sivic_ministeriodiscipulo.save
+          format.html { redirect_to adicionaministerio_sivic_ministeriodiscipulo_path(sivic_discipulo_id), notice: 'Registro inserido com sucesso.' }
+          format.json { render action: 'show', status: :created, location: @sivic_ministeriodiscipulo }
+        else
+          format.html { render action: 'new' }
+          format.json { render json: @sivic_ministeriodiscipulo.errors, status: :unprocessable_entity }
+        end
       end
-	end
 
-    #debugger
+    else
+    #  format.html { redirect_to adicionaministerio_sivic_ministeriodiscipulo_path(@sivic_ministeriodiscipulo.sivic_discipulo_id), notice: 'Ministerio já está cadastrado.' }
+    #  format.json { render action: 'show', status: :created, location: @sivic_ministeriodiscipulo }
 
-    respond_to do |format|
-      if @sivic_ministeriodiscipulo.save
-        format.html { redirect_to adicionaministerio_sivic_ministeriodiscipulo_path(sivic_discipulo_id), notice: 'Registro inserido com sucesso.' }
-        format.json { render action: 'show', status: :created, location: @sivic_ministeriodiscipulo }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @sivic_ministeriodiscipulo.errors, status: :unprocessable_entity }
-      end
-    end
+  end
+
   end
 
   # PATCH/PUT /sivic_ministeriodiscipulos/1

@@ -5,7 +5,9 @@ class SivicMinisteriosController < ApplicationController
   # GET /sivic_ministerios
   # GET /sivic_ministerios.json
   def index
-    @sivic_ministerios = SivicMinisterio.paginate(:page => params[:page], :per_page => 10)
+
+    @sivic_ministerios = SivicMinisterio.where("sivic_igreja_id = ?", current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+
   end
 
   # GET /sivic_ministerios/1

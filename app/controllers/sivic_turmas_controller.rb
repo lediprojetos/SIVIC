@@ -107,6 +107,6 @@ class SivicTurmasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_turma_params
-      params.require(:sivic_turma).permit(:sivic_igreja_id, :user_inclusao, :user_bloqueio, :DESC_turma, :DATA_Inicio, :DATA_Fim, :NUMR_QdtVagas, :DATA_bloqueio, :sivic_curso_id)
+      params.require(:sivic_turma).permit(:sivic_igreja_id, :user_inclusao, :user_bloqueio, :DESC_turma, :DATA_Inicio, :DATA_Fim, :NUMR_QdtVagas, :DATA_bloqueio, :sivic_curso_id, :numr_mediareprovado, :numr_mediarecuperacao, :numr_mediaaprovado, :numr_faltareprovado)
     end
 end

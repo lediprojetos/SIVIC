@@ -5,7 +5,9 @@ class SivicTipoEventosController < ApplicationController
   # GET /sivic_tipo_eventos
   # GET /sivic_tipo_eventos.json
   def index
-    @sivic_tipo_eventos = SivicTipoEvento.paginate(:page => params[:page], :per_page => 10)
+
+    @sivic_tipo_eventos = SivicTipoEvento.where("sivic_igreja_id = ?", current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+    #@sivic_tipo_eventos = SivicTipoEvento.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /sivic_tipo_eventos/1

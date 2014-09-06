@@ -5,7 +5,9 @@ class SivicEventosController < ApplicationController
   # GET /sivic_eventos
   # GET /sivic_eventos.json
   def index
-    @sivic_eventos = SivicEvento.where("data_encerramento is null").paginate(:page => params[:page], :per_page => 10)
+    
+    @sivic_eventos = SivicEvento.where("data_encerramento is null and sivic_igreja_id = ?", current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+    
   end
 
 #Método chamado pra carregar cidades dinâmicamente via ajax

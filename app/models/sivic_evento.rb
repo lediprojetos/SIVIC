@@ -12,8 +12,6 @@ class SivicEvento < ActiveRecord::Base
   validates :DATA_fim, :presence => { :message => 'Digite a Data Fim' }
 
 
-
-
   accepts_nested_attributes_for :sivic_endereco, allow_destroy: true
 
   def self.find_by_name_or_all(query)

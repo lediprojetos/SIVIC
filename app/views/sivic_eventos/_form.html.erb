@@ -6,7 +6,10 @@
 
     <%= form_for(@sivic_evento) do |f| %>
     <% if @sivic_evento.errors.any? %>
-      <div class="alert alert-danger" role="alert">
+    
+      <div class="alert alert-danger alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
         <% if @sivic_evento.errors.any? %>
   
             <% @sivic_evento.errors.full_messages.each do |msg| %>
@@ -31,9 +34,10 @@
   <div class="tab-pane active" id="tab1">
     <br />
     <div class="row">
+
       <div class="col-xs-3">
         <%= f.label :Tipo_do_Evento %>
-        <%= f.select :sivic_tipo_evento_id, options_from_collection_for_select(SivicTipoEvento.all, 'id', 'desc_tipoevento',@sivic_evento.sivic_tipo_evento_id),{:include_blank => true},{:class =>  'form-control'}%>
+        <%= f.select :sivic_tipo_evento_id, options_from_collection_for_select(SivicTipoEvento.where("sivic_igreja_id = ?", current_user.sivic_pessoa.sivic_igreja_id), 'id', 'desc_tipoevento',@sivic_evento.sivic_tipo_evento_id),{:include_blank => true},{:class =>  'form-control'}%>
       </div>
       <div class="col-xs-5">
         <%= f.label :Nome_Evento %>

@@ -261,6 +261,10 @@ pt:
       sivic_turma:
         DESC_turma: ''
         sivic_curso_id: ''
+        numr_mediareprovado: ''
+        numr_mediarecuperacao: ''
+        numr_mediaaprovado: ''
+        numr_faltareprovado: ''
       sivic_moduloescola:
         nome_modulo: ''
       sivic_turmaaluno:
