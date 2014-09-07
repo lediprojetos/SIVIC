@@ -220,6 +220,7 @@ pt:
       sivic_discipulo: Discipulo
       sivic_endereco: ''
       sivic_pessoa: ''
+      sivic_inscricao: ''
     attributes:
       sivic_discipulo:
         NUMR_CPF: CPF
@@ -270,5 +271,15 @@ pt:
       sivic_turmaaluno:
         sivic_turma_id: ''
         sivic_pessoa_id: ''
+      sivic_inscricao:
+        nome_igreja: ''
+        nome_pessoa: ''
+        numg_cidade: ''
+        desc_telefone: ''
+        desc_email: ''
+        desc_confirmaemail: ''
+        desc_senha: ''
+        desc_confirmasenha: ''
+
     errors:
       <<: *errors

@@ -21,7 +21,7 @@
         </head>
         <body>
 
-        <% if request.original_fullpath != '/users/sign_in' %>
+        <% if request.original_fullpath != '/users/sign_in' &&  request.original_fullpath != '/sivic_inscricaos/new' %>
           <%= render 'layouts/header' %>
         <%end%>
 
