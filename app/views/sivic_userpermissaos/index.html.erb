@@ -1,0 +1,29 @@
+<h1>Listing sivic_userpermissaos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sivic permissao</th>
+      <th>User</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_userpermissaos.each do |sivic_userpermissao| %>
+      <tr>
+        <td><%= sivic_userpermissao.sivic_permissao %></td>
+        <td><%= sivic_userpermissao.user %></td>
+        <td><%= link_to 'Show', sivic_userpermissao %></td>
+        <td><%= link_to 'Edit', edit_sivic_userpermissao_path(sivic_userpermissao) %></td>
+        <td><%= link_to 'Destroy', sivic_userpermissao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic userpermissao', new_sivic_userpermissao_path %>

@@ -5,7 +5,14 @@ class SivicRedesController < ApplicationController
   # GET /sivic_redes
   # GET /sivic_redes.json
   def index
-    @sivic_redes = SivicRede.paginate(:page => params[:page], :per_page => 10)
+   
+    #@sivic_redes = SivicRede.paginate(:page => params[:page], :per_page => 10)
+
+   @sivic_redes = SivicRede.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)   
+
+
+   # @sivic_eventos = SivicEvento.where("data_encerramento is null and sivic_igreja_id = ?", current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+
   end
 
   # GET /sivic_redes/1

@@ -10,8 +10,8 @@ class SivicPessoa < ActiveRecord::Base
 #validates :nome_pessoa, :presence => {} 
 
   
-validates :nome_pessoa, :presence => { :message => 'Informe um Nome.' }
-#validates :father_id, :presence => { :message => 'Escolha um lider.' }
+#validates :nome_pessoa, :presence => { :message => 'Informe um Nome.' }
+validates :father_id, :presence => { :message => 'Escolha um lider.' }
 
 before_create :setaParaConsolidador
 

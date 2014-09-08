@@ -1,0 +1,31 @@
+<h1>Listing sivic_permissaos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mome model</th>
+      <th>Mumr acao</th>
+      <th>Desc permissao</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_permissaos.each do |sivic_permissao| %>
+      <tr>
+        <td><%= sivic_permissao.mome_model %></td>
+        <td><%= sivic_permissao.mumr_acao %></td>
+        <td><%= sivic_permissao.desc_permissao %></td>
+        <td><%= link_to 'Show', sivic_permissao %></td>
+        <td><%= link_to 'Edit', edit_sivic_permissao_path(sivic_permissao) %></td>
+        <td><%= link_to 'Destroy', sivic_permissao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic permissao', new_sivic_permissao_path %>

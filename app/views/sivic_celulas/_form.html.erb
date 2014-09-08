@@ -145,6 +145,7 @@
 
       <%end%>
 
+      <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
       <!--Capturando usuario logado-->
       <%=f.hidden_field :user_inclusao, :value => current_user.id%>   
 

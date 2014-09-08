@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140907202322) do
+ActiveRecord::Schema.define(version: 20140908204840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,9 +92,11 @@ ActiveRecord::Schema.define(version: 20140907202322) do
     t.boolean  "FLAG_adulto"
     t.integer  "NUMR_Codigo"
     t.boolean  "flag_gerarelatorio"
+    t.integer  "sivic_igreja_id"
   end
 
   add_index "sivic_celulas", ["sivic_endereco_id"], name: "index_sivic_celulas_on_sivic_endereco_id", using: :btree
+  add_index "sivic_celulas", ["sivic_igreja_id"], name: "index_sivic_celulas_on_sivic_igreja_id", using: :btree
   add_index "sivic_celulas", ["sivic_pessoa_id"], name: "index_sivic_celulas_on_sivic_pessoa_id", using: :btree
 
   create_table "sivic_centrocustos", force: true do |t|
@@ -495,6 +497,14 @@ ActiveRecord::Schema.define(version: 20140907202322) do
   add_index "sivic_participantecelulas", ["sivic_celula_id"], name: "index_sivic_participantecelulas_on_sivic_celula_id", using: :btree
   add_index "sivic_participantecelulas", ["sivic_sitpartcelula_id"], name: "index_sivic_participantecelulas_on_sivic_sitpartcelula_id", using: :btree
 
+  create_table "sivic_permissaos", force: true do |t|
+    t.string   "mome_model"
+    t.integer  "mumr_acao"
+    t.text     "desc_permissao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sivic_pessoas", force: true do |t|
     t.integer  "father_id"
     t.integer  "integer"
@@ -505,10 +515,14 @@ ActiveRecord::Schema.define(version: 20140907202322) do
     t.integer  "User_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sivic_situacaodiscipulo_id"
+    t.integer  "user_situacao"
+    t.datetime "data_situacao"
   end
 
   add_index "sivic_pessoas", ["User_id"], name: "index_sivic_pessoas_on_User_id", using: :btree
   add_index "sivic_pessoas", ["sivic_igreja_id"], name: "index_sivic_pessoas_on_sivic_igreja_id", using: :btree
+  add_index "sivic_pessoas", ["sivic_situacaodiscipulo_id"], name: "index_sivic_pessoas_on_sivic_situacaodiscipulo_id", using: :btree
 
   create_table "sivic_professors", force: true do |t|
     t.integer  "user_inclusao"
@@ -664,6 +678,16 @@ ActiveRecord::Schema.define(version: 20140907202322) do
 
   add_index "sivic_turmas", ["sivic_curso_id"], name: "index_sivic_turmas_on_sivic_curso_id", using: :btree
   add_index "sivic_turmas", ["sivic_igreja_id"], name: "index_sivic_turmas_on_sivic_igreja_id", using: :btree
+
+  create_table "sivic_userpermissaos", force: true do |t|
+    t.integer  "sivic_permissao_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_userpermissaos", ["sivic_permissao_id"], name: "index_sivic_userpermissaos_on_sivic_permissao_id", using: :btree
+  add_index "sivic_userpermissaos", ["user_id"], name: "index_sivic_userpermissaos_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

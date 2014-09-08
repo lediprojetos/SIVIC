@@ -1,0 +1,29 @@
+<%= form_for(@sivic_permissao) do |f| %>
+  <% if @sivic_permissao.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_permissao.errors.count, "error") %> prohibited this sivic_permissao from being saved:</h2>
+
+      <ul>
+      <% @sivic_permissao.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :mome_model %><br>
+    <%= f.text_field :mome_model %>
+  </div>
+  <div class="field">
+    <%= f.label :mumr_acao %><br>
+    <%= f.number_field :mumr_acao %>
+  </div>
+  <div class="field">
+    <%= f.label :desc_permissao %><br>
+    <%= f.text_area :desc_permissao %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
