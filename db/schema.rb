@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140905182918) do
+ActiveRecord::Schema.define(version: 20140907202322) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,6 +135,16 @@ ActiveRecord::Schema.define(version: 20140905182918) do
 
   add_index "sivic_contabancos", ["sivic_banco_id"], name: "index_sivic_contabancos_on_sivic_banco_id", using: :btree
   add_index "sivic_contabancos", ["sivic_igreja_id"], name: "index_sivic_contabancos_on_sivic_igreja_id", using: :btree
+
+  create_table "sivic_contatos", force: true do |t|
+    t.string   "desc_nome"
+    t.string   "desc_email"
+    t.string   "desc_assunto"
+    t.string   "desc_mensagem"
+    t.string   "desc_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sivic_contcelulas", force: true do |t|
     t.integer  "NUMR_Contador"

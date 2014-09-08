@@ -1,0 +1,37 @@
+<%= form_for(@sivic_contato) do |f| %>
+  <% if @sivic_contato.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_contato.errors.count, "error") %> prohibited this sivic_contato from being saved:</h2>
+
+      <ul>
+      <% @sivic_contato.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :desc_nome %><br>
+    <%= f.text_field :desc_nome %>
+  </div>
+  <div class="field">
+    <%= f.label :desc_email %><br>
+    <%= f.text_field :desc_email %>
+  </div>
+  <div class="field">
+    <%= f.label :desc_assunto %><br>
+    <%= f.text_field :desc_assunto %>
+  </div>
+  <div class="field">
+    <%= f.label :desc_mensagem %><br>
+    <%= f.text_field :desc_mensagem %>
+  </div>
+  <div class="field">
+    <%= f.label :desc_ip %><br>
+    <%= f.text_field :desc_ip %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

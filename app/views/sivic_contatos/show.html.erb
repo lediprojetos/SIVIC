@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Desc nome:</strong>
+  <%= @sivic_contato.desc_nome %>
+</p>
+
+<p>
+  <strong>Desc email:</strong>
+  <%= @sivic_contato.desc_email %>
+</p>
+
+<p>
+  <strong>Desc assunto:</strong>
+  <%= @sivic_contato.desc_assunto %>
+</p>
+
+<p>
+  <strong>Desc mensagem:</strong>
+  <%= @sivic_contato.desc_mensagem %>
+</p>
+
+<p>
+  <strong>Desc ip:</strong>
+  <%= @sivic_contato.desc_ip %>
+</p>
+
+<%= link_to 'Edit', edit_sivic_contato_path(@sivic_contato) %> |
+<%= link_to 'Back', sivic_contatos_path %>

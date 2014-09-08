@@ -651,31 +651,34 @@
 							<div id="sendmessage">
 								Susa mensagem foi enviada. Obrigado!
 							</div>
-							<form action="contact/contact.php" method="post" role="form" class="contactForm">
 							  <div class="form-group">
 								<label for="name">Seu Nome</label>
 								<input type="text" name="name" class="form-control" id="name" placeholder="Seu Name" data-rule="maxlen:4" data-msg="Digite pelo menos 4 caracteres." />
-								<div class="validation"></div>
+								<div class="validation" style="display: block;">
+    								Por favor, digite um email válido.
+								</div>
 							  </div>
 							  <div class="form-group">
 								<label for="email">Seu Email</label>
 								<input type="email" class="form-control" name="email" id="email" placeholder="Seu Email" data-rule="email" data-msg="Por favor, digite um email válido." />
-								<div class="validation"></div>
+								<div class="validation" style="display: block;">
+    								Por favor, digite um email válido.
+								</div>
 							  </div>
 							  <div class="form-group">
 								<label for="subject">Assunto</label>
 								<input type="text" class="form-control" name="subject" id="subject" placeholder="Assunto" data-rule="maxlen:4" data-msg="Por favor, digite pelo menos 8 caracteres." />
-								<div class="validation"></div>
+								<div class="validation" style="display: block;">
+    								Por favor, digite um email válido.
+								</div>
 							  </div>
 							  <div class="form-group">
 								<label for="message">Mensagem</label>
-								<textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Por favor digite a mensagem."></textarea>
+								<textarea class="form-control" name="message" id="message" rows="5" data-rule="required" data-msg="Por favor digite a mensagem."></textarea>
 								<div class="validation"></div>
 							  </div>
 							  
-							  <button type="submit" class="btn btn-theme pull-left">ENVIAR MENSAGEM</button>
-							</form>
-
+							  <button type="submit" class="btn btn-theme pull-left" onclick="salvaContato();">ENVIAR MENSAGEM</button>
 						</div>
 					</div>
 					<!-- ./span12 -->
@@ -727,3 +730,40 @@
 	<%= javascript_include_tag 'template/main.js' %>
 	</body>
 </html>
+
+<script>
+
+function salvaContato(){
+
+      var pesquisa;
+
+
+      pesquisa = $('#nome_pessoa_buscar').val();
+
+
+      $.ajax({
+        url: '<%= enviacontato_path %>',
+        data : 
+        {
+            desc_nome : $("#name").val()
+            ,desc_email : $("#email").val()
+            ,desc_assunto : $("#subject").val()
+            ,desc_mensagem : $("#message").val()
+        },
+        success: function(data){
+          $("#name").val("");
+          $("#email").val("");
+          $("#subject").val("");
+          $("#message").val("");
+
+ 		  //alert_boot('Digite uma data de inicio para pesquisa.','warning','#alert_placeholder_periodo');
+
+        }
+    })
+}
+
+function alert_boot(message,color,place) {
+
+  $(place).html('<div class="alert alert-'+color+'" role="alert">'+message+'<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> </div>')
+}
+</script>

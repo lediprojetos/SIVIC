@@ -1,0 +1,35 @@
+<h1>Listing sivic_contatos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Desc nome</th>
+      <th>Desc email</th>
+      <th>Desc assunto</th>
+      <th>Desc mensagem</th>
+      <th>Desc ip</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_contatos.each do |sivic_contato| %>
+      <tr>
+        <td><%= sivic_contato.desc_nome %></td>
+        <td><%= sivic_contato.desc_email %></td>
+        <td><%= sivic_contato.desc_assunto %></td>
+        <td><%= sivic_contato.desc_mensagem %></td>
+        <td><%= sivic_contato.desc_ip %></td>
+        <td><%= link_to 'Show', sivic_contato %></td>
+        <td><%= link_to 'Edit', edit_sivic_contato_path(sivic_contato) %></td>
+        <td><%= link_to 'Destroy', sivic_contato, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic contato', new_sivic_contato_path %>

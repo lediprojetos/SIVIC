@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_contatos
+
   resources :sivic_inscricaos
 
   resources :sivic_ministeriodiscipulos do
@@ -121,6 +123,8 @@ SIVIC::Application.routes.draw do
   match '/criarPessoa', to: 'sivic_pessoas#create_pessoa', via: 'get'
   match '/listarPessoa', to: 'sivic_pessoas#busca_pessoa', via: 'get'
   match '/editarNome', to: 'sivic_pessoas#edita_nome', via: 'get'
+
+  match '/enviacontato', to: 'sivic_contatos#envia_contato', via: 'get'
 
   match '/listarDiscipulos', to: 'sivic_discipulos#busca_discipulos', via: 'get'
   match '/listarCelulas', to: 'sivic_celulas#busca_celulas', via: 'get'
