@@ -1,5 +1,6 @@
 class SivicPessoa < ActiveRecord::Base
   belongs_to :sivic_igreja
+  belongs_to :sivic_situacaodiscipulo
   has_many   :sivic_celula
   has_many   :User
   has_one   :sivic_professor
@@ -9,7 +10,7 @@ class SivicPessoa < ActiveRecord::Base
 
 
 validates :nome_pessoa, :presence => { :message => 'Informe um Nome.' }
-validates :father_id, :presence => { :message => 'Escolha um lider.' }
+#validates :father_id, :presence => { :message => 'Escolha um lider.' }
 
 before_create :setaParaConsolidador
 
