@@ -16,18 +16,6 @@ ActiveRecord::Schema.define(version: 20140908204840) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "clientes", force: true do |t|
-    t.string   "desc_nome"
-    t.string   "NUMR_CPF"
-    t.string   "DESC_TelefoneCelular"
-    t.string   "DESC_TelefoneFixo"
-    t.string   "DESC_Email"
-    t.string   "DESC_Secao"
-    t.string   "DESC_Observacao"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "observacoesrelatorios", force: true do |t|
     t.integer  "sivic_relatorioscelula_id"
     t.integer  "sivic_pessoa_id"
@@ -38,30 +26,6 @@ ActiveRecord::Schema.define(version: 20140908204840) do
 
   add_index "observacoesrelatorios", ["sivic_pessoa_id"], name: "index_observacoesrelatorios_on_sivic_pessoa_id", using: :btree
   add_index "observacoesrelatorios", ["sivic_relatorioscelula_id"], name: "index_observacoesrelatorios_on_sivic_relatorioscelula_id", using: :btree
-
-  create_table "refeicao_clientes", force: true do |t|
-    t.integer  "cliente_id"
-    t.integer  "refeicao_id"
-    t.boolean  "flag_pago"
-    t.boolean  "FLAG_Acompanhamento"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "refeicao_clientes", ["cliente_id"], name: "index_refeicao_clientes_on_cliente_id", using: :btree
-  add_index "refeicao_clientes", ["refeicao_id"], name: "index_refeicao_clientes_on_refeicao_id", using: :btree
-
-  create_table "refeicaos", force: true do |t|
-    t.date     "DATE_Refeicao"
-    t.string   "DESC_Refeicao"
-    t.string   "TIPO_Refeicao"
-    t.string   "DESC_Acompanhamento"
-    t.decimal  "VALOR_Refeicao"
-    t.decimal  "VALOR_Acompanhamento"
-    t.string   "DESC_Observacao"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "sivic_alunoaulas", force: true do |t|
     t.integer  "sivic_turmaaluno_id"
@@ -78,7 +42,7 @@ ActiveRecord::Schema.define(version: 20140908204840) do
     t.string   "nome_aula"
     t.datetime "data_aula"
     t.integer  "sivic_igreja_id"
-    t.integer  "sivic_tumamoduloprofessor_id"
+    t.integer  "sivic_turmamoduloprofessor_id"
     t.integer  "user_inclusao"
     t.integer  "integer"
     t.datetime "created_at"
@@ -86,7 +50,7 @@ ActiveRecord::Schema.define(version: 20140908204840) do
   end
 
   add_index "sivic_aulas", ["sivic_igreja_id"], name: "index_sivic_aulas_on_sivic_igreja_id", using: :btree
-  add_index "sivic_aulas", ["sivic_tumamoduloprofessor_id"], name: "index_sivic_aulas_on_sivic_tumamoduloprofessor_id", using: :btree
+  add_index "sivic_aulas", ["sivic_turmamoduloprofessor_id"], name: "index_sivic_aulas_on_sivic_turmamoduloprofessor_id", using: :btree
 
   create_table "sivic_bancos", force: true do |t|
     t.string   "nome_banco"
@@ -241,7 +205,7 @@ ActiveRecord::Schema.define(version: 20140908204840) do
     t.string   "DESC_MomentoEstudoBiblico"
     t.string   "NUMR_RG"
     t.date     "DATA_EmissaoRG"
-    t.string   "NUMR_CPF",                   limit: 11
+    t.string   "NUMR_CPF",                  limit: 11
     t.string   "NOME_Pai"
     t.string   "NOME_Mae"
     t.date     "DATA_NascConjuge"
@@ -258,9 +222,6 @@ ActiveRecord::Schema.define(version: 20140908204840) do
     t.integer  "NUMR_Codigo"
     t.time     "hora_estudobiblico"
     t.integer  "sivic_cidade_id"
-    t.integer  "user_exclusao"
-    t.integer  "sivic_situacaodiscipulo_id"
-    t.datetime "data_exclusao"
   end
 
   add_index "sivic_discipulos", ["sivic_celula_id"], name: "index_sivic_discipulos_on_sivic_celula_id", using: :btree
@@ -269,7 +230,6 @@ ActiveRecord::Schema.define(version: 20140908204840) do
   add_index "sivic_discipulos", ["sivic_pessoa_id"], name: "index_sivic_discipulos_on_sivic_pessoa_id", using: :btree
   add_index "sivic_discipulos", ["sivic_profissao_id"], name: "index_sivic_discipulos_on_sivic_profissao_id", using: :btree
   add_index "sivic_discipulos", ["sivic_rede_id"], name: "index_sivic_discipulos_on_sivic_rede_id", using: :btree
-  add_index "sivic_discipulos", ["sivic_situacaodiscipulo_id"], name: "index_sivic_discipulos_on_sivic_situacaodiscipulo_id", using: :btree
 
   create_table "sivic_enderecos", force: true do |t|
     t.string   "DESC_Bairro"
@@ -680,18 +640,18 @@ ActiveRecord::Schema.define(version: 20140908204840) do
   add_index "sivic_turmaalunos", ["sivic_turma_id"], name: "index_sivic_turmaalunos_on_sivic_turma_id", using: :btree
 
   create_table "sivic_turmamoduloprofessors", force: true do |t|
-    t.integer  "sivic_professors_id"
-    t.integer  "sivic_moduloescolas_id"
-    t.integer  "sivic_turmas_id"
+    t.integer  "sivic_professor_id"
+    t.integer  "sivic_moduloescola_id"
+    t.integer  "sivic_turma_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "sivic_igreja_id"
   end
 
   add_index "sivic_turmamoduloprofessors", ["sivic_igreja_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_igreja_id", using: :btree
-  add_index "sivic_turmamoduloprofessors", ["sivic_moduloescolas_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_moduloescolas_id", using: :btree
-  add_index "sivic_turmamoduloprofessors", ["sivic_professors_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_professors_id", using: :btree
-  add_index "sivic_turmamoduloprofessors", ["sivic_turmas_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_turmas_id", using: :btree
+  add_index "sivic_turmamoduloprofessors", ["sivic_moduloescola_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_moduloescola_id", using: :btree
+  add_index "sivic_turmamoduloprofessors", ["sivic_professor_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_professor_id", using: :btree
+  add_index "sivic_turmamoduloprofessors", ["sivic_turma_id"], name: "index_sivic_turmamoduloprofessors_on_sivic_turma_id", using: :btree
 
   create_table "sivic_turmas", force: true do |t|
     t.integer  "sivic_igreja_id"

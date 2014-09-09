@@ -23,7 +23,7 @@
 
 <p>
   <strong>Profissão:</strong>
-  <%= @sivic_discipulo.sivic_profissao.profissao %>
+  <%= @sivic_discipulo.sivic_profissao.profissao rescue nil %>
 </p>
 
 <p>
@@ -33,7 +33,7 @@
 
 <p>
   <strong>Rede:</strong>
-  <%= @sivic_discipulo.sivic_rede.nome_rede %>
+  <%= @sivic_discipulo.sivic_rede.nome_rede rescue nil%>
 </p>
 
 <p>
@@ -43,7 +43,7 @@
 
 <p>
   <strong>Profissão do Conjuge:</strong>
-  <%= @sivic_discipulo.ProfissaoConjuge.profissao %>
+  <%= @sivic_discipulo.ProfissaoConjuge.profissao rescue nil %>
 </p>
 
 <p>
@@ -89,7 +89,7 @@
 
 <p>
   <strong>Discípulo:</strong>
-  <%= @sivic_discipulo.FLAG_Discipulo %>
+  <%= @sivic_discipulo.FLAG_Discipulo? ? "Sim" : "Não"%>
 </p>
 
 <p>
@@ -167,12 +167,12 @@
 
 <p>
   <strong>Doador de Sangue:</strong>
-  <%= @sivic_discipulo.FLAG_DoadorSangue %>
+  <%= @sivic_discipulo.FLAG_DoadorSangue? ? "Sim" : "Não"%>
 </p>
 
 <p>
   <strong>Doador de Órgao:</strong>
-  <%= @sivic_discipulo.FLAG_DoadorOrgao %>
+  <%= @sivic_discipulo.FLAG_DoadorOrgao? ? "Sim" : "Não" %>
 </p>
 
 </div>

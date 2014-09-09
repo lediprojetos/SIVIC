@@ -41,11 +41,11 @@
                 <% end %>   
                 
                 <% if can? :manage, SivicMinisterio%>
-                  <li><%= link_to 'Cadastro de Ministerios', sivic_ministerios_path%> </li>
+                  <li><%= link_to 'Cadastro de Ministérios', sivic_ministerios_path%> </li>
                 <% end %>   
                 
                 <% if can? :manage, SivicMinisteriodiscipulo%>
-                  <li><%= link_to 'Inclusão de Ministerio', sivic_ministeriodiscipulos_path%> </li>
+                  <li><%= link_to 'Inclusão de Ministério', sivic_ministeriodiscipulos_path%> </li>
                 <% end %>
 
                 <% if can? :manage, SivicCelula%>
@@ -77,12 +77,16 @@
                 <% end %>
 
                 <% if can? :manage, SivicParticipantecelula%>
-                  <li><%= link_to 'Participante Celula', sivic_participantecelulas_path%> </li>
+                  <li><%= link_to 'Participante de Célula', sivic_participantecelulas_path%> </li>
                 <% end %>
 
                 <% if can? :manage, SivicRede%>
                   <li><%= link_to 'Cadastro de Redes', sivic_redes_path%> </li>
                 <% end %>
+
+                <% if can? :manage, SivicSituacaodiscipulo%>
+                  <li><%= link_to 'Cadastro de Situações', sivic_situacaodiscipulos_path%> </li>
+                <% end %>                
           </ul>
         </li>
 
@@ -105,7 +109,7 @@
               <li><%= link_to 'Cadastro de Professores', sivic_professors_path%> </li>
               <li><%= link_to 'Cadastro de Turmas',  sivic_turmas_path%> </li>
               <li><%= link_to 'Cadastro de Disciplina',  sivic_moduloescolas_path%></li>
-              <li><%= link_to 'Matrícular Alunos',  sivic_turmaalunos_path%> </li>
+              <li><%= link_to 'Matricular Alunos',  sivic_turmaalunos_path%> </li>
               <li><%= link_to 'Gerenciar Disciplinas',  sivic_licaos_path%> </li>
               <li><%= link_to 'Diário Escolar',  sivic_alunoaulas_path%> </li>
             </ul>
@@ -128,8 +132,7 @@
           <% else %>
             <li><%= link_to "Entrar", new_user_session_path%>
           <% end %>
-          <li><%= link_to "|", '#' %></li>
-          <li><%= link_to "Home",    root_path %></li>
+          <li><%= link_to "<spam class='glyphicon glyphicon-home'></spam>".html_safe,    root_path %></li>
       </ul>      
 
     </div><!-- /.navbar-collapse -->
