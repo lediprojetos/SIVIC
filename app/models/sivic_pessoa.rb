@@ -1,5 +1,6 @@
 class SivicPessoa < ActiveRecord::Base
   belongs_to :sivic_igreja
+  belongs_to :sivic_situacaodiscipulo
   has_many   :sivic_celula
   has_many   :User
   has_one   :sivic_professor

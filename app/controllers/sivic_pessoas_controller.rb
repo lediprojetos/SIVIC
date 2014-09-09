@@ -108,6 +108,6 @@ class SivicPessoasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_pessoa_params
-      params.require(:sivic_pessoa).permit(:nome_pessoa, :DESC_email, :DESC_observacao, :User_id, :sivic_igreja_id, :father_id)
+      params.require(:sivic_pessoa).permit(:nome_pessoa, :DESC_email, :DESC_observacao, :User_id, :sivic_igreja_id, :father_id, :sivic_situacaodiscipulo_id)
     end
 end
