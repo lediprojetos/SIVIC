@@ -6,7 +6,10 @@
 
   <%= form_for(@sivic_rede) do |f| %>
     <% if @sivic_rede.errors.any? %>
-      <div class="alert alert-danger" role="alert">
+    
+      <div class="alert alert-danger alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
         <% if @sivic_rede.errors.any? %>
   
             <% @sivic_rede.errors.full_messages.each do |msg| %>

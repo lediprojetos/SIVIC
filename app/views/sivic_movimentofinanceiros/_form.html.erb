@@ -22,7 +22,7 @@
           </div>
           <div class="col-xs-4">
             <%= f.label :Evento %>
-            <%= f.select :sivic_evento_id, options_from_collection_for_select(SivicEvento.all, 'id', 'desc_evento',@sivic_movimentofinanceiro.sivic_evento_id), {:include_blank => true},{:class => 'form-control'}%>
+            <%= f.select :sivic_evento_id, options_from_collection_for_select(SivicEvento.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id), 'id', 'desc_evento',@sivic_movimentofinanceiro.sivic_evento_id), {:include_blank => true},{:class => 'form-control'}%>
           </div>
           <div class="col-xs-4">
             <%= f.label :Tipo_Movimento %>

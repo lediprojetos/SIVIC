@@ -5,7 +5,13 @@ class SivicMovimentofinanceirosController < ApplicationController
   # GET /sivic_movimentofinanceiros
   # GET /sivic_movimentofinanceiros.json
   def index
-    @sivic_movimentofinanceiros = SivicMovimentofinanceiro.paginate(:page => params[:page], :per_page => 10)
+    
+
+    @sivic_movimentofinanceiros = SivicMovimentofinanceiro.where(user_inclusao: current_user.id).paginate(:page => params[:page], :per_page => 10)
+
+    #@sivic_movimentofinanceiros = SivicMovimentofinanceiro.paginate(:page => params[:page], :per_page => 10)
+
+
   end
 
   # GET /sivic_movimentofinanceiros/1
