@@ -25,7 +25,9 @@ class SivicParticipantecelulasController < ApplicationController
   # GET /sivic_participantecelulas
   # GET /sivic_participantecelulas.json
   def index
-    @sivic_participantecelulas = SivicParticipantecelula.paginate(:page => params[:page], :per_page => 10)
+    
+    @sivic_participantecelulas = SivicParticipantecelula.joins(:sivic_celula).where(sivic_celulas: {sivic_pessoa_id: current_user.sivic_pessoa.id}).paginate(:page => params[:page], :per_page => 10)
+
   end
 
   # GET /sivic_participantecelulas/1

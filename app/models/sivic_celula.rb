@@ -4,6 +4,8 @@ class SivicCelula < ActiveRecord::Base
   belongs_to :inclusao, :class_name => "User", :foreign_key => "user_inclusao"	
   belongs_to :bloqueio, :class_name => "User", :foreign_key => "user_bloqueio" 
 
+  has_many :sivic_participantecelula
+
   accepts_nested_attributes_for :sivic_endereco, allow_destroy: true
 
   has_many :sivic_relatorioscelula, :dependent => :destroy

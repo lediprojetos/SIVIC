@@ -6,8 +6,11 @@
 
   <%= form_for(@sivic_celula) do |f| %>
     <% if @sivic_celula.errors.any? %>
-      <div class="alert alert-danger" role="alert">
-        <% if @sivic_celula.errors.any? %>
+    
+      <div class="alert alert-danger alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+        <% if @sivic_evento.errors.any? %>
   
             <% @sivic_celula.errors.full_messages.each do |msg| %>
 
