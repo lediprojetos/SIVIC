@@ -104,38 +104,48 @@
   </div>
 </div>
 
-
  <script>
 
- function buscaPessoa(){
+ 
+    function buscaPessoa(){
+
+        var pesquisa;
+
+          pesquisa = $('#NOME_pessoa_buscar').val();
+
+        $.ajax({
+          url: '<%= listarDiscipulos_path %>',
+          data : 
+          {
+              nome_pessoa : pesquisa
+          },
+          success: function(data){
+            $("#tbodyid").empty();
+            for (var i in data) {
+              var item = data[i];
+
+                $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
+
+            };
    
-       $.ajax({
-        url : '<%= listarPessoa_path %>',
-        data :
-        {
-          NOME_pessoa : $('#NOME_pessoa_buscar').val()
-        },
-        success: function(data){        
-          $('#tbodyid').empty();
-          for (var i in data){
-            var item = data[i];
-            $('#table_user').append('<tr><td><a href="javascript:setaNome(\''+ item.nome_pessoa+'\','+item.id+'\);">'+item.nome_pessoa+'</a></td></tr>')
-          };         
-        }
-       })
-     }
-     function setaNome(nome,id){
+          }
+        })
+      }
 
+    function setaNome(nome,id){
 
-      $('#sivic_professor_sivic_pessoa_id').empty();
-      $('#sivic_professor_sivic_pessoa_id').html('<option>Carregando...</option>');
-      $('#sivic_professor_sivic_pessoa_id').attr('disabled', 'disabled');
-      var options = "<option value='"+id+"'>"+nome+"</option>";
+       
+       $('#sivic_professor_sivic_pessoa_id').empty();
+       $('#sivic_professor_sivic_pessoa_id').html('<option>Carregando...</option>');
+       $('#sivic_professor_sivic_pessoa_id').attr('disabled', 'disabled');
+       var options = "<option value='"+id+"'>"+nome+"</option>";
         $('#sivic_professor_sivic_pessoa_id').html(options);
         $('#sivic_professor_sivic_pessoa_id').removeAttr('disabled');
         $('#pessoa_id').val(id);
-        $('#myModal2').modal('hide');         
-    }
+        $('#myModal2').modal('hide'); 
+
+    } 
+
 
 function enviarId () {
  

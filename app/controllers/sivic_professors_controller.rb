@@ -12,13 +12,13 @@ class SivicProfessorsController < ApplicationController
     end
 
    if params[:sivic_professor_situacao_id] == '2'
-      @sivic_professors = SivicProfessor.all
+      @sivic_professors = SivicProfessor.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id)
    elsif params[:sivic_professor_situacao_id] == '0'
-      @sivic_professors = SivicProfessor.where(DATA_bloqueio: nil)
+      @sivic_professors = SivicProfessor.where('data_bloqueio is null and sivic_igreja_id =' current_user.sivic_pessoa.sivic_igreja_id)
    elsif params[:sivic_professor_situacao_id] == '1'
-      @sivic_professors = SivicProfessor.where.not(DATA_bloqueio: nil)
+      @sivic_professors = SivicProfessor.where('data_bloqueio is not null and sivic_igreja_id =' current_user.sivic_pessoa.sivic_igreja_id)
    elsif
-      @sivic_relatorioscelulas = SivicProfessor.all
+      @sivic_professors = SivicProfessor.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id)
    end    
   end
 
