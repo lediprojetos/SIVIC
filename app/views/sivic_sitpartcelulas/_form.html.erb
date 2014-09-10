@@ -3,18 +3,23 @@
     <h3 class="panel-title"><%= 'Cadastro de Situação Participante Célula'%></h3>
   </div>
   <div class="panel-footer">
-<%= form_for(@sivic_sitpartcelula) do |f| %>
-  <% if @sivic_sitpartcelula.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@sivic_sitpartcelula.errors.count, "error") %> prohibited this sivic_sitpartcelula from being saved:</h2>
+    
+  <%= form_for(@sivic_sitpartcelula) do |f| %>
+    <% if @sivic_sitpartcelula.errors.any? %>
+    
+      <div class="alert alert-danger alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 
-      <ul>
-      <% @sivic_sitpartcelula.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <% if @sivic_sitpartcelula.errors.any? %>
+  
+            <% @sivic_sitpartcelula.errors.full_messages.each do |msg| %>
+
+          <%= msg %></br>
+        <% end %>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
+      </div>
+    <% end %>
+
 
   <div class="row">
     <div class="col-xs-4">

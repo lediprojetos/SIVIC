@@ -51,6 +51,10 @@
                 <% if can? :manage, SivicCelula%>
                   <li><%= link_to 'Cadastro de Células', sivic_celulas_path%> </li>
                 <% end %>                     
+                
+                <% if can? :manage, SivicCelula%>
+                  <li><%= link_to 'Situacão Participante Células', sivic_sitpartcelulas_path%> </li>
+                <% end %> 
 
                 <% if can? :manage, SivicRelatorioscelula%>
                   <li><%= link_to 'Cadastro de Relatório de Células', sivic_relatorioscelulas_path%> </li>

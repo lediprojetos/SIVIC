@@ -101,6 +101,9 @@
     <!--usuario de inclusão do registro -->
    <%= movimento.hidden_field :user_inclusao, :value => current_user.id %>
    
+   <%= movimento.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
+   
+
    <%= movimento.hidden_field :sivic_evento_id, :id => "sivic_evento" %>
 
   <%end%>

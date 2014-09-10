@@ -5,7 +5,7 @@ class SivicSitpartcelulasController < ApplicationController
   # GET /sivic_sitpartcelulas
   # GET /sivic_sitpartcelulas.json
   def index
-    @sivic_sitpartcelulas = SivicSitpartcelula.all
+    @sivic_sitpartcelulas = SivicSitpartcelula.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id)
   end
 
   # GET /sivic_sitpartcelulas/1
@@ -29,7 +29,7 @@ class SivicSitpartcelulasController < ApplicationController
 
     respond_to do |format|
       if @sivic_sitpartcelula.save
-        format.html { redirect_to @sivic_sitpartcelula, notice: 'Sivic sitpartcelula was successfully created.' }
+        format.html { redirect_to @sivic_sitpartcelula, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_sitpartcelula }
       else
         format.html { render action: 'new' }
@@ -43,7 +43,7 @@ class SivicSitpartcelulasController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_sitpartcelula.update(sivic_sitpartcelula_params)
-        format.html { redirect_to @sivic_sitpartcelula, notice: 'Sivic sitpartcelula was successfully updated.' }
+        format.html { redirect_to @sivic_sitpartcelula, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

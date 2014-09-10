@@ -10,8 +10,6 @@
     <tr>
       <th>Situacão</th>
       <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -19,9 +17,9 @@
     <% @sivic_sitpartcelulas.each do |sivic_sitpartcelula| %>
       <tr>
         <td><%= sivic_sitpartcelula.DESC_situacao %></td>
-        
+      <td align='right'>  
         <%= link_to sivic_sitpartcelula, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
-               <span class="glyphicon glyphicon-list-alt"></span> %>
+               <span class="glyphicon glyphicon-list-alt"></span>
           <% end %>
         <%= link_to edit_sivic_sitpartcelula_path(sivic_sitpartcelula), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar"  do %>
                 <span class="glyphicon glyphicon-pencil"></span> 
@@ -29,7 +27,7 @@
         <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_sitpartcelulas/<%=sivic_sitpartcelula.id%>" data-method="delete" data-confirm="       Deseja excluir o registro?" data-original-title="Excluir">
             <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
         </a>
-
+    </td>
       </tr>
     <% end %>
   </tbody>

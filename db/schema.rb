@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140908204840) do
+ActiveRecord::Schema.define(version: 20140910085730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -205,7 +205,7 @@ ActiveRecord::Schema.define(version: 20140908204840) do
     t.string   "DESC_MomentoEstudoBiblico"
     t.string   "NUMR_RG"
     t.date     "DATA_EmissaoRG"
-    t.string   "NUMR_CPF",                  limit: 11
+    t.string   "NUMR_CPF",                   limit: 11
     t.string   "NOME_Pai"
     t.string   "NOME_Mae"
     t.date     "DATA_NascConjuge"
@@ -222,6 +222,9 @@ ActiveRecord::Schema.define(version: 20140908204840) do
     t.integer  "NUMR_Codigo"
     t.time     "hora_estudobiblico"
     t.integer  "sivic_cidade_id"
+    t.integer  "user_exclusao"
+    t.integer  "sivic_situacaodiscipulo_id"
+    t.datetime "data_exclusao"
   end
 
   add_index "sivic_discipulos", ["sivic_celula_id"], name: "index_sivic_discipulos_on_sivic_celula_id", using: :btree
@@ -230,6 +233,7 @@ ActiveRecord::Schema.define(version: 20140908204840) do
   add_index "sivic_discipulos", ["sivic_pessoa_id"], name: "index_sivic_discipulos_on_sivic_pessoa_id", using: :btree
   add_index "sivic_discipulos", ["sivic_profissao_id"], name: "index_sivic_discipulos_on_sivic_profissao_id", using: :btree
   add_index "sivic_discipulos", ["sivic_rede_id"], name: "index_sivic_discipulos_on_sivic_rede_id", using: :btree
+  add_index "sivic_discipulos", ["sivic_situacaodiscipulo_id"], name: "index_sivic_discipulos_on_sivic_situacaodiscipulo_id", using: :btree
 
   create_table "sivic_enderecos", force: true do |t|
     t.string   "DESC_Bairro"
@@ -474,9 +478,11 @@ ActiveRecord::Schema.define(version: 20140908204840) do
     t.datetime "updated_at"
     t.boolean  "flag_passando"
     t.string   "desc_convidadopor"
+    t.integer  "sivic_igreja_id"
   end
 
   add_index "sivic_parteventos", ["sivic_evento_id"], name: "index_sivic_parteventos_on_sivic_evento_id", using: :btree
+  add_index "sivic_parteventos", ["sivic_igreja_id"], name: "index_sivic_parteventos_on_sivic_igreja_id", using: :btree
   add_index "sivic_parteventos", ["sivic_movimentofinanceiro_id"], name: "index_sivic_parteventos_on_sivic_movimentofinanceiro_id", using: :btree
   add_index "sivic_parteventos", ["sivic_pessoa_id"], name: "index_sivic_parteventos_on_sivic_pessoa_id", using: :btree
 

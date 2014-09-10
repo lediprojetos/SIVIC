@@ -6,7 +6,7 @@ class SivicParteventosController < ApplicationController
   # GET /sivic_parteventos.json
   def index
     #@sivic_parteventos = SivicPartevento.paginate(:page => params[:page], :per_page => 10)
-    @sivic_parteventos = SivicPartevento.where("flag_naoparticipou is null or flag_naoparticipou = false and sivic_igreja_id =?", current_user).paginate(:page => params[:page], :per_page => 10)
+    @sivic_parteventos = SivicPartevento.where('(flag_naoparticipou is null or flag_naoparticipou = false) and (sivic_igreja_id =?)', current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
   end
 
   def participanteseventos
@@ -56,13 +56,6 @@ class SivicParteventosController < ApplicationController
     end
   end
 
-  #busca todos os eventos
-  def buscaEvento 
-    #sivic_evento = SivicEvento.all
-    sivic_evento = SivicEvento.where("DATA_encerramento is null")
-    sivic_evento_json = sivic_evento.map {|item| {:id => item.id, :TipoEvento => item.sivic_tipo_evento.desc_tipoevento, :desc_evento => item.desc_evento, :DATA_Inicio => item.DATA_inicio, :DATA_Fim => item.DATA_fim}}
-    render :json => sivic_evento_json
-  end
   # POST /sivic_parteventos
   # POST /sivic_parteventos.json
   def create
@@ -111,7 +104,7 @@ class SivicParteventosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_partevento_params
-      params.require(:sivic_partevento).permit(:desc_convidadopor, :sivic_pessoa_id, :sivic_evento_id, :FLAG_naoparticipou, :flag_passando, sivic_movimentofinanceiro_attributes: [ :id, :VALR_movimento, :user_inclusao, :FLAG_baixa, :sivic_tipmovfinanceiro_id, :sivic_evento_id, :DATA_exclusao, :user_exclusao, :DESC_movimento, :valr_restante ])
+      params.require(:sivic_partevento).permit(:desc_convidadopor, :sivic_pessoa_id, :sivic_evento_id, :FLAG_naoparticipou, :flag_passando, :sivic_igreja_id, sivic_movimentofinanceiro_attributes: [ :id, :VALR_movimento, :user_inclusao, :FLAG_baixa, :sivic_tipmovfinanceiro_id, :sivic_evento_id, :DATA_exclusao, :user_exclusao, :DESC_movimento, :valr_restante ])
     end
   end    
 

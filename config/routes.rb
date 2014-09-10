@@ -136,7 +136,7 @@ SIVIC::Application.routes.draw do
   match '/criarParticipantesRelatorios', to: 'sivic_partevenrelacelulas#create_participante', via: 'get'
   match '/listarParticipantesCelulas', to: 'sivic_participantecelulas#busca_participante', via: 'get'
   match '/criarParticipantesCelulas', to: 'sivic_participantecelulas#create_participante', via: 'get'
-  match '/listarEvento', to: 'sivic_parteventos#buscaEvento', via: 'get'
+  match '/listarEvento', to: 'sivic_eventos#buscaEvento', via: 'get'
   match '/buscaDiagrama', to: 'sivic_discipulos#buscaDiagrama', via: 'get'
   match '/criarEndereco', to: 'sivic_enderecos#create_endereco', via: 'get'
   match '/criarObservacaorelatorio', to: 'observacoesrelatorios#create_observacao', via: 'get'

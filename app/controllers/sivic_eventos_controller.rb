@@ -34,6 +34,14 @@ class SivicEventosController < ApplicationController
     end
   end
  
+ #busca todos os eventos
+  def buscaEvento 
+    #sivic_evento = SivicEvento.all
+    sivic_evento = SivicEvento.where("data_encerramento is null and sivic_igreja_id =?",current_user.sivic_pessoa.sivic_igreja_id)
+    sivic_evento_json = sivic_evento.map {|item| {:id => item.id, :TipoEvento => item.sivic_tipo_evento.desc_tipoevento, :desc_evento => item.desc_evento, :DATA_Inicio => item.DATA_inicio, :DATA_Fim => item.DATA_fim}}
+    render :json => sivic_evento_json
+  end
+  
   
   # GET /sivic_eventos/new
   def new
