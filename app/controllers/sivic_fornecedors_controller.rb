@@ -4,7 +4,7 @@ class SivicFornecedorsController < ApplicationController
   # GET /sivic_fornecedors
   # GET /sivic_fornecedors.json
   def index
-    @sivic_fornecedors = SivicFornecedor.all
+    @sivic_fornecedors = SivicFornecedor.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id)
   end
 
   # GET /sivic_fornecedors/1

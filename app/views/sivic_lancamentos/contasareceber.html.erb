@@ -30,7 +30,7 @@ Contas a Pagar
               <%end%>
         </td>
         <td><%= (sivic_lancamento.data_vencimento.blank? ? '' : sivic_lancamento.data_vencimento.strftime("%d/%m/%Y")) %></td>
-        <td><%= sivic_lancamento.sivic_category.nome_categoria%></td>
+        <td><%= sivic_lancamento.sivic_category.nome_categoria rescue nil%></td>
 
         <%if sivic_lancamento.numr_parcela %>
           <td><%= sivic_lancamento.nome_lancamento + ' (' + sivic_lancamento.numr_parcela.to_s + '/' + sivic_lancamento.numr_recorrencia.to_s + ')' %></td>

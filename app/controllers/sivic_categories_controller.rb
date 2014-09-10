@@ -4,7 +4,7 @@ class SivicCategoriesController < ApplicationController
   # GET /sivic_categories
   # GET /sivic_categories.json
   def index
-    @sivic_categories = SivicCategory.all
+    @sivic_categories = SivicCategory.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id)
   end
 
   # GET /sivic_categories/1

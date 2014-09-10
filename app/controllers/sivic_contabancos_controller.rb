@@ -4,7 +4,7 @@ class SivicContabancosController < ApplicationController
   # GET /sivic_contabancos
   # GET /sivic_contabancos.json
   def index
-    @sivic_contabancos = SivicContabanco.all
+    @sivic_contabancos = SivicContabanco.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id)
   end
 
   # GET /sivic_contabancos/1

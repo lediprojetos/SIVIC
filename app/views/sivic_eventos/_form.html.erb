@@ -6,10 +6,7 @@
 
     <%= form_for(@sivic_evento) do |f| %>
     <% if @sivic_evento.errors.any? %>
-    
-      <div class="alert alert-danger alert-dismissible fade in" role="alert">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-
+      <div class="alert alert-danger" role="alert">
         <% if @sivic_evento.errors.any? %>
   
             <% @sivic_evento.errors.full_messages.each do |msg| %>
@@ -55,12 +52,12 @@
           <%= f.text_field :VARL_inscricao, :class =>  'form-control'  %>
        </div>
         <div class="col-xs-2">
-          <%= f.label :DATA_inicio %>
+          <%= f.label :DATA_Inicio %>
           <%= f.text_field :DATA_inicio, :value => (@sivic_evento.DATA_inicio.blank? ? '' : @sivic_evento.DATA_inicio.strftime("%d/%m/%Y")), :class =>  'form-control' %>
       </div>
 
       <div class="col-xs-2">
-        <%= f.label :DATA_fim %>
+        <%= f.label :DATA_Fim %>
         <%= f.text_field :DATA_fim, :value => (@sivic_evento.DATA_fim.blank? ? '' : @sivic_evento.DATA_fim.strftime("%d/%m/%Y")), :class =>  'form-control' %>
       </div>
       <div class="col-xs-3">

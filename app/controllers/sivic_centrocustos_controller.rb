@@ -4,7 +4,7 @@ class SivicCentrocustosController < ApplicationController
   # GET /sivic_centrocustos
   # GET /sivic_centrocustos.json
   def index
-    @sivic_centrocustos = SivicCentrocusto.all
+    @sivic_centrocustos = SivicCentrocusto.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id)
   end
 
   # GET /sivic_centrocustos/1
@@ -28,7 +28,7 @@ class SivicCentrocustosController < ApplicationController
 
     respond_to do |format|
       if @sivic_centrocusto.save
-        format.html { redirect_to @sivic_centrocusto, notice: 'Sivic centrocusto was successfully created.' }
+        format.html { redirect_to @sivic_centrocusto, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_centrocusto }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class SivicCentrocustosController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_centrocusto.update(sivic_centrocusto_params)
-        format.html { redirect_to @sivic_centrocusto, notice: 'Sivic centrocusto was successfully updated.' }
+        format.html { redirect_to @sivic_centrocusto, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
