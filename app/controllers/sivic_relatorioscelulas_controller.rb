@@ -72,9 +72,10 @@ class SivicRelatorioscelulasController < ApplicationController
       end
     elsif params[:sivic_situacoesrelatorio_id] != '0'
       if current_user.role == 'LIDER_DE_CELULAS'
-        @sivic_relatorioscelulas = SivicRelatorioscelula.joins('INNER JOIN sivic_celulas sp on sivic_celula_id = sp.id  INNER JOIN sivic_pessoas p on sp.sivic_pessoa_id = p.id and p.id = ' + current_user.sivic_pessoa.id.to_s).where('sivic_situacoesrelatorio_id = ' + params[:sivic_situacoesrelatorio_id] + 'and sivic_situacoesrelatorio_id ='+ params[:sivic_situacoesrelatorio_id] + 'and p.sivic_igreja_id =' + current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+        @sivic_relatorioscelulas = SivicRelatorioscelula.joins('INNER JOIN sivic_celulas sp on sivic_celula_id = sp.id  INNER JOIN sivic_pessoas p on sp.sivic_pessoa_id = p.id and p.id = ' + current_user.sivic_pessoa.id.to_s).where('sivic_situacoesrelatorio_id = ' + params[:sivic_situacoesrelatorio_id] + 'and sivic_situacoesrelatorio_id ='+ params[:sivic_situacoesrelatorio_id]).paginate(:page => params[:page], :per_page => 10)
       else
-        @sivic_relatorioscelulas = SivicRelatorioscelula.where(:sivic_situacoesrelatorio_id => params[:sivic_situacoesrelatorio_id]).paginate(:page => params[:page], :per_page => 10)
+        #@sivic_relatorioscelulas = SivicRelatorioscelula.where(:sivic_situacoesrelatorio_id => params[:sivic_situacoesrelatorio_id]).paginate(:page => params[:page], :per_page => 10)
+        @sivic_relatorioscelulas = SivicRelatorioscelula.joins('INNER JOIN sivic_celulas sp on sivic_celula_id = sp.id INNER JOIN sivic_pessoas p on sp.sivic_pessoa_id = p.id')where('sivic_situacoesrelatorio_id =? and p.sivic_igreja_id = ' + current_user.sivic_pessoa.sivic_igreja_id, params[:sivic_situacoesrelatorio_id]).paginate(:page => params[:page], :per_page => 10)
       end
     elsif params[:nome_pessoa] != '0'
       if current_user.role == 'LIDER_DE_CELULAS'
@@ -86,7 +87,7 @@ class SivicRelatorioscelulasController < ApplicationController
       if current_user.role == 'LIDER_DE_CELULAS'
         @sivic_relatorioscelulas = SivicRelatorioscelula.joins('INNER JOIN sivic_celulas cel on sivic_celula_id = cel.id').where('cel.sivic_pessoa_id' => current_user.sivic_pessoa.id).paginate(:page => params[:page], :per_page => 10)
       else
-        @sivic_relatorioscelulas = SivicRelatorioscelula.paginate(:page => params[:page], :per_page => 10)
+        @sivic_relatorioscelulas = SivicRelatorioscelula.joins(:sivic_celula).where(sivic_celulas: {sivic_pessoa_id: current_user.sivic_pessoa.id}).paginate(:page => params[:page], :per_page => 10)
       end
     end
   end
