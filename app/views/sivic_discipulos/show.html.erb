@@ -183,6 +183,11 @@
   <%= link_to edit_sivic_discipulo_path(@sivic_discipulo), :class => "btn btn-default" do %>
     <span class="glyphicon glyphicon-pencil"></span> Editar
   <% end %>
+
+  <%= link_to sivic_discipulo_path(format: 'pdf'), {:class => "btn btn-default", :target => '_blank'} do %>
+    <span class="glyphicon glyphicon-print  "></span> PDF
+  <% end %>
+
   <%= link_to sivic_discipulos_path, :class => "btn btn-default" do %>
     <span class="glyphicon glyphicon-arrow-left"></span> Voltar
   <% end %>

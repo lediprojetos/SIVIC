@@ -22,7 +22,7 @@ class SivicCelula < ActiveRecord::Base
  #Gera codigo de celula
  
 
-  before_create  :geraCodigo
+  #before_create  :geraCodigo
   after_create   :atualizaContador
 
   @@codigo 

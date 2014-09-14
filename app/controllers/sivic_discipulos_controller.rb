@@ -1,3 +1,4 @@
+#encoding: utf-8
 class SivicDiscipulosController < ApplicationController
   before_action :set_sivic_discipulo, only: [:show, :edit, :update, :destroy, :relDiscipulos]
   before_action :authenticate_user!
@@ -88,6 +89,14 @@ end
   # GET /sivic_discipulos/1
   # GET /sivic_discipulos/1.json
   def show
+
+    @sivic_discipulo = SivicDiscipulo.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.pdf { render_sivic_discipulo_mirror(@sivic_discipulo) }
+    end  
+
   end
 
   # GET /sivic_discipulos/new
@@ -171,6 +180,77 @@ end
       format.json { head :no_content }
     end
   end
+
+  def render_sivic_discipulo_mirror(tasks)
+    report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'discipulos_espelho.tlf')
+
+    report.start_new_page do |page|
+
+      #Dados de página
+      page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+      page.item(:data).value(Time.now.strftime("%d/%m/%Y"))
+      page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
+
+      #Dados Pessoais
+      page.item(:lblId).value(tasks.id)
+      page.item(:lblNome).value(tasks.sivic_pessoa.nome_pessoa)
+      page.item(:lblProfissao).value(tasks.sivic_profissao.profissao) rescue nil
+      page.item(:lblRG).value(tasks.NUMR_RG)
+      page.item(:lblSexo).value(tasks.DESC_Sexo)
+      page.item(:lblEscolaridade).value(tasks.sivic_escolaridade.NOME_Escolaridade) rescue nil
+      page.item(:lblDataExpedicao).value(tasks.DATA_EmissaoRG.blank? ? '' : tasks.DATA_Nascimento.strftime("%d/%m/%Y"))
+      page.item(:lblDataNascimento).value(tasks.DATA_Nascimento.blank? ? '' : tasks.DATA_Nascimento.strftime("%d/%m/%Y"))
+      page.item(:lblCPF).value(tasks.NUMR_CPF)
+      page.item(:lblEstadoCivil).value(tasks.DESC_EstadoCivil)
+      page.item(:lblTituloEleitoral).value(tasks.NUMR_TituloEleitoral)
+      page.item(:lblTrabalhando).value(tasks.FLAG_Trabalhando? ? "Sim" : "Não")
+      page.item(:lblDSangue).value(tasks.FLAG_DoadorSangue? ? "Sim" : "Não")
+      page.item(:lblDOrgao).value(tasks.FLAG_DoadorOrgao? ? 'Sim' : 'Não')
+      
+      #Dados Familiares
+      page.item(:lblNomeConjuge).value(tasks.NOME_Conjuge)
+      page.item(:lblNomeMae).value(tasks.NOME_Mae)
+      page.item(:lblNascimentoConjuge).value(tasks.DATA_NascConjuge.blank? ? '' : tasks.DATA_NascConjuge.strftime("%d/%m/%Y"))
+      page.item(:lblDataCasamento).value(tasks.DATA_Casamento.blank? ? '' : tasks.DATA_Casamento.strftime("%d/%m/%Y"))
+      page.item(:lblNomePai).value(tasks.NOME_Pai)
+      page.item(:lblQtdFilhos).value(tasks.NUMR_QtdFilhos)
+
+      #Dados Eclesiástico
+      page.item(:lblDiscipulo).value(tasks.FLAG_Discipulo? ? "Sim" : "Não")
+      page.item(:lblCelula).value(tasks.sivic_celula.nome_celula) rescue nil
+      if tasks.FLAG_OcasiaoRecebeuCristo == 0
+        lblRecebeuCristo = "Célula"
+      elsif tasks.FLAG_OcasiaoRecebeuCristo == 1
+        lblRecebeuCristo = "Celebração Evento"
+      elsif tasks.FLAG_OcasiaoRecebeuCristo == 2
+        lblRecebeuCristo = "Evangelismo Pessoal"
+      elsif tasks.FLAG_OcasiaoRecebeuCristo == 3
+        lblRecebeuCristo = "Culto Livre"
+      end
+      page.item(:lblRecebeuCristo).value(lblRecebeuCristo)
+      page.item(:lblDataDecisao).value(tasks.DATA_Decisao.blank? ? '' : tasks.DATA_Decisao.strftime("%d/%m/%Y"))
+      page.item(:lblRede).value(tasks.sivic_rede.nome_rede) rescue nil
+      page.item(:lblMomentoEB).value(tasks.DESC_MomentoEstudoBiblico)
+      page.item(:lblDataBatismo).value(tasks.DATA_Batismo.blank? ? '' : tasks.DATA_Batismo.strftime("%d/%m/%Y"))
+      page.item(:lblIgrejaBatismo).value(tasks.DESC_IgrejaBatismo)
+
+      #Endereço
+      page.item(:lblBairro).value(tasks.sivic_endereco.DESC_Bairro)
+      page.item(:lblRua).value(tasks.sivic_endereco.DESC_Rua)
+      page.item(:lblComplemento).value(tasks.sivic_endereco.DESC_Complemento)
+      page.item(:lblPontoDeReferencia).value(tasks.sivic_endereco.DESC_Pontoreferencia)
+      page.item(:lblCEP).value(tasks.sivic_endereco.NUMR_Cep)
+      page.item(:lblCidade).value(tasks.sivic_endereco.sivic_cidade.nome_cidade)
+      page.item(:lblEstado).value(tasks.sivic_endereco.sivic_cidade.sivic_estado.nome_estado)
+
+    
+    end
+
+
+    send_data report.generate, filename: 'celulas_espelho.pdf', 
+                               type: 'application/pdf', 
+                               disposition: ''
+  end  
 
 
   private

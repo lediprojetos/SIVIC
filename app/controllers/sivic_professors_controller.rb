@@ -1,3 +1,4 @@
+#encoding: utf-8
 class SivicProfessorsController < ApplicationController
   before_action :set_sivic_professor, only: [:show, :edit, :update, :destroy]
 

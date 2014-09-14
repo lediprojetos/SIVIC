@@ -137,7 +137,7 @@ class SivicCelulasController < ApplicationController
     end
 
     def render_civic_celula_list(tasks)
-      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'index.tlf')
+      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'celulas_list.tlf')
 
       tasks.each do |task|
         report.list.add_row do |row|
@@ -150,7 +150,7 @@ class SivicCelulasController < ApplicationController
       end
 
 
-      report.page.item(:data).value(Time.now)
+      report.page.item(:data).value(Time.now.strftime("%d/%m/%Y"))
       report.page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
       
       send_data report.generate, filename: 'index.pdf', 

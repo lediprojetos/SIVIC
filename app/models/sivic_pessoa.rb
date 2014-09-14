@@ -16,8 +16,8 @@ validates :nome_pessoa, :presence => { :message => 'Informe um Nome.' }
 before_create :setaParaConsolidador
 
 #Gera codigo de discipulo
-before_create  :geraCodigo 
-after_create   :atualizaContador
+#before_create  :geraCodigo 
+#after_create   :atualizaContador
 
  @@codigo 
 
