@@ -12,7 +12,14 @@ class SivicPessoa < ActiveRecord::Base
 validates :nome_pessoa, :presence => { :message => 'Informe um Nome.' }
 #validates :father_id, :presence => { :message => 'Escolha um lider.' }
 
+
 before_create :setaParaConsolidador
+
+#Gera codigo de discipulo
+before_create  :geraCodigo 
+after_create   :atualizaContador
+
+ @@codigo 
 
 #metodo para setar discipulo como consolidador quando tiver uma pessoa cadastrada debaixo dele
 
@@ -34,6 +41,20 @@ before_create :setaParaConsolidador
      
        end
      end
+   end
+
+
+    def  geraCodigo
+    
+    @@sivic_contdiscipulo = SivicContdiscipulo.find_by! sivic_igreja_id: self.sivic_igreja_id
+    @@codigo = @@sivic_contdiscipulo.NUMR_Contador 
+    @@codigo += 1
+    self.numr_codigo  = @@codigo
+
+   end 
+
+   def  atualizaContador
+      @@sivic_contdiscipulo.update(:NUMR_Contador => @@codigo)
    end
 
 end

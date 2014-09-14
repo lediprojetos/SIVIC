@@ -34,10 +34,6 @@ class SivicDiscipulo < ActiveRecord::Base
   #validates :NUMR_RG, uniqueness: true, uniqueness: {message: ' - RG ja esta sendo utlizado'}
 
 
-  #Gera codigo de discipulo 
-  before_create  :geraCodigo 
-  after_create   :atualizaContador
-
   before_destroy :capitura_pessoa
   after_destroy  :deleta_pessoa
 
@@ -58,19 +54,6 @@ class SivicDiscipulo < ActiveRecord::Base
   end
 
   private
-
-   def  geraCodigo
-    
-    @@sivic_contdiscipulo = SivicContdiscipulo.find_by! sivic_igreja_id: self.sivic_pessoa.sivic_igreja_id
-    @@codigo = @@sivic_contdiscipulo.NUMR_Contador 
-    @@codigo += 1
-    self.NUMR_Codigo  = @@codigo
-
-   end 
-   
-   def  atualizaContador
-      @@sivic_contdiscipulo.update(:NUMR_Contador => @@codigo)
-   end
 
   def retiraMascara
       self.NUMR_CPF.gsub!(/[^0-9]/, '')

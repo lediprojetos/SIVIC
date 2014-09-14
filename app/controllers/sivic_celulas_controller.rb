@@ -6,9 +6,9 @@ class SivicCelulasController < ApplicationController
   # GET /sivic_celulas.json
   def index
 
-    #@sivic_celulas = SivicCelula.find(:all, :order => :id)
+    @sivic_celulas = SivicCelula.find(:all, :order => :id)
 
-    @sivic_celulas = SivicCelula.where("sivic_igreja_id = ?",current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+    #@sivic_celulas = SivicCelula.where("sivic_igreja_id = ?",current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
 
    # @sivic_eventos = SivicEvento.where("data_encerramento is null and sivic_igreja_id = ?", current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
 
