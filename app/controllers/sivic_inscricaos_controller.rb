@@ -53,17 +53,7 @@ class SivicInscricaosController < ApplicationController
         @User.role = "ADMINISTRADOR"
         @User.save
 
-        @SivicContcelula = SivicContcelula.new
-        @SivicContcelula.NUMR_Contador = 0
-        @SivicContcelula.sivic_igreja_id = @igreja.id
-        @SivicContcelula.save
         
-        @SivicContdiscipulo = SivicContdiscipulo.new
-        @SivicContdiscipulo.NUMR_Contador = 0
-        @SivicContdiscipulo.sivic_igreja_id = @igreja.id
-        @SivicContdiscipulo.save
-
-
         format.html { redirect_to new_user_session_path, notice: 'Registro efetuado com sucesso. Por favor realize o login.' }
         format.json { render action: 'show', status: :created, location: @sivic_inscricao }
       else
