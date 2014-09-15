@@ -6,7 +6,8 @@
 
     <%= form_for(@sivic_turmaaluno) do |f| %>
     <% if @sivic_turmaaluno.errors.any? %>
-      <div class="alert alert-danger" role="alert">
+      <div class="alert alert-danger alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <% if @sivic_turmaaluno.errors.any? %>
   
             <% @sivic_turmaaluno.errors.full_messages.each do |msg| %>

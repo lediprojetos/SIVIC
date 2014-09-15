@@ -38,6 +38,8 @@
     <!--Capturando Usuario logado-->
     <%=f.hidden_field :user_inclusao, :value => current_user.id%> 
     <%=f.hidden_field :sivic_pessoa_id, :id => "pessoa_id" %>   
+    <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
+    
 
  <%
     @sivic_pessoa = SivicPessoa.new

@@ -37,7 +37,7 @@
     <% @sivic_professors.each do |sivic_professor| %>
       <tr>
         <td><%= sivic_professor.sivic_pessoa.nome_pessoa %></td>  
-        <td><%= sivic_professor.DATA_bloqueio.blank? ? '' : sivic_professor.DATA_bloqueio.strftime("%d/%m/%Y") %></td>
+        <td><%= sivic_professor.data_bloqueio.blank? ? '' : sivic_professor.data_bloqueio.strftime("%d/%m/%Y") %></td>
 
          <td align='right'>   
           <%= link_to sivic_professor, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>

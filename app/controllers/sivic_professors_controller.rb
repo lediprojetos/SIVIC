@@ -6,11 +6,11 @@ class SivicProfessorsController < ApplicationController
   # GET /sivic_professors.json
   def index
       
-   # debugger
+   #debugger
 
-    if params[:sivic_professor_situacao_id] == nil
-       params[:sivic_professor_situacao_id] = '0'
-    end
+  #if params[:sivic_professor_situacao_id] == nil
+  #     params[:sivic_professor_situacao_id] = '0'
+  #end
 
    if params[:sivic_professor_situacao_id] == '2'
       @sivic_professors = SivicProfessor.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id)
@@ -120,6 +120,6 @@ class SivicProfessorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_professor_params
-      params.require(:sivic_professor).permit(:sivic_pessoa_id, :user_inclusao, :user_bloqueio, :DATA_bloqueio)
+      params.require(:sivic_professor).permit(:sivic_pessoa_id, :user_inclusao, :user_bloqueio, :DATA_bloqueio, :sivic_igreja_id)
     end
 end

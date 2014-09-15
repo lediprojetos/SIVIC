@@ -4,7 +4,7 @@ class SivicModuloescolasController < ApplicationController
   # GET /sivic_moduloescolas
   # GET /sivic_moduloescolas.json
   def index
-    @sivic_moduloescolas = SivicModuloescola.all
+    @sivic_moduloescolas = SivicModuloescola.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id)
   end
 
   # GET /sivic_moduloescolas/1

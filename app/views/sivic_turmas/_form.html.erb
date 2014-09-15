@@ -23,7 +23,7 @@
   <div class="row">
       <div class="col-xs-6">
         <%= f.label :Curso %>
-        <%= f.select :sivic_curso_id, options_from_collection_for_select(SivicCurso.all, 'id', 'nome_curso',@sivic_turma.sivic_curso_id),{:include_blank => true},{:class =>  'form-control'}%>
+        <%= f.select :sivic_curso_id, options_from_collection_for_select(SivicCurso.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id), 'id', 'nome_curso',@sivic_turma.sivic_curso_id),{:include_blank => true},{:class =>  'form-control'}%>
       </div>
       <div class="col-xs-6">
         <%= f.label :Descrição_Turma %>
