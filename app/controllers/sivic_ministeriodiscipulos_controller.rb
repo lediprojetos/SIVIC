@@ -45,7 +45,7 @@ class SivicMinisteriodiscipulosController < ApplicationController
   end
 
   @sivic_ministeriodiscipulo = SivicMinisteriodiscipulo.new(sivic_ministeriodiscipulo_params)
-  @sivic_ministeriodiscipulo.data_inclusao = Date.today  
+  #@sivic_ministeriodiscipulo.data_inclusao = Date.today  
 
   if @sivic_ministeriodiscipulo.flag_ministerioativo
     @sivic_ministeriodiscipulos = SivicMinisteriodiscipulo.find_by_sivic_discipulo_id(sivic_discipulo_id)
