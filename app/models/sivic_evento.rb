@@ -1,9 +1,7 @@
 class SivicEvento < ActiveRecord::Base
   belongs_to :User
   belongs_to :sivic_igreja
-  belongs_to :sivic_endereco
   belongs_to :sivic_tipo_evento
-  
   belongs_to :sivic_endereco, :dependent => :destroy
   
   validates :sivic_tipo_evento_id, :presence => { :message => 'Escolha uma Tipo Evento' }

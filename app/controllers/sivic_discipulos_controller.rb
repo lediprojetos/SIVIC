@@ -63,6 +63,7 @@ def render_civic_discipulo_geracao_list(tasks)
 
   report.page.item(:data).value(Time.now)
   report.page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+  report.page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
   
   send_data report.generate, filename: 'discipulos_geracao.pdf', 
                              type: 'application/pdf', 

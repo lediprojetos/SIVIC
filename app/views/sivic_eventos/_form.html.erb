@@ -109,6 +109,7 @@
               <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)', :class =>  'form-control'}%>
             </div>
         <%end%>
+
         <%if @sivic_cidade %>
             <div class="col-xs-3">
               <%= endereco.label :Cidade %>
@@ -119,18 +120,17 @@
               <%= endereco.label :Cidade   %>
               <%= endereco.select :sivic_cidade_id, [], {},{:class =>  'form-control'} %><br>
             </div> 
-
         <%end%>
+        <!--Capturando igreja do usuaário logado -->
+        <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
+        <!--Capturando Usuário logado --> 
+        <%= f.hidden_field :User_id, :value => current_user.id%> 
+        
         <% end %>
 
         </div>
-  </fieldset>
-    <!--Capturando igreja do usuaário logado -->
-    <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
-    <!--Capturando Usuário logado --> 
-    <%= f.hidden_field :User_id, :value => current_user.id%> 
 
-
+        </fieldset>
         </div>
       </div>
     </div>
