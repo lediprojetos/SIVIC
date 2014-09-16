@@ -9,7 +9,7 @@ class SivicRelatorioscelulasController < ApplicationController
       
       SivicRelatorioscelula.update_all( "sivic_situacoesrelatorio_id = 4"," sivic_situacoesrelatorio_id = 5")
 
-      @celulas = SivicCelula.where(:NUMR_Dia => params[:NUMR_Dia])
+      @celulas = SivicCelula.where(:NUMR_Dia => params[:NUMR_Dia],:flag_gerarelatorio => true)
 
       @celulas.each do |sivic_celula|
 
