@@ -26,19 +26,19 @@ class SivicDiscipulosController < ApplicationController
 
 
 def BuscaPessoas2(id)
-  sivic_dados = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id where father_id = ' + id.to_s)
+  sivic_dados = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id where sp.father_id = ' + id.to_s)
 
-  if sivic_dados
+    if sivic_dados
 
-    sivic_dados.each do |sivic_dados|
+      sivic_dados.each do |sivic_pessoas|
+      
+        @allperson += [sivic_pessoas.sivic_pessoa_id]
+        BuscaPessoas2(sivic_pessoas.sivic_pessoa_id)
 
-      #debugger
-      @allperson += [sivic_dados.sivic_pessoa.id]
-      @allperson += BuscaPessoas2(sivic_dados.sivic_pessoa.id)
+      end
 
     end
 
-  end
 end
 
 def render_civic_discipulo_geracao_list(tasks)
@@ -60,10 +60,17 @@ def render_civic_discipulo_geracao_list(tasks)
     end
   end
 
+ report.events.on :generate  do |e|
+   e.pages.each do |page|
+    page.item(:data).value(Time.now)
+    page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+    page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
+  end
+end
 
-  report.page.item(:data).value(Time.now)
-  report.page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
-  report.page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
+  #report.page.item(:data).value(Time.now)
+  #report.page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+  #report.page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
   
   send_data report.generate, filename: 'discipulos_geracao.pdf', 
                              type: 'application/pdf', 

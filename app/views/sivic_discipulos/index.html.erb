@@ -25,7 +25,6 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th><strong class='titleTable'>Id</strong></th>
         <th><strong class='titleTable'>Nome</strong></th>
         <th><strong class='titleTable'>Data de Nascimento</strong></th>
         <th><strong class='titleTable'>CPF</strong></th>
@@ -38,7 +37,6 @@
     <tbody>
       <% @sivic_discipulos.each do |sivic_discipulo| %>
         <tr>
-          <td><%= sivic_discipulo.sivic_pessoa.numr_codigo %></td>
           <td><%= sivic_discipulo.sivic_pessoa.nome_pessoa %></td>
           <td><%= sivic_discipulo.DATA_Nascimento.blank? ? '' : sivic_discipulo.DATA_Nascimento.strftime("%d/%m/%Y")  %></td>
           <td><%= sivic_discipulo.NUMR_CPF %></td>
