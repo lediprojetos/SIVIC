@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_contcategories
+
   resources :sivic_userpermissaos
 
   resources :sivic_permissaos

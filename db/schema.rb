@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140914065954) do
+ActiveRecord::Schema.define(version: 20140917030106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20140914065954) do
     t.datetime "DATA_exclusao"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "numr_codigo"
   end
 
   add_index "sivic_categories", ["sivic_igreja_id"], name: "index_sivic_categories_on_sivic_igreja_id", using: :btree
@@ -147,6 +148,15 @@ ActiveRecord::Schema.define(version: 20140914065954) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "sivic_contcategories", force: true do |t|
+    t.integer  "numr_contador"
+    t.integer  "sivic_igreja_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_contcategories", ["sivic_igreja_id"], name: "index_sivic_contcategories_on_sivic_igreja_id", using: :btree
 
   create_table "sivic_contcelulas", force: true do |t|
     t.integer  "NUMR_Contador"

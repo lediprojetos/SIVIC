@@ -10,4 +10,24 @@ class SivicCategory < ActiveRecord::Base
   validates :nome_categoria, :presence => { :message => 'Digite o nome da categoria' }
 
 
+ #Gera codigo de discipulo
+ before_create  :geraCodigo 
+ after_create   :atualizaContador
+
+ @@codigo 
+
+
+  def  geraCodigo
+    
+    @@sivic_contcategory = SivicContcategory.find_by! sivic_igreja_id: self.sivic_igreja_id
+    @@codigo = @@sivic_contcategory.numr_Contador 
+    @@codigo += 1
+    self.numr_codigo  = @@codigo
+
+   end 
+
+   def  atualizaContador
+      @@sivic_contcategory.update(:NUMR_Contador => @@codigo)
+   end
+
 end

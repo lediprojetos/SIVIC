@@ -1,0 +1,29 @@
+<h1>Listing sivic_contcategories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Numr contador</th>
+      <th>Sivic igreja</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_contcategories.each do |sivic_contcategory| %>
+      <tr>
+        <td><%= sivic_contcategory.numr_contador %></td>
+        <td><%= sivic_contcategory.sivic_igreja %></td>
+        <td><%= link_to 'Show', sivic_contcategory %></td>
+        <td><%= link_to 'Edit', edit_sivic_contcategory_path(sivic_contcategory) %></td>
+        <td><%= link_to 'Destroy', sivic_contcategory, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic contcategory', new_sivic_contcategory_path %>

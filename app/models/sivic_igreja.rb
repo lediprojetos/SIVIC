@@ -24,6 +24,11 @@ after_create :inicia_contadores
 		@SivicContcelula.sivic_igreja_id = self.id
 		@SivicContcelula.save
 
+		@SivicContCategory = SivicContcategory.new
+		@SivicContCategory.numr_contador = 0
+		@SivicContCategory.sivic_igreja_id = self.id
+		@SivicContcelula.save		
+
 	end
 
 end
