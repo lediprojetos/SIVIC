@@ -20,14 +20,14 @@ class SivicCategory < ActiveRecord::Base
   def  geraCodigo
     
     @@sivic_contcategory = SivicContcategory.find_by! sivic_igreja_id: self.sivic_igreja_id
-    @@codigo = @@sivic_contcategory.numr_Contador 
+    @@codigo = @@sivic_contcategory.numr_contador 
     @@codigo += 1
     self.numr_codigo  = @@codigo
 
    end 
 
    def  atualizaContador
-      @@sivic_contcategory.update(:NUMR_Contador => @@codigo)
+      @@sivic_contcategory.update(:numr_contador => @@codigo)
    end
 
 end
