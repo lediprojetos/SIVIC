@@ -5,8 +5,21 @@ class SivicDiscipulosController < ApplicationController
 
 
   def relMembros
-    #@sivic_discipulos = SivicDiscipulo.find_by_rel(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
-    @sivic_discipulos = SivicDiscipulo.all
+
+      if params[:situacao]
+        if params[:situacao][:id] != '0'
+          situacao = 'sivic_situacaodiscipulo_id = ' + params[:situacao][:id].to_s
+        end
+      end
+
+      if params[:sexo] != '0'
+        sexo = 'and desc_sexo = ' + '"' + params[:sexo].to_s + '"'
+      end
+
+      #debugger
+    
+      @sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id where desc_sexo like "FEMININO"')
+
   end
 
 
@@ -210,12 +223,12 @@ end
       page.item(:lblNome).value(tasks.sivic_pessoa.nome_pessoa)
       page.item(:lblProfissao).value(tasks.sivic_profissao.profissao) rescue nil
       page.item(:lblRG).value(tasks.NUMR_RG)
-      page.item(:lblSexo).value(tasks.DESC_Sexo)
+      page.item(:lblSexo).value(tasks.desc_sexo)
       page.item(:lblEscolaridade).value(tasks.sivic_escolaridade.NOME_Escolaridade) rescue nil
       page.item(:lblDataExpedicao).value(tasks.DATA_EmissaoRG.blank? ? '' : tasks.DATA_Nascimento.strftime("%d/%m/%Y"))
       page.item(:lblDataNascimento).value(tasks.DATA_Nascimento.blank? ? '' : tasks.DATA_Nascimento.strftime("%d/%m/%Y"))
       page.item(:lblCPF).value(tasks.NUMR_CPF)
-      page.item(:lblEstadoCivil).value(tasks.DESC_EstadoCivil)
+      page.item(:lblEstadoCivil).value(tasks.desc_estadocivil)
       page.item(:lblTituloEleitoral).value(tasks.NUMR_TituloEleitoral)
       page.item(:lblTrabalhando).value(tasks.FLAG_Trabalhando? ? "Sim" : "Não")
       page.item(:lblDSangue).value(tasks.FLAG_DoadorSangue? ? "Sim" : "Não")
@@ -230,7 +243,7 @@ end
       page.item(:lblQtdFilhos).value(tasks.NUMR_QtdFilhos)
 
       #Dados Eclesiástico
-      page.item(:lblDiscipulo).value(tasks.FLAG_Discipulo? ? "Sim" : "Não")
+      page.item(:lblDiscipulo).value(tasks.flag_discipulo? ? "Sim" : "Não")
       page.item(:lblCelula).value(tasks.sivic_celula.nome_celula) rescue nil
       if tasks.FLAG_OcasiaoRecebeuCristo == 0
         lblRecebeuCristo = "Célula"
@@ -275,10 +288,10 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_discipulo_params_netested
-      params.require(:sivic_discipulo).permit(:sivic_profissao_id, :DESC_TelefoneFixo, :DESC_TelefoneCelular,:sivic_cidade_id, :sivic_escolaridade_id, :sivic_rede_id, :sivic_celula_id, :NUMG_ProfissaoConjuge, :NUMG_UsuarioInclusao, :NUMG_UsuarioBloqueio, :DESC_Sexo, :DATA_Nascimento, :DESC_Apelido, :DESC_EstadoCivil, :NOME_Conjuge, :DATA_Decisao, :NUMR_QtdFilhos, :FLAG_Consolidador, :FLAG_Discipulo, :FLAG_Discipulador, :FLAG_OcasiaoRecebeuCristo, :FLAG_Reconciliacao, :FLAG_Trabalhando, :DESC_MomentoEstudoBiblico, :NUMR_RG, :DATA_EmissaoRG, :NUMR_CPF, :NOME_Pai, :NOME_Mae, :DATA_NascConjuge, :DATA_Casamento, :NUMR_TituloEleitoral, :DATA_Batismo, :DESC_IgrejaBatismo, :FLAG_DoadorSangue, :FLAG_DoadorOrgao, :NUMR_Codigo,:hora_estudobiblico, sivic_pessoa_attributes: [:sivic_situacaodiscipulo_id, :id, :nome_pessoa, :DESC_email, :DESC_observacao, :User_id, :sivic_igreja_id, :father_id], sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id])
+      params.require(:sivic_discipulo).permit(:sivic_profissao_id, :DESC_TelefoneFixo, :DESC_TelefoneCelular,:sivic_cidade_id, :sivic_escolaridade_id, :sivic_rede_id, :sivic_celula_id, :NUMG_ProfissaoConjuge, :NUMG_UsuarioInclusao, :NUMG_UsuarioBloqueio, :desc_sexo, :DATA_Nascimento, :DESC_Apelido, :desc_estadocivil, :NOME_Conjuge, :DATA_Decisao, :NUMR_QtdFilhos, :flag_consolidador, :flag_discipulo, :flag_discipulador, :FLAG_OcasiaoRecebeuCristo, :FLAG_Reconciliacao, :FLAG_Trabalhando, :DESC_MomentoEstudoBiblico, :NUMR_RG, :DATA_EmissaoRG, :NUMR_CPF, :NOME_Pai, :NOME_Mae, :DATA_NascConjuge, :DATA_Casamento, :NUMR_TituloEleitoral, :DATA_Batismo, :DESC_IgrejaBatismo, :FLAG_DoadorSangue, :FLAG_DoadorOrgao, :NUMR_Codigo,:hora_estudobiblico, sivic_pessoa_attributes: [:sivic_situacaodiscipulo_id, :id, :nome_pessoa, :DESC_email, :DESC_observacao, :User_id, :sivic_igreja_id, :father_id], sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id])
     end
 
     def sivic_discipulo_params_normal
-      params.require(:sivic_discipulo).permit(:sivic_situacaodiscipulo_id, :father_id, :sivic_pessoa_id, :DESC_TelefoneFixo, :DESC_TelefoneCelular, :sivic_cidade_id, :sivic_profissao_id, :sivic_escolaridade_id, :sivic_rede_id, :sivic_celula_id, :NUMG_ProfissaoConjuge, :NUMG_UsuarioInclusao, :NUMG_UsuarioBloqueio, :DESC_Sexo, :DATA_Nascimento, :DESC_Apelido, :DESC_EstadoCivil, :NOME_Conjuge, :DATA_Decisao,:FLAG_Consolidador, :NUMR_QtdFilhos, :FLAG_Discipulo, :FLAG_OcasiaoRecebeuCristo, :FLAG_Reconciliacao, :FLAG_Trabalhando, :DESC_MomentoEstudoBiblico, :NUMR_RG, :DATA_EmissaoRG, :NUMR_CPF, :NOME_Pai, :NOME_Mae, :DATA_NascConjuge, :DATA_Casamento, :NUMR_TituloEleitoral, :DATA_Batismo, :DESC_IgrejaBatismo, :FLAG_DoadorSangue, :FLAG_DoadorOrgao, :NUMR_Codigo, :hora_estudobiblico, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
+      params.require(:sivic_discipulo).permit(:sivic_situacaodiscipulo_id, :father_id, :sivic_pessoa_id, :DESC_TelefoneFixo, :DESC_TelefoneCelular, :sivic_cidade_id, :sivic_profissao_id, :sivic_escolaridade_id, :sivic_rede_id, :sivic_celula_id, :NUMG_ProfissaoConjuge, :NUMG_UsuarioInclusao, :NUMG_UsuarioBloqueio, :desc_sexo, :DATA_Nascimento, :DESC_Apelido, :desc_estadocivil, :NOME_Conjuge, :DATA_Decisao,:flag_consolidador, :NUMR_QtdFilhos, :flag_discipulo, :flag_discipulador, :FLAG_OcasiaoRecebeuCristo, :FLAG_Reconciliacao, :FLAG_Trabalhando, :DESC_MomentoEstudoBiblico, :NUMR_RG, :DATA_EmissaoRG, :NUMR_CPF, :NOME_Pai, :NOME_Mae, :DATA_NascConjuge, :DATA_Casamento, :NUMR_TituloEleitoral, :DATA_Batismo, :DESC_IgrejaBatismo, :FLAG_DoadorSangue, :FLAG_DoadorOrgao, :NUMR_Codigo, :hora_estudobiblico, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
     end    
 end

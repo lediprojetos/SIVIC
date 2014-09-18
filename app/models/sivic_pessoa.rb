@@ -33,8 +33,8 @@ after_create   :atualizaContador
             @discipulo = SivicDiscipulo.find_by! sivic_pessoa_id: @pessoa.id rescue nil
           
           if @discipulo != nil
-               if @discipulo.FLAG_Consolidador == false
-                  @discipulo.update(:FLAG_Consolidador => true) 
+               if @discipulo.flag_consolidador == false
+                  @discipulo.update(:flag_consolidador => true) 
                end
 
           end  

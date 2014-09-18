@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140917030106) do
+ActiveRecord::Schema.define(version: 20140918124735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,16 +199,16 @@ ActiveRecord::Schema.define(version: 20140917030106) do
     t.integer  "integer"
     t.integer  "NUMG_UsuarioInclusao"
     t.integer  "NUMG_UsuarioBloqueio"
-    t.string   "DESC_Sexo"
+    t.string   "desc_sexo"
     t.date     "DATA_Nascimento"
     t.string   "DESC_Apelido"
-    t.string   "DESC_EstadoCivil"
+    t.string   "desc_estadocivil"
     t.string   "NOME_Conjuge"
     t.string   "DESC_TelefoneFixo"
     t.string   "DESC_TelefoneCelular"
     t.date     "DATA_Decisao"
     t.integer  "NUMR_QtdFilhos"
-    t.boolean  "FLAG_Discipulo"
+    t.boolean  "flag_discipulo"
     t.boolean  "FLAG_Reconciliacao"
     t.integer  "FLAG_OcasiaoRecebeuCristo"
     t.boolean  "FLAG_Trabalhando"
@@ -225,8 +225,8 @@ ActiveRecord::Schema.define(version: 20140917030106) do
     t.string   "DESC_IgrejaBatismo"
     t.boolean  "FLAG_DoadorSangue"
     t.boolean  "FLAG_DoadorOrgao"
-    t.boolean  "FLAG_Discipulador"
-    t.boolean  "FLAG_Consolidador"
+    t.boolean  "flag_discipulador"
+    t.boolean  "flag_consolidador"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "NUMR_Codigo"
