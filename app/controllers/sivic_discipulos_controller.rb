@@ -4,6 +4,12 @@ class SivicDiscipulosController < ApplicationController
   before_action :authenticate_user!
 
 
+  def relMembros
+    #@sivic_discipulos = SivicDiscipulo.find_by_rel(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+    @sivic_discipulos = SivicDiscipulo.all
+  end
+
+
   def relDiscipulos
     @sivic_discipulo = SivicDiscipulo.find(params[:id])
     @tipo_relatorio = params[:tipo]

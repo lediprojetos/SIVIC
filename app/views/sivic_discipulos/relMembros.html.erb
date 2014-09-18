@@ -1,0 +1,97 @@
+<% content_for :titlePage do %>
+  Relatório de Membros
+<% end %>
+
+
+<%=render '/layouts/panel' %>
+
+<%= form_tag nil, method: 'GET' do %>
+    <div class="row mar-bot40">
+      <%=fields_for :sivic_situaco do |sit| %>
+        <div class="col-lg-2" >
+          <%= sit.label :Situação %>
+          <%= sit.select :sivic_estado_id, options_from_collection_for_select(SivicSituacaodiscipulo.all, 'id', 'nome_situacao'),{:include_blank => true}, :class =>  'form-control'%>
+        </div>
+
+        <div class="col-lg-2" >
+          <%= sit.label :Sexo %>
+          <%= sit.collection_select :DESC_Sexo, SivicDiscipulo::SEXO, :to_s, :humanize,{:include_blank => true},{ :class => 'form-control' }%>
+        </div>
+
+        <div class="col-lg-2">
+          <%= sit.label :Estado_Civil %>
+          <%= sit.collection_select :DESC_EstadoCivil, SivicDiscipulo::ESTADOCIVIL, :to_s, :humanize, {:include_blank => true}, {:class => "form-control"}%>
+        </div>   
+        <div class="col-lg-2">
+        <%= sit.label :Ministerio %>
+        <%= sit.select :sivic_ministerio_id, options_from_collection_for_select(SivicMinisterio.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id), 'id', 'nome_ministerio'),{:include_blank => true}, :class =>  'form-control'%> 
+        </div>  
+
+        <div class="col-lg-2" >
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="convertido"> Novo Convertido
+            </label>          
+            <label>
+              <input type="checkbox" value="discipulo"> Discípulo
+            </label>
+            <label>
+              <input type="checkbox" value="discipulador"> Discipulador
+            </label>
+            <label>
+              <input type="checkbox" value="consolidador"> Consolidador
+            </label>
+            <label>
+              <input type="checkbox" value="batizado"> Batizado
+            </label>            
+          </div>              
+        </div>
+
+    </div>
+<%end%> 
+
+<% end %>
+
+</div></div>
+
+
+  <%= link_to sivic_celulas_path(format: 'pdf'), {:class => "btn btn-default", :target => '_blank'} do %>
+    <span class="glyphicon glyphicon-list-alt"></span> Listar
+  <% end %>
+
+  <%= link_to sivic_celulas_path(format: 'pdf'), {:class => "btn btn-default", :target => '_blank'} do %>
+    <span class="glyphicon glyphicon-print"></span> PDF
+  <% end %>
+
+  <br/>
+  <br/>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading"></div>
+  <!-- Table -->
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nascimento</th>
+      <th>CPF</th>
+      <th>Data Batismo</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <% @sivic_discipulos.each do |sivic_discipulo| %>
+        <tr>
+          <td><%= sivic_discipulo.sivic_pessoa.nome_pessoa %></td>
+          <td><%= sivic_discipulo.DATA_Nascimento.blank? ? '' : sivic_discipulo.DATA_Nascimento.strftime("%d/%m/%Y")  %></td>
+          <td><%= sivic_discipulo.NUMR_CPF %></td>
+          <td><%= sivic_discipulo.DATA_Batismo.blank? ? '' : sivic_discipulo.DATA_Batismo.strftime("%d/%m/%Y")  %></td>
+        </tr>
+      <% end %>  
+  </tbody>
+</table>
+</div>
+  
+

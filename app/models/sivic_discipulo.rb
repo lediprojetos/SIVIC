@@ -17,7 +17,7 @@ class SivicDiscipulo < ActiveRecord::Base
   accepts_nested_attributes_for :sivic_endereco, allow_destroy: true
 
   # - Domínio
-  SEXO = %w[FEMININO MASCULINO OUTROS]
+  SEXO = %w[FEMININO MASCULINO]
   ESTADOCIVIL = %w[SOLTEIRO CASADO UNIAO_ESTAVEL OUTROS]
   DIAS = %w[SEGUNDA-FEIRA TERCA-FEIRA QUARTA-FEIRA QUINTA-FEIRA SEXTA-FEIRA SABADO DOMINGO]
 
@@ -52,6 +52,13 @@ class SivicDiscipulo < ActiveRecord::Base
       self.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('sp.sivic_igreja_id = ?',sivic_igreja_id).order('NOME_pessoa')
     end    
   end
+
+  def self.find_by_rel(query,sivic_igreja_id)    
+    if query
+      query = query.downcase
+      self.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('lower(sp.NOME_pessoa) like ? and sp.sivic_igreja_id = ?', "%#{query}%", sivic_igreja_id).order('NOME_pessoa')
+    end    
+  end  
 
   private
 
