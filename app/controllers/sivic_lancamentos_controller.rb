@@ -59,8 +59,11 @@ def create_dizimo
   objDizimo.data_vencimento = params[:data_pagamento]
   objDizimo.valr_lancamento = params[:valr_pago]
   objDizimo.valr_pago = params[:valr_pago]
+
+  @categoria = SivicCategory.find  :all, :conditions =>{:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id, :numr_codigo => 1}
+
   objDizimo.sivic_tipmovfinanceiro_id = 2
-  objDizimo.sivic_category_id = 1
+  objDizimo.sivic_category_id = @categoria.first.id
   objDizimo.flag_pago = true
   objDizimo.sivic_pessoa_id = params[:sivic_pessoa_id]
   objDizimo.sivic_igreja_id = current_user.sivic_pessoa.sivic_igreja_id
