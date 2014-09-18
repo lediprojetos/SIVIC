@@ -75,7 +75,13 @@ SIVIC::Application.routes.draw do
   resources :observacoesrelatorios
   resources :sivic_situacoesrelatorios
   resources :sivic_sitpartcelulas
-  resources :sivic_discipulos
+
+  resources :sivic_discipulos do
+    member do
+      get :deleta_pessoa_discipulo
+    end
+  end
+
   resources :sivic_movimentofinanceiros 
   resources :sivic_partevenrelacelulas
   resources :sivic_participantecelulas

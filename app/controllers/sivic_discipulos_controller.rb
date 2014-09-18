@@ -1,6 +1,6 @@
 #encoding: utf-8
 class SivicDiscipulosController < ApplicationController
-  before_action :set_sivic_discipulo, only: [:show, :edit, :update, :destroy, :relDiscipulos]
+  before_action :set_sivic_discipulo, only: [:show, :edit, :update, :destroy, :relDiscipulos, :deleta_pessoa_discipulo]
   before_action :authenticate_user!
 
 
@@ -84,7 +84,6 @@ end
 end
 
 
-
   def busca_discipulos
 
     sivic_discipulo = SivicPessoa.joins('LEFT JOIN sivic_discipulos sp on sp.sivic_pessoa_id = sivic_pessoas.id').where('lower(nome_pessoa) like ? and sivic_igreja_id = ?', "%#{params[:nome_pessoa].downcase}%", current_user.sivic_pessoa.sivic_igreja_id).last(10)
@@ -98,6 +97,18 @@ end
   # GET /sivic_discipulos.json
   def index
     @sivic_discipulos = SivicDiscipulo.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+  end
+
+
+  def deleta_pessoa_discipulo
+
+   @sivic_pessoa =   SivicPessoa.find(@sivic_discipulo.id)  
+
+   @sivic_pessoa.user_exclusao = current_user.sivic_pessoa.sivic_igreja_id
+   @sivic_pessoa.data_exclusao =  Date.today
+  
+
+
   end
 
   # GET /sivic_discipulos/1
