@@ -163,7 +163,7 @@
 
             <div class="col-xs-2">
               <%= f.label :Sexo %>
-              <%= f.collection_select :DESC_Sexo, SivicDiscipulo::SEXO, :to_s, :humanize,{},{ :class => 'form-control' }%>
+              <%= f.collection_select :desc_sexo, SivicDiscipulo::SEXO, :to_s, :humanize,{},{ :class => 'form-control' }%>
             </div>
 
             <div class="col-xs-4">
@@ -192,7 +192,7 @@
 
             <div class="col-xs-2">
               <%= f.label :Estado_Civil %>
-              <%= f.collection_select :DESC_EstadoCivil, SivicDiscipulo::ESTADOCIVIL, :to_s, :humanize, {}, {:class => "form-control"}%>
+              <%= f.collection_select :desc_estadocivil, SivicDiscipulo::ESTADOCIVIL, :to_s, :humanize, {}, {:class => "form-control"}%>
             </div>   
 
             <div class="col-xs-4">
@@ -297,15 +297,15 @@
           <hr>
           <div class="row">
             <div class="col-xs-2">
-              <%= f.check_box :FLAG_Discipulo, :class => 'checkbox-inline' %>
+              <%= f.check_box :flag_discipulo, :class => 'checkbox-inline' %>
               <%= f.label :Discípulo %>
             </div>
             <div class="col-xs-2">
-            <%= f.check_box :FLAG_Consolidador, :class => 'checkbox-inline' %>
+            <%= f.check_box :flag_consolidador, :class => 'checkbox-inline' %>
             <%= f.label :Consolidador %>
             </div>
             <div class="col-xs-2">
-            <%= f.check_box :FLAG_Discipulador, :class => 'checkbox-inline' %>
+            <%= f.check_box :flag_discipulador, :class => 'checkbox-inline' %>
             <%= f.label :Discipulador %>
             </div>
           </div>

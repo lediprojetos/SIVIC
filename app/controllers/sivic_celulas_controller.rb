@@ -133,7 +133,7 @@ class SivicCelulasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_celula_params
-      params.require(:sivic_celula).permit(:sivic_pessoa_id, :NUMR_Dia, :DATA_Bloqueio, :DESC_sexo, :FLAG_crianca, :FLAG_jovem, :FLAG_adulto, :user_inclusao, :user_bloqueio, :NOME_Celula, :DESC_Bloqueio, :flag_gerarelatorio, :sivic_igreja_id, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id])
+      params.require(:sivic_celula).permit(:sivic_pessoa_id, :NUMR_Dia, :DATA_Bloqueio, :desc_sexo, :FLAG_crianca, :FLAG_jovem, :FLAG_adulto, :user_inclusao, :user_bloqueio, :NOME_Celula, :DESC_Bloqueio, :flag_gerarelatorio, :sivic_igreja_id, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id])
     end
 
     def render_civic_celula_list(tasks)
