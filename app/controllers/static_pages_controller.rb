@@ -26,7 +26,9 @@ class StaticPagesController < ApplicationController
   end
 
   def index
-    @sivic_users = User.paginate(:page => params[:page], :per_page => 10)
+    #@sivic_users = User.paginate(:page => params[:page], :per_page => 10)
+
+    @sivic_users = User.joins(:sivic_pessoa).where(sivic_pessoas: {sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id}).paginate(:page => params[:page], :per_page => 10)
   end
   
 end
