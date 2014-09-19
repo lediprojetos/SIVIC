@@ -6,19 +6,59 @@ class SivicDiscipulosController < ApplicationController
 
   def relMembros
 
+
+      igreja = 'sivic_igreja_id = ' + current_user.sivic_pessoa.sivic_igreja_id.to_s + ' and '
+
+      conf = ' 1 = 1'
+
       if params[:situacao]
         if params[:situacao][:id] != '0'
-          situacao = 'sivic_situacaodiscipulo_id = ' + params[:situacao][:id].to_s
+          situacao = 'sivic_situacaodiscipulo_id = ' + params[:situacao][:id].to_s + ' and '
         end
       end
 
       if params[:sexo] != '0'
-        sexo = 'and desc_sexo = ' + '"' + params[:sexo].to_s + '"'
+        sexo = ' desc_sexo = \'' + params[:sexo].to_s + '\' and '
       end
 
-      #debugger
-    
-      @sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id where desc_sexo like "FEMININO"')
+      if params[:estadocivil] != '0'
+        estadocivil = ' desc_estadocivil = \'' + params[:estadocivil].to_s + '\' and '
+      end
+
+      if params[:discipulador]
+        discipulador = ' flag_discipulador = true and '
+      else
+        #discipulador = ' flag_discipulador = false and '
+      end
+
+      if params[:consolidador]
+        consolidador = ' flag_consolidador = true and '
+      else
+        #consolidador = ' flag_consolidador = false and '
+      end                 
+
+      if params[:batizado]
+        batizado = ' data_batismo is not null and '
+      else
+        #batizado = ' data_batismo is null and '
+      end   
+
+      if params[:tipomembro] != 'ambos'
+        if params[:tipomembro] == 'novoconvertido'
+          tipomembro = ' flag_discipulo = false and '
+        elsif params[:tipomembro] == 'discipulo'
+          tipomembro = ' flag_discipulo = true and '
+        end
+      end      
+
+
+
+query = igreja.to_s + situacao.to_s + sexo.to_s + estadocivil.to_s + tipomembro.to_s + discipulador.to_s + consolidador.to_s + batizado.to_s + conf.to_s
+
+#debugger
+
+      @sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where(query)
+      #@sivic_discipulos = SivicDiscipulo.all
 
   end
 
@@ -269,7 +309,7 @@ end
       page.item(:lblDataDecisao).value(tasks.DATA_Decisao.blank? ? '' : tasks.DATA_Decisao.strftime("%d/%m/%Y"))
       page.item(:lblRede).value(tasks.sivic_rede.nome_rede) rescue nil
       page.item(:lblMomentoEB).value(tasks.DESC_MomentoEstudoBiblico)
-      page.item(:lblDataBatismo).value(tasks.DATA_Batismo.blank? ? '' : tasks.DATA_Batismo.strftime("%d/%m/%Y"))
+      page.item(:lblDataBatismo).value(tasks.data_batismo.blank? ? '' : tasks.data_batismo.strftime("%d/%m/%Y"))
       page.item(:lblIgrejaBatismo).value(tasks.DESC_IgrejaBatismo)
 
       #Endereço
@@ -299,10 +339,10 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_discipulo_params_netested
-      params.require(:sivic_discipulo).permit(:sivic_profissao_id, :DESC_TelefoneFixo, :DESC_TelefoneCelular,:sivic_cidade_id, :sivic_escolaridade_id, :sivic_rede_id, :sivic_celula_id, :NUMG_ProfissaoConjuge, :NUMG_UsuarioInclusao, :NUMG_UsuarioBloqueio, :desc_sexo, :DATA_Nascimento, :DESC_Apelido, :desc_estadocivil, :NOME_Conjuge, :DATA_Decisao, :NUMR_QtdFilhos, :flag_consolidador, :flag_discipulo, :flag_discipulador, :FLAG_OcasiaoRecebeuCristo, :FLAG_Reconciliacao, :FLAG_Trabalhando, :DESC_MomentoEstudoBiblico, :NUMR_RG, :DATA_EmissaoRG, :NUMR_CPF, :NOME_Pai, :NOME_Mae, :DATA_NascConjuge, :DATA_Casamento, :NUMR_TituloEleitoral, :DATA_Batismo, :DESC_IgrejaBatismo, :FLAG_DoadorSangue, :FLAG_DoadorOrgao, :NUMR_Codigo,:hora_estudobiblico, sivic_pessoa_attributes: [:sivic_situacaodiscipulo_id, :id, :nome_pessoa, :DESC_email, :DESC_observacao, :User_id, :sivic_igreja_id, :father_id], sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id])
+      params.require(:sivic_discipulo).permit(:sivic_profissao_id, :DESC_TelefoneFixo, :DESC_TelefoneCelular,:sivic_cidade_id, :sivic_escolaridade_id, :sivic_rede_id, :sivic_celula_id, :NUMG_ProfissaoConjuge, :NUMG_UsuarioInclusao, :NUMG_UsuarioBloqueio, :desc_sexo, :DATA_Nascimento, :DESC_Apelido, :desc_estadocivil, :NOME_Conjuge, :DATA_Decisao, :NUMR_QtdFilhos, :flag_consolidador, :flag_discipulo, :flag_discipulador, :FLAG_OcasiaoRecebeuCristo, :FLAG_Reconciliacao, :FLAG_Trabalhando, :DESC_MomentoEstudoBiblico, :NUMR_RG, :DATA_EmissaoRG, :NUMR_CPF, :NOME_Pai, :NOME_Mae, :DATA_NascConjuge, :DATA_Casamento, :NUMR_TituloEleitoral, :data_batismo, :DESC_IgrejaBatismo, :FLAG_DoadorSangue, :FLAG_DoadorOrgao, :NUMR_Codigo,:hora_estudobiblico, sivic_pessoa_attributes: [:sivic_situacaodiscipulo_id, :id, :nome_pessoa, :DESC_email, :DESC_observacao, :User_id, :sivic_igreja_id, :father_id], sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id])
     end
 
     def sivic_discipulo_params_normal
-      params.require(:sivic_discipulo).permit(:sivic_situacaodiscipulo_id, :father_id, :sivic_pessoa_id, :DESC_TelefoneFixo, :DESC_TelefoneCelular, :sivic_cidade_id, :sivic_profissao_id, :sivic_escolaridade_id, :sivic_rede_id, :sivic_celula_id, :NUMG_ProfissaoConjuge, :NUMG_UsuarioInclusao, :NUMG_UsuarioBloqueio, :desc_sexo, :DATA_Nascimento, :DESC_Apelido, :desc_estadocivil, :NOME_Conjuge, :DATA_Decisao,:flag_consolidador, :NUMR_QtdFilhos, :flag_discipulo, :flag_discipulador, :FLAG_OcasiaoRecebeuCristo, :FLAG_Reconciliacao, :FLAG_Trabalhando, :DESC_MomentoEstudoBiblico, :NUMR_RG, :DATA_EmissaoRG, :NUMR_CPF, :NOME_Pai, :NOME_Mae, :DATA_NascConjuge, :DATA_Casamento, :NUMR_TituloEleitoral, :DATA_Batismo, :DESC_IgrejaBatismo, :FLAG_DoadorSangue, :FLAG_DoadorOrgao, :NUMR_Codigo, :hora_estudobiblico, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
+      params.require(:sivic_discipulo).permit(:sivic_situacaodiscipulo_id, :father_id, :sivic_pessoa_id, :DESC_TelefoneFixo, :DESC_TelefoneCelular, :sivic_cidade_id, :sivic_profissao_id, :sivic_escolaridade_id, :sivic_rede_id, :sivic_celula_id, :NUMG_ProfissaoConjuge, :NUMG_UsuarioInclusao, :NUMG_UsuarioBloqueio, :desc_sexo, :DATA_Nascimento, :DESC_Apelido, :desc_estadocivil, :NOME_Conjuge, :DATA_Decisao,:flag_consolidador, :NUMR_QtdFilhos, :flag_discipulo, :flag_discipulador, :FLAG_OcasiaoRecebeuCristo, :FLAG_Reconciliacao, :FLAG_Trabalhando, :DESC_MomentoEstudoBiblico, :NUMR_RG, :DATA_EmissaoRG, :NUMR_CPF, :NOME_Pai, :NOME_Mae, :DATA_NascConjuge, :DATA_Casamento, :NUMR_TituloEleitoral, :data_batismo, :DESC_IgrejaBatismo, :FLAG_DoadorSangue, :FLAG_DoadorOrgao, :NUMR_Codigo, :hora_estudobiblico, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
     end    
 end

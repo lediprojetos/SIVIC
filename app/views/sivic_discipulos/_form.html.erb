@@ -376,7 +376,7 @@
 
             <div class="col-xs-2">
               <%= f.label :DATA_de_Batismo %>
-              <%= f.text_field :DATA_Batismo, :value => (@sivic_discipulo.DATA_Batismo.blank? ? '' : @sivic_discipulo.DATA_Batismo.strftime("%d/%m/%Y")), :class => 'form-control' %>
+              <%= f.text_field :data_batismo, :value => (@sivic_discipulo.data_batismo.blank? ? '' : @sivic_discipulo.data_batismo.strftime("%d/%m/%Y")), :class => 'form-control' %>
             </div>
 
             <div class="col-xs-2">
@@ -640,7 +640,7 @@ jQuery(function($){
   $("#sivic_discipulo_DATA_EmissaoRG").mask("99/99/9999");
   $("#sivic_discipulo_DATA_Casamento").mask("99/99/9999");
   $("#sivic_discipulo_DATA_NascConjuge").mask("99/99/9999");
-  $("#sivic_discipulo_DATA_Batismo").mask("99/99/9999");
+  $("#sivic_discipulo_data_batismo").mask("99/99/9999");
   $("#sivic_discipulo_DATA_Decisao").mask("99/99/9999");
   $("#sivic_discipulo_NUMR_CPF").mask("999.999.999.99");
   $("#sivic_discipulo_DESC_TelefoneFixo").mask("(99)9999-9999");

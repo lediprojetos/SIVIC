@@ -22,27 +22,39 @@
           <%= sit.label :Estado_Civil %>
           <%= select_tag 'estadocivil', content_tag(:option,'TODOS',:value=>"0")+options_from_collection_for_select(SivicDiscipulo::ESTADOCIVIL, :to_s, :humanize),:class =>  'form-control'%>
         </div>   
-        <div class="col-lg-2">
-        <%= sit.label :Ministerio %>
-        <%= select_tag 'ministerio[id]', content_tag(:option,'TODOS',:value=>"0")+options_from_collection_for_select(SivicMinisterio.all, 'id', 'nome_ministerio'),:class =>  'form-control'%>
-        </div>  
+
+        <div class="col-lg-2" >
+
+        <div class="radio">
+          <label>
+            <input type="radio" name="tipomembro" id="novoconvertido" value="novoconvertido">
+            Novo Convertido
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="tipomembro" id="discipulo" value="discipulo">
+            Discípulo
+          </label>
+        </div>
+        <div class="radio disabled">
+          <label>
+            <input type="radio" name="tipomembro" id="ambos" value="ambos" checked>
+            Ambos
+          </label>
+        </div>
+        </div>
 
         <div class="col-lg-2" >
           <div class="checkbox">
             <label>
-              <input type="checkbox" value="convertido"> Novo Convertido
-            </label>          
-            <label>
-              <input type="checkbox" value="discipulo"> Discípulo
+              <input type="checkbox" id="discipulador" name="discipulador" value="true"> Discipulador
             </label>
             <label>
-              <input type="checkbox" value="discipulador"> Discipulador
+              <input type="checkbox" id="consolidador" name="consolidador" value="true"> Consolidador
             </label>
             <label>
-              <input type="checkbox" value="consolidador"> Consolidador
-            </label>
-            <label>
-              <input type="checkbox" value="batizado"> Batizado
+              <input type="checkbox" id="batizado" name="batizado" value="true"> Batizado
             </label>            
           </div>              
         </div>
@@ -50,22 +62,13 @@
     </div>
 <%end%> 
 
-<button class="btn btn-success" type="submit" >Buscar</button>
+<button class="btn btn-success" type="submit" >Listar</button>
+<button class="btn btn-default" type="submit" >Imprimir</button>
 <% end %>
 
 </div></div>
-
-
-  <%= link_to sivic_celulas_path(format: 'pdf'), {:class => "btn btn-default", :target => '_blank'} do %>
-    <span class="glyphicon glyphicon-list-alt"></span> Listar
-  <% end %>
-
-  <%= link_to sivic_celulas_path(format: 'pdf'), {:class => "btn btn-default", :target => '_blank'} do %>
-    <span class="glyphicon glyphicon-print"></span> PDF
-  <% end %>
-
   <br/>
-  <br/>
+
 
 <div class="panel panel-default">
   <!-- Default panel contents -->
@@ -74,25 +77,23 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>Nascimento</th>
+      <th>Nome</th>
+      <th>Data de Nascimento</th>
       <th>CPF</th>
-      <th>Data Batismo</th>
-      <th></th>
+      <th>Email</th>
     </tr>
   </thead>
-
   <tbody>
       <% @sivic_discipulos.each do |sivic_discipulo| %>
         <tr>
           <td><%= sivic_discipulo.sivic_pessoa.nome_pessoa %></td>
           <td><%= sivic_discipulo.DATA_Nascimento.blank? ? '' : sivic_discipulo.DATA_Nascimento.strftime("%d/%m/%Y")  %></td>
           <td><%= sivic_discipulo.NUMR_CPF %></td>
-          <td><%= sivic_discipulo.DATA_Batismo.blank? ? '' : sivic_discipulo.DATA_Batismo.strftime("%d/%m/%Y")  %></td>
+          <td><%= sivic_discipulo.sivic_pessoa.DESC_email%></td>
         </tr>
       <% end %>  
   </tbody>
 </table>
 </div>
-  
+
 
