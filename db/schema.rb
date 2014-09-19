@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20140918170019) do
+=======
+ActiveRecord::Schema.define(version: 20140919015452) do
+>>>>>>> c1027b70ae6723a38a514f512c56e6c124963982
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,7 +225,7 @@ ActiveRecord::Schema.define(version: 20140918170019) do
     t.date     "DATA_NascConjuge"
     t.date     "DATA_Casamento"
     t.string   "NUMR_TituloEleitoral"
-    t.date     "DATA_Batismo"
+    t.date     "data_batismo"
     t.string   "DESC_IgrejaBatismo"
     t.boolean  "FLAG_DoadorSangue"
     t.boolean  "FLAG_DoadorOrgao"
