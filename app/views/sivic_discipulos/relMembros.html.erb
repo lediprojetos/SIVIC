@@ -2,44 +2,79 @@
   Relatório de Membros
 <% end %>
 
+<%
+if params[:situacao]
+  situacao = params[:situacao][:id]
+end
+if params[:sexo]
+  sexo = params[:sexo]
+end
+if params[:estadocivil]
+  estadocivil = params[:estadocivil]
+end
+
+if params[:tipomembro]
+  if params[:tipomembro] == 'novoconvertido'
+    novoconvertido = true
+  elsif params[:tipomembro] == 'discipulo'
+    discipulo = true
+  elsif params[:tipomembro] == 'ambos'
+    ambos = true
+  end
+end
+
+if params[:discipulador]
+  discipulador = true
+end
+
+if params[:consolidador]
+  consolidador = true
+end
+
+if params[:batizado]
+  batizado = true
+end
+
+%>
+
 
 <%=render '/layouts/panel' %>
 
-<%= form_tag nil, method: 'GET' do %>
+<%= form_tag nil, method: 'GET', :id  => "busca" do %>
     <div class="row mar-bot40">
       <%=fields_for :sivic_situaco do |sit| %>
         <div class="col-lg-2" >
           <%= sit.label :Situação %>
-          <%= select_tag 'situacao[id]', content_tag(:option,'TODOS',:value=>"0")+options_from_collection_for_select(SivicSituacaodiscipulo.all, 'id', 'nome_situacao'),:class =>  'form-control'%>
+          <%= select_tag 'situacao[id]', content_tag(:option,'TODOS',:value=>"0")+options_from_collection_for_select(SivicSituacaodiscipulo.all, 'id', 'nome_situacao',situacao),:class =>  'form-control'%>
         </div>
 
         <div class="col-lg-2" >
           <%= sit.label :Sexo %>
-          <%= select_tag 'sexo', content_tag(:option,'TODOS',:value=>"0")+options_from_collection_for_select(SivicDiscipulo::SEXO, :to_s, :humanize),:class =>  'form-control'%>
+          <%= select_tag 'sexo', content_tag(:option,'TODOS',:value=>"0")+options_from_collection_for_select(SivicDiscipulo::SEXO, :to_s, :humanize,sexo),:class =>  'form-control'%>
         </div>
 
         <div class="col-lg-2">
           <%= sit.label :Estado_Civil %>
-          <%= select_tag 'estadocivil', content_tag(:option,'TODOS',:value=>"0")+options_from_collection_for_select(SivicDiscipulo::ESTADOCIVIL, :to_s, :humanize),:class =>  'form-control'%>
+          <%= select_tag 'estadocivil', content_tag(:option,'TODOS',:value=>"0")+options_from_collection_for_select(SivicDiscipulo::ESTADOCIVIL, :to_s, :humanize,estadocivil),:class =>  'form-control'%>
         </div>   
 
         <div class="col-lg-2" >
 
         <div class="radio">
           <label>
-            <input type="radio" name="tipomembro" id="novoconvertido" value="novoconvertido">
+            <input type="radio" name="tipomembro" id="novoconvertido" value="novoconvertido" <%= novoconvertido ? 'checked' : ''%> >
             Novo Convertido
           </label>
         </div>
         <div class="radio">
           <label>
-            <input type="radio" name="tipomembro" id="discipulo" value="discipulo">
+            <input type="radio" name="tipomembro" id="discipulo" value="discipulo" <%= discipulo ? 'checked' : ''%>>
             Discípulo
           </label>
         </div>
         <div class="radio disabled">
           <label>
-            <input type="radio" name="tipomembro" id="ambos" value="ambos" checked>
+            <input type="radio" name="tipomembro" id="ambos" value="ambos" <%= ambos ? 'checked' : ''%>>
             Ambos
           </label>
         </div>
@@ -48,28 +83,31 @@
         <div class="col-lg-2" >
           <div class="checkbox">
             <label>
-              <input type="checkbox" id="discipulador" name="discipulador" value="true"> Discipulador
+              <input type="checkbox" id="discipulador" name="discipulador" value="true" <%=discipulador ? 'checked="checked"' : ''%> > Discipulador
             </label>
             <label>
-              <input type="checkbox" id="consolidador" name="consolidador" value="true"> Consolidador
+              <input type="checkbox" id="consolidador" name="consolidador" value="true" <%=consolidador ? 'checked="checked"' : ''%> > Consolidador
             </label>
             <label>
-              <input type="checkbox" id="batizado" name="batizado" value="true"> Batizado
+              <input type="checkbox" id="batizado" name="batizado" value="true" <%=batizado ? 'checked="checked"' : ''%> > Batizado
             </label>            
           </div>              
         </div>
 
     </div>
-<%end%> 
+ <%#= sit.button  :submit , name: "subaction",value: "update"%>
 
 <button class="btn btn-success" type="submit" >Listar</button>
-<button class="btn btn-default" type="submit" >Imprimir</button>
+<button class="btn btn-default" type="submit" name="imprimir" value="pdf" data-target="_blank">Imprimir</button>
+<%#= link_to 'submit', "#", :name => "imprimir", :value => "pdf", :onclick => "$('#busca').submit()", :target => '_blank' %>
+<%end%> 
+
 <% end %>
 
 </div></div>
   <br/>
 
-
+<%if @sivic_discipulos.first %>
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading"></div>
@@ -95,5 +133,11 @@
   </tbody>
 </table>
 </div>
+<%else%>
 
+  <div class="alert alert-warning alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+     <label>Nenhum resultado encontrado</label>
+</div>
 
+<%end%>

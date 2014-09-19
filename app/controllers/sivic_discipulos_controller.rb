@@ -3,6 +3,12 @@ class SivicDiscipulosController < ApplicationController
   before_action :set_sivic_discipulo, only: [:show, :edit, :update, :destroy, :relDiscipulos, :deleta_pessoa_discipulo]
   before_action :authenticate_user!
 
+  def relatorio_geral
+
+
+    relMembros
+  end
+
 
   def relMembros
 
@@ -53,13 +59,15 @@ class SivicDiscipulosController < ApplicationController
 
 
 
-query = igreja.to_s + situacao.to_s + sexo.to_s + estadocivil.to_s + tipomembro.to_s + discipulador.to_s + consolidador.to_s + batizado.to_s + conf.to_s
+      query = igreja.to_s + situacao.to_s + sexo.to_s + estadocivil.to_s + tipomembro.to_s + discipulador.to_s + consolidador.to_s + batizado.to_s + conf.to_s
 
-#debugger
+      #debugger
 
       @sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where(query)
-      #@sivic_discipulos = SivicDiscipulo.all
 
+      if params[:imprimir] == 'pdf'
+        render_civic_discipulo_geral_list(@sivic_discipulos) 
+      end
   end
 
 
@@ -99,6 +107,37 @@ def BuscaPessoas2(id)
     end
 
 end
+
+def render_civic_discipulo_geral_list(tasks)
+  report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'membros_geral.tlf')
+
+  tasks.each do |task|
+    report.list.add_row do |row|
+      row.values lblId: task.sivic_pessoa_id
+      row.values lblNome: task.sivic_pessoa.nome_pessoa
+      row.values lblNascimento: task.DATA_Nascimento
+      row.values lblEndereco: task.sivic_endereco.DESC_Rua + ' ' + task.sivic_endereco.DESC_Complemento + ' ' + task.sivic_endereco.NUMR_Cep
+      row.values lblBairro: task.sivic_endereco.DESC_Bairro
+      row.values lblCelular: task.DESC_TelefoneCelular
+      row.values lblTelefone: task.DESC_TelefoneCelular
+    end
+  end
+
+ report.events.on :generate  do |e|
+   e.pages.each do |page|
+    page.item(:data).value(Time.now)
+    page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+    page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
+  end
+end
+
+  
+  send_data report.generate, filename: 'discipulos_geral.pdf', 
+                             type: 'application/pdf', 
+                             disposition: ''
+
+end
+
 
 def render_civic_discipulo_geracao_list(tasks)
   report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'discipulos_geracao.tlf')

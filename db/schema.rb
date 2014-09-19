@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20140918170019) do
-=======
 ActiveRecord::Schema.define(version: 20140919015452) do
->>>>>>> c1027b70ae6723a38a514f512c56e6c124963982
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -219,7 +215,7 @@ ActiveRecord::Schema.define(version: 20140919015452) do
     t.string   "DESC_MomentoEstudoBiblico"
     t.string   "NUMR_RG"
     t.date     "DATA_EmissaoRG"
-    t.string   "NUMR_CPF",                   limit: 11
+    t.string   "NUMR_CPF",                  limit: 11
     t.string   "NOME_Pai"
     t.string   "NOME_Mae"
     t.date     "DATA_NascConjuge"
@@ -236,9 +232,6 @@ ActiveRecord::Schema.define(version: 20140919015452) do
     t.integer  "NUMR_Codigo"
     t.time     "hora_estudobiblico"
     t.integer  "sivic_cidade_id"
-    t.integer  "user_exclusao"
-    t.integer  "sivic_situacaodiscipulo_id"
-    t.datetime "data_exclusao"
   end
 
   add_index "sivic_discipulos", ["sivic_celula_id"], name: "index_sivic_discipulos_on_sivic_celula_id", using: :btree
@@ -247,7 +240,6 @@ ActiveRecord::Schema.define(version: 20140919015452) do
   add_index "sivic_discipulos", ["sivic_pessoa_id"], name: "index_sivic_discipulos_on_sivic_pessoa_id", using: :btree
   add_index "sivic_discipulos", ["sivic_profissao_id"], name: "index_sivic_discipulos_on_sivic_profissao_id", using: :btree
   add_index "sivic_discipulos", ["sivic_rede_id"], name: "index_sivic_discipulos_on_sivic_rede_id", using: :btree
-  add_index "sivic_discipulos", ["sivic_situacaodiscipulo_id"], name: "index_sivic_discipulos_on_sivic_situacaodiscipulo_id", using: :btree
 
   create_table "sivic_enderecos", force: true do |t|
     t.string   "DESC_Bairro"
