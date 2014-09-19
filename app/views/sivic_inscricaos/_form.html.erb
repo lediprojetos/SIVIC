@@ -1,6 +1,3 @@
-<br/>
-<br/>
-
   <%= form_for(@sivic_inscricao) do |f| %>
     <% if @sivic_inscricao.errors.any? %>
       <div class="alert alert-danger" role="alert">
@@ -13,9 +10,9 @@
      </div>
    <%end%>  
 
-<div class="panel panel-primary">
+<div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title"><%= 'Inscrição'%></h3>
+    <h3 class="panel-title"><b><%= 'Cadastro'%></b></h3>
   </div>
   <div class="panel-footer">
 
@@ -94,6 +91,14 @@
 
 
   </div>
+</div>
+
+<div class="btn-group">
+
+  <%= link_to root_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+
 </div>
 
 
