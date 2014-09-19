@@ -90,8 +90,6 @@ class SivicDiscipulosController < ApplicationController
 
   end
 
-
-
 def BuscaPessoas2(id)
   sivic_dados = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id where sp.father_id = ' + id.to_s)
 
@@ -198,8 +196,12 @@ end
 
    @sivic_pessoa.user_exclusao = current_user.sivic_pessoa.sivic_igreja_id
    @sivic_pessoa.data_exclusao =  Date.today
+   @sivic_pessoa.save
   
-
+    respond_to do |format|
+      format.html { redirect_to sivic_discipulos_url }
+      format.json { head :no_content }
+    end
 
   end
 

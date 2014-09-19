@@ -56,9 +56,13 @@
               <span class="glyphicon glyphicon-tasks"></span>
             <% end %>
 
-           <!-- <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_discipulos/<%=sivic_discipulo.id%>" data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir">
+             <%= link_to deleta_pessoa_discipulo_sivic_discipulo_path(sivic_discipulo), :confirm => 'Deseja excluir o discipulo?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Bloquear" do %>
+                <span class="glyphicon glyphicon-ban-circle"></span> 
+              <% end %>  
+
+           <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_discipulos/<%=sivic_discipulo.id%>" data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir">
                 <span class="glyphicon glyphicon-trash" data-original-title="Geração" title="" rel="tooltip"></span>
-            </a>-->           
+           </a>           
         </td> 
                   
         </tr>
