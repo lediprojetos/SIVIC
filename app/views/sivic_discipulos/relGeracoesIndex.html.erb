@@ -45,13 +45,13 @@
         <td align='right'>
             <%= link_to sivic_discipulo, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
               <span class="glyphicon glyphicon-list-alt"></span>
-            <% end %>             
-            <%= link_to edit_sivic_discipulo_path(sivic_discipulo), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
-              <span class="glyphicon glyphicon-pencil"></span>
-            <% end %>             
-             <%= link_to deleta_pessoa_discipulo_sivic_discipulo_path(sivic_discipulo), :confirm => 'Deseja excluir o discipulo?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Excluir" do %>
-                <span class="glyphicon glyphicon-trash"></span> 
-              <% end %>  
+            <% end %>                         
+            <%= link_to relDiscipulos_path(sivic_discipulo), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Diagrama" do %>
+              <span class="glyphicon glyphicon-user"></span> 
+            <% end %>            
+            <%= link_to relGeracoes_path(sivic_discipulo, format: 'pdf'), {:class => "btn btn-default btn-sm", :target => '_blank', :rel=>"tooltip", :title=>"Geração"} do %>
+              <span class="glyphicon glyphicon-tasks"></span>
+            <% end %> 
         </td> 
                   
         </tr>
