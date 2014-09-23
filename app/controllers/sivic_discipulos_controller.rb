@@ -191,7 +191,7 @@ end
 
   def deleta_pessoa_discipulo
 
-   @sivic_pessoa =   SivicPessoa.find(@sivic_discipulo.id)  
+   @sivic_pessoa =   SivicPessoa.find(@sivic_discipulo.sivic_pessoa_id)  
 
    @sivic_pessoa.user_exclusao = current_user.sivic_pessoa.sivic_igreja_id
    @sivic_pessoa.data_exclusao =  Date.today
