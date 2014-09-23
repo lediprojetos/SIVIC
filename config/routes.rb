@@ -129,6 +129,8 @@ SIVIC::Application.routes.draw do
   get '/relDiscipulos/:id', to: 'sivic_discipulos#relDiscipulos', as: 'relDiscipulos'
   get '/relGeracoes/:id', to: 'sivic_discipulos#relGeracoes', as: 'relGeracoes'
 
+  match '/relGeracoesIndex', to: 'sivic_discipulos#relGeracoesIndex', via: 'get'
+
 
   get '/relparticipantesEventos/:id/:tipo', to: 'sivic_parteventos#relparticipantesEventos', as: 'relparticipantesEventos'
 
