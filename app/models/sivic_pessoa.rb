@@ -11,7 +11,7 @@ class SivicPessoa < ActiveRecord::Base
 
 
 validates :nome_pessoa, :presence => { :message => 'Informe um Nome.' }
-#validates :father_id, :presence => { :message => 'Escolha um lider.' }
+validates :father_id, :presence => { :message => 'Escolha um lider.' }
 
 
 validate :valida_lider_consolidador
@@ -63,8 +63,12 @@ after_create   :atualizaContador
 
    def valida_lider_consolidador
     
+     if self.father_id
       @sivic_discipulo = SivicDiscipulo.find_by! sivic_pessoa_id: self.father_id
       errors.add(:father_id, "O líder escolhido não é um consolidador") if not @sivic_discipulo.flag_consolidador
+     end 
+     
+
 
   end
 
