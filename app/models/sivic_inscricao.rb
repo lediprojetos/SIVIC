@@ -39,7 +39,4 @@ class SivicInscricao < ActiveRecord::Base
 	  	errors.add(:desc_confirmasenha, "A senha não foi confirmado corretamente.") if self.desc_senha != self.desc_confirmasenha
 	end
 
-
-
-
 end

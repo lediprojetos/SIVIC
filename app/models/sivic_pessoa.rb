@@ -1,3 +1,4 @@
+#encoding: utf-8
 class SivicPessoa < ActiveRecord::Base
   belongs_to :sivic_igreja
   belongs_to :sivic_situacaodiscipulo
@@ -13,6 +14,8 @@ validates :nome_pessoa, :presence => { :message => 'Informe um Nome.' }
 #validates :father_id, :presence => { :message => 'Escolha um lider.' }
 
 
+validate :valida_lider_consolidador
+
 before_create :setaParaConsolidador
 
 #Gera codigo de discipulo
@@ -23,7 +26,7 @@ after_create   :atualizaContador
 
 #metodo para setar discipulo como consolidador quando tiver uma pessoa cadastrada debaixo dele
 
-   def setaParaConsolidador  
+  def setaParaConsolidador  
     
       if self.sivic_igreja_id != 1
         if self.father_id != nil  
@@ -56,5 +59,13 @@ after_create   :atualizaContador
    def  atualizaContador
       @@sivic_contdiscipulo.update(:NUMR_Contador => @@codigo)
    end
+
+
+   def valida_lider_consolidador
+    
+      @sivic_discipulo = SivicDiscipulo.find_by! sivic_pessoa_id: self.father_id
+      errors.add(:father_id, "O líder escolhido não é um consolidador") if not @sivic_discipulo.flag_consolidador
+
+  end
 
 end

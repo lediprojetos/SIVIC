@@ -3,11 +3,10 @@ class SivicDiscipulosController < ApplicationController
   before_action :set_sivic_discipulo, only: [:show, :edit, :update, :destroy, :relDiscipulos, :deleta_pessoa_discipulo]
   before_action :authenticate_user!
 
-  def relatorio_geral
 
-
-    relMembros
-  end
+def relGeracoesIndex
+  @sivic_discipulos = SivicDiscipulo.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10) 
+end
 
 
   def relMembros
@@ -89,8 +88,6 @@ class SivicDiscipulosController < ApplicationController
     end
 
   end
-
-
 
 def BuscaPessoas2(id)
   sivic_dados = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id where sp.father_id = ' + id.to_s)
@@ -188,18 +185,24 @@ end
   # GET /sivic_discipulos
   # GET /sivic_discipulos.json
   def index
+  
     @sivic_discipulos = SivicDiscipulo.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+  
   end
 
 
   def deleta_pessoa_discipulo
 
-   @sivic_pessoa =   SivicPessoa.find(@sivic_discipulo.id)  
+   @sivic_pessoa =   SivicPessoa.find(@sivic_discipulo.sivic_pessoa_id)  
 
    @sivic_pessoa.user_exclusao = current_user.sivic_pessoa.sivic_igreja_id
    @sivic_pessoa.data_exclusao =  Date.today
+   @sivic_pessoa.save
   
-
+    respond_to do |format|
+      format.html { redirect_to sivic_discipulos_url }
+      format.json { head :no_content }
+    end
 
   end
 
