@@ -62,6 +62,17 @@
       </div>
     </div>
     
+    <div class="row">
+      <div class="col-xs-3">
+      </div>      
+          <div div class="col-xs-1">
+             <%= f.label :igreja %>
+             <%= f.text_field :sivic_igreja_id, :class => "form-control"%>
+      </div>
+    </div>
+
+      <%#= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
+    
     <br/> 
     
     <%=  f.fields_for :sivic_movimentofinanceiro do |movimento| %>
@@ -102,10 +113,8 @@
    <%= movimento.hidden_field :user_inclusao, :value => current_user.id %>
    
    <%= movimento.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
-   
-
+  
    <%= movimento.hidden_field :sivic_evento_id, :id => "sivic_evento" %>
-
   <%end%>
 
 
