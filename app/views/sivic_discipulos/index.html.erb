@@ -19,9 +19,6 @@
   </div><!-- /.row -->
   <br />  
 <% end %>
-          
-  <hr>
-
   <table class="table table-hover">
     <thead>
       <tr>
@@ -60,7 +57,7 @@
   </table>
 
 <div class="apple_pagination">
-<%= will_paginate @sivic_discipulo %>
+<%= will_paginate @sivic_discipulo , :inner_window => 2%>
 </div>
 
 </div></div>
