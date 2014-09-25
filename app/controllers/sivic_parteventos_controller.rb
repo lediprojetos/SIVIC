@@ -2,6 +2,8 @@ class SivicParteventosController < ApplicationController
   before_action :set_sivic_partevento, only: [:show, :edit, :update, :destroy, :naoParticipou]
   before_action :authenticate_user!
 
+  include ActionView::Helpers::NumberHelper
+
   # GET /sivic_parteventos
   # GET /sivic_parteventos.json
   def index
@@ -118,6 +120,8 @@ class SivicParteventosController < ApplicationController
         row.values lblNome: task.sivic_pessoa.nome_pessoa rescue nil
         row.values lblLider: task.sivic_pessoa.father.nome_pessoa rescue nil
         row.values lblConvidadoPor: task.desc_convidadopor rescue nil
+        row.values lblValorPago: number_to_currency(task.sivic_movimentofinanceiro.VALR_movimento, unit: "R$", separator: ",", delimiter: "") rescue nil
+        row.values lblValorRestante: number_to_currency(task.sivic_movimentofinanceiro.valr_restante, unit: "R$", separator: ",", delimiter: "") rescue nil
         row.values lblCont: cont
 
         cont += 1

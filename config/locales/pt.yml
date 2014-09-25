@@ -224,6 +224,7 @@ pt:
       sivic_endereco: ''
       sivic_pessoa: ''
       sivic_inscricao: ''
+      sivic_partevento: ''
     attributes:
       sivic_discipulo:
         NUMR_CPF: CPF
@@ -244,6 +245,10 @@ pt:
         sivic_tipo_evento_id: ''
         DATA_inicio: ''
         DATA_fim: ''
+      sivic_partevento:
+        flag_passando: ''
+        sivic_evento_id: ''
+        sivic_pessoa_id: ''
       sivic_participantecelula:
         nome_participante: '' 
       sivic_rede: 
