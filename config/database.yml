@@ -1,6 +1,6 @@
 development:
   adapter: postgresql
-  database: bkpBaseSivic
+  database: restore
   pool: 5
   timeout: 5000
   username: postgres

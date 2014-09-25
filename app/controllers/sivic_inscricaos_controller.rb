@@ -33,10 +33,15 @@ class SivicInscricaosController < ApplicationController
     respond_to do |format|
       if @sivic_inscricao.save
         
+        @endereco = SivicEndereco.new
+        @endereco.sivic_cidade_id = sivic_inscricao_params["numg_cidade"]
+        @endereco.save
+
         @igreja = SivicIgreja.new
         @igreja.NOME_igreja = sivic_inscricao_params["nome_igreja"]
         @igreja.NUMR_telefone = sivic_inscricao_params["desc_telefone"]
         @igreja.NOME_responsavel = sivic_inscricao_params["nome_pessoa"]
+        @igreja.sivic_endereco_id = @endereco.id
         @igreja.save
 
         @pessoa = SivicPessoa.new

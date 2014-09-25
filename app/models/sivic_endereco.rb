@@ -10,7 +10,9 @@ class SivicEndereco < ActiveRecord::Base
 
 def retiraMascara
 
-	self.NUMR_Cep.gsub!(/[^0-9]/, '')
+	if self.NUMR_Cep
+		self.NUMR_Cep.gsub!(/[^0-9]/, '')
+	end
 
 end
 

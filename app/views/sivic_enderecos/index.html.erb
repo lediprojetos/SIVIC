@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>ID</th>
       <th>Desc bairro</th>
       <th>Desc rua</th>
       <th>Desc complemento</th>
@@ -18,6 +19,7 @@
   <tbody>
     <% @sivic_enderecos.each do |sivic_endereco| %>
       <tr>
+        <td><%= sivic_endereco.id %></td>
         <td><%= sivic_endereco.DESC_Bairro %></td>
         <td><%= sivic_endereco.DESC_Rua %></td>
         <td><%= sivic_endereco.DESC_Complemento %></td>

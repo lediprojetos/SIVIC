@@ -45,62 +45,17 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-xs-4">
+      <%= f.label :endereco %>
+      <%= f.text_field :sivic_endereco_id, :class => "form-control" %>
+  </div>
+</div>
+
 <br />
 
 <hr>
 
-<%=  f.fields_for :sivic_endereco do |endereco| %>
-<div class="row">
-        <div class="col-xs-4">
-          <%= endereco.label :Rua %>
-          <%= endereco.text_field :DESC_Rua, :class =>  'form-control' %>
-        </div>
-
-        <div class="col-xs-4">
-          <%= endereco.label :Complemento %>
-          <%= endereco.text_field :DESC_Complemento, :class =>  'form-control' %>
-        </div>
-        <div class="col-xs-4">
-          <%= endereco.label :Ponto_de_referência %>
-          <%= endereco.text_field :DESC_Pontoreferencia, :class =>  'form-control' %>
-        </div>
-</div>
-<br />
-<div class="row">
-        <div class="col-xs-4">
-          <%= endereco.label :Bairro %>
-          <%= endereco.text_field :DESC_Bairro,  :class =>  'form-control' %>
-        </div>
-
-        <div class="col-xs-2">
-          <label>CEP</label>
-          <%= endereco.number_field :NUMR_Cep, :class =>  'form-control' %>
-        </div>
-
-    <%=  f.fields_for :sivic_estado do |estado| %>
-
-        <div class="col-xs-3">
-          <%= estado.label :Estado %>
-          <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)',  :class =>  'form-control'}%>
-        </div>
-
-    <%end%>
-    <%if @sivic_cidade %>
-
-        <div class="col-xs-3">
-          <%= endereco.label :Cidade %>
-          <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada),{},{ :class =>  'form-control'}%>
-        </div>
-
-    <%else%>
-
-        <div class="col-xs-3">
-          <%= endereco.label :Cidade   %>
-          <%= endereco.select :sivic_cidade_id, [], {}, :class =>  'form-control' %>
-        </div> 
-
-    <%end%>    
-  <% end %>
 </div>
 </div>
 </div>
