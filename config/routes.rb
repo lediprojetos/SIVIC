@@ -123,6 +123,7 @@ SIVIC::Application.routes.draw do
   match '/participantesEventos', to: 'sivic_parteventos#participanteseventos', via: 'get'
 
   match '/relMembros', to: 'sivic_discipulos#relMembros', via: 'get'
+  match '/relAniversariantes', to: 'sivic_discipulos#relAniversariantes', via: 'get'
 
   match '/jobCelulas', to: 'sivic_relatorioscelulas#jobCelulas', via: 'get'
 

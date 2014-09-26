@@ -1,0 +1,72 @@
+<% content_for :titlePage do %>
+  Aniversariantes
+<% end %>
+
+<%
+
+if params[:mes]
+  mes = params[:mes]
+end
+
+%>
+
+
+<%=render '/layouts/panel' %>
+
+<%= form_tag nil, method: 'GET', :id  => "busca" do %>
+    <div class="row mar-bot40">
+      <%=fields_for :aniversariantes do |sit| %>
+
+        <div class="col-lg-2" >
+          <%= sit.label :Mês %>
+          <%= select_tag 'mes', content_tag(:option,'TODOS',:value=>"0")+options_from_collection_for_select(SivicPessoa::MESES, :to_s, :humanize,mes),:class =>  'form-control'%>
+        </div>
+              
+    </div>
+
+<br/>
+
+<button class="btn btn-success" type="submit" >Listar</button>
+<button class="btn btn-default" type="submit" name="imprimir" value="pdf" data-target="_blank">Imprimir</button>
+<%#= link_to 'submit', "#", :name => "imprimir", :value => "pdf", :onclick => "$('#busca').submit()", :target => '_blank' %>
+<%end%> 
+
+<% end %>
+
+</div></div>
+  <br/>
+
+<%if @sivic_discipulos.first %>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading"></div>
+  <!-- Table -->
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Data de Nascimento</th>
+      <th>CPF</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @sivic_discipulos.each do |sivic_discipulo| %>
+        <tr>
+          <td><%= sivic_discipulo.sivic_pessoa.nome_pessoa %></td>
+          <td><%= sivic_discipulo.data_nascimento.blank? ? '' : sivic_discipulo.data_nascimento.strftime("%d/%m/%Y")  %></td>
+          <td><%= sivic_discipulo.NUMR_CPF %></td>
+          <td><%= sivic_discipulo.sivic_pessoa.DESC_email%></td>
+        </tr>
+      <% end %>  
+  </tbody>
+</table>
+</div>
+<%else%>
+
+  <div class="alert alert-warning alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+     <label>Nenhum resultado encontrado</label>
+</div>
+
+<%end%>

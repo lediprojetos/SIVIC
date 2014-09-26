@@ -29,7 +29,7 @@ class SivicDiscipulo < ActiveRecord::Base
   #validates :sivic_endereco_id, :presence => { :message => 'Informe um endereco.' }
   #validates :sivic_escolaridade_id, :presence => { :message => ' - Informe a escolaridade' }
   #validates :sivic_rede_id, :presence => { :message => ' - Informe uma rede.' }
-  #validates :DATA_Nascimento, :presence => { :message => ' - Informe a data de nascimento' }
+  #validates :data_nascimento, :presence => { :message => ' - Informe a data de nascimento' }
   #validates :NUMR_RG, :presence => { :message => ' - Informe o RG' }
   #validates :NUMR_RG, uniqueness: true, uniqueness: {message: ' - RG ja esta sendo utlizado'}
 
