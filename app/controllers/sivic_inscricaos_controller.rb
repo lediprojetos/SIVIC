@@ -33,6 +33,7 @@ class SivicInscricaosController < ApplicationController
     respond_to do |format|
       if @sivic_inscricao.save
         
+
         @endereco = SivicEndereco.new
         @endereco.sivic_cidade_id = sivic_inscricao_params["numg_cidade"]
         @endereco.save
@@ -47,6 +48,7 @@ class SivicInscricaosController < ApplicationController
         @pessoa = SivicPessoa.new
         @pessoa.nome_pessoa = sivic_inscricao_params["nome_pessoa"]
         @pessoa.DESC_email = sivic_inscricao_params["desc_email"]
+        @pessoa.father_id = 0
         @pessoa.sivic_igreja_id = @igreja.id
         @pessoa.save
 
@@ -57,6 +59,7 @@ class SivicInscricaosController < ApplicationController
         @User.password_confirmation = sivic_inscricao_params["desc_confirmasenha"]
         @User.role = "ADMINISTRADOR"
         @User.save
+
 
         
         format.html { redirect_to new_user_session_path, notice: 'Registro efetuado com sucesso. Por favor realize o login.' }

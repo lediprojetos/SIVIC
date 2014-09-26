@@ -13,13 +13,12 @@ class SivicPessoa < ActiveRecord::Base
 validates :nome_pessoa, :presence => { :message => 'Informe um Nome.' }
 validates :father_id, :presence => { :message => 'Escolha um lider.' }
 
-
 validate :valida_lider_consolidador
 
 before_create :setaParaConsolidador
-
 #Gera codigo de discipulo
-before_create  :geraCodigo 
+before_create  :geraCodigo
+
 after_create   :atualizaContador
 
  @@codigo 
@@ -30,7 +29,7 @@ MESES = %w[JANEIRO FEVEREIRO MARÇO ABRIL MAIL JUNHO JULHO AGOSTO SETEMBRO OUTUB
   def setaParaConsolidador  
     
       if self.sivic_igreja_id != 1
-        if self.father_id != nil  
+        if self.father_id && self.father_id != 0 
           
             @pessoa = SivicPessoa.find(self.father_id)
 
@@ -48,8 +47,7 @@ MESES = %w[JANEIRO FEVEREIRO MARÇO ABRIL MAIL JUNHO JULHO AGOSTO SETEMBRO OUTUB
    end
 
 
-    def  geraCodigo
-    
+    def  geraCodigo 
     @@sivic_contdiscipulo = SivicContdiscipulo.find_by! sivic_igreja_id: self.sivic_igreja_id
     @@codigo = @@sivic_contdiscipulo.NUMR_Contador 
     @@codigo += 1
@@ -64,13 +62,11 @@ MESES = %w[JANEIRO FEVEREIRO MARÇO ABRIL MAIL JUNHO JULHO AGOSTO SETEMBRO OUTUB
 
    def valida_lider_consolidador
     
-     if self.father_id
+     if self.father_id && self.father_id != 0
       @sivic_discipulo = SivicDiscipulo.find_by! sivic_pessoa_id: self.father_id
-      errors.add(:father_id, "O líder escolhido não é um consolidador") if not @sivic_discipulo.flag_consolidador
+       errors.add(:father_id, "O líder escolhido não é um consolidador") if not @sivic_discipulo.flag_consolidador
      end 
      
-
-
   end
 
 end
