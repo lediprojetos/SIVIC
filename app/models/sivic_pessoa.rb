@@ -23,7 +23,6 @@ after_create   :atualizaContador
 
  @@codigo 
 
-MESES = %w[JANEIRO FEVEREIRO MARÇO ABRIL MAIL JUNHO JULHO AGOSTO SETEMBRO OUTUBRO NOVEMBRO DEZEMBRO]
 #metodo para setar discipulo como consolidador quando tiver uma pessoa cadastrada debaixo dele
 
   def setaParaConsolidador  

@@ -19,7 +19,7 @@ end
 
         <div class="col-lg-2" >
           <%= sit.label :Mês %>
-          <%= select_tag 'mes', content_tag(:option,'TODOS',:value=>"0")+options_from_collection_for_select(SivicPessoa::MESES, :to_s, :humanize,mes),:class =>  'form-control'%>
+          <%= select_month mes.to_i, {add_month_numbers: false}, {class: 'form-control', name: "mes", id: "mes"} %>
         </div>
               
     </div>
@@ -39,7 +39,7 @@ end
 <%if @sivic_discipulos.first %>
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading"></div>
+  <div class="panel-heading"><h3 class="panel-title">Aniversariantes do Mês de <%=@mes%></h3></div>
   <!-- Table -->
 <table class="table table-hover">
   <thead>

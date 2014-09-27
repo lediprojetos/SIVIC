@@ -71,32 +71,18 @@ end
 
   def relAniversariantes
 
+    if params[:mes]
 
-    igreja = 'sivic_igreja_id = ' + current_user.sivic_pessoa.sivic_igreja_id.to_s + ' and '
+      date = DateTime.new(Time.now.year,params[:mes].to_i,Time.now.day)
 
-    conf = ' 1 = 1'
+      @mes = localize date, format: '%B'
 
-    if params[:mes] != '0'
-
-      date = DateTime.new(Time.now.year,10,Time.now.day)
-
-      date_ini = date.at_beginning_of_month.strftime
-      date_fim = date.at_end_of_month.strftime  
-
-      mes = ' desc_nascimento => '+ date_ini + ' and desc_nascimento <= ' + date_fim + ' and '
-
-      debugger
     end
 
-
-    query = igreja.to_s + mes.to_s + conf.to_s
-
-    #debugger
-
-    @sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where(query)
+    @sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where("sivic_igreja_id = ? and date_part('month', data_nascimento) = ? ", current_user.sivic_pessoa.sivic_igreja_id, params[:mes].to_i)
 
     if params[:imprimir] == 'pdf'
-      render_civic_discipulo_geral_list(@sivic_discipulos) 
+      render_aniversariantes(@sivic_discipulos,@mes) 
     end    
   end
 
@@ -142,7 +128,7 @@ def render_civic_discipulo_geral_list(tasks)
     report.list.add_row do |row|
       row.values lblId: task.sivic_pessoa_id
       row.values lblNome: task.sivic_pessoa.nome_pessoa
-      row.values lblNascimento: task.data_nascimento
+      row.values lblDataEvento: task.data_nascimento.blank? ? '' : task.data_nascimento.strftime("%d/%m/%Y")
       row.values lblEndereco: task.sivic_endereco.DESC_Rua + ' ' + task.sivic_endereco.DESC_Complemento + ' ' + task.sivic_endereco.NUMR_Cep
       row.values lblBairro: task.sivic_endereco.DESC_Bairro
       row.values lblCelular: task.DESC_TelefoneCelular
@@ -165,6 +151,36 @@ end
 
 end
 
+def render_aniversariantes(tasks,mes)
+  report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'aniversariantes.tlf')
+
+  tasks.each do |task|
+    report.list.add_row do |row|
+      row.values lblId: task.sivic_pessoa_id
+      row.values lblNome: task.sivic_pessoa.nome_pessoa
+      row.values lblNascimento: task.data_nascimento.blank? ? '' : task.data_nascimento.strftime("%d/%m/%Y")
+      row.values lblEndereco: task.sivic_endereco.DESC_Rua + ' ' + task.sivic_endereco.DESC_Complemento + ' ' + task.sivic_endereco.NUMR_Cep
+      row.values lblBairro: task.sivic_endereco.DESC_Bairro
+      row.values lblCelular: task.DESC_TelefoneCelular
+      row.values lblTelefone: task.DESC_TelefoneCelular
+    end
+  end
+
+ report.events.on :generate  do |e|
+   e.pages.each do |page|
+    page.item(:data).value(Time.now)
+    page.item(:lblMes).value(mes)
+    page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+    page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
+  end
+end
+
+  
+  send_data report.generate, filename: 'aniversariantes.pdf', 
+                             type: 'application/pdf', 
+                             disposition: ''
+
+end
 
 def render_civic_discipulo_geracao_list(tasks)
   report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'discipulos_geracao.tlf')
