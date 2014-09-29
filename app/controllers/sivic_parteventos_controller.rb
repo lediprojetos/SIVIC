@@ -15,6 +15,10 @@ class SivicParteventosController < ApplicationController
     #@sivic_eventos = SivicEvento.where("data_encerramento is null").paginate(:page => params[:page], :per_page => 10)
     @sivic_eventos = SivicEvento.find_by_name_or_all(params[:q]).paginate(:page => params[:page], :per_page => 10)
   end
+
+  def participanteseventogeracao
+
+  end
   
   def relparticipantesEventos
 

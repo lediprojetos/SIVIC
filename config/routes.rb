@@ -111,7 +111,7 @@ SIVIC::Application.routes.draw do
   end
 
   resources :sivic_parteventos do
-    resources :sivic_movimentofinanceiros 
+    resources :sivic_movimentofinanceiros   
   end
 
   root  'static_pages#home'
@@ -121,6 +121,7 @@ SIVIC::Application.routes.draw do
   match '/report', to: 'static_pages#report', via: 'get'
 
   match '/participantesEventos', to: 'sivic_parteventos#participanteseventos', via: 'get'
+  match '/participanteseventogeracao', to: 'sivic_parteventos#participanteseventogeracao', via: 'get'
 
   match '/relMembros', to: 'sivic_discipulos#relMembros', via: 'get'
   match '/relAniversariantes', to: 'sivic_discipulos#relAniversariantes', via: 'get'
