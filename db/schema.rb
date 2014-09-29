@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926002909) do
+ActiveRecord::Schema.define(version: 20140927224650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -411,6 +411,14 @@ ActiveRecord::Schema.define(version: 20140926002909) do
 
   add_index "sivic_ministerios", ["sivic_igreja_id"], name: "index_sivic_ministerios_on_sivic_igreja_id", using: :btree
 
+  create_table "sivic_models", force: true do |t|
+    t.string   "nome_model"
+    t.string   "desc_model"
+    t.datetime "data_bloqueio"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sivic_moduloescolas", force: true do |t|
     t.integer  "sivic_igreja_id"
     t.integer  "user_inclusao"
@@ -506,11 +514,11 @@ ActiveRecord::Schema.define(version: 20140926002909) do
   add_index "sivic_participantecelulas", ["sivic_sitpartcelula_id"], name: "index_sivic_participantecelulas_on_sivic_sitpartcelula_id", using: :btree
 
   create_table "sivic_permissaos", force: true do |t|
-    t.string   "mome_model"
     t.integer  "mumr_acao"
     t.text     "desc_permissao"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sivic_model_id"
   end
 
   create_table "sivic_pessoas", force: true do |t|

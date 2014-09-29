@@ -69,6 +69,6 @@ class SivicPermissaosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_permissao_params
-      params.require(:sivic_permissao).permit(:mome_model, :mumr_acao, :desc_permissao)
+      params.require(:sivic_permissao).permit(:mome_model, :mumr_acao, :desc_permissao, :sivic_model_id)
     end
 end

@@ -1,0 +1,29 @@
+<%= form_for(@sivic_model) do |f| %>
+  <% if @sivic_model.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_model.errors.count, "error") %> prohibited this sivic_model from being saved:</h2>
+
+      <ul>
+      <% @sivic_model.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nome_model %><br>
+    <%= f.text_field :nome_model %>
+  </div>
+  <div class="field">
+    <%= f.label :desc_model %><br>
+    <%= f.text_field :desc_model %>
+  </div>
+  <div class="field">
+    <%= f.label :data_bloqueio %><br>
+    <%= f.datetime_select :data_bloqueio %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

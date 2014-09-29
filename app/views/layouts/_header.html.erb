@@ -27,7 +27,13 @@
 
                 <% if can? :manage, SivicIgreja%>
                   <li><%= link_to 'Cadastro de Igreja', sivic_igrejas_path%></li>
-                <% end %>                 
+                <% end %>                
+
+                <% if can? :manage, SivicUserpermissao%>
+                  <li><%= link_to 'Permissões', usuarios_path%></li>
+                <% end %>
+
+
                 <% if can? :manage, SivicRelatorioscelula%>
                   <li><%= link_to 'Lança Relatórios Job', jobCelulas_path%></li>
                 <% end %>   

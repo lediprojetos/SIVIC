@@ -1,0 +1,50 @@
+<h1>Permissões</h1>
+
+    <% @sivic_models.each do |sivic_models| %>
+        <h2><small><%= sivic_models.nome_model %></small></h2>
+        <div class="btn-group" data-toggle="buttons">
+
+          <%@permissao = SivicPermissao.where(:sivic_model_id => sivic_models.id)%>
+
+          <% @permissao.each do |sivic_permissao| %>
+
+            <% @userpermissao = SivicUserpermissao.where(:user_id => @user_id, :sivic_permissao_id => sivic_permissao.id) rescue nil %>
+
+            <%#debugger%>
+
+            <label class="btn btn-default <%=@userpermissao.first.nil? ? '' : 'active'%>">
+              <input onchange="javascript:setaPermissao(<%=sivic_permissao.id%>,<%=@user_id.id%>);" type="checkbox" <%=@userpermissao.first.nil? ? '' : 'checked'%>> <%=sivic_permissao.desc_permissao%>
+            </label>
+
+            <% @userpermissao = nil %>
+
+          <% end %>
+
+        </div>        
+    <% end %>
+
+
+<script>
+
+function setaPermissao (idPermissao,idPessoa) {
+
+  $.ajax({
+    url: '<%= setaPermissoes_path %>',
+    data : 
+    {
+        sivic_permissao_id : idPermissao
+        ,user_id : idPessoa
+    },
+    success: function(data){
+      for (var i in data) {
+        var item = data[i];
+
+      };
+
+    }
+  })
+
+}
+
+
+</script>
