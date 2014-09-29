@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_models
+
   resources :sivic_contcategories
 
   resources :sivic_userpermissaos
@@ -191,6 +193,7 @@ SIVIC::Application.routes.draw do
   match '/marcaAusente', to: 'sivic_alunoaulas#marcar_ausente', via: 'get'
   match '/marcaPresenca', to: 'sivic_alunoaulas#marcar_presenca', via: 'get'
   match '/buscaNotaAluno', to: 'sivic_notaalunos#busca_nota_aluno', via: 'get'
+  match '/usuarios', to: 'sivic_discipulos#usuarios', via: 'get'
 
   
 
@@ -213,7 +216,8 @@ SIVIC::Application.routes.draw do
 
    get '/bloqueaTurma/:id', to: 'sivic_turmas#bloquea', as: 'bloqueaTurma'
    get '/desbloqueaTurma/:id', to: 'sivic_turmas#desbloquea', as: 'desbloqueaTurma'
-
+   get '/usuariospermissoes/:id', to: 'sivic_userpermissaos#usuariospermissoes', as: 'usuariospermissoes'
+   match '/setaPermissoes', to: 'sivic_userpermissaos#setaPermissoes', via: 'get'
 
 
 end

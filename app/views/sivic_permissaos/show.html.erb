@@ -1,11 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Mome model:</strong>
-  <%= @sivic_permissao.mome_model %>
-</p>
-
-<p>
   <strong>Mumr acao:</strong>
   <%= @sivic_permissao.mumr_acao %>
 </p>
@@ -13,6 +8,11 @@
 <p>
   <strong>Desc permissao:</strong>
   <%= @sivic_permissao.desc_permissao %>
+</p>
+
+<p>
+  <strong>Desc permissao:</strong>
+  <%= @sivic_permissao.sivic_model.nome_model %>
 </p>
 
 <%= link_to 'Edit', edit_sivic_permissao_path(@sivic_permissao) %> |

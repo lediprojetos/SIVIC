@@ -3,8 +3,8 @@
 <table>
   <thead>
     <tr>
-      <th>Mome model</th>
-      <th>Mumr acao</th>
+      <th>Nome Model</th>
+      <th>Ação</th>
       <th>Desc permissao</th>
       <th></th>
       <th></th>
@@ -15,7 +15,7 @@
   <tbody>
     <% @sivic_permissaos.each do |sivic_permissao| %>
       <tr>
-        <td><%= sivic_permissao.mome_model %></td>
+        <td><%= sivic_permissao.sivic_model.nome_model %></td>
         <td><%= sivic_permissao.mumr_acao %></td>
         <td><%= sivic_permissao.desc_permissao %></td>
         <td><%= link_to 'Show', sivic_permissao %></td>

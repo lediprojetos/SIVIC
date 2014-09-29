@@ -7,10 +7,46 @@ class SivicUserpermissaosController < ApplicationController
     @sivic_userpermissaos = SivicUserpermissao.all
   end
 
+  def usuariospermissoes
+    @sivic_models = SivicModel.all
+    @user_id = User.find_by_sivic_pessoa_id(params[:id])
+
+    #debugger
+  end
+
+  def setaPermissoes
+
+    userPermissao = SivicUserpermissao.where(:sivic_permissao_id => params[:sivic_permissao_id], :user_id => params[:user_id])
+
+    if not userPermissao.first.nil?
+
+      userPermissao.first.destroy
+
+    else
+
+      userPermissao = SivicUserpermissao.new
+
+      userPermissao.sivic_permissao_id =  params[:sivic_permissao_id]
+      userPermissao.user_id =  params[:user_id]
+      userPermissao.save
+
+    end
+
+    userPermissao = SivicUserpermissao.where(:sivic_permissao_id => params[:sivic_permissao_id], :user_id => params[:user_id])
+
+    userPermissao_json = userPermissao.map {|item| {:sivic_permissao_id => item.sivic_permissao_id, :user_id => item.user_id}}
+    render :json => userPermissao_json    
+
+  end
+
   # GET /sivic_userpermissaos/1
   # GET /sivic_userpermissaos/1.json
   def show
   end
+
+  def usuarios
+    @sivic_discipulos = SivicDiscipulo.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+  end  
 
   # GET /sivic_userpermissaos/new
   def new

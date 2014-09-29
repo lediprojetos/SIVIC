@@ -1,0 +1,31 @@
+<h1>Listing sivic_models</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome model</th>
+      <th>Desc model</th>
+      <th>Data bloqueio</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_models.each do |sivic_model| %>
+      <tr>
+        <td><%= sivic_model.nome_model %></td>
+        <td><%= sivic_model.desc_model %></td>
+        <td><%= sivic_model.data_bloqueio %></td>
+        <td><%= link_to 'Show', sivic_model %></td>
+        <td><%= link_to 'Edit', edit_sivic_model_path(sivic_model) %></td>
+        <td><%= link_to 'Destroy', sivic_model, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic model', new_sivic_model_path %>
