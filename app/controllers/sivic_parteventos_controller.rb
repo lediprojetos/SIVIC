@@ -17,6 +17,13 @@ class SivicParteventosController < ApplicationController
   end
 
   def participanteseventogeracao
+   
+    @sivic_disipulo = SivicDiscipulo.where('flag_discipulador')
+
+    @sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where("sivic_igreja_id = ? and date_part('month', data_nascimento) = ? ", current_user.sivic_pessoa.sivic_igreja_id, params[:mes].to_i)
+    
+
+    @sivic_partevento = SivicPartevento.where('sivic_evento_id = ' + params[:id] + 'and flag_passando = TRUE')
 
   end
   
