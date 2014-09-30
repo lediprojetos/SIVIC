@@ -15,12 +15,12 @@
 
 <p>
   <strong>Lider:</strong>
-  <%= @sivic_partevento.sivic_pessoa.father.nome_pessoa %>
+  <%= @sivic_partevento.sivic_pessoa.father.nome_pessoa rescue nil %>
 </p>
 
 <p>
   <strong>Convidador Por:</strong>
-  <%= @sivic_partevento.convidou.nome_pessoa %>
+  <%= @sivic_partevento.convidou.nome_pessoa  rescue nil %>
 </p>
 
 <p>
