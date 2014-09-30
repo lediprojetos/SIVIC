@@ -62,7 +62,7 @@
        </div>     
        <div class="col-xs-6">
             <%= f.label :Convidado_por %>
-            <%= f.hidden_field :pessoa_convidou%>
+            <%= f.hidden_field :pessoa_convidou_id%>
             <%#= f.text_field :sivic_pessoa_id, disabled="disabled" %>
             <div class="input-group">
              <input id="pessoa_convidou" name="pessoa_convidou" disabled="true" value="<%=@sivic_partevento.pessoa_convidou.nome_pessoa rescue nil%>" onkeypress="" type="text" class="form-control" placeholder="Convidado por">
@@ -434,7 +434,7 @@
       if (fonte == 'lider'){
         pesquisa = $('#NOME_lider_buscar').val();
       }else if(fonte =='convidou'){
-        pesquisa = $('#pessoa_convidou').val();
+        pesquisa = $('#nome_pessoa_convidou').val();
       }else{
         pesquisa = $('#NOME_pessoa_buscar').val();
       }
@@ -487,7 +487,7 @@
   function setaConvidou(nome,id){
 
       $('#pessoa_convidou').val(nome);
-      $('#sivic_partevento_pessoa_convidou').val(id);
+      $('#sivic_partevento_pessoa_convidou_id').val(id);
       $('#myModal4').modal('hide');
             
     }

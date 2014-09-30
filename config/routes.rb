@@ -137,6 +137,8 @@ SIVIC::Application.routes.draw do
 
 
   get '/relparticipantesEventos/:id/:tipo', to: 'sivic_parteventos#relparticipantesEventos', as: 'relparticipantesEventos'
+  get '/relparticipantesEventoGeracao/:id/:tipo', to: 'sivic_parteventos#relparticipantesEventoGeracao', as: 'relparticipantesEventoGeracao'
+
 
   match '/admin', to: 'static_pages#index', via: 'get'
   match '/listarCidade', to: 'sivic_igrejas#get_cities', via: 'get'

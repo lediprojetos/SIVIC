@@ -3,6 +3,7 @@ class SivicPartevento < ActiveRecord::Base
   belongs_to :sivic_pessoa
   belongs_to :sivic_evento
   belongs_to :sivic_movimentofinanceiro, :dependent => :destroy
+  belongs_to :convidou, :class_name => "SivicPessoa", :foreign_key => "pessoa_convidou"
 
   validates :sivic_pessoa_id, :presence => { :message => 'Escolha uma pessoa!' }
   validates :sivic_evento_id, :presence => { :message => 'Escolha uma evento!' }

@@ -17,13 +17,7 @@ class SivicParteventosController < ApplicationController
   end
 
   def participanteseventogeracao
-   
-    @sivic_disipulo = SivicDiscipulo.where('flag_discipulador')
-
-    @sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where("sivic_igreja_id = ? and date_part('month', data_nascimento) = ? ", current_user.sivic_pessoa.sivic_igreja_id, params[:mes].to_i)
-
-
-    @sivic_partevento = SivicPartevento.where('sivic_evento_id = ' + params[:id] + 'and flag_passando = TRUE')
+    @sivic_eventos = SivicEvento.find_by_name_or_all(params[:q]).paginate(:page => params[:page], :per_page => 10)
 
   end
   
@@ -40,7 +34,22 @@ class SivicParteventosController < ApplicationController
       format.pdf { render_participantes_eventos_list(@sivic_partevento) }
     end
 
-  end  
+  end 
+
+  def relparticipantesEventoGeracao
+
+    if params[:tipo] == '1'
+      @sivic_partevento = SivicPartevento.where('sivic_evento_id = ' + params[:id] + 'and flag_passando = TRUE')
+    else
+      @sivic_partevento = SivicPartevento.where('sivic_evento_id = ' + params[:id] + 'and flag_passando = FALSE')
+    end
+
+    respond_to do |format|
+      format.html
+      format.pdf { render_relatorio_eventos_list(@sivic_partevento) }
+    end
+     
+  end 
 
   # GET /sivic_parteventos/1
   # GET /sivic_parteventos/1.json
@@ -117,12 +126,53 @@ class SivicParteventosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_partevento_params
-      params.require(:sivic_partevento).permit(:desc_convidadopor, :sivic_pessoa_id, :sivic_evento_id, :FLAG_naoparticipou, :flag_passando, :sivic_igreja_id, :pessoa_convidou, sivic_movimentofinanceiro_attributes: [ :id, :VALR_movimento, :user_inclusao, :FLAG_baixa, :sivic_tipmovfinanceiro_id, :sivic_evento_id, :DATA_exclusao, :user_exclusao, :DESC_movimento, :valr_restante ])
+      params.require(:sivic_partevento).permit(:desc_convidadopor, :sivic_pessoa_id, :sivic_evento_id, :FLAG_naoparticipou, :flag_passando, :sivic_igreja_id, :pessoa_convidou_id, sivic_movimentofinanceiro_attributes: [ :id, :VALR_movimento, :user_inclusao, :FLAG_baixa, :sivic_tipmovfinanceiro_id, :sivic_evento_id, :DATA_exclusao, :user_exclusao, :DESC_movimento, :valr_restante ])
     end
   end    
 
   def render_participantes_eventos_list(tasks)
     report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'participantes_eventos.tlf')
+
+    cont = 1
+
+    tasks.each do |task|
+      report.list.add_row do |row|
+        row.values lblNome: task.sivic_pessoa.nome_pessoa rescue nil
+        row.values lblLider: task.sivic_pessoa.father.nome_pessoa rescue nil
+        row.values lblConvidadoPor: task.desc_convidadopor rescue nil
+        row.values lblValorPago: number_to_currency(task.sivic_movimentofinanceiro.VALR_movimento, unit: "R$", separator: ",", delimiter: "") rescue nil
+        row.values lblValorRestante: number_to_currency(task.sivic_movimentofinanceiro.valr_restante, unit: "R$", separator: ",", delimiter: "") rescue nil
+        row.values lblCont: cont
+
+        cont += 1
+
+      end
+
+      report.page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
+      report.page.item(:data).value(Time.now.strftime("%d/%m/%Y"))
+
+
+      report.page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+      report.page.item(:lblNomeEvento).value(task.sivic_evento.desc_evento)
+      report.page.item(:lblDataEvento).value(task.sivic_evento.DATA_inicio.blank? ? '' : task.sivic_evento.DATA_inicio.strftime("%d/%m/%Y"))
+
+      if params[:tipo] == '1'
+        report.page.item(:lblTipoRelatorio).value('Passando')
+      else
+        report.page.item(:lblTipoRelatorio).value('Servindo')
+      end
+
+
+    end
+        send_data report.generate, filename: 'index.pdf', 
+                                   type: 'application/pdf', 
+                                   disposition: ''
+  end
+
+
+
+ def render_relatorio_eventos_list(tasks)
+    report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'participantes_eventos_lider.tlf')
 
     cont = 1
 
