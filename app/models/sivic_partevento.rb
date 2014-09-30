@@ -6,7 +6,7 @@ class SivicPartevento < ActiveRecord::Base
 
   validates :sivic_pessoa_id, :presence => { :message => 'Escolha uma pessoa!' }
   validates :sivic_evento_id, :presence => { :message => 'Escolha uma evento!' }
-  validates :flag_passando, :presence => { :message => 'É necessário informar se está Passando ou Servindo!' }
+  #validates :flag_passando, :presence => { :message => 'É necessário informar se está Passando ou Servindo!' }
 
   accepts_nested_attributes_for :sivic_movimentofinanceiro, allow_destroy: true
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140927224650) do
+ActiveRecord::Schema.define(version: 20140929160738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -493,6 +493,7 @@ ActiveRecord::Schema.define(version: 20140927224650) do
     t.boolean  "flag_passando"
     t.string   "desc_convidadopor"
     t.integer  "sivic_igreja_id"
+    t.integer  "pessoa_convidou"
   end
 
   add_index "sivic_parteventos", ["sivic_evento_id"], name: "index_sivic_parteventos_on_sivic_evento_id", using: :btree

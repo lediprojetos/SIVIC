@@ -17,6 +17,13 @@ class SivicParteventosController < ApplicationController
   end
 
   def participanteseventogeracao
+   
+    @sivic_disipulo = SivicDiscipulo.where('flag_discipulador')
+
+    @sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where("sivic_igreja_id = ? and date_part('month', data_nascimento) = ? ", current_user.sivic_pessoa.sivic_igreja_id, params[:mes].to_i)
+
+
+    @sivic_partevento = SivicPartevento.where('sivic_evento_id = ' + params[:id] + 'and flag_passando = TRUE')
 
   end
   
@@ -110,7 +117,7 @@ class SivicParteventosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_partevento_params
-      params.require(:sivic_partevento).permit(:desc_convidadopor, :sivic_pessoa_id, :sivic_evento_id, :FLAG_naoparticipou, :flag_passando, :sivic_igreja_id, sivic_movimentofinanceiro_attributes: [ :id, :VALR_movimento, :user_inclusao, :FLAG_baixa, :sivic_tipmovfinanceiro_id, :sivic_evento_id, :DATA_exclusao, :user_exclusao, :DESC_movimento, :valr_restante ])
+      params.require(:sivic_partevento).permit(:desc_convidadopor, :sivic_pessoa_id, :sivic_evento_id, :FLAG_naoparticipou, :flag_passando, :sivic_igreja_id, :pessoa_convidou, sivic_movimentofinanceiro_attributes: [ :id, :VALR_movimento, :user_inclusao, :FLAG_baixa, :sivic_tipmovfinanceiro_id, :sivic_evento_id, :DATA_exclusao, :user_exclusao, :DESC_movimento, :valr_restante ])
     end
   end    
 
