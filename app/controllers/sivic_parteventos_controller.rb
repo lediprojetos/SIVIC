@@ -24,9 +24,9 @@ class SivicParteventosController < ApplicationController
   def relparticipantesEventos
 
     if params[:tipo] == '1'
-      @sivic_partevento = SivicPartevento.where('sivic_evento_id = ' + params[:id] + 'and flag_passando = TRUE')
+      @sivic_partevento = SivicPartevento.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('sivic_evento_id = ' + params[:id] + 'and flag_passando = TRUE').order('sp.nome_pessoa')
     else
-      @sivic_partevento = SivicPartevento.where('sivic_evento_id = ' + params[:id] + 'and flag_passando = FALSE')
+      @sivic_partevento = SivicPartevento.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('sivic_evento_id = ' + params[:id] + 'and flag_passando = FALSE').order('sp.nome_pessoa')
     end
 
     respond_to do |format|
@@ -37,11 +37,10 @@ class SivicParteventosController < ApplicationController
   end 
 
   def relparticipantesEventoGeracao
-
     if params[:tipo] == '1'
-      @sivic_partevento = SivicPartevento.where('sivic_evento_id = ' + params[:id] + 'and flag_passando = TRUE')
+      @sivic_partevento = SivicPartevento.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('sivic_evento_id = ' + params[:id] + 'and flag_passando = TRUE').order('sp.nome_pessoa')
     else
-      @sivic_partevento = SivicPartevento.where('sivic_evento_id = ' + params[:id] + 'and flag_passando = FALSE')
+      @sivic_partevento = SivicPartevento.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('sivic_evento_id = ' + params[:id] + 'and flag_passando = FALSE').order('sp.nome_pessoa')
     end
 
     respond_to do |format|
@@ -139,9 +138,9 @@ class SivicParteventosController < ApplicationController
       report.list.add_row do |row|
         row.values lblNome: task.sivic_pessoa.nome_pessoa rescue nil
         row.values lblLider: task.sivic_pessoa.father.nome_pessoa rescue nil
-        row.values lblConvidadoPor: task.desc_convidadopor rescue nil
-        row.values lblValorPago: number_to_currency(task.sivic_movimentofinanceiro.VALR_movimento, unit: "R$", separator: ",", delimiter: "") rescue nil
-        row.values lblValorRestante: number_to_currency(task.sivic_movimentofinanceiro.valr_restante, unit: "R$", separator: ",", delimiter: "") rescue nil
+        row.values lblConvidadoPor: task.convidou.nome_pessoa rescue nil
+        #row.values lblValorPago: number_to_currency(task.sivic_movimentofinanceiro.VALR_movimento, unit: "R$", separator: ",", delimiter: "") rescue nil
+        #row.values lblValorRestante: number_to_currency(task.sivic_movimentofinanceiro.valr_restante, unit: "R$", separator: ",", delimiter: "") rescue nil
         row.values lblCont: cont
 
         cont += 1
