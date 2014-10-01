@@ -199,11 +199,36 @@
           </div>
           <div class="tab-pane" id="profile">
       <%= form_for(@sivic_pessoa) do |f| %>      
-      <div class="modal-body">
+      <div class="modal-body">        
+      <label >Nome</label><br>
+        <div class="row">
+          <div class="col-lg-12">
+            
+            <div class="input-group">
+              <input id="nome_pessoa_cadastro" name="nome_pessoa_cadastro" onkeypress="buscaPessoa('pessoa_cadastro')" type="text" class="form-control" placeholder="Nome">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" onclick="usar();">Usar</button>
+              </span>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+        <br />
 
-        <!--  Testes começa aqui -->
-         
-         <label >Lider</label><br>
+        <table id="table_user_cadastro" name="table_user_cadastro" class="table table-hover">
+          <thead>
+            <tr>
+
+            </tr>
+          </thead>
+          <tbody id="tbodyid3">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+      </table>
+
+      <label >Lider</label><br>
         <div class="row">
           <div class="col-lg-12">
             
@@ -234,6 +259,7 @@
               </tr>
           </tbody>  
         </table>
+
 
 
       <div class="row"> 
@@ -345,7 +371,6 @@
     </div>
   </div> 
 
-
  <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -361,7 +386,7 @@
             <div class="input-group">
               <input id="nome_pessoa_convidou" name="nome_pessoa_convidou" onkeypress="buscaPessoa('convidou')" type="text" class="form-control" placeholder="Nome">
               <span class="input-group-btn">
-                <button class="btn btn-success" type="button" onclick="buscaPessoa('convidou');">Buscar</button>
+                <button class="btn btn-success" type="button" onclick="buscaPessoa('convidou');">Usar</button>
               </span>              
             </div><!-- /input-group -->
           </div><!-- /.col-lg-6 -->
@@ -403,7 +428,7 @@
         data :
         {
            father_id : $('#sivic_pessoa_father_id').val()
-          ,nome_pessoa : $('#sivic_pessoa_nome_pessoa').val()
+          ,nome_pessoa : $('#nome_pessoa_cadastro').val()
           ,DESC_email: $('#sivic_pessoa_DESC_email').val()
           ,DESC_observacao : $('#sivic_pessoa_DESC_observacao').val()
           ,sivic_igreja_id : $('#sivic_pessoa_sivic_igreja_id').val()
@@ -433,10 +458,12 @@
 
      var pesquisa;
 
-      if (fonte == 'lider'){
+      if(fonte == 'lider'){
         pesquisa = $('#NOME_lider_buscar').val();
       }else if(fonte =='convidou'){
         pesquisa = $('#nome_pessoa_convidou').val();
+      }else if(fonte == 'pessoa_cadastro'){
+        pesquisa = $('#nome_pessoa_cadastro').val();  
       }else{
         pesquisa = $('#NOME_pessoa_buscar').val();
       }
@@ -450,6 +477,7 @@
         success: function(data){
           $("#tbodyid").empty();
           $("#tbodyid2").empty();
+          $("#tbodyid3").empty();
           $("#tbodyidconvidou").empty();
         
           for (var i in data) {
@@ -457,11 +485,15 @@
 
             if (fonte == 'lider' ) {
               $('#table_lider').append('<tr><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
-            }else if (fonte == 'convidou'){
-              $('#table_convidou').append('<tr><td><a href="javascript:setaConvidou(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
-            }else{
-              $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
-
+            
+                }else if (fonte == 'convidou'){
+                  $('#table_convidou').append('<tr><td><a href="javascript:setaConvidou(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaConvidou(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
+                
+                }else if (fonte == 'pessoa_cadastro'){
+                  $('#table_user_cadastro').append('<tr><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
+                
+                }else{
+                  $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
             }
           };
  
@@ -473,7 +505,8 @@
 
       $('#nome_pessoa').val(nome);
       $('#sivic_partevento_sivic_pessoa_id').val(id);
-
+      $("#tbodyid3").empty();
+      $("#tbodyid2").empty();
       $('#myModal2').modal('hide');          
     }
 
@@ -492,6 +525,11 @@
       $('#sivic_partevento_pessoa_convidou').val(id);
       $('#myModal4').modal('hide');
             
+    }
+
+    function usar(){
+
+        $("#tbodyid3").empty();
     }
 
 
