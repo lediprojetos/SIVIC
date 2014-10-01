@@ -69,6 +69,6 @@ class SivicModelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_model_params
-      params.require(:sivic_model).permit(:nome_model, :desc_model, :data_bloqueio)
+      params.require(:sivic_model).permit(:nome_model, :desc_model, :data_bloqueio, :sivic_modulo_id)
     end
 end

@@ -5,12 +5,12 @@ class SivicDiscipulosController < ApplicationController
 
 
 def relGeracoesIndex
-    @sivic_discipulos = SivicDiscipulo.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10) 
+  @sivic_discipulos = SivicDiscipulo.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10) 
 end
 
-  def usuarios
-    @sivic_discipulos = SivicDiscipulo.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
-  end  
+def usuarios
+  @sivic_discipulos = SivicPessoa.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+end  
 
 
 def relMembros
@@ -77,7 +77,7 @@ end
 
     if params[:mes]
 
-      date = DateTime.new(Time.now.year,params[:mes].to_i,Time.now.day)
+      date = DateTime.new(Time.now.year,params[:mes].to_i,1)
 
       @mes = localize date, format: '%B'
 

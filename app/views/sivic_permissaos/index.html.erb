@@ -1,13 +1,15 @@
-<h1>Listing sivic_permissaos</h1>
+<% content_for :titlePage do %>
+  Permissões
+<% end %>
 
-<table>
+<%=render '/layouts/panel' %>
+
+<table class="table table-hover">
   <thead>
     <tr>
-      <th>Nome Model</th>
+      <th>Permissão</th>
       <th>Ação</th>
-      <th>Desc permissao</th>
-      <th></th>
-      <th></th>
+      <th>Descrição</th>
       <th></th>
     </tr>
   </thead>
@@ -18,9 +20,21 @@
         <td><%= sivic_permissao.sivic_model.nome_model %></td>
         <td><%= sivic_permissao.mumr_acao %></td>
         <td><%= sivic_permissao.desc_permissao %></td>
-        <td><%= link_to 'Show', sivic_permissao %></td>
-        <td><%= link_to 'Edit', edit_sivic_permissao_path(sivic_permissao) %></td>
-        <td><%= link_to 'Destroy', sivic_permissao, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <td align='right'>
+
+            <%= link_to sivic_permissao, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+              <span class="glyphicon glyphicon-list-alt"></span>
+            <% end %>             
+            <%= link_to edit_sivic_permissao_path(sivic_permissao), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar"  do %>
+              <span class="glyphicon glyphicon-pencil"></span> 
+            <% end %>
+             <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_permissaos/<%=sivic_permissao.id%>" data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir">
+                <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
+            </a>  
+
+        </td> 
+
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +42,15 @@
 
 <br>
 
-<%= link_to 'New Sivic permissao', new_sivic_permissao_path %>
+</div></div>
+
+<div class="btn-group">
+  <%= link_to new_sivic_permissao_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>
+
+<script>
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})

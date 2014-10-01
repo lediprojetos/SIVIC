@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_modulos
+
   resources :sivic_models
 
   resources :sivic_contcategories

@@ -1,5 +1,5 @@
 <% content_for :titlePage do %>
-  Listar Discípulos
+  Listar Usuários
 <% end %>
 
 
@@ -26,9 +26,6 @@
     <thead>
       <tr>
         <th><strong class='titleTable'>Nome</strong></th>
-        <th><strong class='titleTable'>Data de Nascimento</strong></th>
-        <th><strong class='titleTable'>CPF</strong></th>
-        <th><strong class='titleTable'>Data batismo</strong></th>
         <th></th>
 
       </tr>
@@ -38,12 +35,8 @@
       <% @sivic_discipulos.each do |sivic_discipulo| %>
         <tr>
           <td><%= sivic_discipulo.sivic_pessoa.nome_pessoa %></td>
-          <td><%= sivic_discipulo.data_nascimento.blank? ? '' : sivic_discipulo.data_nascimento.strftime("%d/%m/%Y")  %></td>
-          <td><%= sivic_discipulo.NUMR_CPF %></td>
-          <td><%= sivic_discipulo.data_batismo.blank? ? '' : sivic_discipulo.data_batismo.strftime("%d/%m/%Y")  %></td>
-
         <td align='right'>
-            <%= link_to usuariospermissoes_path(sivic_discipulo.sivic_pessoa_id), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Permissões" do %>
+            <%= link_to usuariospermissoes_path(sivic_discipulo.sivic_pessoa.id), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Permissões" do %>
               <span class="glyphicon glyphicon-user"></span> 
             <% end %>             
         </td> 

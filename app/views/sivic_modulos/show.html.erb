@@ -6,41 +6,35 @@
 <%end%>
 
 <% content_for :titlePage do %>
-  Exibir Model
+  Exibir Módulo
 <% end %>
 
 <%= render 'layouts/panel' %>
 
 <p>
-  <strong>Módulo:</strong>
-  <%= @sivic_model.sivic_modulo.nome_modulo %>
+  <strong>Nome modulo:</strong>
+  <%= @sivic_modulo.nome_modulo %>
 </p>
 
 <p>
-  <strong>Nome do Model:</strong>
-  <%= @sivic_model.nome_model %>
+  <strong>Desc modulo:</strong>
+  <%= @sivic_modulo.desc_modulo %>
 </p>
 
 <p>
-  <strong>Descrição:</strong>
-  <%= @sivic_model.desc_model %>
-</p>
-
-
-<p>
-  <strong>Data Bloqueio:</strong>
-  <%= @sivic_model.data_bloqueio %>
+  <strong>Data bloqueio:</strong>
+  <%= @sivic_modulo.data_bloqueio %>
 </p>
 
 </div></div>
 
 <div class="btn-group">
 
-  <%= link_to edit_sivic_model_path(@sivic_model), :class => "btn btn-default" do %>
+  <%= link_to edit_sivic_modulo_path(@sivic_modulo), :class => "btn btn-default" do %>
     <span class="glyphicon glyphicon-pencil"></span> Editar
   <% end %>
 
-  <%= link_to sivic_models_path, :class => "btn btn-default" do %>
+  <%= link_to sivic_modulos_path, :class => "btn btn-default" do %>
     <span class="glyphicon glyphicon-arrow-left"></span> Voltar
   <% end %>
 
