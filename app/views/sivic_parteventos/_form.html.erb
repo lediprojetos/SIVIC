@@ -75,15 +75,16 @@
 
     <br/> 
 
+<%if @sivic_partevento.id %>
     <div class="row">
       <div class="col-xs-3">
       </div>      
           <div div class="col-xs-6">
-             <%= f.label :Convidado_por %>
-             <%= f.text_field :desc_convidadopor, :class => "form-control"%>
+             <%= f.label :Convidado_antigo %>
+             <%= f.text_field :desc_convidadopor, :class => "form-control", :disabled => "true"%>
       </div>
     </div>
-    
+<%end%>
       <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
     
     <br/> 
