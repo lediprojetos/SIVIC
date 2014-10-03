@@ -2,6 +2,8 @@ class SivicCelulasController < ApplicationController
   before_action :set_sivic_celula, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
+  load_and_authorize_resource
+
   # GET /sivic_celulas
   # GET /sivic_celulas.json
   def index

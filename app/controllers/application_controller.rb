@@ -5,6 +5,10 @@ protect_from_forgery with: :exception
 
 before_filter :configure_devise_params, if: :devise_controller?
 
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to main_app.root_url, :alert => exception.message
+  end
+  
 def configure_devise_params
 
   	devise_parameter_sanitizer.for(:sign_up) do |u|
