@@ -45,7 +45,7 @@ class SivicParteventosController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.pdf { render_relatorio_eventos_list(@sivic_partevento) }
+      format.pdf { render_relatorio_eventos_list1(@sivic_partevento) }
     end
      
   end 
@@ -224,31 +224,67 @@ class SivicParteventosController < ApplicationController
     report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'participantes_eventos_lider.tlf')
 
     cont = 1
+    cont1 = 0
+    contNum = 1
+    @dados  =Array.new
+
+    tasks.each do |task| 
+
+          @convidou = busca_participante_convidou(task.sivic_evento_id,task.pessoa_convidou)
+          @lider_geracao = busca_lider_geracao(task.sivic_pessoa_id)
+
+         
+          if @convidou.first
+                  @convidadopor = @convidou.first.sivic_pessoa.nome_pessoa 
+                  @valorPago = number_to_currency(@convidou.first.sivic_movimentofinanceiro.VALR_movimento, unit: "R$", separator: ",", delimiter: "")
+                  @valorRestante = number_to_currency(@convidou.first.sivic_movimentofinanceiro.valr_restante, unit: "R$", separator: ",", delimiter: "")  
+            else
+                  @convidadopor = nil
+                  @valorPago = nil
+                  @valorRestante = nil               
+          end
+
+          if @lider_geracao
+                  @nome_lider = @lider_geracao.sivic_pessoa.nome_pessoa     
+            else
+                  @nome_lider = nil               
+          end
+
+
+          @dados[cont] =  Array({:nome => task.sivic_pessoa.nome_pessoa, 
+                           :convidadopor => @convidadopor,
+                           :vlrPagoPart =>  number_to_currency(task.sivic_movimentofinanceiro.VALR_movimento, unit: "R$", separator: ",", delimiter: ""),
+                           :vlrResPart => number_to_currency(task.sivic_movimentofinanceiro.valr_restante, unit: "R$", separator: ",", delimiter: ""), 
+                           :valorPago => @valorPago, 
+                           :valorRestante => @valorRestante, 
+                           :lider => @nome_lider})
+
+
+      cont += 1
+
+    end
 
     
-
-    tasks.each do |task|      
+     @dados.each do |dado|       
       report.list.add_row do |row|
-      #  row.values lblNome: task.sivic_pessoa.nome_pessoa rescue nil
-      #  row.values lblConvidadoPor: task.convidou.nome_pessoa rescue nil
+          
+            row.values lblNome: dado[0].last rescue nil
+            row.values lblConvidadoPor: dado[1].last rescue nil
+            row.values lblVlrPagoPart: dado[2].last rescue nil
+            row.values lblVlrResPart:  dado[3].last rescue nil
+            row.values lblValorPago:  dado[4].last rescue nil
+            row.values lblValorRestante:  dado[6].last rescue nil
+            row.values lblLider:  dado[6].last rescue nil
 
-      #  @convidou = busca_participante_convidou(task.sivic_evento_id,task.pessoa_convidou)
+            row.values lblCont: contNum
+            contNum += 1
+            cont1 +=1
+          
+          end
 
-      #  row.values lblVlrPagoPart: number_to_currency(task.sivic_movimentofinanceiro.VALR_movimento, unit: "R$", separator: ",", delimiter: "") rescue nil
-      #  row.values lblVlrResPart: number_to_currency(task.sivic_movimentofinanceiro.valr_restante, unit: "R$", separator: ",", delimiter: "") rescue nil
+     end
 
-      #  row.values lblValorPago: number_to_currency(@convidou.first.sivic_movimentofinanceiro.VALR_movimento, unit: "R$", separator: ",", delimiter: "") rescue nil
-      #  row.values lblValorRestante: number_to_currency(@convidou.first.sivic_movimentofinanceiro.valr_restante, unit: "R$", separator: ",", delimiter: "") rescue nil
 
-      #  @lider_geracao = busca_lider_geracao(task.sivic_pessoa_id)
-
-      #  row.values lblLider: @lider_geracao.sivic_pessoa.nome_pessoa rescue nil
-
-      #  row.values lblCont: cont
-
-      #  cont += 1
-
-      end
 
       report.page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
       report.page.item(:data).value(Time.now.strftime("%d/%m/%Y"))
@@ -265,11 +301,11 @@ class SivicParteventosController < ApplicationController
       end
 
 
-    end
         send_data report.generate, filename: 'index.pdf', 
                                    type: 'application/pdf', 
                                    disposition: ''
   end
+
 
 
 
