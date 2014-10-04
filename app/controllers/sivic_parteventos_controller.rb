@@ -233,6 +233,8 @@ class SivicParteventosController < ApplicationController
           @convidou = busca_participante_convidou(task.sivic_evento_id,task.pessoa_convidou)
           @lider_geracao = busca_lider_geracao(task.sivic_pessoa_id)
 
+          @desc_evento = task.sivic_evento.desc_evento
+          @data_inicio = task.sivic_evento.DATA_inicio.blank? ? '' : task.sivic_evento.DATA_inicio.strftime("%d/%m/%Y")
          
           if @convidou.first
                   @convidadopor = @convidou.first.sivic_pessoa.nome_pessoa 
@@ -250,21 +252,19 @@ class SivicParteventosController < ApplicationController
                   @nome_lider = nil               
           end
 
-
-          @dados[cont] =  Array({:nome => task.sivic_pessoa.nome_pessoa, 
+          @dados[cont1] =  Array({:nome => task.sivic_pessoa.nome_pessoa, 
                            :convidadopor => @convidadopor,
                            :vlrPagoPart =>  number_to_currency(task.sivic_movimentofinanceiro.VALR_movimento, unit: "R$", separator: ",", delimiter: ""),
                            :vlrResPart => number_to_currency(task.sivic_movimentofinanceiro.valr_restante, unit: "R$", separator: ",", delimiter: ""), 
                            :valorPago => @valorPago, 
                            :valorRestante => @valorRestante, 
                            :lider => @nome_lider})
-
-
-      cont += 1
+      cont1 += 1
 
     end
-
     
+
+    debugger 
      @dados.each do |dado|       
       report.list.add_row do |row|
           
@@ -273,26 +273,22 @@ class SivicParteventosController < ApplicationController
             row.values lblVlrPagoPart: dado[2].last rescue nil
             row.values lblVlrResPart:  dado[3].last rescue nil
             row.values lblValorPago:  dado[4].last rescue nil
-            row.values lblValorRestante:  dado[6].last rescue nil
+            row.values lblValorRestante:  dado[5].last rescue nil
             row.values lblLider:  dado[6].last rescue nil
+
 
             row.values lblCont: contNum
             contNum += 1
-            cont1 +=1
           
           end
 
-     end
-
-
-
       report.page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
       report.page.item(:data).value(Time.now.strftime("%d/%m/%Y"))
-
-
       report.page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
-      report.page.item(:lblNomeEvento).value(task.sivic_evento.desc_evento)
-      report.page.item(:lblDataEvento).value(task.sivic_evento.DATA_inicio.blank? ? '' : task.sivic_evento.DATA_inicio.strftime("%d/%m/%Y"))
+      report.page.item(:lblNomeEvento).value(@desc_evento)
+      report.page.item(:lblDataEvento).value(@data_inicio)
+
+     end
 
       if params[:tipo] == '1'
         report.page.item(:lblTipoRelatorio).value('Passando')
