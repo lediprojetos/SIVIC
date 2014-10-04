@@ -45,7 +45,7 @@ class SivicParteventosController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.pdf { render_relatorio_eventos_list1(@sivic_partevento) }
+      format.pdf { render_relatorio_eventos_list(@sivic_partevento) }
     end
      
   end 
