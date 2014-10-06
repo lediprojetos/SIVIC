@@ -5,12 +5,7 @@ class UseradminsController < ApplicationController
   # GET /sivic_estados
   # GET /sivic_estados.json
   def index
-    #@sivic_users = User.all
-
-    # @sivic_aulas  = SivicAula.joins(:sivic_turmamoduloprofessor).where(sivic_turmamoduloprofessors: {id: params[:id]})
-   
      @sivic_users = User.joins(:sivic_pessoa).where(sivic_pessoas: {sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id})
-
   end
 
   # GET /sivic_estados/1

@@ -1,10 +1,12 @@
 #encoding: utf-8
 class SivicMinisteriodiscipulosController < ApplicationController
   before_action :set_sivic_ministeriodiscipulo, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /sivic_ministeriodiscipulos
   # GET /sivic_ministeriodiscipulos.json
   def index
+    authorize! :read, SivicMinisteriodiscipulo
     @sivic_ministeriodiscipulos = SivicMinisteriodiscipulo.all
     @sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('lower(sp.NOME_pessoa) like ? and sp.sivic_igreja_id = ?', "%#{params[:q]}%", current_user.sivic_pessoa.sivic_igreja_id).order('sp.NOME_pessoa ASC').paginate(:page => params[:page], :per_page => 10)
   end
@@ -15,23 +17,27 @@ class SivicMinisteriodiscipulosController < ApplicationController
   end
 
   def adicionaministerio
-  	@sivic_ministeriodiscipulo = SivicMinisteriodiscipulo.new
-  	@sivic_discipulo = SivicDiscipulo.find_by_id(params[:id])
-  	@sivic_ministerios = SivicMinisteriodiscipulo.where(:sivic_discipulo_id => params[:id]).order("created_at DESC")
+    authorize! :adicionaministerio, SivicMinisteriodiscipulo
+    @sivic_ministeriodiscipulo = SivicMinisteriodiscipulo.new
+    @sivic_discipulo = SivicDiscipulo.find_by_id(params[:id])
+    @sivic_ministerios = SivicMinisteriodiscipulo.where(:sivic_discipulo_id => params[:id]).order("created_at DESC")
   end
 
   # GET /sivic_ministeriodiscipulos/new
   def new
+    authorize! :create, SivicMinisteriodiscipulo
     @sivic_ministeriodiscipulo = SivicMinisteriodiscipulo.new
   end
 
   # GET /sivic_ministeriodiscipulos/1/edit
   def edit
+    authorize! :update, SivicMinisteriodiscipulo
   end
 
   # POST /sivic_ministeriodiscipulos
   # POST /sivic_ministeriodiscipulos.json
  def create
+    authorize! :create, SivicMinisteriodiscipulo
   sivic_discipulo_id = sivic_ministeriodiscipulo_params[:sivic_discipulo_id]
   sivic_ministerio_id = sivic_ministeriodiscipulo_params[:sivic_ministerio_id]
   
@@ -69,6 +75,7 @@ end
   # PATCH/PUT /sivic_ministeriodiscipulos/1
   # PATCH/PUT /sivic_ministeriodiscipulos/1.json
   def update
+    authorize! :update, SivicMinisteriodiscipulo
     respond_to do |format|
       if @sivic_ministeriodiscipulo.update(sivic_ministeriodiscipulo_params)
         format.html { redirect_to @sivic_ministeriodiscipulo, notice: 'Sivic ministeriodiscipulo was successfully updated.' }
@@ -83,6 +90,7 @@ end
   # DELETE /sivic_ministeriodiscipulos/1
   # DELETE /sivic_ministeriodiscipulos/1.json
   def destroy
+    authorize! :destroy, SivicMinisteriodiscipulo
     @sivic_ministeriodiscipulo.destroy
 
     respond_to do |format|

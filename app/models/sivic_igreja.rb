@@ -1,8 +1,8 @@
 #encoding: utf-8
 class SivicIgreja < ActiveRecord::Base
         
-  belongs_to :sivic_endereco, :dependent => :destroy
-  has_many :sivic_situacaodiscipulo
+  belongs_to :sivic_endereco, :dependent => :delete
+  has_many :sivic_situacaodiscipulo, :dependent => :destroy
 
   has_many :children, :class_name => "SivicIgreja", :foreign_key => "father_id"
   belongs_to :father, :class_name => "SivicIgreja", :foreign_key => "father_id"

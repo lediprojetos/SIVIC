@@ -1,21 +1,12 @@
 class SivicEventosController < ApplicationController
   before_action :set_sivic_evento, only: [:show, :edit, :update, :destroy, :encerrar]
   before_action :authenticate_user!
+  load_and_authorize_resource
   
   # GET /sivic_eventos
   # GET /sivic_eventos.json
   def index
-    
     @sivic_eventos = SivicEvento.where("data_encerramento is null and sivic_igreja_id = ?", current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
-    
-  end
-
-#Método chamado pra carregar cidades dinâmicamente via ajax
-  def get_cities
-    sivic_cidades = SivicCidade.find :all, :conditions => {:sivic_estado_id => params[:id]}, :order => "nome_cidade ASC"
-    sivic_cidades_json = sivic_cidades.map {|item| {:id => item.id, :name => item.nome_cidade}}
- 
-    render :json => sivic_cidades_json
   end
 
   # GET /sivic_eventos/1
