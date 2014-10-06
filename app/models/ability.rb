@@ -12,6 +12,15 @@ class Ability
      #cannot :manage, SivicIgreja if user.role == "ADMINISTRADOR"
      #cannot :manage, SivicEscolaridade if user.role == "ADMINISTRADOR"
 
+     #Permissões Globais
+     #=======================
+      can :get_cities, SivicCidade
+     #=======================
+     
+     #Permissões Leandro e Diel
+     #=======================
+      #can :manage, :all
+     #=======================
 
      @sivic_permissaos = SivicUserpermissao.where(:user_id => user.id)
 
@@ -20,20 +29,36 @@ class Ability
       #SivicDiscipulo
       if permissao.sivic_permissao.sivic_model.nome_model == 'SivicDiscipulo'
         if permissao.sivic_permissao.mumr_acao == 1
-          can :create, SivicDiscipulo
           can :create, SivicPessoa
+          can :create_pessoa, SivicPessoa
+          can :create, SivicDiscipulo
         end
-        if permissao.sivic_permissao.mumr_acao == 2
-          can :read, SivicDiscipulo
+
+        if permissao.sivic_permissao.mumr_acao
           can :read, SivicPessoa
+          can :busca_pessoa, SivicPessoa
+          can :read, SivicDiscipulo
+          can :busca_discipulos, SivicDiscipulo
+          can :relGeracoesIndex, SivicDiscipulo
+          can :relMembros, SivicDiscipulo
+          can :relAniversariantes, SivicDiscipulo
+          can :relDiscipulos, SivicDiscipulo
+          can :relGeracoes, SivicDiscipulo
+          can :BuscaPessoas2, SivicDiscipulo
+          can :render_civic_discipulo_geral_list, SivicDiscipulo
+          can :render_aniversariantes, SivicDiscipulo
+          can :render_civic_discipulo_geracao_list, SivicDiscipulo
+          can :render_sivic_discipulo_mirror, SivicDiscipulo
         end
         if permissao.sivic_permissao.mumr_acao == 3
-          can :update, SivicDiscipulo
           can :update, SivicPessoa
+          can :edita_nome, SivicPessoa
+          can :update, SivicDiscipulo
         end
         if permissao.sivic_permissao.mumr_acao == 4
-          can :destroy, SivicDiscipulo
           can :destroy, SivicPessoa
+          can :destroy, SivicDiscipulo
+          can :deleta_pessoa_discipulo, SivicDiscipulo
         end
         if permissao.sivic_permissao.mumr_acao == 5
           can :manage, SivicDiscipulo
@@ -46,11 +71,16 @@ class Ability
         if permissao.sivic_permissao.mumr_acao == 1
           can :create, SivicCelula
         end
-        if permissao.sivic_permissao.mumr_acao == 2
+        if permissao.sivic_permissao.mumr_acao
           can :read, SivicCelula
+          can :busca_celulas, SivicCelula
+          can :render_civic_celula_list, SivicCelula
+          can :render_civic_celula_mirror, SivicCelula
         end
         if permissao.sivic_permissao.mumr_acao == 3
           can :update, SivicCelula
+          can :bloquea, SivicCelula
+          can :desbloquea, SivicCelula
         end
         if permissao.sivic_permissao.mumr_acao == 4
           can :destroy, SivicCelula
@@ -60,36 +90,12 @@ class Ability
         end
       end
 
-      #SivicRelatorioscelula
-      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicRelatorioscelula'
-        if permissao.sivic_permissao.mumr_acao == 1
-          can :create, SivicRelatorioscelula
-          can :create, SivicSitpartcelula
-        end
-        if permissao.sivic_permissao.mumr_acao == 2
-          can :read, SivicRelatorioscelula
-          can :read, SivicSitpartcelula
-        end
-        if permissao.sivic_permissao.mumr_acao == 3
-          can :update, SivicRelatorioscelula
-          can :update, SivicSitpartcelula
-        end
-        if permissao.sivic_permissao.mumr_acao == 4
-          can :destroy, SivicRelatorioscelula
-          can :destroy, SivicSitpartcelula
-        end
-        if permissao.sivic_permissao.mumr_acao == 5
-          can :manage, SivicRelatorioscelula
-          can :manage, SivicSitpartcelula
-        end        
-      end
-
       #SivicIgreja
       if permissao.sivic_permissao.sivic_model.nome_model == 'SivicIgreja'
         if permissao.sivic_permissao.mumr_acao == 1
           can :create, SivicIgreja
         end
-        if permissao.sivic_permissao.mumr_acao == 2
+        if permissao.sivic_permissao.mumr_acao
           can :read, SivicIgreja
         end
         if permissao.sivic_permissao.mumr_acao == 3
@@ -108,7 +114,7 @@ class Ability
         if permissao.sivic_permissao.mumr_acao == 1
           can :create, User
         end
-        if permissao.sivic_permissao.mumr_acao == 2
+        if permissao.sivic_permissao.mumr_acao
           can :read, User
         end
         if permissao.sivic_permissao.mumr_acao == 3
@@ -128,8 +134,9 @@ class Ability
           can :create, SivicEvento
           can :create, SivicPartevento
         end
-        if permissao.sivic_permissao.mumr_acao == 2
+        if permissao.sivic_permissao.mumr_acao
           can :read, SivicEvento
+          can :buscaEvento, SivicEvento
           can :read, SivicPartevento
         end
         if permissao.sivic_permissao.mumr_acao == 3
@@ -138,6 +145,7 @@ class Ability
         end
         if permissao.sivic_permissao.mumr_acao == 4
           can :destroy, SivicEvento
+          can :encerrar, SivicEvento
           can :destroy, SivicPartevento
         end
         if permissao.sivic_permissao.mumr_acao == 5
@@ -151,7 +159,7 @@ class Ability
         if permissao.sivic_permissao.mumr_acao == 1
           can :create, SivicMinisterio
         end
-        if permissao.sivic_permissao.mumr_acao == 2
+        if permissao.sivic_permissao.mumr_acao
           can :read, SivicMinisterio
         end
         if permissao.sivic_permissao.mumr_acao == 3
@@ -165,12 +173,34 @@ class Ability
         end        
       end
 
+      #SivicMinisteriodiscipulo
+      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicMinisteriodiscipulo'
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :create, SivicMinisteriodiscipulo
+          can :adicionaministerio, SivicMinisteriodiscipulo
+        end
+        if permissao.sivic_permissao.mumr_acao
+          can :read, SivicMinisteriodiscipulo
+          can :read, SivicMinisterio
+          can :read, SivicDiscipulo
+        end
+        if permissao.sivic_permissao.mumr_acao == 3
+          can :update, SivicMinisteriodiscipulo
+        end
+        if permissao.sivic_permissao.mumr_acao == 4
+          can :destroy, SivicMinisteriodiscipulo
+        end
+        if permissao.sivic_permissao.mumr_acao == 5
+          can :manage, SivicMinisteriodiscipulo
+        end        
+      end      
+
       #SivicTipoEvento
       if permissao.sivic_permissao.sivic_model.nome_model == 'SivicTipoEvento'
         if permissao.sivic_permissao.mumr_acao == 1
           can :create, SivicTipoEvento
         end
-        if permissao.sivic_permissao.mumr_acao == 2
+        if permissao.sivic_permissao.mumr_acao
           can :read, SivicTipoEvento
         end
         if permissao.sivic_permissao.mumr_acao == 3
@@ -189,7 +219,7 @@ class Ability
         if permissao.sivic_permissao.mumr_acao == 1
           can :create, SivicRede
         end
-        if permissao.sivic_permissao.mumr_acao == 2
+        if permissao.sivic_permissao.mumr_acao
           can :read, SivicRede
         end
         if permissao.sivic_permissao.mumr_acao == 3
@@ -208,7 +238,7 @@ class Ability
         if permissao.sivic_permissao.mumr_acao == 1
           can :create, SivicSituacaodiscipulo
         end
-        if permissao.sivic_permissao.mumr_acao == 2
+        if permissao.sivic_permissao.mumr_acao
           can :read, SivicSituacaodiscipulo
         end
         if permissao.sivic_permissao.mumr_acao == 3
@@ -220,7 +250,31 @@ class Ability
         if permissao.sivic_permissao.mumr_acao == 5
           can :manage, SivicSituacaodiscipulo
         end        
-      end      
+      end
+
+      #SivicRelatorioscelula
+      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicRelatorioscelula'
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :create, SivicRelatorioscelula
+          can :create, SivicSitpartcelula
+        end
+        if permissao.sivic_permissao.mumr_acao
+          can :read, SivicRelatorioscelula
+          can :read, SivicSitpartcelula
+        end
+        if permissao.sivic_permissao.mumr_acao == 3
+          can :update, SivicRelatorioscelula
+          can :update, SivicSitpartcelula
+        end
+        if permissao.sivic_permissao.mumr_acao == 4
+          can :destroy, SivicRelatorioscelula
+          can :destroy, SivicSitpartcelula
+        end
+        if permissao.sivic_permissao.mumr_acao == 5
+          can :manage, SivicRelatorioscelula
+          can :manage, SivicSitpartcelula
+        end        
+      end          
 
     end
 

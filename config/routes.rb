@@ -143,7 +143,7 @@ SIVIC::Application.routes.draw do
 
 
   match '/admin', to: 'static_pages#index', via: 'get'
-  match '/listarCidade', to: 'sivic_igrejas#get_cities', via: 'get'
+  match '/listarCidade', to: 'sivic_cidades#get_cities', via: 'get'
   match '/criarPessoa', to: 'sivic_pessoas#create_pessoa', via: 'get'
   match '/listarPessoa', to: 'sivic_pessoas#busca_pessoa', via: 'get'
   match '/editarNome', to: 'sivic_pessoas#edita_nome', via: 'get'

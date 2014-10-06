@@ -1,6 +1,7 @@
 class SivicParteventosController < ApplicationController
   before_action :set_sivic_partevento, only: [:show, :edit, :update, :destroy, :naoParticipou]
   before_action :authenticate_user!
+  #load_and_authorize_resource
 
   include ActionView::Helpers::NumberHelper
 
