@@ -1,5 +1,7 @@
 #encoding: utf-8
 class SivicPessoa < ActiveRecord::Base
+  attr_accessor :nome_discipulador
+
   belongs_to :sivic_igreja
   belongs_to :sivic_situacaodiscipulo
   has_many   :sivic_celula
@@ -9,7 +11,6 @@ class SivicPessoa < ActiveRecord::Base
 
   has_many :children, :class_name => "SivicPessoa", :foreign_key => "father_id"
   belongs_to :father, :class_name => "SivicPessoa"
-
 
 validates :nome_pessoa, :presence => { :message => 'Informe um Nome.' }
 #validates :father_id, :presence => { :message => 'Escolha um lider.' }
@@ -23,6 +24,16 @@ before_create  :geraCodigo
 after_create   :atualizaContador
 
  @@codigo 
+
+
+def nome_discipulador
+  @nome_discipulador
+end
+
+# setter
+def nome_discipulador=(val)
+  @nome_discipulador = val
+end
 
 #metodo para setar discipulo como consolidador quando tiver uma pessoa cadastrada debaixo dele
 

@@ -37,12 +37,40 @@ class SivicParteventosController < ApplicationController
 
   end 
 
+def BuscaArvore(id)
+  sivic_dados = SivicPessoa.where('father_id = ?', id.to_s)
+
+    if sivic_dados
+
+      sivic_dados.each do |sivic_pessoas|
+      
+        @allperson += [sivic_pessoas.id]
+        BuscaArvore(sivic_pessoas.id)
+
+      end
+
+    end
+
+end
+
   def relparticipantesEventoGeracao
+
     if params[:tipo] == '1'
       @sivic_partevento = SivicPartevento.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('sivic_evento_id = ' + params[:id] + 'and flag_passando = TRUE').order('sp.nome_pessoa')
     else
       @sivic_partevento = SivicPartevento.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('sivic_evento_id = ' + params[:id] + 'and flag_passando = FALSE').order('sp.nome_pessoa')
     end
+
+      count = 0
+      @sivic_partevento.each do |pat|
+
+         @sivic_partevento[count].sivic_pessoa.nome_discipulador = busca_lider_geracao(@sivic_partevento[count].sivic_pessoa.id).sivic_pessoa.nome_pessoa
+
+         count = count + 1
+
+      end
+
+    @sivic_partevento.sort_by! {|u| u.sivic_pessoa.nome_discipulador}
 
     respond_to do |format|
       format.html
@@ -170,7 +198,6 @@ class SivicParteventosController < ApplicationController
   end
 
 
-
  def render_relatorio_eventos_list(tasks)
     report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'participantes_eventos_lider.tlf')
 
@@ -189,9 +216,7 @@ class SivicParteventosController < ApplicationController
         row.values lblValorPago: number_to_currency(@convidou.first.sivic_movimentofinanceiro.VALR_movimento, unit: "R$", separator: ",", delimiter: "") rescue nil
         row.values lblValorRestante: number_to_currency(@convidou.first.sivic_movimentofinanceiro.valr_restante, unit: "R$", separator: ",", delimiter: "") rescue nil
 
-        @lider_geracao = busca_lider_geracao(task.sivic_pessoa_id)
-
-        row.values lblLider: @lider_geracao.sivic_pessoa.nome_pessoa rescue nil
+        row.values lblLider: task.sivic_pessoa.nome_discipulador   rescue nil
 
         row.values lblCont: cont
 
