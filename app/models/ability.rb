@@ -19,7 +19,7 @@ class Ability
      
      #Permissões Leandro e Diel
      #=======================
-      can :manage, :all
+      #can :manage, :all
      #=======================
 
      @sivic_permissaos = SivicUserpermissao.where(:user_id => user.id)
