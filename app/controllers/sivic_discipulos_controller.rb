@@ -2,7 +2,7 @@
 class SivicDiscipulosController < ApplicationController
   before_action :set_sivic_discipulo, only: [:show, :edit, :update, :destroy, :relDiscipulos, :deleta_pessoa_discipulo]
   before_action :authenticate_user!
-  load_and_authorize_resource
+  #load_and_authorize_resource
 
 
 def relGeracoesIndex

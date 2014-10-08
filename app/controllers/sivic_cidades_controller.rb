@@ -1,6 +1,6 @@
 class SivicCidadesController < ApplicationController
   before_action :authenticate_user!
-  load_and_authorize_resource  
+  #load_and_authorize_resource  
 
    def create
     @sivic_estado = SivicEstado.find(params[:sivic_estado_id])

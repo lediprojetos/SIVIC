@@ -1,7 +1,7 @@
 class SivicIgrejasController < ApplicationController
   before_action :set_sivic_igreja, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  load_and_authorize_resource
+  #load_and_authorize_resource
 
   # GET /sivic_igrejas
   # GET /sivic_igrejas.json
