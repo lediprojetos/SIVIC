@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome plano:</strong>
+  <%= @sivic_plano.nome_plano %>
+</p>
+
+<p>
+  <strong>Numr qtdmembro:</strong>
+  <%= @sivic_plano.numr_qtdmembro %>
+</p>
+
+<p>
+  <strong>Numr qtdusuario:</strong>
+  <%= @sivic_plano.numr_qtdusuario %>
+</p>
+
+<%= link_to 'Edit', edit_sivic_plano_path(@sivic_plano) %> |
+<%= link_to 'Back', sivic_planos_path %>

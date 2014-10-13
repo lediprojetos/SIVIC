@@ -1,0 +1,31 @@
+<h1>Listing sivic_planos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome plano</th>
+      <th>Numr qtdmembro</th>
+      <th>Numr qtdusuario</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_planos.each do |sivic_plano| %>
+      <tr>
+        <td><%= sivic_plano.nome_plano %></td>
+        <td><%= sivic_plano.numr_qtdmembro %></td>
+        <td><%= sivic_plano.numr_qtdusuario %></td>
+        <td><%= link_to 'Show', sivic_plano %></td>
+        <td><%= link_to 'Edit', edit_sivic_plano_path(sivic_plano) %></td>
+        <td><%= link_to 'Destroy', sivic_plano, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic plano', new_sivic_plano_path %>

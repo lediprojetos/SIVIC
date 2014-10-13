@@ -1,0 +1,29 @@
+<%= form_for(@sivic_plano) do |f| %>
+  <% if @sivic_plano.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_plano.errors.count, "error") %> prohibited this sivic_plano from being saved:</h2>
+
+      <ul>
+      <% @sivic_plano.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nome_plano %><br>
+    <%= f.text_field :nome_plano %>
+  </div>
+  <div class="field">
+    <%= f.label :numr_qtdmembro %><br>
+    <%= f.number_field :numr_qtdmembro %>
+  </div>
+  <div class="field">
+    <%= f.label :numr_qtdusuario %><br>
+    <%= f.number_field :numr_qtdusuario %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

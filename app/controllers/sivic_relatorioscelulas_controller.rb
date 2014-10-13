@@ -4,9 +4,9 @@ class SivicRelatorioscelulasController < ApplicationController
 
 
   def jobCelulas
-    if params[:NUMR_Dia] != nil
 
-      
+    if params[:NUMR_Dia] != nil
+     
       SivicRelatorioscelula.update_all( "sivic_situacoesrelatorio_id = 4"," sivic_situacoesrelatorio_id = 5")
 
       @celulas = SivicCelula.where(:NUMR_Dia => params[:NUMR_Dia],:flag_gerarelatorio => true)
