@@ -1,14 +1,18 @@
-<h1>Listing sivic_planos</h1>
+<% content_for :titlePage do %>
+  Lista de Planos
+<% end %>
 
-<table>
+<%=render '/layouts/panel' %>
+
+
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Nome plano</th>
-      <th>Numr qtdmembro</th>
-      <th>Numr qtdusuario</th>
+      <th>Qtd. Membros</th>
+      <th>Qtd. Usuários</th>
       <th></th>
-      <th></th>
-      <th></th>
+
     </tr>
   </thead>
 
@@ -18,9 +22,20 @@
         <td><%= sivic_plano.nome_plano %></td>
         <td><%= sivic_plano.numr_qtdmembro %></td>
         <td><%= sivic_plano.numr_qtdusuario %></td>
-        <td><%= link_to 'Show', sivic_plano %></td>
-        <td><%= link_to 'Edit', edit_sivic_plano_path(sivic_plano) %></td>
-        <td><%= link_to 'Destroy', sivic_plano, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <td align='right'>   
+          <%= link_to sivic_plano, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+          <% end %>             
+          <%= link_to edit_sivic_plano_path(sivic_plano), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
+            <span class="glyphicon glyphicon-pencil"></span>
+          <% end %>
+                     
+          <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_planos/<%=sivic_plano.id%>"     data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir">
+                <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
+            </a>       
+        </td>
+
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +43,19 @@
 
 <br>
 
-<%= link_to 'New Sivic plano', new_sivic_plano_path %>
+</div></div>
+<div class="btn-group">
+  <%= link_to new_sivic_plano_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>
+
+
+
+<script>
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
+</script>
