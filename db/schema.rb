@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141013171116) do
+ActiveRecord::Schema.define(version: 20141015161457) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -317,9 +317,15 @@ ActiveRecord::Schema.define(version: 20141013171116) do
     t.integer  "sivic_endereco_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sivic_plano_id"
+    t.integer  "numr_qtdmembros"
+    t.integer  "numr_qtdusuario"
+    t.datetime "data_inicioplano"
+    t.datetime "data_fimplano"
   end
 
   add_index "sivic_igrejas", ["sivic_endereco_id"], name: "index_sivic_igrejas_on_sivic_endereco_id", using: :btree
+  add_index "sivic_igrejas", ["sivic_plano_id"], name: "index_sivic_igrejas_on_sivic_plano_id", using: :btree
 
   create_table "sivic_inscricaos", force: true do |t|
     t.string   "nome_igreja"

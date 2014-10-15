@@ -43,6 +43,29 @@
       <%= f.label :Nome_do_Responsável %>
       <%= f.text_field :NOME_responsavel, :class => "form-control" %>
   </div>
+  <div class="col-xs-3">
+      <%= f.label :Plano %>
+      <%= f.select :sivic_plano_id, options_from_collection_for_select(SivicPlano.all, 'id', 'nome_plano',@sivic_igreja.sivic_plano_id),{:include_blank => true}, {:class => "form-control"}%>
+  </div>
+  <div class="col-xs-2">
+      <%= f.label :Qtd_Membros %>
+      <%= f.text_field :numr_qtdmembros, :class => "form-control" %>
+  </div>
+  <div class="col-xs-2">
+      <%= f.label :Qtd_Usuários %>
+      <%= f.text_field :numr_qtdusuario, :class => "form-control" %>
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="col-xs-3">
+      <%= f.label :Data_inicio_Plano %>
+      <%= f.text_field :data_inicioplano, :value =>(@sivic_igreja.data_inicioplano.blank? ? '' : @sivic_igreja.data_inicioplano.strftime("%d/%m/%Y")), :class => "form-control" %>
+  </div>
+  <div class="col-xs-3">
+      <%= f.label :Data_fim_Plano %>
+      <%= f.text_field :data_fimplano, :value =>(@sivic_igreja.data_fimplano.blank? ? '' : @sivic_igreja.data_fimplano.strftime("%d/%m/%Y")), :class => "form-control" %>
+  </div>
 </div>
 
 <br />
@@ -127,7 +150,11 @@ jQuery(function($){
    $("#sivic_igreja_NUMR_cnpj").mask("99.999.999/9999-99");
    $("#sivic_igreja_NUMR_telefone").mask("(99)9999-9999");
    $("#sivic_igreja_sivic_endereco_attributes_NUMR_Cep").mask("99.999-999");
+   $("#sivic_igreja_data_inicioplano").mask("99/99/9999");
+   $("#sivic_igreja_data_fimplano").mask("99/99/9999");
+
 });
+
 
   function changeState(state){
       $.ajax({

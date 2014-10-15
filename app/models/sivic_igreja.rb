@@ -2,7 +2,11 @@
 class SivicIgreja < ActiveRecord::Base
         
   belongs_to :sivic_endereco, :dependent => :delete
+
+  belongs_to :sivic_plano
+
   has_many :sivic_situacaodiscipulo, :dependent => :destroy
+   
 
   has_many :children, :class_name => "SivicIgreja", :foreign_key => "father_id"
   belongs_to :father, :class_name => "SivicIgreja", :foreign_key => "father_id"
