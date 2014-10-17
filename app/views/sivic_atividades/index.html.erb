@@ -1,0 +1,39 @@
+<h1>Listing sivic_atividades</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome atividade</th>
+      <th>Desc atividade</th>
+      <th>Data bloqueio</th>
+      <th>Data exclusao</th>
+      <th>Sivic periodicidadeconso</th>
+      <th>Sivic igreja</th>
+      <th>User</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_atividades.each do |sivic_atividade| %>
+      <tr>
+        <td><%= sivic_atividade.nome_atividade %></td>
+        <td><%= sivic_atividade.desc_atividade %></td>
+        <td><%= sivic_atividade.data_bloqueio %></td>
+        <td><%= sivic_atividade.data_exclusao %></td>
+        <td><%= sivic_atividade.sivic_periodicidadeconso %></td>
+        <td><%= sivic_atividade.sivic_igreja %></td>
+        <td><%= sivic_atividade.User %></td>
+        <td><%= link_to 'Show', sivic_atividade %></td>
+        <td><%= link_to 'Edit', edit_sivic_atividade_path(sivic_atividade) %></td>
+        <td><%= link_to 'Destroy', sivic_atividade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic atividade', new_sivic_atividade_path %>

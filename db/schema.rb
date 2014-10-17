@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141015161457) do
+ActiveRecord::Schema.define(version: 20141017162510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,24 @@ ActiveRecord::Schema.define(version: 20141015161457) do
 
   add_index "sivic_alunoaulas", ["sivic_aula_id"], name: "index_sivic_alunoaulas_on_sivic_aula_id", using: :btree
   add_index "sivic_alunoaulas", ["sivic_turmaaluno_id"], name: "index_sivic_alunoaulas_on_sivic_turmaaluno_id", using: :btree
+
+  create_table "sivic_atividades", force: true do |t|
+    t.string   "nome_atividade"
+    t.string   "desc_atividade"
+    t.datetime "data_bloqueio"
+    t.datetime "data_exclusao"
+    t.integer  "sivic_periodicidadeconso_id"
+    t.integer  "sivic_igreja_id"
+    t.integer  "user_inclusao"
+    t.integer  "integer"
+    t.integer  "user_bloqueio"
+    t.integer  "user_exclusao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_atividades", ["sivic_igreja_id"], name: "index_sivic_atividades_on_sivic_igreja_id", using: :btree
+  add_index "sivic_atividades", ["sivic_periodicidadeconso_id"], name: "index_sivic_atividades_on_sivic_periodicidadeconso_id", using: :btree
 
   create_table "sivic_aulas", force: true do |t|
     t.string   "nome_aula"

@@ -1,0 +1,45 @@
+<%= form_for(@sivic_atividade) do |f| %>
+  <% if @sivic_atividade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_atividade.errors.count, "error") %> prohibited this sivic_atividade from being saved:</h2>
+
+      <ul>
+      <% @sivic_atividade.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nome_atividade %><br>
+    <%= f.text_field :nome_atividade %>
+  </div>
+  <div class="field">
+    <%= f.label :desc_atividade %><br>
+    <%= f.text_field :desc_atividade %>
+  </div>
+  <div class="field">
+    <%= f.label :data_bloqueio %><br>
+    <%= f.datetime_select :data_bloqueio %>
+  </div>
+  <div class="field">
+    <%= f.label :data_exclusao %><br>
+    <%= f.datetime_select :data_exclusao %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_periodicidadeconso_id %><br>
+    <%= f.text_field :sivic_periodicidadeconso_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_igreja_id %><br>
+    <%= f.text_field :sivic_igreja_id %>
+  </div>
+  <div class="field">
+    <%= f.label :User_id %><br>
+    <%= f.text_field :User_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome atividade:</strong>
+  <%= @sivic_atividade.nome_atividade %>
+</p>
+
+<p>
+  <strong>Desc atividade:</strong>
+  <%= @sivic_atividade.desc_atividade %>
+</p>
+
+<p>
+  <strong>Data bloqueio:</strong>
+  <%= @sivic_atividade.data_bloqueio %>
+</p>
+
+<p>
+  <strong>Data exclusao:</strong>
+  <%= @sivic_atividade.data_exclusao %>
+</p>
+
+<p>
+  <strong>Sivic periodicidadeconso:</strong>
+  <%= @sivic_atividade.sivic_periodicidadeconso %>
+</p>
+
+<p>
+  <strong>Sivic igreja:</strong>
+  <%= @sivic_atividade.sivic_igreja %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @sivic_atividade.User %>
+</p>
+
+<%= link_to 'Edit', edit_sivic_atividade_path(@sivic_atividade) %> |
+<%= link_to 'Back', sivic_atividades_path %>
