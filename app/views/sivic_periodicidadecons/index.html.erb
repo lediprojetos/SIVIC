@@ -1,0 +1,31 @@
+<h1>Listing sivic_periodicidadecons</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Desc periodicidade</th>
+      <th>Numr qtddia</th>
+      <th>Sivic igreja</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_periodicidadecons.each do |sivic_periodicidadecon| %>
+      <tr>
+        <td><%= sivic_periodicidadecon.desc_periodicidade %></td>
+        <td><%= sivic_periodicidadecon.numr_qtddia %></td>
+        <td><%= sivic_periodicidadecon.sivic_igreja %></td>
+        <td><%= link_to 'Show', sivic_periodicidadecon %></td>
+        <td><%= link_to 'Edit', edit_sivic_periodicidadecon_path(sivic_periodicidadecon) %></td>
+        <td><%= link_to 'Destroy', sivic_periodicidadecon, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic periodicidadecon', new_sivic_periodicidadecon_path %>

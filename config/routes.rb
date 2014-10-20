@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_periodicidadecons
+
   resources :sivic_atividades
 
   resources :sivic_planos

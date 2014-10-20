@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141017162510) do
+ActiveRecord::Schema.define(version: 20141020132917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -546,6 +546,16 @@ ActiveRecord::Schema.define(version: 20141017162510) do
 
   add_index "sivic_participantecelulas", ["sivic_celula_id"], name: "index_sivic_participantecelulas_on_sivic_celula_id", using: :btree
   add_index "sivic_participantecelulas", ["sivic_sitpartcelula_id"], name: "index_sivic_participantecelulas_on_sivic_sitpartcelula_id", using: :btree
+
+  create_table "sivic_periodicidadecons", force: true do |t|
+    t.string   "desc_periodicidade"
+    t.integer  "numr_qtddia"
+    t.integer  "sivic_igreja_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_periodicidadecons", ["sivic_igreja_id"], name: "index_sivic_periodicidadecons_on_sivic_igreja_id", using: :btree
 
   create_table "sivic_permissaos", force: true do |t|
     t.integer  "mumr_acao"

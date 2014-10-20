@@ -1,0 +1,29 @@
+<%= form_for(@sivic_periodicidadecon) do |f| %>
+  <% if @sivic_periodicidadecon.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_periodicidadecon.errors.count, "error") %> prohibited this sivic_periodicidadecon from being saved:</h2>
+
+      <ul>
+      <% @sivic_periodicidadecon.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :desc_periodicidade %><br>
+    <%= f.text_field :desc_periodicidade %>
+  </div>
+  <div class="field">
+    <%= f.label :numr_qtddia %><br>
+    <%= f.number_field :numr_qtddia %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_igreja_id %><br>
+    <%= f.text_field :sivic_igreja_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
