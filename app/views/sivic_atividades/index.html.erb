@@ -1,6 +1,10 @@
-<h1>Listing sivic_atividades</h1>
+<% content_for :titlePage do %>
+ <div center> Lista de Atividades</div>
+<% end %>
 
-<table>
+<%=render '/layouts/panel' %>
+
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Nome atividade</th>
@@ -36,4 +40,20 @@
 
 <br>
 
-<%= link_to 'New Sivic atividade', new_sivic_atividade_path %>
+
+</div></div>
+<div class="btn-group">
+  <%= link_to new_sivic_atividade_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>
+
+
+<script>
+
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
+</script>
