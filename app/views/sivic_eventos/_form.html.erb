@@ -6,7 +6,7 @@
 
     <%= form_for(@sivic_evento) do |f| %>
     <% if @sivic_evento.errors.any? %>
-      <div class="alert alert-danger" role="alert">
+      <div id "idd" class="alert alert-danger" role="alert">
         <% if @sivic_evento.errors.any? %>
   
             <% @sivic_evento.errors.full_messages.each do |msg| %>
@@ -185,5 +185,8 @@ jQuery(function($){
      $("#sivic_evento_VARL_inscricao").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
   })
 
+$(function() {
+  $('.idd').deplay(100)
+})
 
 </script>

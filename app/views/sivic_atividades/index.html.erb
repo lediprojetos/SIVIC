@@ -7,14 +7,9 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Nome atividade</th>
-      <th>Desc atividade</th>
-      <th>Data bloqueio</th>
-      <th>Data exclusao</th>
-      <th>Sivic periodicidadeconso</th>
-      <th>Sivic igreja</th>
-      <th>User</th>
-      <th></th>
+      <th>Nome Atividade</th>
+      <th>Data Bloqueio</th>
+      <th>Periodicidade</th>
       <th></th>
       <th></th>
     </tr>
@@ -24,15 +19,22 @@
     <% @sivic_atividades.each do |sivic_atividade| %>
       <tr>
         <td><%= sivic_atividade.nome_atividade %></td>
-        <td><%= sivic_atividade.desc_atividade %></td>
         <td><%= sivic_atividade.data_bloqueio %></td>
-        <td><%= sivic_atividade.data_exclusao %></td>
         <td><%= sivic_atividade.sivic_periodicidadeconso %></td>
-        <td><%= sivic_atividade.sivic_igreja %></td>
-        <td><%= sivic_atividade.User %></td>
-        <td><%= link_to 'Show', sivic_atividade %></td>
-        <td><%= link_to 'Edit', edit_sivic_atividade_path(sivic_atividade) %></td>
-        <td><%= link_to 'Destroy', sivic_atividade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      
+        <td align='right'>   
+          <%= link_to sivic_atividade, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+          <% end %>             
+          <%= link_to edit_sivic_atividade_path(sivic_atividade), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
+            <span class="glyphicon glyphicon-pencil"></span>
+          <% end %>
+                      
+           <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_atividades/<%=sivic_atividade.id%>"     data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir">
+                <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
+            </a>       
+        </td>
+
       </tr>
     <% end %>
   </tbody>
