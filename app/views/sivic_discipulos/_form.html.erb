@@ -88,7 +88,7 @@
               </div>
               <div class="col-xs-4">
                 <%= pessoa.label :Situação %>
-                <%= pessoa.select :sivic_situacaodiscipulo_id, options_from_collection_for_select(SivicSituacaodiscipulo.where(:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id), 'id', 'nome_situacao',@sivic_discipulo.sivic_pessoa.sivic_situacaodiscipulo_id),{}, :class =>  'form-control'%>
+                <%= pessoa.select :sivic_situacaodiscipulo_id, options_from_collection_for_select(SivicSituacaodiscipulo.all, 'id', 'nome_situacao',@sivic_discipulo.sivic_pessoa.sivic_situacaodiscipulo_id),{}, :class =>  'form-control'%>
               </div>              
              </div>
 

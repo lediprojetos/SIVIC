@@ -86,8 +86,10 @@ end
    def valida_lider_consolidador
     
      if self.father_id && self.father_id != 0
-      @sivic_discipulo = SivicDiscipulo.find_by! sivic_pessoa_id: self.father_id
+      @sivic_discipulo = SivicDiscipulo.find_by! sivic_pessoa_id: self.father_id rescue nil
+      if @sivic_discipulo
        errors.add(:father_id, "O líder escolhido não é um consolidador") if not @sivic_discipulo.flag_consolidador
+      end
      end 
      
   end
