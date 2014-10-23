@@ -69,6 +69,6 @@ class SivicAtividadesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_atividade_params
-      params.require(:sivic_atividade).permit(:nome_atividade, :desc_atividade, :data_bloqueio, :data_exclusao, :sivic_periodicidadeconso_id, :sivic_igreja_id, :User_id)
+      params.require(:sivic_atividade).permit(:nome_atividade, :desc_atividade, :data_bloqueio, :data_exclusao, :sivic_periodicidadecon_id, :sivic_igreja_id, :User_id)
     end
 end

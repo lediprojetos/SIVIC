@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20141020132917) do
     t.string   "desc_atividade"
     t.datetime "data_bloqueio"
     t.datetime "data_exclusao"
-    t.integer  "sivic_periodicidadeconso_id"
+    t.integer  "sivic_periodicidadecon_id"
     t.integer  "sivic_igreja_id"
     t.integer  "user_inclusao"
     t.integer  "integer"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20141020132917) do
   end
 
   add_index "sivic_atividades", ["sivic_igreja_id"], name: "index_sivic_atividades_on_sivic_igreja_id", using: :btree
-  add_index "sivic_atividades", ["sivic_periodicidadeconso_id"], name: "index_sivic_atividades_on_sivic_periodicidadeconso_id", using: :btree
+  add_index "sivic_atividades", ["sivic_periodicidadecon_id"], name: "index_sivic_atividades_on_sivic_periodicidadecon_id", using: :btree
 
   create_table "sivic_aulas", force: true do |t|
     t.string   "nome_aula"
