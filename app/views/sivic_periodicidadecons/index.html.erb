@@ -1,13 +1,14 @@
-<h1>Listing sivic_periodicidadecons</h1>
+<% content_for :titlePage do %>
+ <div> Lista de Periodicidades</div>
+<% end %>
 
-<table>
+<%=render '/layouts/panel' %>
+
+<table class="table table-hover">
   <thead>
     <tr>
-      <th>Desc periodicidade</th>
-      <th>Numr qtddia</th>
-      <th>Sivic igreja</th>
-      <th></th>
-      <th></th>
+      <th>Descrição Periodicidade</th>
+      <th>Qtd. Dias</th>
       <th></th>
     </tr>
   </thead>
@@ -17,10 +18,18 @@
       <tr>
         <td><%= sivic_periodicidadecon.desc_periodicidade %></td>
         <td><%= sivic_periodicidadecon.numr_qtddia %></td>
-        <td><%= sivic_periodicidadecon.sivic_igreja %></td>
-        <td><%= link_to 'Show', sivic_periodicidadecon %></td>
-        <td><%= link_to 'Edit', edit_sivic_periodicidadecon_path(sivic_periodicidadecon) %></td>
-        <td><%= link_to 'Destroy', sivic_periodicidadecon, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+         <td align='right'>   
+          <%= link_to sivic_periodicidadecon, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+          <% end %>             
+          <%= link_to edit_sivic_periodicidadecon_path(sivic_periodicidadecon), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
+            <span class="glyphicon glyphicon-pencil"></span>
+          <% end %>
+                      
+           <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_periodicidadecons/<%=sivic_periodicidadecon.id%>"     data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir">
+                <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
+            </a>       
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +37,19 @@
 
 <br>
 
-<%= link_to 'New Sivic periodicidadecon', new_sivic_periodicidadecon_path %>
+</div></div>
+<div class="btn-group">
+  <%= link_to new_sivic_periodicidadecon_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>
+
+
+<script>
+
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
+</script>
