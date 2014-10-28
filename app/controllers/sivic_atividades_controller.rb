@@ -59,6 +59,7 @@ class SivicAtividadesController < ApplicationController
 
   def deleta_atividade
 
+
    @sivic_atividade.user_exclusao = current_user.id
    @sivic_atividade.data_exclusao =  Date.today
    @sivic_atividade.save
