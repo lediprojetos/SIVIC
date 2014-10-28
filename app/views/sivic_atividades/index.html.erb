@@ -28,9 +28,10 @@
             <span class="glyphicon glyphicon-pencil"></span>
           <% end %>
                       
-           <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_atividades/<%=sivic_atividade.id%>"     data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir">
-                <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
-            </a>       
+           <%= link_to deleta_atividade_sivic_atividade_path(sivic_atividade), :confirm => 'Deseja excluir o discipulo?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Excluir" do %>
+                <span class="glyphicon glyphicon-trash"></span> 
+              <% end %> 
+
         </td>
 
       </tr>

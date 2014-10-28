@@ -343,6 +343,11 @@ pt:
         desc_confirmaemail: ''
         desc_senha: ''
         desc_confirmasenha: ''
+      sivic_atividade:
+        nome_atividade: ''
+      sivic_periodicidadecon:
+        desc_desc_periodicidade: ''
+        numr_qtddia: ''
 
     errors:
       <<: *errors

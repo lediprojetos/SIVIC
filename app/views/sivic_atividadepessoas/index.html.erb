@@ -1,0 +1,39 @@
+<h1>Listing sivic_atividadepessoas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Flag ativo</th>
+      <th>Data exclusao</th>
+      <th>Data bloqueio</th>
+      <th>Sivic atividade</th>
+      <th>Sivic igreja</th>
+      <th>Sivic pessoa</th>
+      <th>User</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_atividadepessoas.each do |sivic_atividadepessoa| %>
+      <tr>
+        <td><%= sivic_atividadepessoa.flag_ativo %></td>
+        <td><%= sivic_atividadepessoa.data_exclusao %></td>
+        <td><%= sivic_atividadepessoa.data_bloqueio %></td>
+        <td><%= sivic_atividadepessoa.sivic_atividade %></td>
+        <td><%= sivic_atividadepessoa.sivic_igreja %></td>
+        <td><%= sivic_atividadepessoa.sivic_pessoa %></td>
+        <td><%= sivic_atividadepessoa.User %></td>
+        <td><%= link_to 'Show', sivic_atividadepessoa %></td>
+        <td><%= link_to 'Edit', edit_sivic_atividadepessoa_path(sivic_atividadepessoa) %></td>
+        <td><%= link_to 'Destroy', sivic_atividadepessoa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic atividadepessoa', new_sivic_atividadepessoa_path %>
