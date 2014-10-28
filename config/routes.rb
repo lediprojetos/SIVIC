@@ -2,7 +2,11 @@ SIVIC::Application.routes.draw do
 
   resources :sivic_periodicidadecons
 
-  resources :sivic_atividades
+  resources :sivic_atividades do
+    member do
+      get :deleta_atividade
+    end
+  end
 
   resources :sivic_planos
 

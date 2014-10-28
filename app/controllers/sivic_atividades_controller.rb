@@ -1,5 +1,5 @@
 class SivicAtividadesController < ApplicationController
-  before_action :set_sivic_atividade, only: [:show, :edit, :update, :destroy]
+  before_action :set_sivic_atividade, only: [:show, :edit, :update, :destroy, :deleta_atividade]
 
   # GET /sivic_atividades
   # GET /sivic_atividades.json
@@ -37,6 +37,8 @@ class SivicAtividadesController < ApplicationController
     end
   end
 
+
+
   # PATCH/PUT /sivic_atividades/1
   # PATCH/PUT /sivic_atividades/1.json
   def update
@@ -50,6 +52,22 @@ class SivicAtividadesController < ApplicationController
       end
     end
   end
+
+
+
+  def deleta_atividade
+    
+   @sivic_atividade.user_exclusao = current_user.id
+   @sivic_atividade.data_exclusao =  Date.today
+   @sivic_atividade.save
+  
+    respond_to do |format|
+      format.html { redirect_to sivic_atividades_url }
+      format.json { head :no_content }
+    end
+
+  end
+
 
   # DELETE /sivic_atividades/1
   # DELETE /sivic_atividades/1.json
