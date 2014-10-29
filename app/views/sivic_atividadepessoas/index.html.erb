@@ -1,17 +1,16 @@
-<h1>Listing sivic_atividadepessoas</h1>
+<% content_for :titlePage do %>
+ <div> Lista de Atividades Pessoas</div>
+<% end %>
 
-<table>
+<%=render '/layouts/panel' %>
+
+<table class="table table-hover">
   <thead>
-    <tr>
-      <th>Flag ativo</th>
-      <th>Data exclusao</th>
-      <th>Data bloqueio</th>
-      <th>Sivic atividade</th>
-      <th>Sivic igreja</th>
-      <th>Sivic pessoa</th>
-      <th>User</th>
-      <th></th>
-      <th></th>
+    <tr>         
+      <th>Responsável</th>
+      <th>Pessoa</th>
+      <th>Atividade</th>
+      <th>Situação</th>
       <th></th>
     </tr>
   </thead>
@@ -19,16 +18,32 @@
   <tbody>
     <% @sivic_atividadepessoas.each do |sivic_atividadepessoa| %>
       <tr>
-        <td><%= sivic_atividadepessoa.flag_ativo %></td>
-        <td><%= sivic_atividadepessoa.data_exclusao %></td>
-        <td><%= sivic_atividadepessoa.data_bloqueio %></td>
-        <td><%= sivic_atividadepessoa.sivic_atividade %></td>
-        <td><%= sivic_atividadepessoa.sivic_igreja %></td>
-        <td><%= sivic_atividadepessoa.sivic_pessoa %></td>
-        <td><%= sivic_atividadepessoa.User %></td>
-        <td><%= link_to 'Show', sivic_atividadepessoa %></td>
-        <td><%= link_to 'Edit', edit_sivic_atividadepessoa_path(sivic_atividadepessoa) %></td>
-        <td><%= link_to 'Destroy', sivic_atividadepessoa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= sivic_atividadepessoa.pessoaresponsavel.nome_pessoa %></td>
+        <td><%= sivic_atividadepessoa.pessoaatividade.nome_pessoa %></td>
+        <td><%= sivic_atividadepessoa.sivic_atividade.nome_atividade %></td>
+      
+        <% if sivic_atividadepessoa.flag_ativo %>
+          <td> <b style='color:green;'>Ativo</b></td>
+        <%else%>
+          <td> <b style='color:red;'>Inativo</b></td>
+        <%end%>
+        <td align='right'>   
+          <%= link_to sivic_atividadepessoa, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+          <% end %>             
+          <%= link_to edit_sivic_atividadepessoa_path(sivic_atividadepessoa), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
+            <span class="glyphicon glyphicon-pencil"></span>
+          <% end %>
+          <% if sivic_atividadepessoa.flag_ativo %>
+              <%= link_to altera_situacao_sivic_atividadepessoa_path(sivic_atividadepessoa), :confirm => 'Deseja Desativar?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Desativar" do %>
+                <span class="glyphicon glyphicon-ban-circle"></span> 
+              <% end %>
+          <%else%>         
+                <%= link_to altera_situacao_sivic_atividadepessoa_path(sivic_atividadepessoa), :confirm => 'Deseja Ativar?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Ativar" do %>
+                <span class="glyphicon glyphicon-ok-circle"></span> 
+              <% end %>
+        <%end%>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -36,4 +51,19 @@
 
 <br>
 
-<%= link_to 'New Sivic atividadepessoa', new_sivic_atividadepessoa_path %>
+
+</div></div>
+<div class="btn-group">
+  <%= link_to new_sivic_atividadepessoa_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>
+
+
+<script>
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
+</script>
