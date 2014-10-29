@@ -1,5 +1,13 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_atividadepessoas do
+    member do
+      get :altera_situacao   
+    end
+  end
+
+  resources :sivic_situacaoatividades
+
   resources :sivic_periodicidadecons
 
   resources :sivic_atividades do

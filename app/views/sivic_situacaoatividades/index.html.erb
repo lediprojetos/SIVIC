@@ -1,0 +1,27 @@
+<h1>Listing sivic_situacaoatividades</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_situacaoatividades.each do |sivic_situacaoatividade| %>
+      <tr>
+        <td><%= sivic_situacaoatividade.nome %></td>
+        <td><%= link_to 'Show', sivic_situacaoatividade %></td>
+        <td><%= link_to 'Edit', edit_sivic_situacaoatividade_path(sivic_situacaoatividade) %></td>
+        <td><%= link_to 'Destroy', sivic_situacaoatividade, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sivic situacaoatividade', new_sivic_situacaoatividade_path %>

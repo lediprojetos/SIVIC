@@ -4,10 +4,14 @@ class SivicAtividadesController < ApplicationController
   # GET /sivic_atividades
   # GET /sivic_atividades.json
   def index
-    @sivic_atividades = SivicAtividade.all
+    #@sivic_atividades = SivicAtividade.all
+    @sivic_atividades = SivicAtividade.find :all, :conditions => {:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id, :data_exclusao => nil} 
+
+  #@sivic_turmamoduloprofessors = SivicTurmamoduloprofessor.find :all, :conditions => {:sivic_professor_id => current_user.sivic_pessoa.sivic_professor}
+
   end
 
-  # GET /sivic_atividades/1
+  # GET /si:vic_atividades/1sivic_igreja => current_user.sivic_pessoa.sivic_igreja_id
   # GET /sivic_atividades/1.json
   def show
   end
@@ -28,7 +32,7 @@ class SivicAtividadesController < ApplicationController
 
     respond_to do |format|
       if @sivic_atividade.save
-        format.html { redirect_to @sivic_atividade, notice: 'Sivic atividade was successfully created.' }
+        format.html { redirect_to @sivic_atividade, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_atividade }
       else
         format.html { render action: 'new' }
@@ -38,13 +42,12 @@ class SivicAtividadesController < ApplicationController
   end
 
 
-
   # PATCH/PUT /sivic_atividades/1
   # PATCH/PUT /sivic_atividades/1.json
   def update
     respond_to do |format|
       if @sivic_atividade.update(sivic_atividade_params)
-        format.html { redirect_to @sivic_atividade, notice: 'Sivic atividade was successfully updated.' }
+        format.html { redirect_to @sivic_atividade, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -54,9 +57,9 @@ class SivicAtividadesController < ApplicationController
   end
 
 
-
   def deleta_atividade
-    
+
+
    @sivic_atividade.user_exclusao = current_user.id
    @sivic_atividade.data_exclusao =  Date.today
    @sivic_atividade.save
@@ -87,6 +90,6 @@ class SivicAtividadesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_atividade_params
-      params.require(:sivic_atividade).permit(:nome_atividade, :desc_atividade, :data_bloqueio, :data_exclusao, :sivic_periodicidadecon_id, :sivic_igreja_id, :User_id)
+      params.require(:sivic_atividade).permit(:nome_atividade, :desc_atividade, :data_bloqueio, :data_exclusao, :sivic_periodicidadecon_id, :sivic_igreja_id, :user_inclusao, :user_bloqueio, :user_exclusao)
     end
 end

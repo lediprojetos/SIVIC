@@ -1,0 +1,66 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= 'Cadastro de Atividades'%></h3>
+  </div>
+  <div class="panel-footer">
+
+<%= form_for(@sivic_atividadepessoa) do |f| %>
+  <% if @sivic_atividadepessoa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sivic_atividadepessoa.errors.count, "error") %> prohibited this sivic_atividadepessoa from being saved:</h2>
+
+      <ul>
+      <% @sivic_atividadepessoa.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= f.label :sivic_atividade_id %><br>
+    <%= f.text_field :sivic_atividade_id %>
+  </div>
+  <div class="field">
+    <%= f.label :sivic_igreja_id %><br>
+    <%= f.text_field :sivic_igreja_id %>
+  </div>
+ 
+ <div class="row mar-bot40">   
+       <div class="col-lg-3">
+       </div>     
+       <div class="col-lg-6">
+            <%= f.label :Responsável %>
+            <%= f.hidden_field :sivic_pessoaresponsavel%>
+            <%#= f.text_field :sivic_pessoa_id, disabled="disabled" %>
+            <div class="input-group">
+             <input id="nome_pessoa" name="nome_pessoa" disabled="true" value="<%=@sivic_partevento.sivic_pessoa.nome_pessoa rescue nil%>" onkeypress="" type="text" class="form-control" placeholder="Nome pessoa">
+            <span class="input-group-btn">
+              <button class="btn btn-success" type="button" onclick="$('#myModal2').modal('show');">Buscar Pessoa</button>
+            </span>
+           </div>
+       </div>
+  </div>
+
+
+  <%=f.hidden_field :flag_ativo, :value => true%>
+
+
+ </div>
+  </div>
+
+<div class="btn-group">
+  <button type="submit" class="btn btn-default btn">
+    <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+  </button>
+
+  <%= yield(:iconexibir) %>
+
+  <%= link_to sivic_atividadepessoas_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+</div>
+
+
+<% end %>
