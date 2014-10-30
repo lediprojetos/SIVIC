@@ -18,15 +18,7 @@
   <% end %>
 
 
-  <div class="field">
-    <%= f.label :sivic_atividade_id %><br>
-    <%= f.text_field :sivic_atividade_id %>
-  </div>
-  <div class="field">
-    <%= f.label :sivic_igreja_id %><br>
-    <%= f.text_field :sivic_igreja_id %>
-  </div>
- 
+
  <div class="row mar-bot40">   
        <div class="col-lg-3">
        </div>     
@@ -35,16 +27,46 @@
             <%= f.hidden_field :sivic_pessoaresponsavel%>
             <%#= f.text_field :sivic_pessoa_id, disabled="disabled" %>
             <div class="input-group">
-             <input id="nome_pessoa" name="nome_pessoa" disabled="true" value="<%=@sivic_partevento.sivic_pessoa.nome_pessoa rescue nil%>" onkeypress="" type="text" class="form-control" placeholder="Nome pessoa">
+             <input id="nome_lider" name="nome_lider" disabled="true" value="<%=@sivic_atividadepessoa.pessoaresponsavel.nome_pessoa rescue nil%>" onkeypress="" type="text" class="form-control" placeholder="Nome responsável">
+            <span class="input-group-btn">
+              <button class="btn btn-success" type="button" onclick="$('#myModal1').modal('show');">Buscar Pessoa</button>
+            </span>
+           </div>
+       </div>
+ </div>
+
+  <br>
+
+<div class="row mar-bot40">   
+       <div class="col-lg-3">
+       </div>     
+       <div class="col-lg-6">
+            <%= f.label :Pessoa %>
+            <%= f.hidden_field :sivic_pessoaatividade%>
+            <%#= f.text_field :sivic_pessoa_id, disabled="disabled" %>
+            <div class="input-group">
+             <input id="nome_pessoa" name="nome_pessoa" disabled="true" value="<%=@sivic_atividadepessoa.pessoaatividade.nome_pessoa rescue nil%>" onkeypress="" type="text" class="form-control" placeholder="Nome pessoa">
             <span class="input-group-btn">
               <button class="btn btn-success" type="button" onclick="$('#myModal2').modal('show');">Buscar Pessoa</button>
             </span>
            </div>
        </div>
   </div>
+ <br>
 
+ <div class="row mar-bot40">
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-6">
+        <%= f.label :Atividade %>
+        <%= f.select :sivic_atividade_id, options_from_collection_for_select(SivicAtividade.where(:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id, :user_bloqueio => nil, :user_exclusao => nil), 'id', 'nome_atividade',@sivic_atividadepessoa.sivic_atividade_id),{}, :class =>  'form-control'%>
+     </div>
+ </div>
+ <br>
 
   <%=f.hidden_field :flag_ativo, :value => true%>
+
+  <%= f.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
 
 
  </div>
@@ -63,4 +85,148 @@
 </div>
 
 
+ <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Buscar Pessoas</h4>
+      </div>
+      <div class="modal-body">
+
+        <label >Nome</label><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <input id="NOME_lider_buscar" name="NOME_lider_buscar" onkeypress="buscaPessoa('lider')" type="text" class="form-control" placeholder="Nome">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" onclick="buscaPessoa('lider');">Buscar</button>
+              </span>              
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+        <br />
+
+        <table id="table_lider" name="table_lider" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyid">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+ </div>
+
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Buscar Pessoas</h4>
+      </div>
+      <div class="modal-body">
+
+        <label >Nome</label><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <input id="nome_pessoa_buscar" name="nome_pessoa_buscar" onkeypress="buscaPessoa('pessoa')" type="text" class="form-control" placeholder="Nome">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" onclick="buscaPessoa('pessoa');">Buscar</button>
+              </span>              
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+        <br />
+
+        <table id="table_pessoa" name="table_pessoa" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyid2">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+ </div>
+
+
 <% end %>
+
+<script>
+
+
+ function buscaPessoa(fonte){
+      var pesquisa;
+
+      if (fonte == 'lider'){
+        pesquisa = $('#NOME_lider_buscar').val();
+      }else{
+        pesquisa = $('#nome_pessoa_buscar').val();
+      }
+
+      $.ajax({
+        url: '<%= listarDiscipulos_path %>',
+        data : 
+        {
+            nome_pessoa : pesquisa
+        },
+        success: function(data){
+          $("#tbodyid").empty();
+          $("#tbodyid2").empty();
+          for (var i in data) {
+            var item = data[i];
+
+            if (fonte == 'lider') {
+              $('#table_lider').append('<tr><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item. nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
+            }else if(fonte == 'pessoa'){
+                 $('#table_pessoa').append('<tr><td><a href="javascript:setaPessoa(\'' +item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
+            }
+          };
+        }
+      })
+    }
+
+
+  function setaLider(nome,id){
+
+      $('#nome_lider').val(nome);
+      $('#sivic_atividadepessoa_sivic_pessoaresponsavel').val(id);
+
+      $('#myModal1').modal('hide');
+  }
+
+
+  function setaPessoa(nome,id){
+
+      $('#nome_pessoa').val(nome);
+      $('#sivic_atividadepessoa_sivic_pessoaatividade').val(id);
+
+      $('#myModal2').modal('hide');
+  }
+
+  </script>

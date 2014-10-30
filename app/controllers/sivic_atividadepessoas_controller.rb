@@ -4,7 +4,7 @@ class SivicAtividadepessoasController < ApplicationController
 # GET /sivic_atividadepessoas
   # GET /sivic_atividadepessoas.json
   def index
-    @sivic_atividadepessoas = SivicAtividadepessoa.all
+    @sivic_atividadepessoas = SivicAtividadepessoa.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id, data_exclusao: nil, data_bloqueio: nil).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /sivic_atividadepessoas/1
@@ -26,9 +26,12 @@ class SivicAtividadepessoasController < ApplicationController
   def create
     @sivic_atividadepessoa = SivicAtividadepessoa.new(sivic_atividadepessoa_params)
 
+
+    debugger
+
     respond_to do |format|
       if @sivic_atividadepessoa.save
-        format.html { redirect_to @sivic_atividadepessoa, notice: 'Sivic atividadepessoa was successfully created.' }
+        format.html { redirect_to @sivic_atividadepessoa, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_atividadepessoa }
       else
         format.html { render action: 'new' }
@@ -58,7 +61,7 @@ class SivicAtividadepessoasController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_atividadepessoa.update(sivic_atividadepessoa_params)
-        format.html { redirect_to @sivic_atividadepessoa, notice: 'Sivic atividadepessoa was successfully updated.' }
+        format.html { redirect_to @sivic_atividadepessoa, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

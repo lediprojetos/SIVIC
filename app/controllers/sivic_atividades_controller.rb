@@ -5,7 +5,7 @@ class SivicAtividadesController < ApplicationController
   # GET /sivic_atividades.json
   def index
     #@sivic_atividades = SivicAtividade.all
-    @sivic_atividades = SivicAtividade.find :all, :conditions => {:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id, :data_exclusao => nil} 
+    @sivic_atividades = SivicAtividade.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id, data_exclusao: nil, data_bloqueio: nil).paginate(:page => params[:page], :per_page => 10)
 
   #@sivic_turmamoduloprofessors = SivicTurmamoduloprofessor.find :all, :conditions => {:sivic_professor_id => current_user.sivic_pessoa.sivic_professor}
 

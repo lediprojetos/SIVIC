@@ -32,12 +32,8 @@
     </div>
 
     <div class="col-lg-4">
-
-
-    <%= f.label :Periodicidade %>
-    <%= f.select :sivic_periodicidadecon_id, options_from_collection_for_select(SivicPeriodicidadecon.where(:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id), 'id', 'desc_periodicidade',@sivic_atividade.sivic_periodicidadecon_id),{}, :class =>  'form-control'%>
-
-
+      <%= f.label :Periodicidade %>
+      <%= f.select :sivic_periodicidadecon_id, options_from_collection_for_select(SivicPeriodicidadecon.where(:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id), 'id', 'desc_periodicidade',@sivic_atividade.sivic_periodicidadecon_id),{}, :class =>  'form-control'%>
    </div>
 
 
