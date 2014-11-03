@@ -133,7 +133,7 @@ def render_civic_discipulo_geral_list(tasks)
     report.list.add_row do |row|
       row.values lblId: task.sivic_pessoa_id
       row.values lblNome: task.sivic_pessoa.nome_pessoa
-      row.values lblDataEvento: task.data_nascimento.blank? ? '' : task.data_nascimento.strftime("%d/%m/%Y")
+      row.values lblNascimento: task.data_nascimento.blank? ? '' : task.data_nascimento.strftime("%d/%m/%Y")
       row.values lblEndereco: task.sivic_endereco.DESC_Rua + ' ' + task.sivic_endereco.DESC_Complemento + ' ' + task.sivic_endereco.NUMR_Cep
       row.values lblBairro: task.sivic_endereco.DESC_Bairro
       row.values lblCelular: task.DESC_TelefoneCelular

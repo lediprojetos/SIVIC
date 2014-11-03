@@ -26,9 +26,6 @@ class SivicAtividadepessoasController < ApplicationController
   def create
     @sivic_atividadepessoa = SivicAtividadepessoa.new(sivic_atividadepessoa_params)
 
-
-    debugger
-
     respond_to do |format|
       if @sivic_atividadepessoa.save
         format.html { redirect_to @sivic_atividadepessoa, notice: 'Registro inserido com sucesso.' }
