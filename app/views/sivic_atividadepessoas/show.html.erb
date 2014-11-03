@@ -1,0 +1,54 @@
+<%if notice %>
+  <div class="alert alert-success alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+     <%= notice %>
+</div>
+<%end%>
+
+<% content_for :titlePage do %>
+  Exibir Atividade pessoa
+<% end %>
+
+<%= render 'layouts/panel' %>
+
+
+<p>
+  <strong>Atividade:</strong>
+  <%= @sivic_atividadepessoa.sivic_atividade.nome_atividade %>
+</p>
+
+
+<p>
+  <strong>Responsável:</strong>
+  <%= @sivic_atividadepessoa.pessoaatividade.nome_pessoa %>
+</p>
+
+<p>
+  <strong>Pessoa:</strong>
+  <%= @sivic_atividadepessoa.pessoaresponsavel.nome_pessoa %>
+</p>
+
+<p>
+  <strong>Situação:</strong>
+  <% if @sivic_atividadepessoa.flag_ativo %>
+   Ativo
+   <%else%>
+   Inativo  
+  <%end%>
+</p>
+
+
+</div></div>
+<div class="btn-group">
+
+  <%= link_to edit_sivic_atividadepessoa_path(@sivic_atividadepessoa), :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-pencil"></span> Editar
+  <% end %>
+
+
+  <%= link_to sivic_atividadepessoas_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+
+</div>
+

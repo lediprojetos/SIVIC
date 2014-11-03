@@ -1,0 +1,74 @@
+<% content_for :titlePage do %>
+ <div> Lista de Atividades Pessoas</div>
+<% end %>
+
+<%=render '/layouts/panel' %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>         
+      <th>Responsável</th>
+      <th>Pessoa</th>
+      <th>Atividade</th>
+      <th>Situação</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_atividadepessoas.each do |sivic_atividadepessoa| %>
+      <tr>
+        <td><%= sivic_atividadepessoa.pessoaresponsavel.nome_pessoa %></td>
+        <td><%= sivic_atividadepessoa.pessoaatividade.nome_pessoa %></td>
+        <td><%= sivic_atividadepessoa.sivic_atividade.nome_atividade %></td>
+      
+        <% if sivic_atividadepessoa.flag_ativo %>
+          <td> <b style='color:green;'>Ativo</b></td>
+        <%else%>
+          <td> <b style='color:red;'>Inativo</b></td>
+        <%end%>
+        <td align='right'>   
+          <%= link_to sivic_atividadepessoa, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+          <% end %>             
+          <%= link_to edit_sivic_atividadepessoa_path(sivic_atividadepessoa), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
+            <span class="glyphicon glyphicon-pencil"></span>
+          <% end %>
+          <% if sivic_atividadepessoa.flag_ativo %>
+              <%= link_to altera_situacao_sivic_atividadepessoa_path(sivic_atividadepessoa), :confirm => 'Deseja Desativar?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Desativar" do %>
+                <span class="glyphicon glyphicon-ban-circle"></span> 
+              <% end %>
+          <%else%>         
+                <%= link_to altera_situacao_sivic_atividadepessoa_path(sivic_atividadepessoa), :confirm => 'Deseja Ativar?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Ativar" do %>
+                <span class="glyphicon glyphicon-ok-circle"></span> 
+              <% end %>
+        <%end%>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
+<div class="apple_pagination">
+<%= will_paginate @sivic_atividadepessoas %>
+</div>
+
+
+</div></div>
+<div class="btn-group">
+  <%= link_to new_sivic_atividadepessoa_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>
+
+
+<script>
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
+</script>

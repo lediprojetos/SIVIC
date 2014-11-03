@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141020132917) do
+ActiveRecord::Schema.define(version: 20141028161444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,25 @@ ActiveRecord::Schema.define(version: 20141020132917) do
 
   add_index "sivic_alunoaulas", ["sivic_aula_id"], name: "index_sivic_alunoaulas_on_sivic_aula_id", using: :btree
   add_index "sivic_alunoaulas", ["sivic_turmaaluno_id"], name: "index_sivic_alunoaulas_on_sivic_turmaaluno_id", using: :btree
+
+  create_table "sivic_atividadepessoas", force: true do |t|
+    t.boolean  "flag_ativo"
+    t.datetime "data_exclusao"
+    t.datetime "data_bloqueio"
+    t.integer  "sivic_atividade_id"
+    t.integer  "sivic_igreja_id"
+    t.integer  "sivic_pessoaatividade"
+    t.integer  "integer"
+    t.integer  "sivic_pessoaresponsavel"
+    t.integer  "user_inclusao"
+    t.integer  "user_bloqueio"
+    t.integer  "user_exclusao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_atividadepessoas", ["sivic_atividade_id"], name: "index_sivic_atividadepessoas_on_sivic_atividade_id", using: :btree
+  add_index "sivic_atividadepessoas", ["sivic_igreja_id"], name: "index_sivic_atividadepessoas_on_sivic_igreja_id", using: :btree
 
   create_table "sivic_atividades", force: true do |t|
     t.string   "nome_atividade"
@@ -663,6 +682,12 @@ ActiveRecord::Schema.define(version: 20141020132917) do
   end
 
   add_index "sivic_sitpartcelulas", ["sivic_igreja_id"], name: "index_sivic_sitpartcelulas_on_sivic_igreja_id", using: :btree
+
+  create_table "sivic_situacaoatividades", force: true do |t|
+    t.string   "nome"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "sivic_situacaodiscipulos", force: true do |t|
     t.integer  "sivic_igreja_id"

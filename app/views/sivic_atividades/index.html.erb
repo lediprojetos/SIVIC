@@ -8,9 +8,8 @@
   <thead>
     <tr>
       <th>Nome Atividade</th>
-      <th>Data Bloqueio</th>
       <th>Periodicidade</th>
-      <th></th>
+      <th>Data Bloqueio</th>
       <th></th>
     </tr>
   </thead>
@@ -19,9 +18,8 @@
     <% @sivic_atividades.each do |sivic_atividade| %>
       <tr>
         <td><%= sivic_atividade.nome_atividade %></td>
-        <td><%= sivic_atividade.data_bloqueio %></td>
-        <td><%= sivic_atividade.sivic_periodicidadecon %></td>
-      
+        <td><%= sivic_atividade.sivic_periodicidadecon.desc_periodicidade %></td>
+        <td><%= sivic_atividade.data_bloqueio %></td>  
         <td align='right'>   
           <%= link_to sivic_atividade, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
             <span class="glyphicon glyphicon-list-alt"></span>
@@ -30,11 +28,10 @@
             <span class="glyphicon glyphicon-pencil"></span>
           <% end %>
                       
-           <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_atividades/<%=sivic_atividade.id%>"     data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir">
-                <span class="glyphicon glyphicon-trash" rel="tooltip"></span>
-            </a>       
+           <%= link_to deleta_atividade_sivic_atividade_path(sivic_atividade), :confirm => 'Deseja excluir o discipulo?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Excluir" do %>
+                <span class="glyphicon glyphicon-trash"></span> 
+              <% end %> 
         </td>
-
       </tr>
     <% end %>
   </tbody>

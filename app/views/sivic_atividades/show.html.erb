@@ -1,4 +1,15 @@
-<p id="notice"><%= notice %></p>
+<%if notice %>
+  <div class="alert alert-success alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+     <%= notice %>
+</div>
+<%end%>
+
+<% content_for :titlePage do %>
+  Exibir Atividades
+<% end %>
+
+<%= render 'layouts/panel' %>
 
 <p>
   <strong>Nome atividade:</strong>
@@ -12,25 +23,26 @@
 
 <p>
   <strong>Data bloqueio:</strong>
-  <%= @sivic_atividade.data_bloqueio %>
+  <%= @sivic_atividade.data_bloqueio.blank? ? '' : @sivic_atividade.data_bloqueio.strftime("%d/%m/%Y")%>
 </p>
 
-<p>
-  <strong>Data exclusao:</strong>
-  <%= @sivic_atividade.data_exclusao %>
-</p>
 
 <p>
   <strong>Sivic periodicidadeconso:</strong>
-  <%= @sivic_atividade.sivic_periodicidadecon %>
-</p>
-
-<p>
-  <strong>Sivic igreja:</strong>
-  <%= @sivic_atividade.sivic_igreja %>
+  <%= @sivic_atividade.sivic_periodicidadecon.desc_periodicidade %>
 </p>
 
 
+</div></div>
+<div class="btn-group">
 
-<%= link_to 'Edit', edit_sivic_atividade_path(@sivic_atividade) %> |
-<%= link_to 'Back', sivic_atividades_path %>
+  <%= link_to edit_sivic_atividade_path(@sivic_atividade), :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-pencil"></span> Editar
+  <% end %>
+
+
+  <%= link_to sivic_atividades_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+
+</div>
