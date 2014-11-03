@@ -165,6 +165,7 @@ SIVIC::Application.routes.draw do
   match '/criarPessoa', to: 'sivic_pessoas#create_pessoa', via: 'get'
   match '/listarPessoa', to: 'sivic_pessoas#busca_pessoa', via: 'get'
   match '/editarNome', to: 'sivic_pessoas#edita_nome', via: 'get'
+  match '/trocarigreja', to: 'sivic_pessoas#troca_igreja', via: 'get'
 
   match '/enviacontato', to: 'sivic_contatos#envia_contato', via: 'get'
 

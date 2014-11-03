@@ -3,6 +3,21 @@ class SivicPessoasController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
 
+
+  def troca_igreja
+
+    objPessoa = SivicPessoa.find_by_id(current_user.sivic_pessoa_id)
+
+    objPessoa.sivic_igreja_id = params[:id]
+    objPessoa.save
+
+
+    sivic_pessoa = SivicPessoa.find :all, :conditions => {:id =>  params[:id]}
+    sivic_pessoa_json = sivic_pessoa.map {|item| {:id => item.id, :nome_pessoa => item.nome_pessoa, :sivic_igreja_id => item.sivic_igreja_id}}
+    render :json => sivic_pessoa_json
+
+  end
+
   def edita_nome
     
     objPessoa = SivicPessoa.find_by_id(params[:id])
