@@ -60,6 +60,17 @@ class SivicInscricaosController < ApplicationController
         @User.role = "ADMINISTRADOR"
         @User.save
 
+        #Setando Permissões
+          SivicUserpermissao.create(:sivic_permissao_id => 5, :user_id => @User.id) #Manage Discípulos
+          SivicUserpermissao.create(:sivic_permissao_id => 48, :user_id => @User.id) #Manage Cadastrar Ministérios
+          SivicUserpermissao.create(:sivic_permissao_id => 49, :user_id => @User.id) #Manage Tipos de Eventos
+          SivicUserpermissao.create(:sivic_permissao_id => 15, :user_id => @User.id) #Manage Relatório de Células
+          SivicUserpermissao.create(:sivic_permissao_id => 47, :user_id => @User.id) #Manage Eventos
+          SivicUserpermissao.create(:sivic_permissao_id => 10, :user_id => @User.id) #Manage Células  
+          SivicUserpermissao.create(:sivic_permissao_id => 50, :user_id => @User.id) #Manage Redes
+          SivicUserpermissao.create(:sivic_permissao_id => 58, :user_id => @User.id) #Manage Atribuir Ministérios
+          SivicUserpermissao.create(:sivic_permissao_id => 46, :user_id => @User.id) #Manage Usuários
+          SivicUserpermissao.create(:sivic_permissao_id => 59, :user_id => @User.id) #Manage Permissão para Usuários
 
         
         format.html { redirect_to new_user_session_path, notice: 'Registro efetuado com sucesso. Por favor realize o login.' }

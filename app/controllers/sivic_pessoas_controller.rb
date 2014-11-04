@@ -1,5 +1,5 @@
 class SivicPessoasController < ApplicationController
-  before_action :set_sivic_pessoa, only: [:show, :edit, :update, :destroy]
+  before_action :set_sivic_pessoa, only: [:show, :edit, :update, :destroy, :deleta_pessoa]
   before_action :authenticate_user!
   load_and_authorize_resource
 
@@ -49,9 +49,9 @@ class SivicPessoasController < ApplicationController
   # GET /sivic_pessoas
   # GET /sivic_pessoas.json
   def index
-    #@sivic_pessoas = SivicPessoa.all
-    @sivic_pessoas = SivicPessoa.paginate(:page => params[:page], :per_page => 10)
-    
+
+     @sivic_pessoas = SivicPessoa.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id, data_exclusao: nil).paginate(:page => params[:page], :per_page => 10)     
+
   end
 
   # GET /sivic_pessoas/1
@@ -115,6 +115,20 @@ class SivicPessoasController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def deleta_pessoa
+
+     @sivic_pessoa.user_exclusao = current_user.id
+     @sivic_pessoa.data_exclusao =  Date.today
+     @sivic_pessoa.save
+    
+      respond_to do |format|
+        format.html { redirect_to sivic_pessoas_url }
+        format.json { head :no_content }
+      end
+
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

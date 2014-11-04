@@ -29,20 +29,19 @@
             <td><%= nil%></td>
           <%end%>
 
-          <td align='right'>
+         <td align='right'>
             <div class="btn-group">
-              <%= link_to sivic_pessoa, :class => "btn btn-default btn-sm" do %>
-                <span class="glyphicon glyphicon-list-alt"></span> Exibir
+              <%= link_to sivic_pessoa, :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Exibir" do %>
+                <span class="glyphicon glyphicon-list-alt"></span> 
               <% end %>             
-              <%= link_to edit_sivic_pessoa_path(sivic_pessoa), :class => "btn btn-default btn-sm" do %>
-                <span class="glyphicon glyphicon-pencil"></span> Editar
+              <%= link_to edit_sivic_pessoa_path(sivic_pessoa), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
+                <span class="glyphicon glyphicon-pencil"></span> 
               <% end %>             
-              <%= link_to sivic_pessoa , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
-                <span class="glyphicon glyphicon-trash"></span> Excluir
-              <% end %>            
+              <%= link_to deleta_pessoa_discipulo_sivic_discipulo_path(sivic_discipulo), :confirm => 'Deseja excluir o discipulo?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Excluir" do %>
+                <span class="glyphicon glyphicon-trash"></span> 
+              <% end %>             
             </div>
-          </td>
-
+         </td>
       </tr>
     <% end %>
   </tbody>
