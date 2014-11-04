@@ -161,7 +161,11 @@
           <% else %>
             <li><%= link_to "Entrar", new_user_session_path%>
           <% end %>
-          <li><a onclick="$('#myModalTransfer').modal('show');" href="javascript:return false;"><spam class='glyphicon glyphicon-transfer'></spam></a></li>          
+            <% if  current_user  %>
+              <% if current_user.id == 1 || current_user.id == 2 %>          
+                <li><a onclick="$('#myModalTransfer').modal('show');" href="javascript:return false;"><spam class='glyphicon glyphicon-transfer'></spam></a></li>          
+              <% end %>
+            <% end %>
           <li><%= link_to "<spam class='glyphicon glyphicon-home'></spam>".html_safe,    root_path %></li>
 
       </ul>      
@@ -171,7 +175,7 @@
 </nav>
 
 
-<!-- Dízimo -->
+<!-- Troca Igreja -->
 <div class="modal fade" id="myModalTransfer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -180,12 +184,11 @@
         <h4 class="modal-title" id="myModalLabel">Navegar Entre Igrejas</h4>
       </div>
       <div class="modal-body">
-        <div id = "alert_placeholder_dizimo"></div>  
         <div class="row">     
 
           <div class="col-xs-12">
-              <label for="sivic_pessoa_dizimo_nome">Igreja</label>
-              <%=  fields_for :sivic_igrejas do |f| %>
+              <label>Igreja</label>
+              <%=  fields_for :trocaigreja do |f| %>
                 <%= f.select :sivic_igreja_id, options_from_collection_for_select(SivicIgreja.all, 'id', 'NOME_igreja'),{:include_blank => true},{ :class =>  'form-control'}%>
               <% end %>          
           </div>           
@@ -213,7 +216,7 @@
         url: '<%= trocarigreja_path %>',
         data : {
 
-          id : $('#sivic_igrejas_sivic_igreja_id').val()
+          id : $('#trocaigreja_sivic_igreja_id').val()
 
         },
         success: function(data){

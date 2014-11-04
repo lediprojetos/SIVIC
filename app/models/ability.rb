@@ -19,7 +19,7 @@ class Ability
      
      #Permissões Leandro e Diel
      #=======================
-      can :manage, :all
+      #can :manage, :all
      #=======================
 
      @sivic_permissaos = SivicUserpermissao.where(:user_id => user.id)
@@ -274,7 +274,15 @@ class Ability
           can :manage, SivicRelatorioscelula
           can :manage, SivicSitpartcelula
         end        
-      end          
+      end
+
+      #SivicRelatorioscelula
+      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicUserpermissao'
+
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :manage, SivicUserpermissao
+        end        
+      end                
 
     end
 
