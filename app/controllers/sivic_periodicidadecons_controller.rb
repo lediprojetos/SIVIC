@@ -28,7 +28,7 @@ class SivicPeriodicidadeconsController < ApplicationController
 
     respond_to do |format|
       if @sivic_periodicidadecon.save
-        format.html { redirect_to @sivic_periodicidadecon, notice: 'Sivic periodicidadecon was successfully created.' }
+        format.html { redirect_to @sivic_periodicidadecon, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_periodicidadecon }
       else
         format.html { render action: 'new' }
@@ -42,7 +42,7 @@ class SivicPeriodicidadeconsController < ApplicationController
   def update
     respond_to do |format|
       if @sivic_periodicidadecon.update(sivic_periodicidadecon_params)
-        format.html { redirect_to @sivic_periodicidadecon, notice: 'Sivic periodicidadecon was successfully updated.' }
+        format.html { redirect_to @sivic_periodicidadecon, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

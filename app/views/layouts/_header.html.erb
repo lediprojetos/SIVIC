@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -125,14 +126,18 @@
             </ul>
         </li>
 
+        <!--
+
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Consolidação <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><%= link_to 'Cadastro de Atividades', sivic_atividades_path%> </li>
-              <li><%= link_to 'Cadastro de Periodicidade', sivic_periodicidadecons_path%> </li>
-              <li><%= link_to 'Cadastro de Atividade Pessoas', sivic_atividadepessoas_path%> </li>
+              <li><%#= link_to 'Cadastro de Atividades', sivic_atividades_path%> </li>
+              <li><%#= link_to 'Cadastro de Periodicidade', sivic_periodicidadecons_path%> </li>
+              <li><%#= link_to 'Cadastro de Atividade Pessoas', sivic_atividadepessoas_path%> </li>
             </ul>
         </li>
+
+      -->
 
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relatórios <b class="caret"></b></a>
@@ -151,9 +156,67 @@
           <% else %>
             <li><%= link_to "Entrar", new_user_session_path%>
           <% end %>
+          <li><a onclick="$('#myModalTransfer').modal('show');" href="javascript:return false;"><spam class='glyphicon glyphicon-transfer'></spam></a></li>          
           <li><%= link_to "<spam class='glyphicon glyphicon-home'></spam>".html_safe,    root_path %></li>
+
       </ul>      
 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+
+<!-- Dízimo -->
+<div class="modal fade" id="myModalTransfer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+        <h4 class="modal-title" id="myModalLabel">Navegar Entre Igrejas</h4>
+      </div>
+      <div class="modal-body">
+        <div id = "alert_placeholder_dizimo"></div>  
+        <div class="row">     
+
+          <div class="col-xs-12">
+              <label for="sivic_pessoa_dizimo_nome">Igreja</label>
+              <%=  fields_for :sivic_igrejas do |f| %>
+                <%= f.select :sivic_igreja_id, options_from_collection_for_select(SivicIgreja.all, 'id', 'NOME_igreja'),{:include_blank => true},{ :class =>  'form-control'}%>
+              <% end %>          
+          </div>           
+
+        </div>      
+      
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button id="bntSalvar" type="button" class="btn btn-primary" onclick="salvarigreja();">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<script>
+
+  function salvarigreja(){
+
+
+      $.ajax({
+        url: '<%= trocarigreja_path %>',
+        data : {
+
+          id : $('#sivic_igrejas_sivic_igreja_id').val()
+
+        },
+        success: function(data){
+
+          location.reload();
+          
+        }
+      })
+    }
+
+</script>
