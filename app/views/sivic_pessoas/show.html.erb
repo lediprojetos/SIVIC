@@ -8,33 +8,23 @@
 
 
 <div class="containermininmo">
-  <table class="table table-hover" >
-    <tr>
-      <td>
+    <p>
         <strong>Codigo:</strong>
         <%= @sivic_pessoa.numr_codigo %>
-      </td>
-    </tr>
-    <tr>
-      <td>
+    </p>
+    <p>
         <strong>Nome:</strong>
         <%= @sivic_pessoa.nome_pessoa %>
-      </td>
-    </tr>
-    <tr>      
-      <td>
+    </p>    
+    <p>
         <strong>Email:</strong>
         <%= @sivic_pessoa.DESC_email %>
-      </td>
-    </tr>
-    <tr>      
-      <td>
+    </p>   
+    <p>
         <strong>Observação:</strong>
         <%= @sivic_pessoa.DESC_observacao %>
-      </td>
-    </tr>
-    <tr>
-      <td>
+    </p>    
+    <p>
         <strong>Lider:</strong>
         <% @lider = @sivic_pessoa.father %>
         <% if @lider != nil %>
@@ -42,34 +32,21 @@
         <%else%>
             <%= nil%>
         <%end%>
-      </td>
-    </tr>
-    <tr>      
-      <td>
-        <strong>Operador de Inclusão:</strong>
-        <%= User.find_by_id(@sivic_pessoa.User_id).email %>
-      </td>
-    </tr>
-
-  </table>
+    </p>    
+   </div>
+ </div>
 </div>
 
-</div></div>
-<table style="margin-top:10px;"> 
-  <tr>
-    <td align="center" style="width:50px;">
-      <%= link_to image_tag('edit.png', title: 'Editar', class: 'exibirico') , edit_sivic_pessoa_path(@sivic_pessoa) %>
-    </td>
-    <td align="center" style="width:20px;">
-      <%= link_to image_tag('back.png', title: 'Voltar',class: 'exibirico') , sivic_pessoas_path %>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" style="width:20px;">
-      <label class="altBotoes">Editar</label>
-    </td>
-    <td align="center" style="width:20px;">
-      <label class="altBotoes">Voltar</label>
-    </td>
-  </tr> 
-</table>
+<div class="btn-group">
+
+  <%= link_to edit_sivic_pessoa_path(@sivic_pessoa), :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-pencil"></span> Editar
+  <% end %>
+
+
+  <%= link_to sivic_pessoas_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+
+</div>
+

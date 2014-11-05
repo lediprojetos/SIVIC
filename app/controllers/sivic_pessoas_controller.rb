@@ -49,9 +49,9 @@ class SivicPessoasController < ApplicationController
   # GET /sivic_pessoas
   # GET /sivic_pessoas.json
   def index
-
-     @sivic_pessoas = SivicPessoa.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id, data_exclusao: nil).paginate(:page => params[:page], :per_page => 10)     
-
+     #@sivic_pessoas = SivicPessoa.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id, data_exclusao: nil).paginate(:page => params[:page], :per_page => 10)   
+     @sivic_pessoas = SivicPessoa.find_by_name_pessoa_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10) 
+     #@sivic_discipulos = SivicDiscipulo.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /sivic_pessoas/1

@@ -111,7 +111,13 @@ SIVIC::Application.routes.draw do
   resources :sivic_celulas
   resources :sivic_escolaridades
   resources :sivic_ministerios
-  resources :sivic_pessoas
+
+  resources :sivic_pessoas do
+    member do
+      get :deleta_pessoa   
+    end
+  end
+  
   resources :sivic_eventos
   resources :sivic_tipo_eventos
   resources :sivic_redes

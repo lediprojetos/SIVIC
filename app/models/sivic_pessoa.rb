@@ -38,15 +38,24 @@ end
 #metodo para setar discipulo como consolidador quando tiver uma pessoa cadastrada debaixo dele
 
 
-  def self.find_by_name_or_all(query,sivic_igreja_id)
-    
+def self.find_by_name_or_all(query,sivic_igreja_id)
     if query
       query = query.downcase
       User.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('lower(sp.NOME_pessoa) like ? and sp.sivic_igreja_id = ? and sp.data_exclusao is null', "%#{query}%", sivic_igreja_id).order('NOME_pessoa')
     else
       User.joins('INNER JOIN sivic_pessoas sp on sp.id = sivic_pessoa_id').where('sp.sivic_igreja_id = ? and sp.user_exclusao is null',sivic_igreja_id).order('NOME_pessoa')
     end    
-  end
+end
+
+def self.find_by_name_pessoa_or_all(query,sivic_igreja_id)      
+      if query
+        query = query.downcase
+        SivicPessoa.where('lower(nome_pessoa) like ? and sivic_igreja_id = ? and data_exclusao is null', "%#{query}%", sivic_igreja_id).order('nome_pessoa')
+      else
+        SivicPessoa.where('sivic_igreja_id = ? and user_exclusao is null',sivic_igreja_id).order('nome_pessoa')
+      end    
+end
+
 
 
   def setaParaConsolidador  
