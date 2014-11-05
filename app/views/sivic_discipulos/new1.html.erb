@@ -1,0 +1,26 @@
+<%= render 'form' %>
+
+
+<script>
+
+function carregadados(){
+
+      $('#sivic_discipulo_sivic_pessoa_id').val('<%= @sivic_pessoa_evolucao.id %>')
+      $('#sivic_discipulo_sivic_pessoa_attributes_nome_pessoa').val('<%= @sivic_pessoa_evolucao.nome_pessoa %>')
+      $('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').val('<%= @sivic_pessoa_evolucao.DESC_email%>')
+      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty();
+      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html('<option>Carregando...</option>');
+
+      var options = "<option value='"+idlider+"'>"+nomelider+"</option>";
+      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html(options);
+
+      $('#myModal').modal('hide');
+
+
+
+
+  }
+
+ carregadados()
+
+ </script>

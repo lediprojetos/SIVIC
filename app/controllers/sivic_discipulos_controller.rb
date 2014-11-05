@@ -236,7 +236,6 @@ end
   # GET /sivic_discipulos
   # GET /sivic_discipulos.json
   def index
-  
     @sivic_discipulos = SivicDiscipulo.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
   
   end
@@ -275,10 +274,29 @@ end
     @sivic_discipulo = SivicDiscipulo.new
     @sivic_discipulo.build_sivic_pessoa
     @sivic_discipulo.build_sivic_endereco
+
+    if params[:id]
+      @sivic_pessoa_evolucao = SivicPessoa.find(params[:id])
+    end
+
+  end
+
+  def new1
+  
+    @sivic_discipulo = SivicDiscipulo.new
+    @sivic_discipulo.build_sivic_pessoa
+    @sivic_discipulo.build_sivic_endereco
+
+    if params[:id]
+      @sivic_pessoa_evolucao = SivicPessoa.find(params[:id])
+    end
+
   end
 
   # GET /sivic_discipulos/1/edit
   def edit
+
+   debugger
 
     @sivic_estado = SivicDiscipulo.find(params[:id])
     @sivic_estado = @sivic_estado.sivic_endereco.sivic_cidade.sivic_estado.id

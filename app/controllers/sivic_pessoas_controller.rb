@@ -117,18 +117,15 @@ class SivicPessoasController < ApplicationController
   end
 
   def deleta_pessoa
-
      @sivic_pessoa.user_exclusao = current_user.id
      @sivic_pessoa.data_exclusao =  Date.today
      @sivic_pessoa.save
     
       respond_to do |format|
-        format.html { redirect_to sivic_pessoas_url }
+        format.html { redirect_to sivic_discipulos_url }
         format.json { head :no_content }
       end
-
   end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.
