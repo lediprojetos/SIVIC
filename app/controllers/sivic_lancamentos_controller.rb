@@ -1,5 +1,6 @@
 class SivicLancamentosController < ApplicationController
   before_action :set_sivic_lancamento, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
 include ActionView::Helpers::NumberHelper
 

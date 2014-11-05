@@ -52,51 +52,61 @@ Contas a Pagar
 
         <%if sivic_lancamento.sivic_tipmovfinanceiro_id == 2%>
         <td align='right'>
-          <%if sivic_lancamento.sivic_category_id != 1%>
-            <a class="btn btn-default btn-sm" onclick="pagaRecebe(<%= sivic_lancamento.id %>,<%=sivic_lancamento.flag_pago == true ? '0' : '1'%>)" rel="tooltip" title="<%=sivic_lancamento.flag_pago == true ? 'Desfazer Recebimento' : 'Receber'%>">
-                <span class="<%=sivic_lancamento.flag_pago == true ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-ok'%>"></span>
-            </a>
+          <% if can? :manage, SivicLancamento or can? :update, SivicLancamento%>
+            <%if sivic_lancamento.sivic_category_id != 1%>
+              <a class="btn btn-default btn-sm" onclick="pagaRecebe(<%= sivic_lancamento.id %>,<%=sivic_lancamento.flag_pago == true ? '0' : '1'%>)" rel="tooltip" title="<%=sivic_lancamento.flag_pago == true ? 'Desfazer Recebimento' : 'Receber'%>">
+                  <span class="<%=sivic_lancamento.flag_pago == true ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-ok'%>"></span>
+              </a>
+            <%end%>
+            <%if sivic_lancamento.sivic_category_id == 1%>
+              <a class="btn btn-default btn-sm" onclick="buscaDizimo(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
+                  <span class="glyphicon glyphicon-pencil"></span>
+              </a>            
+            <%else%>            
+              <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
+                  <span class="glyphicon glyphicon-pencil"></span>
+              </a>          
+            <%end%> 
           <%end%>
-          <%if sivic_lancamento.sivic_category_id == 1%>
-            <a class="btn btn-default btn-sm" onclick="buscaDizimo(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </a>            
-          <%else%>            
-            <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </a>          
-          <%end%> 
-            </a>            
+          <% if can? :manage, SivicLancamento or can? :destroy, SivicLancamento%> 
             <a class="btn btn-default btn-sm" onclick="var answer = confirm('Deseja excluir o lançamento?');if(answer){ excluiLancamento(<%= sivic_lancamento.id %>);}else{ false;};" rel="tooltip" title="Excluir">
                 <span class="glyphicon glyphicon-trash"></span>
             </a>            
+          <%end%>
         </td>
 
         <%elsif sivic_lancamento.sivic_tipmovfinanceiro_id == 1%>
         <td align='right'>
+          <% if can? :manage, SivicLancamento or can? :update, SivicLancamento%>
             <a class="btn btn-default btn-sm" onclick="pagaRecebe(<%= sivic_lancamento.id %>,<%=sivic_lancamento.flag_pago == true ? '0' : '1'%>)" rel="tooltip" title="<%=sivic_lancamento.flag_pago == true ? 'Desfazer Pagamento' : 'Pagar'%>">
                 <span class="<%=sivic_lancamento.flag_pago == true ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-ok'%>"></span>
             </a>
             <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
                 <span class="glyphicon glyphicon-pencil"></span>
-            </a>            
+            </a>
+          <%end%>
+          <% if can? :manage, SivicLancamento or can? :destroy, SivicLancamento%>             
             <a class="btn btn-default btn-sm" onclick="var answer = confirm('Deseja excluir o lançamento?');if(answer){ excluiLancamento(<%= sivic_lancamento.id %>);}else{ false;};" rel="tooltip" title="Excluir">
                 <span class="glyphicon glyphicon-trash"></span>
             </a>
+          <%end%>
         </td>
 
         <%elsif sivic_lancamento.sivic_tipmovfinanceiro_id == 3%>
         <td align='right'>
-
-              <a class="btn btn-default btn-sm" rel="tooltip" title="Conta: <%=sivic_lancamento.sivic_contabanco.nome_conta%>">
-                  <span class="glyphicon glyphicon-tag"></span>
-              </a>           
-            <a class="btn btn-default btn-sm" onclick="buscaTransferencia(<%= sivic_lancamento.codi_parcela %>);" rel="tooltip" title="Alterar">
-                <span class="glyphicon glyphicon-pencil"></span>
-            </a>            
-            <a class="btn btn-default btn-sm" onclick="var answer = confirm('Deseja excluir o lançamento?');if(answer){ excluiTransferencia(<%= sivic_lancamento.id %>);}else{ false;};" rel="tooltip" title="Excluir">
-                <span class="glyphicon glyphicon-trash"></span>
+            <a class="btn btn-default btn-sm" rel="tooltip" title="Conta: <%=sivic_lancamento.sivic_contabanco.nome_conta%>">
+                <span class="glyphicon glyphicon-tag"></span>
             </a>
+            <% if can? :manage, SivicLancamento or can? :update, SivicLancamento%>           
+              <a class="btn btn-default btn-sm" onclick="buscaTransferencia(<%= sivic_lancamento.codi_parcela %>);" rel="tooltip" title="Alterar">
+                  <span class="glyphicon glyphicon-pencil"></span>
+              </a>
+            <%end%>
+            <% if can? :manage, SivicLancamento or can? :destroy, SivicLancamento%>            
+              <a class="btn btn-default btn-sm" onclick="var answer = confirm('Deseja excluir o lançamento?');if(answer){ excluiTransferencia(<%= sivic_lancamento.id %>);}else{ false;};" rel="tooltip" title="Excluir">
+                  <span class="glyphicon glyphicon-trash"></span>
+              </a>
+            <%end%>
         </td>
 
         <%end%>

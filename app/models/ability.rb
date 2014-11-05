@@ -281,11 +281,122 @@ class Ability
 
         if permissao.sivic_permissao.mumr_acao == 1
           can :manage, SivicUserpermissao
+        end 
+
+      end
+
+      #SivicBancos
+      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicBanco'
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :create, SivicBanco
+        end
+        if permissao.sivic_permissao.mumr_acao
+          can :read, SivicBanco
+        end
+        if permissao.sivic_permissao.mumr_acao == 3
+          can :update, SivicBanco
+        end
+        if permissao.sivic_permissao.mumr_acao == 4
+          can :destroy, SivicBanco
+        end
+        if permissao.sivic_permissao.mumr_acao == 5
+          can :manage, SivicBanco
         end        
-      end                
+      end                      
 
-    end
+      #SivicContabanco
+      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicContabanco'
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :create, SivicContabanco
+        end
+        if permissao.sivic_permissao.mumr_acao
+          can :read, SivicContabanco
+        end
+        if permissao.sivic_permissao.mumr_acao == 3
+          can :update, SivicContabanco
+        end
+        if permissao.sivic_permissao.mumr_acao == 4
+          can :destroy, SivicContabanco
+        end
+        if permissao.sivic_permissao.mumr_acao == 5
+          can :manage, SivicContabanco
+        end        
+      end                      
 
+      #SivicFornecedor
+      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicFornecedor'
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :create, SivicFornecedor
+        end
+        if permissao.sivic_permissao.mumr_acao
+          can :read, SivicFornecedor
+        end
+        if permissao.sivic_permissao.mumr_acao == 3
+          can :update, SivicFornecedor
+        end
+        if permissao.sivic_permissao.mumr_acao == 4
+          can :destroy, SivicFornecedor
+        end
+        if permissao.sivic_permissao.mumr_acao == 5
+          can :manage, SivicFornecedor
+        end        
+      end
+
+      #SivicCategory
+      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicCategory'
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :create, SivicCategory
+        end
+        if permissao.sivic_permissao.mumr_acao
+          can :read, SivicCategory
+        end
+        if permissao.sivic_permissao.mumr_acao == 3
+          can :update, SivicCategory
+        end
+        if permissao.sivic_permissao.mumr_acao == 4
+          can :destroy, SivicCategory
+        end
+        if permissao.sivic_permissao.mumr_acao == 5
+          can :manage, SivicCategory
+        end        
+      end
+
+      #SivicLancamento
+      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicLancamento'
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :create, SivicLancamento
+          can :create_dizimo, SivicLancamento
+          can :create_transferencia, SivicLancamento
+          can :create_pagamento, SivicLancamento
+        end
+        if permissao.sivic_permissao.mumr_acao
+          can :read, SivicLancamento
+          can :extrato, SivicLancamento
+          can :contasapagar, SivicLancamento
+          can :contasareceber, SivicLancamento
+          can :busca_dizimo, SivicLancamento
+          can :busca_transferencia, SivicLancamento
+          can :seta_periodo, SivicLancamento
+          can :busca_lancamento, SivicLancamento
+        end
+        if permissao.sivic_permissao.mumr_acao == 3
+          can :update, SivicLancamento
+          can :edita_dizimo, SivicLancamento
+          can :edita_transferencia, SivicLancamento
+          can :edita_pagaRecebe, SivicLancamento
+          can :edita_pagamento, SivicLancamento
+        end
+        if permissao.sivic_permissao.mumr_acao == 4
+          can :destroy, SivicLancamento
+          can :deleta_transferencia, SivicLancamento
+          can :deleta_lancamento, SivicLancamento
+        end
+        if permissao.sivic_permissao.mumr_acao == 5
+          can :manage, SivicLancamento
+        end        
+      end                               
+
+    end    
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
   end

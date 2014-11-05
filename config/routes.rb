@@ -117,7 +117,7 @@ SIVIC::Application.routes.draw do
 
   resources :sivic_pessoas do
     member do
-      get :deleta_pessoa   
+      get :deleta_pessoa
     end
   end
   

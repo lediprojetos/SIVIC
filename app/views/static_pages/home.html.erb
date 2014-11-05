@@ -35,37 +35,40 @@
     </div>
 
 
+    <% if user_signed_in? %>
+        <% if can? :read, SivicLancamento %>
+            <div class="col-md-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">Resumo Financeiro do Mês
+                        <a class="btn btn-primary btn-xs pull-right" href="/extrato">Fluxo de Caixa</a>
+                    </div>
 
-    <div class="col-md-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">Resumo Financeiro do Mês
-                <a class="btn btn-primary btn-xs pull-right" href="/extrato">Fluxo de Caixa</a>
+                    <table class="table">
+                        <tr>
+                            <td class="col-md-8"><b>Total de Receitas(R$)</b></td>
+                            <td class="col-md-4"><b><spam style="color: rgb(74, 186, 88);"><%= number_to_currency(@total_recebimento, unit: "R$", separator: ",", delimiter: ".") %></spam></b></td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-8">Total de Despesas(R$)</td>
+                            <td class="col-md-4"><spam style="color: rgb(211, 47, 47);"><%= number_to_currency(@total_pagamento, unit: "R$", separator: ",", delimiter: ".") %></spam></td>
+                        </tr>
+                        <tr>
+                            <td>Total do Período(R$)</td>
+                            <td>          
+                                <%if # => @total_periodo < 0%>
+                                <label style='color: rgb(211, 47, 47);'>
+                                <%elsif @total_periodo >= 0%>
+                                <label style='color: rgb(56, 90, 122);'>
+                                <%end%>        
+                                <%= number_to_currency(@total_periodo, unit: "R$", separator: ",", delimiter: ".") %>
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-
-            <table class="table">
-                <tr>
-                    <td class="col-md-8"><b>Total de Receitas(R$)</b></td>
-                    <td class="col-md-4"><b><spam style="color: rgb(74, 186, 88);"><%= number_to_currency(@total_recebimento, unit: "R$", separator: ",", delimiter: ".") %></spam></b></td>
-                </tr>
-                <tr>
-                    <td class="col-md-8">Total de Despesas(R$)</td>
-                    <td class="col-md-4"><spam style="color: rgb(211, 47, 47);"><%= number_to_currency(@total_pagamento, unit: "R$", separator: ",", delimiter: ".") %></spam></td>
-                </tr>
-                <tr>
-                    <td>Total do Período(R$)</td>
-                    <td>          
-                        <%if # => @total_periodo < 0%>
-                        <label style='color: rgb(211, 47, 47);'>
-                        <%elsif @total_periodo >= 0%>
-                        <label style='color: rgb(56, 90, 122);'>
-                        <%end%>        
-                        <%= number_to_currency(@total_periodo, unit: "R$", separator: ",", delimiter: ".") %>
-                        </label>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
+        <%end%>
+    <%end%>
 
 <!--
 

@@ -1,5 +1,5 @@
 class SivicPessoasController < ApplicationController
-  before_action :set_sivic_pessoa, only: [:show, :edit, :update, :destroy, :deleta_pessoa]
+  before_action :set_sivic_pessoa, only: [:show, :edit, :update, :destroy, :deleta_pessoa, :edita_nome]
   before_action :authenticate_user!
   load_and_authorize_resource
 
@@ -19,16 +19,15 @@ class SivicPessoasController < ApplicationController
   end
 
   def edita_nome
-    
-    objPessoa = SivicPessoa.find_by_id(params[:id])
 
-    objPessoa.nome_pessoa = params[:nome_novo]
-    objPessoa.save
+    @sivic_pessoa.nome_pessoa = params[:nome_novo]
+    @sivic_pessoa.save
 
 
     sivic_pessoa = SivicPessoa.find :all, :conditions => {:id =>  params[:id]}
     sivic_pessoa_json = sivic_pessoa.map {|item| {:id => item.id, :nome_pessoa => item.nome_pessoa, :DESC_email => item.DESC_email}}
     render :json => sivic_pessoa_json
+
   end
 
   def create_pessoa
@@ -131,6 +130,12 @@ class SivicPessoasController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_sivic_pessoa
       @sivic_pessoa = SivicPessoa.find(params[:id])
+
+      if @sivic_pessoa.sivic_igreja_id != current_user.sivic_pessoa.sivic_igreja_id
+        #flash[:notice] = "Desculpe-nos. Ocorreu um problema na requisição."
+        redirect_to root_url
+      end
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
