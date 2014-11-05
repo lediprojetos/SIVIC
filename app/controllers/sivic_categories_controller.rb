@@ -1,5 +1,6 @@
 class SivicCategoriesController < ApplicationController
   before_action :set_sivic_category, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /sivic_categories
   # GET /sivic_categories.json

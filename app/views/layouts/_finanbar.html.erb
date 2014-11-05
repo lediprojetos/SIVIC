@@ -18,7 +18,9 @@
   <div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav">
       <li class="dropdown">
+        <% if can? :manage, SivicLancamento or can? :create, SivicLancamento%>
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Novo <b class="caret"></b></a>
+        <%end%>
         <ul class="dropdown-menu">
           <li><a onclick="chamaModal('R')" href="javascript:return false;">Nova Receita</a></li>
           <li><a onclick="chamaModal('D')" href="javascript:return false;">Nova Despesa</a></li>

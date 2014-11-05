@@ -428,6 +428,12 @@ end
     # Use callbacks to share common setup or constraints between actions.
     def set_sivic_discipulo
       @sivic_discipulo = SivicDiscipulo.find(params[:id])
+
+      if @sivic_discipulo.sivic_pessoa.sivic_igreja_id != current_user.sivic_pessoa.sivic_igreja_id
+        flash[:notice] = "Desculpe-nos. Ocorreu um problema na requisição."
+        redirect_to root_url
+      end
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,5 +1,6 @@
 class SivicFornecedorsController < ApplicationController
   before_action :set_sivic_fornecedor, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /sivic_fornecedors
   # GET /sivic_fornecedors.json

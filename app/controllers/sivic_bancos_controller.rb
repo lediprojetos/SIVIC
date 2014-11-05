@@ -1,5 +1,6 @@
 class SivicBancosController < ApplicationController
   before_action :set_sivic_banco, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /sivic_bancos
   # GET /sivic_bancos.json
