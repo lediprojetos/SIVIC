@@ -275,10 +275,6 @@ end
     @sivic_discipulo.build_sivic_pessoa
     @sivic_discipulo.build_sivic_endereco
 
-    if params[:id]
-      @sivic_pessoa_evolucao = SivicPessoa.find(params[:id])
-    end
-
   end
 
   def new1

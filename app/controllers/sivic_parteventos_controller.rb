@@ -64,6 +64,7 @@ end
       count = 0
       @sivic_partevento.each do |pat|
 
+       debugger  
          @sivic_partevento[count].sivic_pessoa.nome_discipulador = busca_lider_geracao(@sivic_partevento[count].sivic_pessoa.id).sivic_pessoa.nome_pessoa
 
          count = count + 1
@@ -248,14 +249,15 @@ end
 
   def busca_participante_convidou(id_evento,id_pessoa)
 
-       @sivic_partevento = SivicPartevento.where(sivic_evento_id: id_evento, sivic_pessoa_id: id_pessoa)
+      @sivic_partevento = SivicPartevento.where(sivic_evento_id: id_evento, sivic_pessoa_id: id_pessoa)
        return @sivic_partevento
   end
 
 
   def busca_lider_geracao(id_pessoa)
 
-  loop do   
+  loop do
+    debugger
     @sivic_pessoa = SivicPessoa.find(id_pessoa)    
     @sivic_discipulo = SivicDiscipulo.find_by sivic_pessoa_id: id_pessoa 
 
@@ -269,6 +271,7 @@ end
        id_pessoa = @sivic_pessoa.father_id  
    end
    end   
+
 
    return @sivic_discipulo
 

@@ -2,8 +2,10 @@
   Listar Discípulos
 <% end %>
 
+<div id = "alert_placeholder_discipulo"></div>
 
 <%=render '/layouts/panel' %>
+
 
 <%= form_tag nil, method: 'GET' do %>
   <label >Nome</label><br>
@@ -59,9 +61,11 @@
           </td> 
           <%else%>
           <td align='right'>
-              <%= link_to sivic_pessoa, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
-                <span class="glyphicon glyphicon-list-alt"></span>
-              <% end %>             
+
+            <a class="btn btn-default btn-sm" title="" rel="tooltip" onclick="alert_boot('Não existe dados suficientes para exibir, favor evoluir cadastro clicando Editar.','warning','#alert_placeholder_discipulo');" data-original-title="Excluir">
+                <span class="glyphicon glyphicon-list-alt" rel="tooltip"></span>
+            </a> 
+
               <%= link_to new1_sivic_discipulo_path(sivic_pessoa), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
                 <span class="glyphicon glyphicon-pencil"></span>
               <% end %>             
@@ -70,7 +74,6 @@
                 <% end %>  
           </td> 
         <%end%>
-
                   
         </tr>
       <% end %>
@@ -94,5 +97,12 @@
 $(function(){
   $("a[rel='tooltip']").tooltip();
 })
+
+
+function alert_boot(message,color,place) {
+
+  $(place).html('<div class="alert alert-'+color+'" role="alert">'+message+'<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> </div>')
+}
+
 
 </script>

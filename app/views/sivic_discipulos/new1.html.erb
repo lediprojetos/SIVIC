@@ -1,26 +1,26 @@
 <%= render 'form' %>
 
-
 <script>
 
 function carregadados(){
-
+      var nome_lider = ""
       $('#sivic_discipulo_sivic_pessoa_id').val('<%= @sivic_pessoa_evolucao.id %>')
       $('#sivic_discipulo_sivic_pessoa_attributes_nome_pessoa').val('<%= @sivic_pessoa_evolucao.nome_pessoa %>')
       $('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').val('<%= @sivic_pessoa_evolucao.DESC_email%>')
-      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty();
-      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html('<option>Carregando...</option>');
+      
 
-      var options = "<option value='"+idlider+"'>"+nomelider+"</option>";
-      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html(options);
+      nome_lider = '<%= @sivic_pessoa_evolucao.father.nome_pessoa%>'
 
-      $('#myModal').modal('hide');
+      if (nome_lider = ""){ 	
+          $('#nome_lider').val('nome_lider')
+      }
 
+      
 
+      $('#sivic_discipulo_sivic_pessoa_attributes_father_id').val('<%= @sivic_pessoa_evolucao.father.id%>');
+      
+   }
 
-
-  }
-
- carregadados()
+ 	carregadados()
 
  </script>
