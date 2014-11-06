@@ -102,6 +102,9 @@ SIVIC::Application.routes.draw do
     member do
       get :deleta_pessoa_discipulo
     end
+     member do
+      get :new1
+    end
   end
 
   resources :sivic_movimentofinanceiros 

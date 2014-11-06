@@ -7,6 +7,7 @@ class SivicPessoa < ActiveRecord::Base
   has_many   :sivic_celula
   has_many   :User
   has_one    :sivic_professor
+  has_one    :sivic_discipulo
   has_many   :sivic_partevento
 
   has_many :children, :class_name => "SivicPessoa", :foreign_key => "father_id"

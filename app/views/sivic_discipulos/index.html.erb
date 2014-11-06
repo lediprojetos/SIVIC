@@ -2,8 +2,10 @@
   Listar Discípulos
 <% end %>
 
+<div id = "alert_placeholder_discipulo"></div>
 
 <%=render '/layouts/panel' %>
+
 
 <%= form_tag nil, method: 'GET' do %>
   <label >Nome</label><br>
@@ -32,24 +34,46 @@
     </thead>
 
     <tbody>
-      <% @sivic_discipulos.each do |sivic_discipulo| %>
+      <% @sivic_discipulos.each do |sivic_pessoa| %>
         <tr>
-          <td><%= sivic_discipulo.sivic_pessoa.nome_pessoa %></td>
-          <td><%= sivic_discipulo.data_nascimento.blank? ? '' : sivic_discipulo.data_nascimento.strftime("%d/%m/%Y")  %></td>
-          <td><%= sivic_discipulo.NUMR_CPF %></td>
-          <td><%= sivic_discipulo.data_batismo.blank? ? '' : sivic_discipulo.data_batismo.strftime("%d/%m/%Y")  %></td>
+          <td><%= sivic_pessoa.nome_pessoa %></td>
+          <% if sivic_pessoa.sivic_discipulo %></td>
+            <td><%= sivic_pessoa.sivic_discipulo.data_nascimento.blank? ? '' : sivic_pessoa.sivic_discipulo.data_nascimento.strftime("%d/%m/%Y")  %></td>
+            <td><%= sivic_pessoa.sivic_discipulo.NUMR_CPF %></td>
+            <td><%= sivic_pessoa.sivic_discipulo.data_batismo.blank? ? '' : sivic_pessoa.sivic_discipulo.data_batismo.strftime("%d/%m/%Y")  %></td>
+          <%else%>
+            <td></td>
+            <td></td>
+            <td></td>
+         <%end%>
 
-        <td align='right'>
-            <%= link_to sivic_discipulo, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
-              <span class="glyphicon glyphicon-list-alt"></span>
-            <% end %>             
-            <%= link_to edit_sivic_discipulo_path(sivic_discipulo), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
-              <span class="glyphicon glyphicon-pencil"></span>
-            <% end %>             
-             <%= link_to deleta_pessoa_discipulo_sivic_discipulo_path(sivic_discipulo), :confirm => 'Deseja excluir o discipulo?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Excluir" do %>
-                <span class="glyphicon glyphicon-trash"></span> 
-              <% end %>  
-        </td> 
+        <%if sivic_pessoa.sivic_discipulo %>
+          <td align='right'>
+              <%= link_to sivic_pessoa.sivic_discipulo, :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Exibir" do %>
+                <span class="glyphicon glyphicon-list-alt"></span>
+              <% end %>             
+              <%= link_to edit_sivic_discipulo_path(sivic_pessoa.sivic_discipulo.id), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
+                <span class="glyphicon glyphicon-pencil"></span>
+              <% end %>             
+               <%= link_to deleta_pessoa_sivic_pessoa_path(sivic_pessoa), :confirm => 'Deseja excluir o discipulo?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Excluir" do %>
+                  <span class="glyphicon glyphicon-trash"></span> 
+                <% end %>  
+          </td> 
+          <%else%>
+          <td align='right'>
+
+            <a class="btn btn-default btn-sm" title="" rel="tooltip" onclick="alert_boot('Não existe dados suficientes para exibir, favor evoluir cadastro clicando Editar.','warning','#alert_placeholder_discipulo');" data-original-title="Excluir">
+                <span class="glyphicon glyphicon-list-alt" rel="tooltip"></span>
+            </a> 
+
+              <%= link_to new1_sivic_discipulo_path(sivic_pessoa), :class => "btn btn-default btn-sm", :rel=>"tooltip", :title=>"Editar" do %>
+                <span class="glyphicon glyphicon-pencil"></span>
+              <% end %>             
+               <%= link_to deleta_pessoa_sivic_pessoa_path(sivic_pessoa), :confirm => 'Deseja excluir o discipulo?', :class => "btn btn-default btn-sm" , :rel=>"tooltip", :title=>"Excluir" do %>
+                  <span class="glyphicon glyphicon-trash"></span> 
+                <% end %>  
+          </td> 
+        <%end%>
                   
         </tr>
       <% end %>
@@ -73,5 +97,12 @@
 $(function(){
   $("a[rel='tooltip']").tooltip();
 })
+
+
+function alert_boot(message,color,place) {
+
+  $(place).html('<div class="alert alert-'+color+'" role="alert">'+message+'<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> </div>')
+}
+
 
 </script>
