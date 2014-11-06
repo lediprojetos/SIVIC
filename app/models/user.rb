@@ -14,6 +14,6 @@ class User < ActiveRecord::Base
    
    
    #Perfis de Permissão
-  ROLES = %w[ADMINISTRADOR LIDER_DE_CELULAS LIDER_DE_GERACAO ADMIN]
+  ROLES = %w[ADMINISTRADOR LIDER_DE_CELULAS LIDER_DE_GERACAO]
 
 end

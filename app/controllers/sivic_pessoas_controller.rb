@@ -1,3 +1,4 @@
+#encoding: utf-8
 class SivicPessoasController < ApplicationController
   before_action :set_sivic_pessoa, only: [:show, :edit, :update, :destroy, :deleta_pessoa, :edita_nome]
   before_action :authenticate_user!
@@ -135,7 +136,7 @@ class SivicPessoasController < ApplicationController
       @sivic_pessoa = SivicPessoa.find(params[:id])
 
       if @sivic_pessoa.sivic_igreja_id != current_user.sivic_pessoa.sivic_igreja_id
-        #flash[:notice] = "Desculpe-nos. Ocorreu um problema na requisição."
+        flash[:notice] = "Desculpe-nos. Ocorreu um problema na requisição."
         redirect_to root_url
       end
 
