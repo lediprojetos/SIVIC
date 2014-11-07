@@ -87,6 +87,6 @@ class SivicIgrejasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_igreja_params
-      params.require(:sivic_igreja).permit(:father_id, :NOME_igreja, :NUMR_telefone, :NOME_responsavel, :NUMR_cnpj, :sivic_plano_id, :numr_qtdmembros, :numr_qtdusuario, :data_inicioplano, :data_fimplano, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
+      params.require(:sivic_igreja).permit(:father_id, :NOME_igreja, :NUMR_telefone, :NOME_responsavel, :NUMR_cnpj, :sivic_plano_id, :numr_qtdmembros, :numr_qtdusuario, :data_inicioplano, :data_fimplano, :flag_tradicional, sivic_endereco_attributes: [ :id, :DESC_Bairro, :DESC_Rua, :DESC_Complemento, :DESC_Pontoreferencia, :NUMR_Cep, :sivic_cidade_id ])
     end
 end
