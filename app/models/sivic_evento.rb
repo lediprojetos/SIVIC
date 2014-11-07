@@ -12,11 +12,12 @@ class SivicEvento < ActiveRecord::Base
 
   accepts_nested_attributes_for :sivic_endereco, allow_destroy: true
 
-  def self.find_by_name_or_all(query)
+  def self.find_by_name_or_all(query,sivic_igreja_id)
+
     if query
-      self.where('desc_evento like ?', "%#{query}%")
+      self.where('desc_evento like ? and sivic_igreja_id = ?', "%#{query}%", sivic_igreja_id)
     else
-      self.all
+      self.where(sivic_igreja_id: sivic_igreja_id)
     end    
   end
     

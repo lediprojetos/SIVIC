@@ -14,11 +14,12 @@ class SivicParteventosController < ApplicationController
 
   def participanteseventos
     #@sivic_eventos = SivicEvento.where("data_encerramento is null").paginate(:page => params[:page], :per_page => 10)
-    @sivic_eventos = SivicEvento.find_by_name_or_all(params[:q]).paginate(:page => params[:page], :per_page => 10)
+    @sivic_eventos = SivicEvento.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+
   end
 
   def participanteseventogeracao
-    @sivic_eventos = SivicEvento.find_by_name_or_all(params[:q]).paginate(:page => params[:page], :per_page => 10)
+    @sivic_eventos = SivicEvento.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
 
   end
   
@@ -63,8 +64,7 @@ end
 
       count = 0
       @sivic_partevento.each do |pat|
-
-       debugger  
+  
          @sivic_partevento[count].sivic_pessoa.nome_discipulador = busca_lider_geracao(@sivic_partevento[count].sivic_pessoa.id).sivic_pessoa.nome_pessoa
 
          count = count + 1
@@ -257,8 +257,8 @@ end
   def busca_lider_geracao(id_pessoa)
 
   loop do
-    debugger
-    @sivic_pessoa = SivicPessoa.find(id_pessoa)    
+  
+      @sivic_pessoa = SivicPessoa.find(id_pessoa)    
     @sivic_discipulo = SivicDiscipulo.find_by sivic_pessoa_id: id_pessoa 
 
     if @sivic_discipulo

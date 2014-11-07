@@ -65,8 +65,6 @@ def relMembros
 
     query = igreja.to_s + situacao.to_s + sexo.to_s + estadocivil.to_s + tipomembro.to_s + discipulador.to_s + consolidador.to_s + batizado.to_s + conf.to_s
 
-    #debugger
-
     @sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where(query)
 
     if params[:imprimir] == 'pdf'
@@ -291,8 +289,6 @@ end
 
   # GET /sivic_discipulos/1/edit
   def edit
-
-   debugger
 
     @sivic_estado = SivicDiscipulo.find(params[:id])
     @sivic_estado = @sivic_estado.sivic_endereco.sivic_cidade.sivic_estado.id
