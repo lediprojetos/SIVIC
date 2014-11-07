@@ -149,6 +149,7 @@ SIVIC::Application.routes.draw do
   match '/help',    to: 'static_pages#help',    via: 'get'
   match '/about',   to: 'static_pages#about',   via: 'get'
   match '/contact', to: 'static_pages#contact', via: 'get'
+  match '/planos', to: 'static_pages#plan', via: 'get'
   match '/report', to: 'static_pages#report', via: 'get'
 
   match '/participantesEventos', to: 'sivic_parteventos#participanteseventos', via: 'get'

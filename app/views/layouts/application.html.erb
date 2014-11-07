@@ -5,9 +5,16 @@
 
       <% if (not user_signed_in? ) && request.original_fullpath == '/' %>
 
-        <%= render 'layouts/header2' %>
-        </head>
-        <body>
+        <%#= javascript_include_tag "application-template", "data-turbolinks-track" => true %>
+        <%= render 'layouts/header3' %>
+
+      <% elsif (not user_signed_in? ) && request.original_fullpath == '/contact' %>
+
+        <%= yield %>
+        
+      <% elsif (not user_signed_in? ) && request.original_fullpath == '/planos' %>
+
+        <%= yield %>
 
       <%else%>
 
@@ -28,9 +35,10 @@
         <div class="container">
           <%= yield %>
         </div>
-          
+                  
+          </body>
+        </html>           
  
       <%end%>
 
-  </body>
-</html> 
+
