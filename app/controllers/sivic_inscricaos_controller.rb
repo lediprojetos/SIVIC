@@ -61,6 +61,8 @@ class SivicInscricaosController < ApplicationController
         @User.save
 
         #Setando Permissões
+
+        #Secretaria
           SivicUserpermissao.create(:sivic_permissao_id => 5, :user_id => @User.id) #Manage Discípulos
           SivicUserpermissao.create(:sivic_permissao_id => 48, :user_id => @User.id) #Manage Cadastrar Ministérios
           SivicUserpermissao.create(:sivic_permissao_id => 49, :user_id => @User.id) #Manage Tipos de Eventos
@@ -71,6 +73,13 @@ class SivicInscricaosController < ApplicationController
           SivicUserpermissao.create(:sivic_permissao_id => 58, :user_id => @User.id) #Manage Atribuir Ministérios
           SivicUserpermissao.create(:sivic_permissao_id => 46, :user_id => @User.id) #Manage Usuários
           SivicUserpermissao.create(:sivic_permissao_id => 59, :user_id => @User.id) #Manage Permissão para Usuários
+
+        #Financeiro
+          SivicUserpermissao.create(:sivic_permissao_id => 81, :user_id => @User.id) #Manage Contas
+          SivicUserpermissao.create(:sivic_permissao_id => 82, :user_id => @User.id) #Manage Fornecedores
+          SivicUserpermissao.create(:sivic_permissao_id => 83, :user_id => @User.id) #Manage Categorias
+          SivicUserpermissao.create(:sivic_permissao_id => 84, :user_id => @User.id) #Manage Lançamentos
+
 
         
         format.html { redirect_to new_user_session_path, notice: 'Registro efetuado com sucesso. Por favor realize o login.' }
