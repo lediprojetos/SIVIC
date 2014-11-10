@@ -1,14 +1,17 @@
 class SivicPessoasController < ApplicationController
   before_action :set_sivic_pessoa, only: [:show, :edit, :update, :destroy, :deleta_pessoa, :edita_nome]
   before_action :authenticate_user!
-  load_and_authorize_resource
+  #load_and_authorize_resource
 
 
   def troca_igreja
 
+
     objPessoa = SivicPessoa.find_by_id(current_user.sivic_pessoa_id)
 
     objPessoa.sivic_igreja_id = params[:id]
+
+
     objPessoa.save
 
 
