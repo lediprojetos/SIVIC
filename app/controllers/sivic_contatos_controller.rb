@@ -44,7 +44,7 @@ class SivicContatosController < ApplicationController
 
     respond_to do |format|
       if @sivic_contato.save
-        format.html { redirect_to @sivic_contato, notice: 'Sivic contato was successfully created.' }
+        format.html { redirect_to contact_path, notice: 'Mensagem enviada com sucesso. Em breve entraremos em contato. OBrigado!' }
         format.json { render action: 'show', status: :created, location: @sivic_contato }
       else
         format.html { render action: 'new' }

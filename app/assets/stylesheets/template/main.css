@@ -1888,14 +1888,6 @@ ul.social_icons li  a i{
 ********* Contact Us CSS ******
 **************************/
 
-.gmap-area {
-  background-image: url("../images/map.jpg");
-  background-position: 0 0;
-  background-repeat: no-repeat;
-  background-size: cover;
-  padding: 70px 0;
-}
-
 .gmap-area .gmap iframe {
   border-radius: 50%;
   height: 280px;
