@@ -25,6 +25,9 @@ class StaticPagesController < ApplicationController
   def report
   end
 
+  def plan
+  end  
+
   def index
     #@sivic_users = User.paginate(:page => params[:page], :per_page => 10)
 
