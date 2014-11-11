@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Blog Single | Corlate</title>
+    <meta name="description" content="Sistema de gestão e administração para igrejas.">
+    <meta name="keywords" content="Sivic, sistema de gestão de igrejas, administração de igrejas">   
+    <title>SIVIC | Sistema de Gestão para Igrejas</title>
     
     <!-- core CSS -->
     <link href="/assets/template/bootstrap.min.css" rel="stylesheet">
@@ -46,7 +46,7 @@
 
 					<ul class="nav navbar-nav" data-0="margin-top:20px;" data-300="margin-top:5px;">
 						<li><a href="<%=root_path%>">Home</a></li>
-						<li><a href="<%planos_path%>">Planos</a></li>
+						<li><a href="<%=planos_path%>">Planos</a></li>
 						<li class="active"><a href="#<%contact_path%>">Contato</a></li>
 						<li><a href="<%=new_sivic_inscricao_path%>">Registrar</a></li>
 						<li><a href="<%=new_user_session_path%>">Login</a></li>
@@ -57,61 +57,52 @@
         </nav><!--/nav-->
     </header><!--/header-->
 
+    <% flash.each do |name, msg| -%>
+      <div class="alert alert-success alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <%= msg%>
+      </div>      
+    <% end -%>                             
+
     <section id="contact-info">
         <div class="center">                
-            <h2>How to Reach Us?</h2>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+            <h2>Como nos Encontrar?</h2>
+            <p class="lead">Entre em contato e tire todas as suas dúvidas.</p>
         </div>
         <div class="gmap-area">
             <div class="container">
+
                 <div class="row">
-                    <div class="col-sm-5 text-center">
-                        <div class="gmap">
-                            <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=JoomShaper,+Dhaka,+Dhaka+Division,+Bangladesh&amp;aq=0&amp;oq=joomshaper&amp;sll=37.0625,-95.677068&amp;sspn=42.766543,80.332031&amp;ie=UTF8&amp;hq=JoomShaper,&amp;hnear=Dhaka,+Dhaka+Division,+Bangladesh&amp;ll=23.73854,90.385504&amp;spn=0.001515,0.002452&amp;t=m&amp;z=14&amp;iwloc=A&amp;cid=1073661719450182870&amp;output=embed"></iframe>
-                        </div>
-                    </div>
+                    <div class="features">
+                      
+                        <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                            <address>
+                                <h5>Diel Oliveira</h5>
+                                <p>Tel:(62) 8446-802<br>
+                                Email: diel.faria@gmail.com</p>
+                            </address>
+                        </div><!--/.col-md-4-->
 
-                    <div class="col-sm-7 map-content">
-                        <ul class="row">
-                            <li class="col-sm-6">
-                                <address>
-                                    <h5>Head Office</h5>
-                                    <p>1537 Flint Street <br>
-                                    Tumon, MP 96911</p>
-                                    <p>Phone:670-898-2847 <br>
-                                    Email Address:info@domain.com</p>
-                                </address>
+                        <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                            <address>
+                                <h5>Leandro Pereira</h5>                            
+                                <p>Tel:(62) 9170-7712 <br>
+                                Email: grupolpgomes@gmail.com </p>
+                            </address>
+                        </div><!--/.col-md-4-->
 
-                                <address>
-                                    <h5>Zonal Office</h5>
-                                    <p>1537 Flint Street <br>
-                                    Tumon, MP 96911</p>                                
-                                    <p>Phone:670-898-2847 <br>
-                                    Email Address:info@domain.com</p>
-                                </address>
-                            </li>
+                        <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                            <address>
+                                <h5>Comercial</h5>                            
+                                <p>Tel:(62) 9170-7712 <br>
+                                Email: sivicweb@gmail.com </p>
+                            </address>
+                        </div><!--/.col-md-4-->                    
+                       
 
+                    </div><!--/.services-->
+                </div><!--/.row-->   
 
-                            <li class="col-sm-6">
-                                <address>
-                                    <h5>Zone#2 Office</h5>
-                                    <p>1537 Flint Street <br>
-                                    Tumon, MP 96911</p>
-                                    <p>Phone:670-898-2847 <br>
-                                    Email Address:info@domain.com</p>
-                                </address>
-
-                                <address>
-                                    <h5>Zone#3 Office</h5>
-                                    <p>1537 Flint Street <br>
-                                    Tumon, MP 96911</p>
-                                    <p>Phone:670-898-2847 <br>
-                                    Email Address:info@domain.com</p>
-                                </address>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
     </section>  <!--/gmap_area -->
@@ -119,126 +110,56 @@
     <section id="contact-page">
         <div class="container">
             <div class="center">        
-                <h2>Drop Your Message</h2>
-                <p class="lead">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <h2>Deixe-nos uma mensagem</h2>
+                <p class="lead">Entraremos em contato o mais rápido possível.</p>
             </div> 
             <div class="row contact-wrap"> 
                 <div class="status alert alert-success" style="display: none"></div>
-                <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php">
+
+
+                <form accept-charset="UTF-8" action="/sivic_contatos" class="contact-form" id="new_sivic_contato" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="HO+TT5tc8rUsuN8ls7aGEQYxaJGAjHZoF3U3TaWE2sY=" /></div>
+
                     <div class="col-sm-5 col-sm-offset-1">
-                        <div class="form-group">
-                            <label>Name *</label>
-                            <input type="text" name="name" class="form-control" required="required">
-                        </div>
-                        <div class="form-group">
-                            <label>Email *</label>
-                            <input type="email" name="email" class="form-control" required="required">
-                        </div>
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="number" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Company Name</label>
-                            <input type="text" class="form-control">
-                        </div>                        
-                    </div>
-                    <div class="col-sm-5">
-                        <div class="form-group">
-                            <label>Subject *</label>
-                            <input type="text" name="subject" class="form-control" required="required">
-                        </div>
-                        <div class="form-group">
-                            <label>Message *</label>
-                            <textarea name="message" id="message" required="required" class="form-control" rows="8"></textarea>
-                        </div>                        
-                        <div class="form-group">
-                            <button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Submit Message</button>
-                        </div>
-                    </div>
-                </form> 
+                      <div class="form-group">
+                        <label>Nome *</label>
+                        <input id="sivic_contato_desc_nome" name="sivic_contato[desc_nome]" type="text" class="form-control" required="required"/>
+                      </div>
+                      <div class="form-group">
+                        <label>Email *</label>
+                        <input id="sivic_contato_desc_email" name="sivic_contato[desc_email]" type="text" class="form-control" required="required"/>
+                      </div>
+                      <div class="form-group">
+                        <label>Assunto *</label>
+                        <input id="sivic_contato_desc_assunto" name="sivic_contato[desc_assunto]" type="text" class="form-control" required="required"/>
+                      </div>
+                  </div>
+                      <div class="col-sm-5">
+                          <div class="form-group">
+                            <label>Mensagem *</label>
+                            <textarea id="sivic_contato_desc_mensagem" name="sivic_contato[desc_mensagem]" type="text" class="form-control" required="required" rows="8"/></textarea>
+                          </div>
+
+                          <div class="actions">
+                            <button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Enviar</button>
+                          </div>
+                      </div>
+                </form>
             </div><!--/.row-->
         </div><!--/.container-->
     </section><!--/#contact-page-->
 
-    <section id="bottom">
-        <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
-                    <div class="widget">
-                        <h3>Company</h3>
-                        <ul>
-                            <li><a href="#">About us</a></li>
-                            <li><a href="#">We are hiring</a></li>
-                            <li><a href="#">Meet the team</a></li>
-                            <li><a href="#">Copyright</a></li>
-                            <li><a href="#">Terms of use</a></li>
-                            <li><a href="#">Privacy policy</a></li>
-                            <li><a href="#">Contact us</a></li>
-                        </ul>
-                    </div>    
-                </div><!--/.col-md-3-->
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="widget">
-                        <h3>Support</h3>
-                        <ul>
-                            <li><a href="#">Faq</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Forum</a></li>
-                            <li><a href="#">Documentation</a></li>
-                            <li><a href="#">Refund policy</a></li>
-                            <li><a href="#">Ticket system</a></li>
-                            <li><a href="#">Billing system</a></li>
-                        </ul>
-                    </div>    
-                </div><!--/.col-md-3-->
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="widget">
-                        <h3>Developers</h3>
-                        <ul>
-                            <li><a href="#">Web Development</a></li>
-                            <li><a href="#">SEO Marketing</a></li>
-                            <li><a href="#">Theme</a></li>
-                            <li><a href="#">Development</a></li>
-                            <li><a href="#">Email Marketing</a></li>
-                            <li><a href="#">Plugin Development</a></li>
-                            <li><a href="#">Article Writing</a></li>
-                        </ul>
-                    </div>    
-                </div><!--/.col-md-3-->
-
-                <div class="col-md-3 col-sm-6">
-                    <div class="widget">
-                        <h3>Our Partners</h3>
-                        <ul>
-                            <li><a href="#">Adipisicing Elit</a></li>
-                            <li><a href="#">Eiusmod</a></li>
-                            <li><a href="#">Tempor</a></li>
-                            <li><a href="#">Veniam</a></li>
-                            <li><a href="#">Exercitation</a></li>
-                            <li><a href="#">Ullamco</a></li>
-                            <li><a href="#">Laboris</a></li>
-                        </ul>
-                    </div>    
-                </div><!--/.col-md-3-->
-            </div>
-        </div>
-    </section><!--/#bottom-->
 
     <footer id="footer" class="midnight-blue">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    &copy; 2013 <a target="_blank" href="http://shapebootstrap.net/" title="Free Twitter Bootstrap WordPress Themes and HTML templates">ShapeBootstrap</a>. All Rights Reserved.
+                    &copy; 2013 <a target="_blank" href="http://www.sivicweb.com.br" title="Sistema para Gestão de Igrejas">Ledi Sistemas</a>. All Rights Reserved.
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Faq</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="<%=root_path%>">Início</a></li>
+                        <li><a href="<%=new_sivic_inscricao_path%>">Registrar</a></li>
+                        <li><a href="<%=contact_path%>">Contato</a></li>
                     </ul>
                 </div>
             </div>
