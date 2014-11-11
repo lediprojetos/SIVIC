@@ -17,6 +17,8 @@
   <div class="panel-footer">
 
 
+
+
   <div class="row mar-bot40">
     <div class="col-lg-2" >
     </div>
@@ -35,23 +37,41 @@
   <div class="row mar-bot40">
     <div class="col-lg-2" >
     </div>    
-    <div class="col-lg-3" >  
+    <div class="col-lg-4" >  
     <%=  f.fields_for :sivic_estado do |estado| %>
       <%= estado.label :Estado %>
       <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',9), {:include_blank => true}, {:onchange => 'changeState(this)',  :class =>  'form-control'}%>
     <%end%>
     </div>
-    <div class="col-lg-3" >
+    <div class="col-lg-4" >
         <%= f.label :Cidade %>
         <%= f.select :numg_cidade, options_from_collection_for_select(SivicCidade.where(:sivic_estado_id => 9), 'id', 'nome_cidade',977),{},{ :class =>  'form-control'}%>    
     </div>
     <div class="col-lg-2" >
-    <%= f.label :Telefone %><br>
-    <%= f.text_field :desc_telefone, :class => 'form-control' %>
-    </div>
-    <div class="col-lg-2" >
     </div>    
-  </div>    
+  </div>
+   <br/>
+  <div class="row mar-bot40">
+    <div class="col-lg-2" >
+    </div>
+    <div class="col-lg-4" >
+        <%= f.label :Telefone %><br>
+        <%= f.text_field :desc_telefone, :class => 'form-control' %>
+     </div>
+
+     <div class="col-lg-4" style ="margin-left:24px;" >
+        <div style="width:200px; float: left;">             
+              <div class="radio">
+                  <input id="sivic_inscricao_flag_tradicional" type="radio" checked="checked" value="true" name="sivic_inscricao[flag_tradicional]" <%= @sivic_inscricao.flag_tradicional == true ? 'checked = "checked"' : '' %>><strong>Igreja Tradicional</strong>
+                  </div>
+          <div class="radio">
+                  <input id="sivic_inscricao_flag_tradicional" type="radio" value="false" name="sivic_inscricao[flag_tradicional]" <%= @sivic_inscricao.flag_tradicional == false ? 'checked = "checked"' : '' %>><strong>Igreja em Células</strong>             
+                  </div>
+          </div>
+     </div>
+
+   </div>
+
   <br/>
   <div class="row mar-bot40">
     <div class="col-lg-2" >

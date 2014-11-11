@@ -320,24 +320,30 @@
         <%#= f.hidden_field :NUMG_UsuarioBloqueio, :value => current_user.id%>
 
         </div>
-        <div class="tab-pane" id="tab3">
-          <hr>
-          <div class="row">
-            <div class="col-xs-2">
-              <%= f.check_box :flag_discipulo, :class => 'checkbox-inline' %>
-              <%= f.label :Discípulo %>
-            </div>
-            <div class="col-xs-2">
-            <%= f.check_box :flag_consolidador, :class => 'checkbox-inline' %>
-            <%= f.label :Consolidador %>
-            </div>
-            <div class="col-xs-2">
-            <%= f.check_box :flag_discipulador, :class => 'checkbox-inline' %>
-            <%= f.label :Discipulador %>
-            </div>
-          </div>
-          <hr>
-
+         
+      
+            <div class="tab-pane" id="tab3">
+                <%if not current_user.sivic_pessoa.sivic_igreja.flag_tradicional%> 
+                   <br/>
+                    <div class="row">
+                      <div class="col-xs-2">
+                        <%= f.check_box :flag_discipulo, :class => 'checkbox-inline' %>
+                        <%= f.label :Discípulo %>
+                      </div>
+                      <div class="col-xs-2">
+                      <%= f.check_box :flag_consolidador, :class => 'checkbox-inline' %>
+                      <%= f.label :Consolidador %>
+                      </div>
+                      <div class="col-xs-2">
+                      <%= f.check_box :flag_discipulador, :class => 'checkbox-inline' %>
+                      <%= f.label :Discipulador %>
+                      </div>
+                    </div>
+                   <hr>
+                <%else%>
+                    <br/>
+                <%end%>
+   
           <div class="row">
 
             <div class="col-xs-2">
