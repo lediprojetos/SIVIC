@@ -7,9 +7,12 @@ class SivicPessoasController < ApplicationController
 
   def troca_igreja
 
+
     objPessoa = SivicPessoa.find_by_id(current_user.sivic_pessoa_id)
 
     objPessoa.sivic_igreja_id = params[:id]
+
+
     objPessoa.save
 
 

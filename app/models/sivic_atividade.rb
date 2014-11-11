@@ -9,5 +9,4 @@ class SivicAtividade < ActiveRecord::Base
   validates :nome_atividade, :presence => { :message => 'Digite o nome da atividade' }
   
 
-
 end

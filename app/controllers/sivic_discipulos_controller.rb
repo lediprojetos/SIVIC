@@ -61,8 +61,6 @@ def relMembros
       end
     end      
 
-
-
     query = igreja.to_s + situacao.to_s + sexo.to_s + estadocivil.to_s + tipomembro.to_s + discipulador.to_s + consolidador.to_s + batizado.to_s + conf.to_s
 
     @sivic_discipulos = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where(query)

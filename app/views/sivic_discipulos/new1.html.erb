@@ -1,7 +1,6 @@
 <%= render 'form' %>
 
 <script>
-
 function carregadados(){
       var nome_lider = ""
       $('#sivic_discipulo_sivic_pessoa_id').val('<%= @sivic_pessoa_evolucao.id %>')
@@ -12,11 +11,8 @@ function carregadados(){
            $('#nome_lider').val('<%= @sivic_pessoa_evolucao.father.nome_pessoa%>');
            $('#sivic_discipulo_sivic_pessoa_attributes_father_id').val('<%= @sivic_pessoa_evolucao.father.id%>');
        '<% end %>'
-
       
       
    }
-
- 	carregadados()
-
+  carregadados()
  </script>

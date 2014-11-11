@@ -66,6 +66,17 @@
       <%= f.label :Data_fim_Plano %>
       <%= f.text_field :data_fimplano, :value =>(@sivic_igreja.data_fimplano.blank? ? '' : @sivic_igreja.data_fimplano.strftime("%d/%m/%Y")), :class => "form-control" %>
   </div>
+    <div div class="col-xs-1">
+    </div>
+    <div style="width:200px; float: left;">           
+              <div class="radio">
+                <input id="sivic_sivic_igreja_flag_tradicional" type="radio" checked="checked" value="true" name="sivic_igreja[flag_tradicional]" <%= @sivic_igreja.flag_tradicional == true ? 'checked = "checked"' : '' %>><strong>Igreja Tradicional</strong>
+              </div>
+              <div class="radio">
+                    <input id="sivic_sivic_igreja_flag_tradicional" type="radio" value="false" name="sivic_igreja[flag_tradicional]" <%= @sivic_igreja.flag_tradicional == false ? 'checked = "checked"' : '' %>><strong>Igreja em Células</strong>             
+              </div>
+    </div>
+
 </div>
 
 <br />

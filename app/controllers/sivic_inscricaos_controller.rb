@@ -42,6 +42,7 @@ class SivicInscricaosController < ApplicationController
         @igreja.NOME_igreja = sivic_inscricao_params["nome_igreja"]
         @igreja.NUMR_telefone = sivic_inscricao_params["desc_telefone"]
         @igreja.NOME_responsavel = sivic_inscricao_params["nome_pessoa"]
+        @igreja.flag_tradicional = sivic_inscricao_params["flag_tradicional"]
         @igreja.sivic_endereco_id = @endereco.id
         @igreja.save
 
@@ -123,6 +124,6 @@ class SivicInscricaosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_inscricao_params
-      params.require(:sivic_inscricao).permit(:desc_confirmaemail, :nome_igreja, :nome_pessoa, :desc_telefone, :numg_cidade, :desc_email, :desc_senha, :desc_confirmasenha)
+      params.require(:sivic_inscricao).permit(:desc_confirmaemail, :nome_igreja, :nome_pessoa, :desc_telefone, :numg_cidade, :desc_email, :desc_senha, :desc_confirmasenha, :flag_tradicional)
     end
 end
