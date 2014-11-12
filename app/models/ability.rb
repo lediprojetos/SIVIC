@@ -19,7 +19,7 @@ class Ability
      
      #Permissões Leandro e Diel
      #=======================
-      can :manage, :all
+     # can :manage, :all
      #=======================
 
      @sivic_permissaos = SivicUserpermissao.where(:user_id => user.id)
@@ -70,23 +70,28 @@ class Ability
       if permissao.sivic_permissao.sivic_model.nome_model == 'SivicCelula'
         if permissao.sivic_permissao.mumr_acao == 1
           can :create, SivicCelula
+          can :create, SivicParticipantecelula
         end
         if permissao.sivic_permissao.mumr_acao
           can :read, SivicCelula
           can :busca_celulas, SivicCelula
           can :render_civic_celula_list, SivicCelula
           can :render_civic_celula_mirror, SivicCelula
+          can :read, SivicParticipantecelula
         end
         if permissao.sivic_permissao.mumr_acao == 3
           can :update, SivicCelula
           can :bloquea, SivicCelula
           can :desbloquea, SivicCelula
+          can :update, SivicParticipantecelula
         end
         if permissao.sivic_permissao.mumr_acao == 4
           can :destroy, SivicCelula
+          can :destroy, SivicParticipantecelula
         end
         if permissao.sivic_permissao.mumr_acao == 5
           can :manage, SivicCelula
+          can :manage, SivicParticipantecelula
         end
       end
 
@@ -256,23 +261,23 @@ class Ability
       if permissao.sivic_permissao.sivic_model.nome_model == 'SivicRelatorioscelula'
         if permissao.sivic_permissao.mumr_acao == 1
           can :create, SivicRelatorioscelula
-          can :create, SivicSitpartcelula
+          can :create, SivicParticipantecelula
         end
         if permissao.sivic_permissao.mumr_acao
           can :read, SivicRelatorioscelula
-          can :read, SivicSitpartcelula
+          can :read, SivicParticipantecelula
         end
         if permissao.sivic_permissao.mumr_acao == 3
           can :update, SivicRelatorioscelula
-          can :update, SivicSitpartcelula
+          can :update, SivicParticipantecelula
         end
         if permissao.sivic_permissao.mumr_acao == 4
           can :destroy, SivicRelatorioscelula
-          can :destroy, SivicSitpartcelula
+          can :destroy, SivicParticipantecelula
         end
         if permissao.sivic_permissao.mumr_acao == 5
           can :manage, SivicRelatorioscelula
-          can :manage, SivicSitpartcelula
+          can :manage, SivicParticipantecelula
         end        
       end
 

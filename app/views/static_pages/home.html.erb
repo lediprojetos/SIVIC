@@ -7,32 +7,36 @@
     <% end -%>
 
 
+     <% if user_signed_in? %>
+       <% if can? :read, SivicDiscipulo %>
     <%#= current_user.sivic_pessoa.sivic_igreja.NOME_igreja %>
-   <div class="col-md-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">Membros
-                <a class="btn btn-primary btn-xs pull-right" id="add" href="<%=sivic_discipulos_path %>">Novo Membro</a>
-            </div>
+               <div class="col-md-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">Membros
+                            <a class="btn btn-primary btn-xs pull-right" id="add" href="<%=sivic_discipulos_path %>">Novo Membro</a>
+                        </div>
 
-            
-            <table class="table">
-                <tr>
-                    <td class="col-md-10">Total de Membros Ativos</td>
-                    <td class="col-md-2"><%=@total_discipulos%></td>
-                </tr>                
-                <!--
-                <tr>
-                    <td class="col-md-10">Total de Membros Bloqueados</td>
-                    <td class="col-md-2"><%=@total_discipulos%></td>
-                </tr>
-                -->
-                <tr>
-                    <td>Total de Células</td>
-                    <td><%=@total_celulas%></td>
-                </tr>
-            </table>
-        </div>
-    </div>
+                        
+                        <table class="table">
+                            <tr>
+                                <td class="col-md-10">Total de Membros Ativos</td>
+                                <td class="col-md-2"><%=@total_discipulos%></td>
+                            </tr>                
+                            <!--
+                            <tr>
+                                <td class="col-md-10">Total de Membros Bloqueados</td>
+                                <td class="col-md-2"><%=@total_discipulos%></td>
+                            </tr>
+                            -->
+                            <tr>
+                                <td>Total de Células</td>
+                                <td><%=@total_celulas%></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+        <%end%>
+    <%end%>
 
 
     <% if user_signed_in? %>

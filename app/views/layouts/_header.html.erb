@@ -39,7 +39,6 @@
                   <li><%= link_to 'Situacão Participante Células', sivic_sitpartcelulas_path%> </li>
                 <% end %>
 
-
                 <% if can? :manage, SivicParticipantecelula or can? :read, SivicParticipantecelula or can? :create, SivicParticipantecelula or can? :update, SivicParticipantecelula or can? :destroy, SivicParticipantecelula %>
                   <li><%= link_to 'Participante de Célula', sivic_participantecelulas_path%> </li>
                 <% end %>                    

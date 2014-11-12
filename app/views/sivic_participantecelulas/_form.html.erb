@@ -17,35 +17,52 @@
       </div>
     <% end %>
 
-      <div class="row">
+    <div class="row mar-bot40">
+          <div class="col-lg-2">
+          </div> 
+          <div class="col-lg-4">
+            <%= f.label :NOME %>
+            <%= f.text_field :nome_participante, :class => 'form-control' %>
 
-        <div class="col-xs-4">
-          <%= f.label :NOME, :class => 'lblForms' %>
-          <%= f.text_field :nome_participante, :class => 'form-control' %>
+          </div>
+          <div class="col-lg-4">
+            <%= f.label :Email %>
+            <%= f.text_field :DESC_Email, :class => 'form-control' %>
+          </div>
 
-        </div>
-        <div class="col-xs-4">
-          <%= f.label :Email, :class => 'lblForms' %>
-          <%= f.text_field :DESC_Email, :class => 'form-control' %>
-        </div>
+    </div>
+    <br/>
+    <div class="row mar-bot40">
+          <div class="col-lg-2">
+          </div>
+           <div class="col-lg-4">
+            <%= f.label :Telefone %>
+            <%= f.text_field :NUMR_Telefone, :class => 'form-control' %>
+          </div>
 
-        <div class="col-xs-4">
-          <%= f.label :Telefone, :class => 'lblForms' %>
-          <%= f.text_field :NUMR_Telefone, :class => 'form-control' %>
-        </div>       
+          <div class="col-lg-4">
+             <%= f.label :Situação_Participante %>
+              <%= f.select :sivic_sitpartcelula_id, options_from_collection_for_select(SivicSitpartcelula.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id), 'id', 'DESC_situacao',@sivic_participantecelula.sivic_sitpartcelula_id),{},{:include_blank => true,  :class => 'form-control'}%>
+          </div>       
       </div>
 
       <br />
 
-      <div class="row">
-
-        <div class="col-xs-4">
-          <%if current_user.role == 'LIDER_DE_CELULAS'%>
-            <%= f.hidden_field :sivic_celula_id, :value => SivicCelula.find_by_sivic_pessoa_id(current_user.sivic_pessoa_id).sivic_pessoa_id rescue nil%>
+      <div class="row mar-bot40">
+        <div class="col-lg-2">
+        </div>
+        <div class="col-lg-4">
+        <%if current_user.role == 'LIDER_DE_CELULAS'%>
+            <%= f.hidden_field :sivic_celula_id, :value => SivicCelula.find_by_sivic_pessoa_id(current_user.sivic_pessoa_id).sivic_celula_id rescue nil%>
           <%else %>
-            <%= f.label :Célula, :class => 'lblForms'  %>
-            <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id), 'id', 'NOME_Celula'),{},{:include_blank => true,  :class => 'form-control'}%>
+           <%if @sivic_participantecelula.id%>
+              <%= f.label :Célula, :class => 'lblForms'  %>
+              <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id), 'id', 'NOME_Celula'),{},{:include_blank => true, :disabled => :disabled, :class => 'form-control'}%>
+           <%else %>
+              <%= f.label :Célula, :class => 'lblForms'  %>
+              <%= f.select :sivic_celula_id, options_from_collection_for_select(SivicCelula.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id), 'id', 'NOME_Celula'),{},{:include_blank => true,  :class => 'form-control'}%>
           <%end%>
+        <%end%>
         </div>
 
       </div>
