@@ -20,10 +20,6 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->       
     <link rel="shortcut icon" href="assets/images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="assets/images/ico/apple-touch-icon-57-precomposed.png">
 </head><!--/head-->
 
 <body>
@@ -39,7 +35,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html"><%= image_tag ("logo.png")%></a>
+                    <a class="navbar-brand" href="<%=root_path%>"><%= image_tag ("logo.png")%></a>
                 </div>
                 
                 <div class="collapse navbar-collapse navbar-right">
@@ -77,24 +73,21 @@
                       
                         <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                             <address>
-                                <h5>Diel Oliveira</h5>
-                                <p>Tel:(62) 8446-802<br>
+                                <p>Tel:(62) 8446-802<%= image_tag ("images/ico/oi.png")%><%= image_tag ("images/ico/whatsapp.png")%><br>
                                 Email: diel.faria@gmail.com</p>
                             </address>
                         </div><!--/.col-md-4-->
 
                         <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                             <address>
-                                <h5>Leandro Pereira</h5>                            
-                                <p>Tel:(62) 9170-7712 <br>
+                                <p>Tel:(62) 9170-7712 <%= image_tag ("images/ico/claro.png")%><%= image_tag ("images/ico/whatsapp.png")%><br>
                                 Email: grupolpgomes@gmail.com </p>
                             </address>
                         </div><!--/.col-md-4-->
 
                         <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                             <address>
-                                <h5>Comercial</h5>                            
-                                <p>Tel:(62) 9170-7712 <br>
+                                <p>Tel:(62) 9954-2559 <%= image_tag ("images/ico/vivo.png")%><%= image_tag ("images/ico/whatsapp.png")%><br>
                                 Email: sivicweb@gmail.com </p>
                             </address>
                         </div><!--/.col-md-4-->                    
@@ -117,33 +110,33 @@
                 <div class="status alert alert-success" style="display: none"></div>
 
 
-                <form accept-charset="UTF-8" action="/sivic_contatos" class="contact-form" id="new_sivic_contato" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="HO+TT5tc8rUsuN8ls7aGEQYxaJGAjHZoF3U3TaWE2sY=" /></div>
+                <%= form_for(@sivic_contato) do |f| %>
 
-                    <div class="col-sm-5 col-sm-offset-1">
-                      <div class="form-group">
-                        <label>Nome *</label>
-                        <input id="sivic_contato_desc_nome" name="sivic_contato[desc_nome]" type="text" class="form-control" required="required"/>
-                      </div>
-                      <div class="form-group">
-                        <label>Email *</label>
-                        <input id="sivic_contato_desc_email" name="sivic_contato[desc_email]" type="text" class="form-control" required="required"/>
-                      </div>
-                      <div class="form-group">
-                        <label>Assunto *</label>
-                        <input id="sivic_contato_desc_assunto" name="sivic_contato[desc_assunto]" type="text" class="form-control" required="required"/>
-                      </div>
+                <div class="col-sm-5 col-sm-offset-1">
+                  <div class="form-group">
+                    <label>Nome *</label>
+                    <%= f.text_field :desc_nome, :class => "form-control", :required => "required" %>
                   </div>
-                      <div class="col-sm-5">
+                  <div class="form-group">
+                    <label>Email *</label>
+                    <%= f.text_field :desc_email, :class => "form-control", :required => "required" %>
+                  </div>
+                  <div class="form-group">
+                    <label>Assunto *</label>
+                    <%= f.text_field :desc_assunto, :class => "form-control", :required => "required" %>
+                  </div>
+                  </div>
+                      <div class="col-sm-5">                  
                           <div class="form-group">
                             <label>Mensagem *</label>
-                            <textarea id="sivic_contato_desc_mensagem" name="sivic_contato[desc_mensagem]" type="text" class="form-control" required="required" rows="8"/></textarea>
+                            <%= f.text_area :desc_mensagem, :class => "form-control", :required => "required", :rows => "8" %>
                           </div>
-
                           <div class="actions">
                             <button type="submit" name="submit" class="btn btn-primary btn-lg" required="required">Enviar</button>
                           </div>
                       </div>
-                </form>
+                <% end %>
+
             </div><!--/.row-->
         </div><!--/.container-->
     </section><!--/#contact-page-->

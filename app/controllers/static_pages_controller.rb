@@ -20,6 +20,7 @@ class StaticPagesController < ApplicationController
   end
 
   def contact
+    @sivic_contato = SivicContato.new
   end  
 
   def report
