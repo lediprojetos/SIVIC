@@ -110,8 +110,16 @@ end
   # POST /sivic_parteventos
   # POST /sivic_parteventos.json
   def create
-
+  
     @sivic_partevento = SivicPartevento.new(sivic_partevento_params)
+
+    debugger
+
+    @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento = @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento.to_s.gsub('.', '')
+
+
+    @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento = @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento.to_s.gsub(',', '.').to_f
+
     respond_to do |format|
       if @sivic_partevento.save
         format.html { redirect_to @sivic_partevento, notice: 'Registro inserido com sucesso.' }
@@ -126,6 +134,27 @@ end
   # PATCH/PUT /sivic_parteventos/1
   # PATCH/PUT /sivic_parteventos/1.json
   def update
+
+     
+     debugger
+     #@sivic_parteventos = sivic_partevento_params
+
+     sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:VALR_movimento] = sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:VALR_movimento].gsub('.', '')
+     sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:VALR_movimento] = sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:VALR_movimento].gsub(',', '.').to_f
+
+    #@valor_movimento =  @sivic_parteventos.sivic_movimentofinanceiro.VALR_movimento.to_s
+
+    #debugger 
+
+    #@valor_movimento = @valor_movimento.gsub('.', '')
+    #@valor_movimento = @valor_movimento.gsub(',', '.').to_f 
+
+    #@sivic_partevento.sivic_movimentofinanceiro.VALR_movimento = @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento.to_s.gsub('.', '')
+    #@sivic_partevento.sivic_movimentofinanceiro.VALR_movimento = @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento.to_s.gsub(',', '.').to_f 
+    
+    debugger
+   # @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento =  @valor_movimento
+
     respond_to do |format|
       if @sivic_partevento.update(sivic_partevento_params)
         format.html { redirect_to @sivic_partevento, notice: 'Registro alterado com sucesso.' }
