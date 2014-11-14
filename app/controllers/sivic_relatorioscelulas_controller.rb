@@ -2,6 +2,7 @@ class SivicRelatorioscelulasController < ApplicationController
   before_action :set_sivic_relatorioscelula, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
+  include ActionView::Helpers::NumberHelper
 
   def jobCelulas
 
@@ -116,7 +117,13 @@ class SivicRelatorioscelulasController < ApplicationController
   # POST /sivic_relatorioscelulas
   # POST /sivic_relatorioscelulas.json
   def create
+ 
+    @valor_oferta = sivic_relatorioscelula_params[:VALR_Oferta] 
+    @valor_oferta = @valor_oferta.gsub('.', '')
+    @valor_oferta = @valor_oferta.gsub(',', '.').to_f
     @sivic_relatorioscelula = SivicRelatorioscelula.new(sivic_relatorioscelula_params)
+    @sivic_relatorioscelula.VALR_Oferta = @valor_oferta
+
 
     respond_to do |format|
       if @sivic_relatorioscelula.save
@@ -132,8 +139,37 @@ class SivicRelatorioscelulasController < ApplicationController
   # PATCH/PUT /sivic_relatorioscelulas/1
   # PATCH/PUT /sivic_relatorioscelulas/1.json
   def update
+    
+    @valor_oferta = sivic_relatorioscelula_params[:VALR_Oferta] 
+    
+    @valor_oferta = @valor_oferta.gsub('.', '')
+    @valor_oferta = @valor_oferta.gsub(',', '.').to_f
+   
+    @sivic_relatorioscelula.DATA_Reuniao = sivic_relatorioscelula_params[:DATA_Reuniao]
+    @sivic_relatorioscelula.DATA_Horainicio = sivic_relatorioscelula_params[:DATA_Horainicio]
+    @sivic_relatorioscelula.DATA_HoraTermino = sivic_relatorioscelula_params[:DATA_HoraTermino]
+    @sivic_relatorioscelula.NUMR_NumVisitante = sivic_relatorioscelula_params[:NUMR_NumVisitante]
+    @sivic_relatorioscelula.NUMR_NumParticipante = sivic_relatorioscelula_params[:NUMR_NumParticipante]
+    @sivic_relatorioscelula.DESC_AssuntoEstudo = sivic_relatorioscelula_params[:DESC_AssuntoEstudo]
+    @sivic_relatorioscelula.DESC_TextoBiblico = sivic_relatorioscelula_params[:DESC_TextoBiblico]
+    @sivic_relatorioscelula.VALR_Oferta = @valor_oferta
+    @sivic_relatorioscelula.NUMR_Decisoes = sivic_relatorioscelula_params[:NUMR_Decisoes]
+    @sivic_relatorioscelula.DESC_OutrasInformacoes = sivic_relatorioscelula_params[:DESC_OutrasInformacoes]
+    @sivic_relatorioscelula.DATA_HoraTermino = sivic_relatorioscelula_params[:DATA_HoraTermino]
+    @sivic_relatorioscelula.sivic_situacoesrelatorio_id = sivic_relatorioscelula_params[:sivic_situacoesrelatorio_id]
+    @sivic_relatorioscelula.NUMR_QtdNovoConvertido = sivic_relatorioscelula_params[:NUMR_QtdNovoConvertido]
+    @sivic_relatorioscelula.NUMR_QtdResgate = sivic_relatorioscelula_params[:NUMR_QtdResgate]
+    @sivic_relatorioscelula.NUMR_QtdPreEncontro = sivic_relatorioscelula_params[:NUMR_QtdPreEncontro]
+    @sivic_relatorioscelula.NUMR_QtdEncontro = sivic_relatorioscelula_params[:NUMR_QtdEncontro]
+    @sivic_relatorioscelula.NUMR_QtdPosEncontro = sivic_relatorioscelula_params[:NUMR_QtdPosEncontro]
+    @sivic_relatorioscelula.NUMR_QtdEscoLid1 = sivic_relatorioscelula_params[:NUMR_QtdEscoLid1]
+    @sivic_relatorioscelula.NUMR_EscoLid2 = sivic_relatorioscelula_params[:NUMR_EscoLid2]
+    @sivic_relatorioscelula.NUMR_EscoLid3 = sivic_relatorioscelula_params[:NUMR_EscoLid3]
+    @sivic_relatorioscelula.NUMR_QtdLidCelula = sivic_relatorioscelula_params[:NUMR_QtdLidCelula]
+   
+       
     respond_to do |format|
-      if @sivic_relatorioscelula.update(sivic_relatorioscelula_params)
+      if @sivic_relatorioscelula.save
         format.html { redirect_to @sivic_relatorioscelula, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else

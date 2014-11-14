@@ -111,14 +111,20 @@ end
   # POST /sivic_parteventos.json
   def create
   
+    
+    @valor_movimento =  sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:VALR_movimento]
+    @valor_restante = sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:valr_restante]
+
+    @valor_movimento = @valor_movimento.gsub('.', '')
+    @valor_movimento = @valor_movimento.gsub(',', '.').to_f 
+
+    @valor_restante = @valor_restante.gsub('.', '')
+    @valor_restante = @valor_restante.gsub(',', '.').to_f 
+    
     @sivic_partevento = SivicPartevento.new(sivic_partevento_params)
 
-    debugger
-
-    @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento = @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento.to_s.gsub('.', '')
-
-
-    @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento = @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento.to_s.gsub(',', '.').to_f
+    @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento = @valor_movimento 
+    @sivic_partevento.sivic_movimentofinanceiro.valr_restante = @valor_restante
 
     respond_to do |format|
       if @sivic_partevento.save
@@ -135,28 +141,37 @@ end
   # PATCH/PUT /sivic_parteventos/1.json
   def update
 
-     
-     debugger
-     #@sivic_parteventos = sivic_partevento_params
+    @valor_movimento =  sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:VALR_movimento]
+    @valor_restante = sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:valr_restante]
 
-     sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:VALR_movimento] = sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:VALR_movimento].gsub('.', '')
-     sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:VALR_movimento] = sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:VALR_movimento].gsub(',', '.').to_f
+    @valor_movimento = @valor_movimento.gsub('.', '')
+    @valor_movimento = @valor_movimento.gsub(',', '.').to_f 
 
-    #@valor_movimento =  @sivic_parteventos.sivic_movimentofinanceiro.VALR_movimento.to_s
-
-    #debugger 
-
-    #@valor_movimento = @valor_movimento.gsub('.', '')
-    #@valor_movimento = @valor_movimento.gsub(',', '.').to_f 
-
-    #@sivic_partevento.sivic_movimentofinanceiro.VALR_movimento = @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento.to_s.gsub('.', '')
-    #@sivic_partevento.sivic_movimentofinanceiro.VALR_movimento = @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento.to_s.gsub(',', '.').to_f 
+    @valor_restante = @valor_restante.gsub('.', '')
+    @valor_restante = @valor_restante.gsub(',', '.').to_f 
     
-    debugger
-   # @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento =  @valor_movimento
+
+   @sivic_partevento.desc_convidadopor = sivic_partevento_params[:desc_convidadopor]
+   @sivic_partevento.sivic_pessoa_id = sivic_partevento_params[:sivic_pessoa_id]
+   @sivic_partevento.sivic_evento_id = sivic_partevento_params[:sivic_evento_id]
+   @sivic_partevento.flag_naoparticipou = sivic_partevento_params[:flag_naoparticipou]
+   @sivic_partevento.flag_passando = sivic_partevento_params[:flag_passando]
+   @sivic_partevento.sivic_igreja_id = sivic_partevento_params[:sivic_igreja_id]
+   @sivic_partevento.pessoa_convidou = sivic_partevento_params[:pessoa_convidou]
+   @sivic_partevento.sivic_movimentofinanceiro.id = sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:id]
+   @sivic_partevento.sivic_movimentofinanceiro.VALR_movimento = @valor_movimento
+   @sivic_partevento.sivic_movimentofinanceiro.user_inclusao = sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:user_inclusao]
+   @sivic_partevento.sivic_movimentofinanceiro.FLAG_baixa = sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:FLAG_baixa]
+   @sivic_partevento.sivic_movimentofinanceiro.sivic_tipmovfinanceiro_id = sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:sivic_tipmovfinanceiro_id]
+   @sivic_partevento.sivic_movimentofinanceiro.sivic_evento_id = sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:sivic_evento_id]
+   @sivic_partevento.sivic_movimentofinanceiro.DATA_exclusao = sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:DATA_exclusao]
+   @sivic_partevento.sivic_movimentofinanceiro.user_exclusao = sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:user_exclusao]
+   @sivic_partevento.sivic_movimentofinanceiro.DESC_movimento = sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:DESC_movimento]
+   @sivic_partevento.sivic_movimentofinanceiro.valr_restante = @valor_restante
+
 
     respond_to do |format|
-      if @sivic_partevento.update(sivic_partevento_params)
+      if @sivic_partevento.save
         format.html { redirect_to @sivic_partevento, notice: 'Registro alterado com sucesso.' }
         format.json { head :no_content }
       else
