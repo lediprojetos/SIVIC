@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141107125908) do
+ActiveRecord::Schema.define(version: 20141117155212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -269,6 +269,7 @@ ActiveRecord::Schema.define(version: 20141107125908) do
     t.integer  "NUMR_Codigo"
     t.time     "hora_estudobiblico"
     t.integer  "sivic_cidade_id"
+    t.integer  "rede_conversao"
   end
 
   add_index "sivic_discipulos", ["sivic_celula_id"], name: "index_sivic_discipulos_on_sivic_celula_id", using: :btree

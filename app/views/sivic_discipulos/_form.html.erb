@@ -274,7 +274,7 @@
           </div>
 
           <div class="row" style="margin-top:15px; margin-left:30px;">
-            <div style="float:left; width:240px;">
+            <div style="float:left; width:200px;">
               <b>Ocasião da Decisão</b>
               <div class="radio">
                 <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" value="0" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 0 ? 'checked = "checked"' : '' %>>Célula
@@ -289,11 +289,16 @@
               </div>
 
               <div class="radio">
-                      <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" value="3" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 3 ? 'checked = "checked"' : '' %>>Culto Livre
+                      <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" value="3" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 3 ? 'checked = "checked"' : '' %>>Rede
               </div>
             </div>
 
-            <div style="float:left; width:200px;">
+           <div class="col-xs-4">
+              <%= f.label :Rede_conversao %>
+              <%= f.select :rede_conversao, options_from_collection_for_select(SivicRede.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id), 'id', 'nome_rede'), {}, {:class => "form-control"} %>
+            </div> 
+
+            <div style="float:left; width:200px; margin-left:30px">
               <b>Tipo de Decisão</b>
               <div class="radio">
                 <input id="sivic_discipulo_FLAG_Reconciliacao" type="radio" value="true" name="sivic_discipulo[FLAG_Reconciliacao]" <%= @sivic_discipulo.FLAG_Reconciliacao == true ? 'checked = "checked"' : '' %>>Recebeu a Cristo
@@ -313,15 +318,15 @@
               </div>
             </div>
 
-
           </div>
+
+         
 
         <%= f.hidden_field :NUMG_UsuarioInclusao, :value => current_user.id %>
         <%#= f.hidden_field :NUMG_UsuarioBloqueio, :value => current_user.id%>
 
         </div>
-         
-      
+              
             <div class="tab-pane" id="tab3">
                 <%if not current_user.sivic_pessoa.sivic_igreja.flag_tradicional%> 
                    <br/>
@@ -846,7 +851,21 @@ jQuery(function($){
       $('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty("");      
       $('#myModal').modal('hide');
 
-  }   
+  } 
+
+$(document).ready(function() {
+
+                    var valor = "";
+                    //Executa Loop entre todas as Radio buttons com o name de valor
+                    $('input:radio[name=sivic_discipulo[FLAG_OcasiaoRecebeuCristo]]').each(function() {
+                        //Verifica qual está selecionado
+                        if ($(this).is(':checked'))
+                            valor = parseInt($(this).val());
+                    })
+                    alert(valor);
+              )
+  })
+
 
 </script>
 

@@ -11,6 +11,7 @@ class SivicDiscipulo < ActiveRecord::Base
   belongs_to :UsuarioInclusao, :class_name => "User", :foreign_key => "NUMG_UsuarioInclusao"	
   belongs_to :UsuarioBloqueio, :class_name => "User", :foreign_key => "NUMG_UsuarioBloqueio"
   belongs_to :ProfissaoConjuge, :class_name => "SivicProfissao", :foreign_key => "NUMG_ProfissaoConjuge"
+  belongs_to :redeConversao, :class_name => "SivicRede", :foreign_key => "rede_conversao"
 
   # - STRONG ATRIBUTES
   accepts_nested_attributes_for :sivic_pessoa, allow_destroy: true
@@ -53,6 +54,20 @@ class SivicDiscipulo < ActiveRecord::Base
      # self.joins('LEFT JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('sp.sivic_igreja_id = ? and sp.user_exclusao is null',sivic_igreja_id).order('NOME_pessoa')
     end    
   end
+
+def self.find_disc_by_name_or_all(query,sivic_igreja_id)
+    
+    if query
+      query = query.downcase
+     
+      self.joins('LEFT JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('lower(sp.NOME_pessoa) like ? and sp.sivic_igreja_id = ? and sp.data_exclusao is null', "%#{query}%", sivic_igreja_id).order('NOME_pessoa')
+    else
+     
+       self.joins('LEFT JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where('sp.sivic_igreja_id = ? and sp.user_exclusao is null',sivic_igreja_id).order('NOME_pessoa')
+    end    
+  end
+
+
 
   def self.find_by_rel(query,sivic_igreja_id)    
     if query
