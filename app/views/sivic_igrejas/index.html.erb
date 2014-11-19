@@ -10,7 +10,7 @@
         <th>Nome </th>
         <th>Telefone</th>
         <th>Nome responsável</th>
-        <th>CNPJ</th>
+        <th>Membros</th>
         
         <th></th>
       </tr>
@@ -22,7 +22,7 @@
           <td><%= sivic_igreja.NOME_igreja %></td>
           <td><%= sivic_igreja.NUMR_telefone %></td>
           <td><%= sivic_igreja.NOME_responsavel %></td>
-          <td><%= sivic_igreja.NUMR_cnpj %></td>
+          <td><%= SivicDiscipulo.joins(:sivic_pessoa).where('sivic_pessoas.sivic_igreja_id = ?',sivic_igreja.id).count rescue nil %></td>
           
           <td align='right'>
             <div class="btn-group">

@@ -59,9 +59,11 @@
                   <li><%= link_to "Cadastro de Usuários", '/admin' %></li>
                 <% end %>   
 
-                <%# if can? :manage, SivicIgreja or can? :read, SivicIgreja or can? :create, SivicIgreja or can? :update, SivicIgreja or can? :destroy, SivicIgreja %>
-                  <li><%#= link_to 'Cadastro de Igreja', sivic_igrejas_path%></li>
-                <%# end %>                
+                <% if  current_user  %>
+                  <% if current_user.id == 1 || current_user.id == 2 %>          
+                      <li><%= link_to 'Cadastro de Igreja', sivic_igrejas_path%></li>
+                  <% end %>
+                <% end %>                            
 
                 <% if can? :manage, SivicUserpermissao or can? :read, SivicUserpermissao or can? :create, SivicUserpermissao or can? :update, SivicUserpermissao or can? :destroy, SivicUserpermissao %>
                   <li><%= link_to 'Permissões', usuarios_path%></li>
@@ -138,13 +140,27 @@
          <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cursos <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><%= link_to 'Cadastro de Cursos', sivic_cursos_path%> </li>
-              <li><%= link_to 'Cadastro de Professores', sivic_professors_path%> </li>
-              <li><%= link_to 'Cadastro de Turmas',  sivic_turmas_path%> </li>
-              <li><%= link_to 'Cadastro de Disciplina',  sivic_moduloescolas_path%></li>
-              <li><%= link_to 'Matricular Alunos',  sivic_turmaalunos_path%> </li>
-              <li><%= link_to 'Gerenciar Disciplinas',  sivic_licaos_path%> </li>
-              <li><%= link_to 'Diário Escolar',  sivic_alunoaulas_path%> </li>
+              <% if can? :manage, SivicCurso or can? :read, SivicCurso or can? :create, SivicCurso or can? :update, SivicCurso or can? :destroy, SivicCurso %>
+                <li><%= link_to 'Cadastro de Cursos', sivic_cursos_path%> </li>
+              <%end%>
+              <% if can? :manage, SivicProfessor or can? :read, SivicProfessor or can? :create, SivicProfessor or can? :update, SivicProfessor or can? :destroy, SivicProfessor %>
+                <li><%= link_to 'Cadastro de Professores', sivic_professors_path%> </li>
+              <%end%>
+              <% if can? :manage, SivicTurma or can? :read, SivicTurma or can? :create, SivicTurma or can? :update, SivicTurma or can? :destroy, SivicTurma %>
+                <li><%= link_to 'Cadastro de Turmas',  sivic_turmas_path%> </li>
+              <%end%>
+              <% if can? :manage, SivicModuloescola or can? :read, SivicModuloescola or can? :create, SivicModuloescola or can? :update, SivicModuloescola or can? :destroy, SivicModuloescola %>
+                <li><%= link_to 'Cadastro de Disciplina',  sivic_moduloescolas_path%></li>
+              <%end%>
+              <% if can? :manage, SivicTurmaaluno or can? :read, SivicTurmaaluno or can? :create, SivicTurmaaluno or can? :update, SivicTurmaaluno or can? :destroy, SivicTurmaaluno %>
+                <li><%= link_to 'Matricular Alunos',  sivic_turmaalunos_path%> </li>
+              <%end%>
+              <% if can? :manage, SivicLicao or can? :read, SivicLicao or can? :create, SivicLicao or can? :update, SivicLicao or can? :destroy, SivicLicao %>
+                <li><%= link_to 'Gerenciar Disciplinas',  sivic_licaos_path%> </li>
+              <%end%>
+              <% if can? :manage, SivicAlunoaula or can? :read, SivicAlunoaula or can? :create, SivicAlunoaula or can? :update, SivicAlunoaula or can? :destroy, SivicAlunoaula %>
+                <li><%= link_to 'Diário Escolar',  sivic_alunoaulas_path%> </li>
+              <%end%>
             </ul>
         </li>
 
@@ -164,7 +180,10 @@
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Relatórios <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><%= link_to 'Relatórios', report_path%> </li>
+              
+              <% if can? :report, StaticPagesController %>
+                <li><%= link_to 'Relatórios', report_path%> </li>
+              <% end %>
             </ul>
         </li> 
 

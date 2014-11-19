@@ -399,7 +399,148 @@ class Ability
         if permissao.sivic_permissao.mumr_acao == 5
           can :manage, SivicLancamento
         end        
-      end                               
+      end           
+
+      #SivicCurso
+      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicCurso'
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :create, SivicCurso
+        end
+        if permissao.sivic_permissao.mumr_acao
+          can :read, SivicCurso
+        end
+        if permissao.sivic_permissao.mumr_acao == 3
+          can :update, SivicCurso
+        end
+        if permissao.sivic_permissao.mumr_acao == 4
+          can :destroy, SivicCurso
+        end
+        if permissao.sivic_permissao.mumr_acao == 5
+          can :manage, SivicCurso
+        end        
+      end       
+
+      #SivicProfessor
+      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicProfessor'
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :create, SivicProfessor
+        end
+        if permissao.sivic_permissao.mumr_acao
+          can :read, SivicProfessor
+        end
+        if permissao.sivic_permissao.mumr_acao == 3
+          can :update, SivicProfessor
+        end
+        if permissao.sivic_permissao.mumr_acao == 4
+          can :destroy, SivicProfessor
+        end
+        if permissao.sivic_permissao.mumr_acao == 5
+          can :manage, SivicProfessor
+        end        
+      end                           
+
+      #SivicTurma
+      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicTurma'
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :create, SivicTurma
+        end
+        if permissao.sivic_permissao.mumr_acao
+          can :read, SivicTurma
+        end
+        if permissao.sivic_permissao.mumr_acao == 3
+          can :update, SivicTurma
+        end
+        if permissao.sivic_permissao.mumr_acao == 4
+          can :destroy, SivicTurma
+        end
+        if permissao.sivic_permissao.mumr_acao == 5
+          can :manage, SivicTurma
+        end        
+      end 
+
+      #SivicModuloescola
+      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicModuloescola'
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :create, SivicModuloescola
+        end
+        if permissao.sivic_permissao.mumr_acao
+          can :read, SivicModuloescola
+        end
+        if permissao.sivic_permissao.mumr_acao == 3
+          can :update, SivicModuloescola
+        end
+        if permissao.sivic_permissao.mumr_acao == 4
+          can :destroy, SivicModuloescola
+        end
+        if permissao.sivic_permissao.mumr_acao == 5
+          can :manage, SivicModuloescola
+        end        
+      end
+
+      #SivicTurmaaluno
+      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicTurmaaluno'
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :create, SivicTurmaaluno
+        end
+        if permissao.sivic_permissao.mumr_acao
+          can :read, SivicTurmaaluno
+        end
+        if permissao.sivic_permissao.mumr_acao == 3
+          can :update, SivicTurmaaluno
+        end
+        if permissao.sivic_permissao.mumr_acao == 4
+          can :destroy, SivicTurmaaluno
+        end
+        if permissao.sivic_permissao.mumr_acao == 5
+          can :manage, SivicTurmaaluno
+        end        
+      end      
+
+      #SivicLicao
+      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicLicao'
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :create, SivicLicao
+        end
+        if permissao.sivic_permissao.mumr_acao
+          can :read, SivicLicao
+        end
+        if permissao.sivic_permissao.mumr_acao == 3
+          can :update, SivicLicao
+        end
+        if permissao.sivic_permissao.mumr_acao == 4
+          can :destroy, SivicLicao
+        end
+        if permissao.sivic_permissao.mumr_acao == 5
+          can :manage, SivicLicao
+        end        
+      end
+
+      #SivicLicao
+      if permissao.sivic_permissao.sivic_model.nome_model == 'SivicAlunoaula'
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :create, SivicAlunoaula
+        end
+        if permissao.sivic_permissao.mumr_acao
+          can :read, SivicAlunoaula
+        end
+        if permissao.sivic_permissao.mumr_acao == 3
+          can :update, SivicAlunoaula
+        end
+        if permissao.sivic_permissao.mumr_acao == 4
+          can :destroy, SivicAlunoaula
+        end
+        if permissao.sivic_permissao.mumr_acao == 5
+          can :manage, SivicAlunoaula
+        end        
+      end
+
+      #SivicRelatorios
+      if permissao.sivic_permissao.sivic_model.nome_model == 'StaticPagesController'
+        if permissao.sivic_permissao.mumr_acao == 1
+          can :report, StaticPagesController
+        end       
+      end
+
 
     end    
     # See the wiki for details:

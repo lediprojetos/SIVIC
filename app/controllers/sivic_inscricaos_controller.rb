@@ -81,7 +81,18 @@ class SivicInscricaosController < ApplicationController
           SivicUserpermissao.create(:sivic_permissao_id => 83, :user_id => @User.id) #Manage Categorias
           SivicUserpermissao.create(:sivic_permissao_id => 84, :user_id => @User.id) #Manage Lançamentos
 
+        #Cursos
+          SivicUserpermissao.create(:sivic_permissao_id => 113, :user_id => @User.id) #Cadastro de Cursos
+          SivicUserpermissao.create(:sivic_permissao_id => 114, :user_id => @User.id) #Cadastro de Professores
+          SivicUserpermissao.create(:sivic_permissao_id => 115, :user_id => @User.id) #Cadastro de Turmas
+          SivicUserpermissao.create(:sivic_permissao_id => 116, :user_id => @User.id) #Cadastro de Disciplinas
+          SivicUserpermissao.create(:sivic_permissao_id => 117, :user_id => @User.id) #Matricular Aluno
+          SivicUserpermissao.create(:sivic_permissao_id => 118, :user_id => @User.id) #Gerenciar Disciplinas
+          SivicUserpermissao.create(:sivic_permissao_id => 119, :user_id => @User.id) #Diário Escolar
 
+        #Relatorios
+          SivicUserpermissao.create(:sivic_permissao_id => 120, :user_id => @User.id) #Visualizar Relatórios
+          
         
         format.html { redirect_to new_user_session_path, notice: 'Registro efetuado com sucesso. Por favor realize o login.' }
         format.json { render action: 'show', status: :created, location: @sivic_inscricao }
