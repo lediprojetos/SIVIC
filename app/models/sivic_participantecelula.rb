@@ -7,8 +7,7 @@ class SivicParticipantecelula < ActiveRecord::Base
 
 
 
-	validates_uniqueness_of :DESC_Email, :scope => :NUMR_Telefone
+	#validates_uniqueness_of :DESC_Email, :scope => :NUMR_Telefone
 	
-
 
 end

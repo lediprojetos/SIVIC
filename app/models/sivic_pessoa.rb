@@ -36,7 +36,7 @@ def nome_discipulador=(val)
   @nome_discipulador = val
 end
 
-#metodo para setar discipulo como consolidador quando tiver uma pessoa cadastrada debaixo dele
+
 
 
 def self.find_by_name_or_all(query,sivic_igreja_id)
@@ -58,26 +58,26 @@ def self.find_by_name_pessoa_or_all(query,sivic_igreja_id)
 end
 
 
-
-  def setaParaConsolidador  
+ #metodo para setar discipulo como consolidador quando tiver uma pessoa cadastrada debaixo dele
+  #def setaParaConsolidador  
     
-      if self.sivic_igreja_id != 1
-        if self.father_id && self.father_id != 0 
+  #    if self.sivic_igreja_id != 1
+  #      if self.father_id && self.father_id != 0 
           
-            @pessoa = SivicPessoa.find(self.father_id)
-
-            @discipulo = SivicDiscipulo.find_by! sivic_pessoa_id: @pessoa.id rescue nil
-          
-          if @discipulo != nil
-               if @discipulo.flag_consolidador == false
-                  @discipulo.update(:flag_consolidador => true) 
-               end
-
-          end  
-     
-       end
-     end
-   end
+  #          @pessoa = SivicPessoa.find(self.father_id)
+  #
+  #          @discipulo = SivicDiscipulo.find_by! sivic_pessoa_id: @pessoa.id rescue nil
+  #        
+  #        if @discipulo != nil
+  #             if @discipulo.flag_consolidador == false
+  #                @discipulo.update(:flag_consolidador => true) 
+  #             end
+  #
+  #        end  
+  #   
+  #     end
+  #   end
+  # end
 
 
     def  geraCodigo 

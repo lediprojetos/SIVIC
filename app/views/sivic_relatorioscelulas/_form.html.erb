@@ -16,6 +16,20 @@
       </ul>
     </div>
   <% end %>
+
+<div class="tabbable">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a href="#tab1" data-toggle="tab">Dados Básicos</a>
+        </li>
+        <li>
+          <a href="#tab2" data-toggle="tab">Participantes Célula</a>
+        </li>      
+      </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+
+
       <div class="row">
         <div class="col-xs-5">
           <%= f.label :Célula %>
@@ -126,10 +140,57 @@
 
         <div class="field">
           <%= f.hidden_field :sivic_situacoesrelatorio_id, :value => 1 %>
-        </div>      
+        </div> 
 
+
+      </div>
+        <div class="tab-pane" id="tab2">
+             <br/>
+
+              <%if not @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 3 %>
+              <div class="field">
+                <a data-toggle="modal" href="#myModal2" class="btn btn-success">Buscar Participante</a>
+              </div>
+              <%end%>
+            <hr />
+
+            <table class="table table-hover" id="tlbparticipantes">
+              <thead>
+                <tr>
+                  <th>Nome:</th>
+                  <th>Email</th>
+                  <th>Telefone:</th>
+                  <th>Situação:</th>
+                  <%if not @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 3 %>
+                  <th></th>     
+                  <%end%>
+                </tr>
+              </thead>
+              <tbody>
+                <% @sivic_relatorioscelula.sivic_partevenrelacelula.each do |sivic_partevenrelacelula| %>
+                  <tr>
+                    <td><%= sivic_partevenrelacelula.sivic_participantecelula.nome_participante %></td>
+                    <td><%= sivic_partevenrelacelula.sivic_participantecelula.DESC_Email %></td>
+                    <td><%= sivic_partevenrelacelula.sivic_participantecelula.NUMR_Telefone %></td>
+                    <td><%= sivic_partevenrelacelula.sivic_sitpartcelula.DESC_situacao %></td>
+                    <%if not @sivic_relatorioscelula.sivic_situacoesrelatorio_id == 3 %>
+                    <td align='right'>
+                    <a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_relatorioscelulas/<%=sivic_partevenrelacelula.sivic_relatorioscelula.id%>/sivic_partevenrelacelulas/<%=sivic_partevenrelacelula.id%>" data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir"><span class="glyphicon glyphicon-trash" rel="tooltip"></span>
+                    </a>  
+                    </div>
+                     <%end%>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+        </div>       
+      </div>
+    </div>
    </div>
   </div>
+
+
 
 <div class="btn-group">
   <button type="submit" class="btn btn-default btn">
@@ -139,7 +200,16 @@
   <a class="btn btn-default btn" onclick='$("#myModaledit").modal("show")'>
     <span class="glyphicon glyphicon-info-sign"></span> 
     Observações
-  </a> 
+  </a>
+
+  <%if current_user.role == 'ADMINISTRADOR'%>
+
+      <a class="btn btn-default btn" onclick='$("#myModal3").modal("show")'>
+        <span class="glyphicon glyphicon-ok"></span> 
+        Avaliar
+      </a>      
+
+    <%end%> 
 
   <%= yield(:iconexibir) %>
 
@@ -150,6 +220,147 @@
 
 
 <% end %>
+
+
+<%
+  @sivic_participantecelula = SivicParticipantecelula.new
+  @sivic_igreja = SivicIgreja.all
+%>
+
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="tabbable">
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a href="#tab3" data-toggle="tab"><h4 class="modal-title" id="myModalLabel">Busca Participantes</h4></a>
+            </li>
+            <li >
+              <a href="#tab4" data-toggle="tab"><h4 class="modal-title" id="myModalLabel">Cadastras Participantes</h4></a>
+            </li>       
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab3">
+              <br/>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="input-group">
+                    <input id="nome_participante_buscar" name="nome_participante_buscar" onkeypress="buscaPessoa();" type="text" class="form-control" placeholder="Nome">
+                    <span class="input-group-btn">
+                      <button class="btn btn-success" type="button" onclick="buscaPessoa();">Buscar</button>
+                    </span>
+                  </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+              </div><!-- /.row -->
+                <table id="table_user" name="table_user" class="table table-hover">
+                  <thead>
+                    <tr>
+                       <th>Nome</th>
+                       <th>Situacão</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tbodyid">
+                    <tr>
+                    </tr>
+                    <tr>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="tab-pane" id="tab4">
+                <%= form_for(@sivic_participantecelula) do |f| %>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-xs-12">
+                         <%= f.label :NOME %>
+                         <%= f.text_field :nome_participante, :class => 'form-control' %>
+                      </div>
+                      <div class="col-xs-12">
+                         <%= f.label :Email %>
+                         <%= f.text_field :DESC_Email, :class => 'form-control' %>
+                      </div>
+                      <div class="col-xs-12">
+                         <%= f.label :Telefone %>
+                         <%= f.text_field :NUMR_Telefone, :class => 'form-control' %>
+                      </div>
+                      <div class="col-xs-12">
+                         <%= f.label :Situação %>
+                         <%= f.select :sivic_sitpartcelula_id, options_from_collection_for_select(SivicSitpartcelula.where("sivic_igreja_id = ?", current_user.sivic_pessoa.sivic_igreja.id), 'id', 'DESC_situacao',@sivic_participantecelula.sivic_sitpartcelula_id),{}, :class => 'form-control'%>
+                      </div>
+                      <%= f.hidden_field :sivic_celula_id, :value => @sivic_relatorioscelula.sivic_celula_id%>
+                    </div>
+                  </div>
+                <%end%>
+
+                  
+              <div class="modal-footer">
+                <div class="row">
+                   
+                <div class="col-xs-9">
+                </div>
+                
+                <div class="col-xs-2">
+                      <a data-toggle="modal" href="javascript:createPessoa(this.value);" class="btn btn-success">Cadastrar</a>
+                </div>
+                
+                </div>        
+             </div> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Avaliar Relório</h4>
+      </div>
+      <div class="modal-body">
+        
+        <table id='tlbchat'>
+          <% @sivic_Observacoesrelatorios.each do |sivic_obs| %>
+            <tr>
+              <td>
+                <div class="alert alert-success">
+                  <strong>
+                    <%= sivic_obs.sivic_pessoa.nome_pessoa%>:
+                  </strong>
+                  <%= sivic_obs.DESC_Observacao%>
+                </div>
+              </td>           
+            </tr>
+          <%end%>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <div slyle='width:100%; height:100%; align:left'>
+          <textarea class='txtareachat' name='txtareachat' id='txtareachat'></textarea>
+          <a data-toggle="modal" class="btn btn-info" href="javascript:createObservacao();"  style='float:left;margin-left:10px;'>Enviar</a>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <table align='center'>
+          <tr>
+            <td>
+              <a data-toggle="modal" class="btn btn-danger" href="javascript:alteraSituacao(2);" >Negar</a>
+              <a data-toggle="modal" class="btn btn-success" href="javascript:alteraSituacao(3);" >Aceitar</a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>  
 
  
 <script>
@@ -167,6 +378,133 @@ $(function(){
 })
 
 
+
+
+//Aplicando Máscara
+jQuery(function($){
+   $("#sivic_participantecelula_NUMR_Telefone").mask("(99)9999-9999");
+
+});
+
+  function alteraSituacao(situacao){
+
+      $.ajax({
+        url: '<%= alteraSituacao_path %>',
+        data : 
+        {
+            sivic_relatorioscelula_id : $('#sivic_relatorioscelula_id').val()
+            ,sivic_situacoesrelatorio_id : situacao
+        },
+        success: function(data){
+
+          location.reload();
+
+        }
+      })
+
+  }
+
+  function createObservacao(){
+
+      $.ajax({
+        url: '<%= criarObservacaorelatorio_path %>',
+        data : 
+        {
+            sivic_relatorioscelula_id : $('#sivic_relatorioscelula_id').val()
+            ,sivic_pessoa_id : $('#sivic_pessoa_id').val()
+            ,DESC_Observacao : $('#txtareachat').val()
+        },
+        success: function(data){
+          var options = "";
+          var DESC_SituacaoParticipante
+          for (var i in data) {
+            var item = data[i];
+
+            $('#tlbchat').append('<tr><td><div class="alert alert-success"><strong>'+item.nome_pessoa+': </strong>'+item.DESC_Observacao+'</div></td></tr>')
+
+            $('#txtareachat').val("")
+
+          };
+        }
+      })
+
+  }
+
+  function createPessoa(){
+
+      $.ajax({
+        url: '<%= criarParticipantesCelulas_path %>',
+        data : 
+        {
+            nome_participante : $('#sivic_participantecelula_nome_participante').val()
+            ,DESC_Email : $('#sivic_participantecelula_DESC_Email').val()
+            ,NUMR_Telefone : $('#sivic_participantecelula_NUMR_Telefone').val()
+            ,sivic_sitpartcelula_id : $('#sivic_participantecelula_sivic_sitpartcelula_id').val()
+            ,sivic_celula_id : $('#sivic_participantecelula_sivic_celula_id').val()
+        },
+        success: function(data){
+          var options = "";
+          var DESC_SituacaoParticipante
+          for (var i in data) {
+            var item = data[i];
+            setaNome(item.nome_participante,item.id,item.sivic_sitpartcelula_id);
+
+            $('#sivic_participantecelula_nome_participante').val("");
+            $('#sivic_participantecelula_DESC_Email').val("");
+            $('#sivic_participantecelula_NUMR_Telefone').val("");
+            //$('#sivic_participantecelula_DESC_SituacaoParticipante').val("");
+
+          };
+        }
+      })
+  }
+
+  function buscaPessoa(){
+      $.ajax({
+        url: '<%= listarParticipantesCelulas_path %>',
+        data : 
+        {
+            nome_participante : $('#nome_participante_buscar').val()
+            ,sivic_celula_id : $('#sivic_participantecelula_sivic_celula_id').val()
+        },
+        success: function(data){
+          $("#tbodyid").empty();
+          for (var i in data) {
+            var item = data[i];
+            $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.nome_participante+'\','+item.id+',\ '+ item.id_Situacao+'\);">'+item.nome_participante+'</a></td><td><a href="javascript:setaNome(\'' + item.nome_participante+'\','+item.id+',\ ' + item.id_Situacao+'\);">'+item.DESC_SituacaoParticipante+'</a></td></tr>')
+          };
+ 
+        }
+      })
+    }
+
+  function setaNome(nome,id,id_situacao){
+
+      $.ajax({
+        url: '<%= criarParticipantesRelatorios_path %>',
+        data : 
+        {
+            sivic_relatorioscelula_id : $('#sivic_relatorioscelula_id').val()
+            ,sivic_participantecelula_id : id
+            ,sivic_sitpartcelula_id : id_situacao
+        },
+        success: function(data){
+          for (var i in data) {
+            var item = data[i];
+            //$('#tlbparticipantes').append('<tr><td>'+item.nome_participante+'</td><td>'+item.DESC_Email+'</td><td>'+item.NUMR_Telefone+'</td><td>'+item.DESC_SituacaoParticipante+'</td><td><a data-confirm="Deseja excluir o registro?" data-method="delete" href="/sivic_relatorioscelulas/'+$('#sivic_relatorioscelula_id').val()+'/sivic_partevenrelacelulas/'+item.id+'" rel="nofollow">Excluir</a></td></tr>');
+            //alert(item.id);
+
+             $('#tlbparticipantes').append('<tr><td>'+item.nome_participante+'</td><td>'+item.DESC_Email+'</td><td>'+item.NUMR_Telefone+'</td><td>'+item.DESC_SituacaoParticipante+'</td><td align="right"><a class="btn btn-default btn-sm" title="" rel="tooltip" href="/sivic_relatorioscelulas/'+$('#sivic_relatorioscelula_id').val()+'/sivic_partevenrelacelulas/'+item.id+'" data-method="delete" data-confirm="Deseja excluir o registro?" data-original-title="Excluir"><span class="glyphicon glyphicon-trash" rel="tooltip"></span></a></td>')
+
+          };
+ 
+        }
+      })
+    }
+
+
+$(".alert-message").alert();
+window.setTimeout(function() { $(".alert-message").alert('close'); }, 2000);
 
 </script>
 

@@ -28,25 +28,24 @@ class SivicPartevenrelacelulasController < ApplicationController
     redirect_to sivic_relatorioscelula_path(@sivic_relatorioscelula)
    end
 
-  def create_participante
-      sivic_relatorioparticipante = SivicPartevenrelacelula.find :all, :conditions => {:sivic_relatorioscelula_id => params[:sivic_relatorioscelula_id],:sivic_participantecelula_id => params[:sivic_participantecelula_id]}
-      
-      if sivic_relatorioparticipante.empty?
-        SivicPartevenrelacelula.create(:sivic_relatorioscelula_id => params[:sivic_relatorioscelula_id],:sivic_participantecelula_id => params[:sivic_participantecelula_id], :sivic_sitpartcelula_id => params[:sivic_sitpartcelula_id])
+    def create_participante
         sivic_relatorioparticipante = SivicPartevenrelacelula.find :all, :conditions => {:sivic_relatorioscelula_id => params[:sivic_relatorioscelula_id],:sivic_participantecelula_id => params[:sivic_participantecelula_id]}
-        sivic_relatorioparticipante_json = sivic_relatorioparticipante.map {|item| {:id => item.id, :nome_participante => item.sivic_participantecelula.nome_participante, :DESC_Email => item.sivic_participantecelula.DESC_Email, :NUMR_Telefone => item.sivic_participantecelula.NUMR_Telefone, :DESC_SituacaoParticipante => item.sivic_participantecelula.sivic_sitpartcelula.DESC_situacao}}  
-        render :json => sivic_relatorioparticipante_json
-      end
+        
+        if sivic_relatorioparticipante.empty?
+          SivicPartevenrelacelula.create(:sivic_relatorioscelula_id => params[:sivic_relatorioscelula_id],:sivic_participantecelula_id => params[:sivic_participantecelula_id], :sivic_sitpartcelula_id => params[:sivic_sitpartcelula_id])
+          sivic_relatorioparticipante = SivicPartevenrelacelula.find :all, :conditions => {:sivic_relatorioscelula_id => params[:sivic_relatorioscelula_id],:sivic_participantecelula_id => params[:sivic_participantecelula_id]}
+          sivic_relatorioparticipante_json = sivic_relatorioparticipante.map {|item| {:id => item.id, :nome_participante => item.sivic_participantecelula.nome_participante, :DESC_Email => item.sivic_participantecelula.DESC_Email, :NUMR_Telefone => item.sivic_participantecelula.NUMR_Telefone, :DESC_SituacaoParticipante => item.sivic_participantecelula.sivic_sitpartcelula.DESC_situacao}}  
+          render :json => sivic_relatorioparticipante_json
+        end
 
-  end   
-
+    end   
 
 
    def destroy
     @sivic_relatorioscelula = SivicRelatorioscelula.find(params[:sivic_relatorioscelula_id])
     @sivic_partevenrelacelula = @sivic_relatorioscelula.sivic_partevenrelacelula.find(params[:id])
     @sivic_partevenrelacelula.destroy
-    redirect_to sivic_relatorioscelula_path(@sivic_relatorioscelula)
+    redirect_to edit_sivic_relatorioscelula_path(@sivic_relatorioscelula)
   end
 
   private

@@ -277,27 +277,26 @@
             <div style="float:left; width:200px;">
               <b>Ocasião da Decisão</b>
               <div class="radio">
-                <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" value="0" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 0 ? 'checked = "checked"' : '' %>>Célula
+                <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" onclick="habilitaRede(this.value)" value="0" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 0 ? 'checked = "checked"' : '' %>>Célula
               </div>
 
               <div class="radio">
-                      <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" value="1" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 1 ? 'checked = "checked"' : '' %>>Celebração Evento
+                      <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" onclick="habilitaRede(this.value)" value="1" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 1 ? 'checked = "checked"' : '' %>>Celebração Evento
               </div>
 
               <div class="radio">
-                      <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" value="2" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 2 ? 'checked = "checked"' : '' %>>Evangelismo Pessoal
+                      <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" onclick="habilitaRede(this.value)" value="2" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 2 ? 'checked = "checked"' : '' %>>Evangelismo Pessoal
               </div>
 
               <div class="radio">
-                      <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" value="3" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 3 ? 'checked = "checked"' : '' %>>Rede
+                      <input id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" type="radio" onclick="habilitaRede(this.value)" value="3" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 3 ? 'checked = "checked"' : '' %>>Rede
               </div>
-            </div>
-
-           <div class="col-xs-4">
-              <%= f.label :Rede_conversao %>
-              <%= f.select :rede_conversao, options_from_collection_for_select(SivicRede.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id), 'id', 'nome_rede'), {}, {:class => "form-control"} %>
+             
+            </div>         
+             <div class="col-xs-4">
+                <%= f.label :Rede_conversao %>
+                <%= f.select :rede_conversao, options_from_collection_for_select(SivicRede.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id), 'id', 'nome_rede',@sivic_discipulo.rede_conversao), {:include_blank => true}, {:class => "form-control", :disabled => "disabled"}%>
             </div> 
-
             <div style="float:left; width:200px; margin-left:30px">
               <b>Tipo de Decisão</b>
               <div class="radio">
@@ -853,19 +852,24 @@ jQuery(function($){
 
   } 
 
-$(document).ready(function() {
+function habilitaRede(valor){
+   if (valor == '3' ){
+      $('#sivic_discipulo_rede_conversao').removeAttr('disabled');
+    }else{
+      $('#sivic_discipulo_rede_conversao').attr('disabled', 'disabled');
+    } 
 
-                    var valor = "";
-                    //Executa Loop entre todas as Radio buttons com o name de valor
-                    $('input:radio[name=sivic_discipulo[FLAG_OcasiaoRecebeuCristo]]').each(function() {
-                        //Verifica qual está selecionado
-                        if ($(this).is(':checked'))
-                            valor = parseInt($(this).val());
-                    })
-                    alert(valor);
-              )
-  })
+}
 
+  function RedeEditar(){
+
+    if (('<%=@sivic_discipulo.FLAG_OcasiaoRecebeuCristo%>') == '3')
+      {
+         habilitaRede(3)
+      }
+
+   }
+  RedeEditar()
 
 </script>
 
