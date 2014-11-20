@@ -1,0 +1,76 @@
+<% content_for :titlePage do %>
+  Listar Discípulos
+<% end %>
+
+
+<%=render '/layouts/panel' %>
+
+<%= form_tag nil, method: 'GET' do %>
+  <label >Nome</label><br>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="input-group">
+        <input id="q" name="q" type="text" class="form-control" placeholder="Nome">
+        <span class="input-group-btn">
+          <button class="btn btn-success" type="submit" >Buscar</button>
+        </span>
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+  </div><!-- /.row -->
+  <br />  
+<% end %>
+          
+  <hr>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th><strong class='titleTable'>Nome</strong></th>
+        <th><strong class='titleTable'>Data de Nascimento</strong></th>
+        <th><strong class='titleTable'>Data batismo</strong></th>
+        <th></th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @sivic_discipulos.each do |sivic_discipulo| %>
+        <tr>
+          <td><%= sivic_discipulo.sivic_pessoa.nome_pessoa %></td>
+          <td><%= sivic_discipulo.data_nascimento.blank? ? '' : sivic_discipulo.data_nascimento.strftime("%d/%m/%Y")  %></td>
+          <td><%= sivic_discipulo.data_batismo.blank? ? '' : sivic_discipulo.data_batismo.strftime("%d/%m/%Y")  %></td>
+
+        <td align='right'>                                     
+            <%= link_to relCelulas_path(sivic_discipulo, format: 'pdf'), {:class => "btn btn-default btn-sm", :target => '_blank', :rel=>"tooltip", :title=>"Células"} do %>
+              <span class="glyphicon glyphicon-tasks"></span>
+            <% end %> 
+        </td> 
+                  
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<div class="apple_pagination">
+<%= will_paginate @sivic_discipulo %>
+</div>
+
+</div></div>
+<div class="btn-group">
+  <%= link_to new_sivic_discipulo_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>
+
+
+<script>
+jQuery(function($){
+  $('#q').focus();
+});  
+
+
+$(function(){
+  $("a[rel='tooltip']").tooltip();
+})
+
+</script>

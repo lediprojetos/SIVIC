@@ -8,6 +8,12 @@ def relGeracoesIndex
   @sivic_discipulos = SivicDiscipulo.find_disc_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10) 
 end
 
+def relCelulasGeracao
+  @sivic_discipulos = SivicDiscipulo.find_disc_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10) 
+end
+
+
+
 def usuarios
   @sivic_discipulos = SivicPessoa.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
 end  
@@ -104,6 +110,21 @@ end
 
   end
 
+  def relCelulas
+    @sivic_discipulo = SivicDiscipulo.find(params[:id])
+    @tipo_relatorio = params[:tipo]
+
+    @allperson = [@sivic_discipulo.sivic_pessoa_id]
+    BuscaCelulas(@sivic_discipulo.sivic_pessoa_id)
+
+    respond_to do |format|
+      format.html
+      format.pdf { render_civic_discipulo_geracao_list(@allperson) }
+    end
+
+  end
+
+
 def BuscaPessoas2(id)
   sivic_dados = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id where sp.father_id = ' + id.to_s)
 
@@ -119,6 +140,24 @@ def BuscaPessoas2(id)
     end
 
 end
+
+
+def BuscaCelulas(id)
+  sivic_dados = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id INNER JOIN sivic_celulas cl on sp.id = cl.sivic_pessoa_id where sp.father_id = ' + id.to_s)
+
+    if sivic_dados
+
+      sivic_dados.each do |sivic_pessoas|
+      
+        @allperson += [sivic_pessoas.sivic_pessoa_id]
+        BuscaCelulas(sivic_pessoas.sivic_pessoa_id)
+
+      end
+
+    end
+
+end
+
 
 def render_civic_discipulo_geral_list(tasks)
   report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'membros_geral.tlf')
