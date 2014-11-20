@@ -119,7 +119,7 @@ end
 
     respond_to do |format|
       format.html
-      format.pdf { render_civic_discipulo_geracao_list(@allperson) }
+      format.pdf { render_civic_celulas_geracao_list(@allperson,@sivic_discipulo.sivic_pessoa.nome_pessoa) }
     end
 
   end
@@ -143,7 +143,7 @@ end
 
 
 def BuscaCelulas(id)
-  sivic_dados = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id INNER JOIN sivic_celulas cl on sp.id = cl.sivic_pessoa_id where sp.father_id = ' + id.to_s)
+  sivic_dados = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id where sp.father_id = ' + id.to_s)
 
     if sivic_dados
 
@@ -255,6 +255,51 @@ end
                              type: 'application/pdf', 
                              disposition: ''
 end
+
+
+def render_civic_celulas_geracao_list(tasks,nome_lider)
+  report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'celulas_geracao.tlf')
+
+     @cont = 1
+
+  for n in tasks   
+    #dados_pessoa = SivicDiscipulo.find_by_sivic_pessoa_id(n) rescue nil
+     dados_celula = SivicCelula.find_by_sivic_pessoa_id(n) rescue nil
+
+    if dados_celula
+      report.list.add_row do |row|
+        row.values lblId: @cont
+        row.values lblNome: dados_celula.sivic_pessoa.nome_pessoa
+        row.values lblDiaReuniao: dados_celula.NUMR_Dia
+        row.values lblEndereco: dados_celula.sivic_endereco.DESC_Rua + ' ' + dados_celula.sivic_endereco.DESC_Complemento
+        row.values lblBairro: dados_celula.sivic_endereco.DESC_Bairro
+        row.values lblCidade: dados_celula.sivic_endereco.sivic_cidade.nome_cidade
+
+         @cont = @cont + 1
+
+      end
+    end
+
+  end
+
+ report.events.on :generate  do |e|
+   e.pages.each do |page|
+    page.item(:data).value(Time.now)
+    page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+    page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
+    page.item(:lblNomeLider).value(nome_lider)
+  end
+end
+
+  #report.page.item(:data).value(Time.now)
+  #report.page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+  #report.page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
+  
+  send_data report.generate, filename: 'discipulos_geracao.pdf', 
+                             type: 'application/pdf', 
+                             disposition: ''
+end
+
 
 
   def busca_discipulos
