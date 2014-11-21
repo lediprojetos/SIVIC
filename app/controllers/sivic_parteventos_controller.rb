@@ -110,8 +110,7 @@ end
   # POST /sivic_parteventos
   # POST /sivic_parteventos.json
   def create
-  
-    
+   
     @valor_movimento =  sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:VALR_movimento]
     @valor_restante = sivic_partevento_params[:sivic_movimentofinanceiro_attributes][:valr_restante]
 

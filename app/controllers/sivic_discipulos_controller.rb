@@ -12,8 +12,6 @@ def relCelulasGeracao
   @sivic_discipulos = SivicDiscipulo.find_disc_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10) 
 end
 
-
-
 def usuarios
   @sivic_discipulos = SivicPessoa.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
 end  
@@ -263,10 +261,10 @@ def render_civic_celulas_geracao_list(tasks,nome_lider)
      @cont = 1
 
   for n in tasks   
-    #dados_pessoa = SivicDiscipulo.find_by_sivic_pessoa_id(n) rescue nil
      dados_celula = SivicCelula.find_by_sivic_pessoa_id(n) rescue nil
 
     if dados_celula
+      if not dados_celula.user_bloqueio
       report.list.add_row do |row|
         row.values lblId: @cont
         row.values lblNome: dados_celula.sivic_pessoa.nome_pessoa
@@ -277,6 +275,7 @@ def render_civic_celulas_geracao_list(tasks,nome_lider)
 
          @cont = @cont + 1
 
+       end
       end
     end
 

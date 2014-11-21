@@ -36,9 +36,6 @@ def nome_discipulador=(val)
   @nome_discipulador = val
 end
 
-
-
-
 def self.find_by_name_or_all(query,sivic_igreja_id)
     if query
       query = query.downcase
