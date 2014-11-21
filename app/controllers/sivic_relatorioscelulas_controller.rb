@@ -4,6 +4,13 @@ class SivicRelatorioscelulasController < ApplicationController
 
   include ActionView::Helpers::NumberHelper
 
+  def lanca_relatorio
+
+       SivicRelatorioscelula.create(:sivic_celula_id => params[:id_celula], :DATA_Reuniao => params[:data_reuniao], :sivic_situacoesrelatorio_id => 5)
+ 
+  end
+
+
   def jobCelulas
 
     if params[:NUMR_Dia] != nil
