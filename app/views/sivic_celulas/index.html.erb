@@ -6,10 +6,24 @@
 
 <%=render '/layouts/panel' %>
 
+<%= form_tag nil, method: 'GET' do %>
+  <label >Nome</label><br>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="input-group">
+        <input id="q" name="q" type="text" class="form-control" placeholder="Nome">
+        <span class="input-group-btn">
+          <button class="btn btn-success" type="submit" >Buscar</button>
+        </span>
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+  </div><!-- /.row -->
+  <br/>  
+<% end %>
+
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Id</th>
       <th>Líder</th>
       <th>Dia</th>
       <th>Data Bloqueio</th>
@@ -20,7 +34,6 @@
   <tbody>
     <% @sivic_celulas.each do |sivic_celula| %>
       <tr>
-        <td><%= sivic_celula.NUMR_Codigo %></td>
         <td><%= sivic_celula.sivic_pessoa.nome_pessoa %></td>
         <td><%= sivic_celula.NUMR_Dia %></td>
         <td><%= sivic_celula.DATA_Bloqueio.blank? ? '' : sivic_celula.DATA_Bloqueio.strftime("%d/%m/%Y") %></td>
