@@ -1,0 +1,20 @@
+<%=render '/layouts/finanbar' %>
+
+<ul class="nav nav-tabs">
+  <li role="presentation" <%=@mes == '1' ? "class='active'".html_safe : '' %>> <a href="<%=extrato_mensal_path + '?mes=1'%>">Janeiro</a></li>
+  <li role="presentation" <%=@mes == '2' ? 'class="active"'.html_safe : '' %>><a href="<%=extrato_mensal_path + '?mes=2'%>">Fevereiro</a></li>
+  <li role="presentation" <%=@mes == '3' ? 'class="active"'.html_safe : '' %>><a href="<%=extrato_mensal_path + '?mes=3'%>">Março</a></li>
+  <li role="presentation" <%=@mes == '4' ? 'class="active"'.html_safe : '' %>><a href="<%=extrato_mensal_path + '?mes=4'%>">Abril</a></li>
+  <li role="presentation" <%=@mes == '5' ? 'class="active"'.html_safe : '' %>><a href="<%=extrato_mensal_path + '?mes=5'%>">Maio</a></li>
+  <li role="presentation" <%=@mes == '6' ? 'class="active"'.html_safe : '' %>><a href="<%=extrato_mensal_path + '?mes=6'%>">Junho</a></li>
+  <li role="presentation" <%=@mes == '7' ? 'class="active"'.html_safe : '' %>><a href="<%=extrato_mensal_path + '?mes=7'%>">Julho</a></li>
+  <li role="presentation" <%=@mes == '8' ? 'class="active"'.html_safe : '' %>><a href="<%=extrato_mensal_path + '?mes=8'%>">Agosto</a></li>
+  <li role="presentation" <%=@mes == '9' ? 'class="active"'.html_safe : '' %>><a href="<%=extrato_mensal_path + '?mes=9'%>">Setembro</a></li>
+  <li role="presentation" <%=@mes == '10' ? 'class="active"'.html_safe : '' %>><a href="<%=extrato_mensal_path + '?mes=10'%>">Outubro</a></li>
+  <li role="presentation" <%=@mes == '11' ? 'class="active"'.html_safe : '' %>><a href="<%=extrato_mensal_path + '?mes=11'%>">Novembro</a></li>
+  <li role="presentation" <%=@mes == '12' ? 'class="active"'.html_safe : '' %>><a href="<%=extrato_mensal_path + '?mes=12'%>">Dezembro</a></li>
+</ul>
+
+<br/>
+
+<%=render '/layouts/finanreport' %>

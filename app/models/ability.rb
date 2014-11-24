@@ -354,6 +354,7 @@ class Ability
         end
         if permissao.sivic_permissao.mumr_acao
           can :read, SivicCategory
+          can :buscaCategoria, SivicCategory
         end
         if permissao.sivic_permissao.mumr_acao == 3
           can :update, SivicCategory

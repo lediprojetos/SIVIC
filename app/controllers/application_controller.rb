@@ -60,6 +60,14 @@ def find_by_Extrato
     end     
 
     SivicLancamento.where('data_vencimento >= ? and data_vencimento <= ? and sivic_igreja_id = ? and data_exclusao is null',session[:data_ini], session[:data_fim], current_user.sivic_pessoa.sivic_igreja_id)
+end
+
+def busca_aniversariantes_do_dia
+
+#@sivic_aniversariantes_do_dia = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where("sivic_igreja_id = ? and date_part('day', data_nascimento) = ? ", current_user.sivic_pessoa.sivic_igreja_id, 24)
+  SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where("date_part('day', data_nascimento) = ? and date_part('month', data_nascimento) = ?", Date.today.day, Date.today.month)
 end    
 
 end
+
+

@@ -38,11 +38,16 @@
           class="active"
         <%end%>
       ><a href="<%=contasareceber_path%>">Receitas</a></li>
-      <li
-        <% if request.original_fullpath == '/extrato' %>
-          class="active"
-        <%end%>
-      ><a href="<%=extrato_path%>">Extrato</a></li>
+
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extrato <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="<%=extrato_path%>">Por Período</a></li>
+          <li><a href="<%=extrato_path%>">Por Balancete</a></li>
+          <li><a href="<%=extrato_mensal_path%>">Mensal</a></li>
+        </ul>
+      </li>      
+
     </ul>
 
 
@@ -131,7 +136,7 @@
           <div class="col-xs-6">
               <spam>Categoria</spam>
               <%=  fields_for :sivic_category do |f| %>
-                <%= f.select :sivic_category_id, options_from_collection_for_select(SivicCategory.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id), 'id', 'nome_categoria'),{:include_blank => true},{ :class =>  'form-control'}%>
+                <%= f.select :sivic_category_id, options_from_collection_for_select(SivicCategory.where(:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id, :tipo_categoria =>  1), 'id', 'nome_categoria'),{:include_blank => true},{ :class =>  'form-control'}%>
               <% end %>
           </div>
         </div>
@@ -473,6 +478,31 @@ $(function() {
 
 })
 
+function buscaCategoria(tipo){
+
+      $.ajax({
+        url: '<%= buscacategoria_path %>',
+        data : 
+        {
+            tipo_categoria : tipo
+        },
+        success: function(data){
+          $('#sivic_category_sivic_category_id').empty();
+          $('#sivic_category_sivic_category_id').html('<option>Carregando...</option>');
+          $('#sivic_category_sivic_category_id').attr('disabled', 'disabled');
+          var options = "";
+          for (var i in data) {
+            var item = data[i];
+            options += "<option value='"+item.id+"'>"+item.nome_categoria+"</option>"
+          };
+ 
+          $('#sivic_category_sivic_category_id').html(options);
+          $('#sivic_category_sivic_category_id').removeAttr('disabled');
+ 
+        }
+    })
+}
+
 
 function buscaPessoa(fonte){
 
@@ -503,20 +533,23 @@ function buscaPessoa(fonte){
     })
 }
 
-  function setaNome(nome,id){
+function setaNome(nome,id){
 
-      $('#sivic_pessoa_dizimo_id').val(id)
-      $('#sivic_pessoa_dizimo_nome').val(nome)
+    $('#sivic_pessoa_dizimo_id').val(id)
+    $('#sivic_pessoa_dizimo_nome').val(nome)
 
-      $('#myModalDizimista').modal('hide');
+    $('#myModalDizimista').modal('hide');
 
-  }      
+}      
 
 function chamaModal(tipo){
 
+
   if (tipo == 'D'){
+    buscaCategoria(1);
     $('#myModalLabelTitle').html('<h4 class="modal-title" id="myModalLabel">Nova Despesa</h4>');  
   } else {
+    buscaCategoria(0);
     $('#myModalLabelTitle').html('<h4 class="modal-title" id="myModalLabel">Nova Receita</h4>');
   }
 
@@ -1173,11 +1206,13 @@ function desabilitarepetir(){
     $('#numr_recorrencia').prop( "disabled", false );
     $('#selTemporizador').prop( "disabled", false );
     $("#lblnumr_recorrencia").css("color", "black");
+    $("#numr_recorrencia").val("");
 
   } else {
     $('#numr_recorrencia').prop( "disabled", true );
     $('#selTemporizador').prop( "disabled", true );
     $("#lblnumr_recorrencia").css("color", "gray");
+    $("#numr_recorrencia").val("");
   }
   
 }
