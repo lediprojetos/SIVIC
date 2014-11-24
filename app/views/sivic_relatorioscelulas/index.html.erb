@@ -99,11 +99,13 @@
 
 </div></div>
 
-<div class="btn-group">
-  <a class="btn btn-default" title="" rel="tooltip" onclick="$('#myModalRelCel').modal('show');">
-        <span class="glyphicon glyphicon-file" rel="tooltip"></span>Novo
-  </a>   
-</div>
+ <%if current_user.role == 'ADMINISTRADOR'%>
+    <div class="btn-group">
+      <a class="btn btn-default" title="" rel="tooltip" onclick="$('#myModalRelCel').modal('show');">
+            <span class="glyphicon glyphicon-file" rel="tooltip"></span>Novo
+      </a>   
+    </div>
+<%end%>
 
 <%#if not SivicCelula.where(:sivic_pessoa_id => current_user.sivic_pessoa_id).blank? %>
 
@@ -127,6 +129,7 @@
               <script>
                   $("#nome_lider" ).click(function() {
                     $('#myModalLiderCelula').modal('show');
+                    $('#nome_pessoa_buscar').focus();
                   });                  
               </script>
 
@@ -167,7 +170,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="input-group">
-              <input id="nome_pessoa_buscar" name="nome_pessoa_buscar" onkeypress="buscaLiderCelula('pessoa')" type="text" class="form-control" placeholder="Nome">
+              <input id="nome_pessoa_buscar" name="nome_pessoa_buscar" onkeypress="buscaLiderCelula()" type="text" class="form-control" placeholder="Nome">
               <span class="input-group-btn">
                 <button class="btn btn-success" type="button" onclick="usaNome();">Buscar</button>
               </span>
@@ -179,8 +182,9 @@
         <table id="table_user" name="table_user" class="table table-hover">
           <thead>
             <tr>
+              <th>Id</th>
               <th>Nome</th>
-              <th>Email</th>
+              <th>Dia</th>
             </tr>
           </thead>
           <tbody id="tbodyid">
@@ -225,9 +229,89 @@
   }
 
 
-  $(function(){
+  function buscaLiderCelula(){
+      var pesquisa;
+        pesquisa = $('#nome_pessoa_buscar').val();
+
+      $.ajax({
+        url: '<%= listarCelulas_path %>',
+        data : 
+        {
+            nome_pessoa : pesquisa
+        },
+        success: function(data){
+          $("#tbodyid").empty();
+          for (var i in data) {
+            var item = data[i];
+
+              $('#table_user').append('<tr><td><a href="javascript:setaCelula(\'' + item.nome_pessoa+'\','+item.id+');">'+item.id+'</a></td><td><a href="javascript:setaCelula(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaCelula(\'' + item.nome_pessoa+'\','+item.id+');">'+item.NUMR_Dia+'</a></td></tr>');
+
+          };
+ 
+        }
+      })
+    }
+
+
+    function validatesRelatorioCelula(){
+              
+
+          if ($('#sivic_celula_id').val() == ""){
+            alert_boot('Informe o líder de célula.','warning','#alert_placeholder_lider')
+            return false;
+          }
+
+          if ($('#data_reuniao').val() == ""){
+            alert_boot('Digite a data da reunião.','warning','#alert_placeholder_lider')
+            return false;
+          }  
+  
+
+         lancaRelatorio()
+
+    }
+
+    function lancaRelatorio(){
+      $.ajax({
+        url: '<%= lancarRelatorio_path %>',
+        data : 
+        {
+            id_celula : $('#sivic_celula_id').val()
+            ,data_reuniao : $('#data_reuniao').val() 
+        },
+        success: function(data){
+        
+          $('#nome_lider').val("");
+          $('#sivic_celula_id').val("");
+          $("#data_reuniao").val("");
+          $('#myModalRelCel').modal('hide');
+
+          location.reload();
+ 
+        }
+      })
+    }
+
+function alert_boot(message,color,place) {
+
+  $(place).html('<div class="alert alert-'+color+'" role="alert">'+message+'<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> </div>')
+}
+
+
+$(function(){
   $("a[rel='tooltip']").tooltip();
   $("#data_reuniao").mask("99/99/9999");
 })
+
+
+function setaCelula(nome, id){
+
+    $('#nome_lider').val(nome);
+    $('#sivic_celula_id').val(id);
+
+    $('#myModalLiderCelula').modal('hide');
+
+
+}
 
 </script>

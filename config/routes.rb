@@ -160,6 +160,8 @@ SIVIC::Application.routes.draw do
 
   match '/jobCelulas', to: 'sivic_relatorioscelulas#jobCelulas', via: 'get'
 
+  match '/lancarRelatorio', to: 'sivic_relatorioscelulas#lanca_relatorio', via: 'get'
+
   get '/relDiscipulos/:id', to: 'sivic_discipulos#relDiscipulos', as: 'relDiscipulos'
   get '/relGeracoes/:id', to: 'sivic_discipulos#relGeracoes', as: 'relGeracoes'
 

@@ -7,7 +7,12 @@ class SivicRelatorioscelulasController < ApplicationController
   def lanca_relatorio
 
        SivicRelatorioscelula.create(:sivic_celula_id => params[:id_celula], :DATA_Reuniao => params[:data_reuniao], :sivic_situacoesrelatorio_id => 5)
- 
+
+      respond_to do |format|
+      format.html { redirect_to sivic_relatorioscelulas_url }
+      format.json { head :no_content }
+    end
+      
   end
 
 
