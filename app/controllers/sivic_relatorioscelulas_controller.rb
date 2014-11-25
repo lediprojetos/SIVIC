@@ -4,6 +4,30 @@ class SivicRelatorioscelulasController < ApplicationController
 
   include ActionView::Helpers::NumberHelper
 
+  
+
+
+  def celulasIndex
+
+    @sivic_celulas = SivicCelula.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+   
+  end 
+
+
+
+  def relEspelhoCelula   
+    @sivic_relatorio = SivicRelatorioscelula.find(params[:id])
+
+    @sivic_participantes = SivicPartevenrelacelula.find_by sivic_relatorioscelula_id: params[:id]
+
+    respond_to do |format|
+      format.html
+      format.pdf { render_atividade_celula_espelho(@sivic_relatorio, @sivic_participantes) }
+    end
+
+  end
+
+
   def lanca_relatorio
 
        SivicRelatorioscelula.create(:sivic_celula_id => params[:id_celula], :DATA_Reuniao => params[:data_reuniao], :sivic_situacoesrelatorio_id => 5)
@@ -190,6 +214,47 @@ class SivicRelatorioscelulasController < ApplicationController
       end
     end
   end
+
+
+  def render_atividade_celula_espelho(tasks,participantes)
+  report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'celulas_espelho.tlf')
+
+     @cont = 1
+
+  for participante in participantes   
+    # dados_celula = SivicCelula.find_by_sivic_pessoa_id(n) rescue nil
+
+    if dados_celula
+      if not dados_celula.user_bloqueio
+      report.list.add_row do |row|
+        row.values lblId: @cont
+        row.values lblNomeParticipante: participante.sivic_participantecelula.nome_participante
+        row.values lblSituacao:participante.sivic_sitpartcelula.DESC_situacao
+         @cont = @cont + 1
+
+       end
+      end
+    end
+
+  end
+
+ report.events.on :generate  do |e|
+   e.pages.each do |page|
+    page.item(:data).value(Time.now)
+    page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+    page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
+  end
+end
+
+  #report.page.item(:data).value(Time.now)
+  #report.page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+  #report.page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
+  
+  send_data report.generate, filename: 'espelho_celula.pdf', 
+                             type: 'application/pdf', 
+                             disposition: ''
+end
+
 
   # DELETE /sivic_relatorioscelulas/1
   # DELETE /sivic_relatorioscelulas/1.json
