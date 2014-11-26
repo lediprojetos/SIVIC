@@ -9,6 +9,8 @@ class SivicCategory < ActiveRecord::Base
 
   validates :nome_categoria, :presence => { :message => 'Digite o nome da categoria' }
 
+  validates :tipo_categoria, :presence => { :message => 'Escolha um tipo de categoria' }
+
 
  #Gera codigo de discipulo
  before_create  :geraCodigo 

@@ -2,6 +2,14 @@ class SivicCategoriesController < ApplicationController
   before_action :set_sivic_category, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource
 
+
+  def busca_categoria
+    sivic_categorias = SivicCategory.find :all, :conditions => {:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id, :tipo_categoria => params[:tipo_categoria]}, :order => "nome_categoria ASC"
+    sivic_categorias_json = sivic_categorias.map {|item| {:id => item.id, :nome_categoria => item.nome_categoria}}
+    render :json => sivic_categorias_json
+  end
+
+
   # GET /sivic_categories
   # GET /sivic_categories.json
   def index

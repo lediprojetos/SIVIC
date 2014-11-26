@@ -503,7 +503,26 @@ end
     @total_recebimento = find_by_ContasReceber.sum(:valr_pago, :conditions => {:flag_pago => true})
     @total_pagamento = find_by_ContasPagar.sum(:valr_pago, :conditions => {:flag_pago => true})
     @total_periodo = find_by_Extrato.sum(:valr_pago)
-  end      
+  end
+
+  def extrato_mensal
+
+  @mes = params[:mes]
+
+  if not params[:mes] == nil
+    session[:data_ini] = Date.today.change(month: params[:mes].to_i).at_beginning_of_month.strftime
+    session[:data_fim] = Date.today.change(month: params[:mes].to_i).at_end_of_month.strftime
+
+    #session[:data_ini] = session[:data_ini].at_beginning_of_month.strftime
+    #session[:data_fim] = session[:data_fim].at_end_of_month.strftime     
+  end
+
+    @sivic_lancamentos = find_by_Extrato.order(:data_vencimento)
+    
+    @total_recebimento = find_by_ContasReceber.sum(:valr_pago, :conditions => {:flag_pago => true})
+    @total_pagamento = find_by_ContasPagar.sum(:valr_pago, :conditions => {:flag_pago => true})
+    @total_periodo = find_by_Extrato.sum(:valr_pago)
+  end         
 
 
   # GET /sivic_lancamentos/1

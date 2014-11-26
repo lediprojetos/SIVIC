@@ -183,6 +183,8 @@ SIVIC::Application.routes.draw do
   match '/editarNome', to: 'sivic_pessoas#edita_nome', via: 'get'
   match '/trocarigreja', to: 'sivic_pessoas#troca_igreja', via: 'get'
 
+  match '/buscacategoria', to: 'sivic_categories#busca_categoria', via: 'get'
+
   match '/enviacontato', to: 'sivic_contatos#envia_contato', via: 'get'
 
   match '/listarDiscipulos', to: 'sivic_discipulos#busca_discipulos', via: 'get'
@@ -223,6 +225,7 @@ SIVIC::Application.routes.draw do
   get '/contasapagar', to: 'sivic_lancamentos#contasapagar',as: 'contasapagar'
   get '/contasareceber', to: 'sivic_lancamentos#contasareceber',as: 'contasareceber'
   get '/extrato', to: 'sivic_lancamentos#extrato',as: 'extrato'
+  get '/extratomensal', to: 'sivic_lancamentos#extrato_mensal',as: 'extrato_mensal'
 
   match '/criarLicao', to: 'sivic_licaos#create_licao', via: 'get'
   match '/buscaLicao', to: 'sivic_licaos#busca_licao', via: 'get'

@@ -15,29 +15,26 @@
                         <div class="panel-heading">Membros
                             <a class="btn btn-primary btn-xs pull-right" id="add" href="<%=sivic_discipulos_path %>">Novo Membro</a>
                         </div>
-
                         
                         <table class="table">
                             <tr>
                                 <td class="col-md-10">Total de Membros Ativos</td>
                                 <td class="col-md-2"><%=@total_discipulos%></td>
                             </tr>                
-                            <!--
-                            <tr>
-                                <td class="col-md-10">Total de Membros Bloqueados</td>
-                                <td class="col-md-2"><%=@total_discipulos%></td>
-                            </tr>
-                            -->
                             <tr>
                                 <td>Total de Células</td>
                                 <td><%=@total_celulas%></td>
                             </tr>
+                            <tr>
+                                <td class="col-md-10">Total de Eventos</td>
+                                <td class="col-md-2"><%=@total_eventos%></td>
+                            </tr>
                         </table>
+
                     </div>
                 </div>
         <%end%>
     <%end%>
-
 
     <% if user_signed_in? %>
         <% if can? :read, SivicLancamento %>
@@ -59,7 +56,7 @@
                         <tr>
                             <td>Total do Período(R$)</td>
                             <td>          
-                                <%if # => @total_periodo < 0%>
+                                <%if @total_periodo < 0%>
                                 <label style='color: rgb(211, 47, 47);'>
                                 <%elsif @total_periodo >= 0%>
                                 <label style='color: rgb(56, 90, 122);'>
@@ -69,138 +66,34 @@
                             </td>
                         </tr>
                     </table>
+
                 </div>
             </div>
         <%end%>
     <%end%>
 
-<!--
+     <% if user_signed_in? %>
+       <% if can? :read, SivicDiscipulo %>
+            <%if @sivic_aniversariantes_do_dia %>
+                <div style="height:20px;">
+                   <div class="col-md-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">Aniversariantes do Dia
+                            </div>
 
-<div style="clear: both;"></div>
+                            <table class="table table-hover">
+                              <tbody>
+                                  <% @sivic_aniversariantes_do_dia.each do |sivic_discipulo| %>
+                                    <tr>
+                                      <td><%= sivic_discipulo.sivic_pessoa.nome_pessoa %></td>
+                                    </tr>
+                                  <% end %>  
+                              </tbody>
+                            </table>
 
-
-    <div class="col-md-6">
-        <div class="panel panel-success">
-            <div class="panel-heading">
-                Últimas Receitas
-                <a class="btn btn-success btn-xs pull-right" id="add" href="/receitas/create">Nova Receita</a>
-            </div>
-
-            
-                <table class="table">
-                    
-                    <tr>
-                        <td>
-                            fsadfsadf
-                        </td>
-                        <td>
-                            
-                            <span>Sem Categoria</span>
-                            
-                        </td>
-                        <td style="white-space:nowrap;">
-                            R$ 234.23
-                        </td>
-                        <td>
-                            
-                            <span>20/08/2014</span>
-                            
-                        </td>
-                    </tr>
-                    
-                    <tr>
-                        <td>
-                            dizimo do fulano
-                        </td>
-                        <td>
-                            
-                            <span>Dízimo</span>
-                            
-                        </td>
-                        <td style="white-space:nowrap;">
-                            R$ 10.00
-                        </td>
-                        <td>
-                            
-                            <span>19/08/2014</span>
-                            
-                        </td>
-                    </tr>
-                    
-                </table>
-            
-        </div>
-    </div>
-
-
-
-    <div class="col-md-6">
-        <div class="panel panel-danger">
-            <div class="panel-heading">Despesas a Pagar
-                <a class="btn btn-danger btn-xs pull-right" id="add" href="/despesas/create">Nova Despesa</a>
-            </div>
-
-            
-            <table class="table">
-                <tr>
-                    <td>Nenhum resultado encontrado</td>
-                </tr>
-            </table>
-            
-        </div>
-    </div>
-
-
-<div style="clear: both;"></div>
-
-
-    <div class="col-md-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">Aniversariantes de Agosto
-                <a class="btn btn-info btn-xs pull-right" id="add" href="/membros/aniversariantes">Veja mais</a>
-            </div>
-
-            
-            <table class="table">
-                
-                <tr>
-                    <td>
-                        Jew
-                    </td>
-                    <td>
-                        
-                            18
-                        
-                    </td>
-                </tr>
-                
-            </table>
-            
-        </div>
-    </div>
-
-
-
-    <div class="col-md-6">
-        <div class="panel panel-info">
-            <div class="panel-heading">Eventos de Agosto
-                <a class="btn btn-info btn-xs pull-right" id="add" href="/eventos">Veja mais</a>
-            </div>
-            
-            <table class="table">
-                <tr>
-                    <td>Nenhum resultado encontrado</td>
-                </tr>
-            </table>
-            
-        </div>
-    </div>
-
-
-
-
-                <div class="clearfix"></div>
-            </div>
-        </div>
-</div>
-Table -->
+                        </div>
+                    </div>
+                </div>
+            <%end%>
+        <%end%>
+    <%end%>      

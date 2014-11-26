@@ -22,6 +22,19 @@
     <div class="col-xs-3">
     </div>
       <div class="col-xs-6">
+            <label for="sivic_category_Categoria_pai">Tipo de Categoria</label>
+            <select class="form-control" id="sivic_category_tipo_categoria" name="sivic_category[tipo_categoria]">
+              <option value=""></option>
+              <option value="0" <%=@sivic_category.tipo_categoria == 0 ? 'selected="selected"' : ''%> >Receita</option>
+              <option value="1" <%=@sivic_category.tipo_categoria == 1 ? 'selected="selected"' : ''%>>Despesa</option>
+            </select>
+      </div>
+  </div>  
+<br/>
+ <div class = "row">
+    <div class="col-xs-3">
+    </div>
+      <div class="col-xs-6">
             <%= f.label :Categoria_pai %>
             <%= f.select :father_id, options_from_collection_for_select(SivicCategory.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id), 'id', 'nome_categoria',@sivic_categoriaPai),{:include_blank => true}, {:class => "form-control"}%>
       </div>

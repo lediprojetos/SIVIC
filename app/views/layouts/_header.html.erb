@@ -23,25 +23,34 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Secretaria <b class="caret"></b></a>
           <ul class="dropdown-menu">
                 
-                <% if can? :manage, SivicDiscipulo or can? :read, SivicDiscipulo or can? :create, SivicDiscipulo or can? :update, SivicDiscipulo or can? :destroy, SivicDiscipulo %>
-                  <li><%= link_to 'Cadastro de Discípulo', sivic_discipulos_path%> </li>
-                <% end %>
+                <%if not current_user.sivic_pessoa.sivic_igreja.flag_tradicional%>
+                  <% if can? :manage, SivicDiscipulo or can? :read, SivicDiscipulo or can? :create, SivicDiscipulo or can? :update, SivicDiscipulo or can? :destroy, SivicDiscipulo %>
+                    <li><%= link_to 'Cadastro de Discípulo', sivic_discipulos_path%> </li>
+                  <% end %>
+                <%else%>
+                  <% if can? :manage, SivicDiscipulo or can? :read, SivicDiscipulo or can? :create, SivicDiscipulo or can? :update, SivicDiscipulo or can? :destroy, SivicDiscipulo %>
+                    <li><%= link_to 'Cadastro de Membros', sivic_discipulos_path%> </li>
+                  <% end %>
+                <%end%>
 
-                <% if can? :manage, SivicCelula or can? :read, SivicCelula or can? :create, SivicCelula or can? :update, SivicCelula or can? :destroy, SivicCelula %>
-                  <li><%= link_to 'Cadastro de Células', sivic_celulas_path%> </li>
-                <% end %>                
+                <!--Validação de Igreja em céluals -->
+                <%if not current_user.sivic_pessoa.sivic_igreja.flag_tradicional%>
+                  <% if can? :manage, SivicCelula or can? :read, SivicCelula or can? :create, SivicCelula or can? :update, SivicCelula or can? :destroy, SivicCelula %>
+                    <li><%= link_to 'Cadastro de Células', sivic_celulas_path%> </li>
+                  <% end %>
                 
-                <% if can? :manage, SivicRelatorioscelula or can? :read, SivicRelatorioscelula or can? :create, SivicRelatorioscelula or can? :update, SivicRelatorioscelula or can? :destroy, SivicRelatorioscelula %>
-                  <li><%= link_to 'Cadastro de Relatório de Células', sivic_relatorioscelulas_path%> </li>
-                <% end %>
+                  <% if can? :manage, SivicRelatorioscelula or can? :read, SivicRelatorioscelula or can? :create, SivicRelatorioscelula or can? :update, SivicRelatorioscelula or can? :destroy, SivicRelatorioscelula %>
+                    <li><%= link_to 'Cadastro de Relatório de Células', sivic_relatorioscelulas_path%> </li>
+                  <% end %>
 
-                <% if can? :manage, SivicSitpartcelula or can? :read, SivicSitpartcelula or can? :create, SivicSitpartcelula or can? :update, SivicSitpartcelula or can? :destroy, SivicSitpartcelula %>
-                  <li><%= link_to 'Situacão Participante Células', sivic_sitpartcelulas_path%> </li>
-                <% end %>
+                  <% if can? :manage, SivicSitpartcelula or can? :read, SivicSitpartcelula or can? :create, SivicSitpartcelula or can? :update, SivicSitpartcelula or can? :destroy, SivicSitpartcelula %>
+                    <li><%= link_to 'Situacão Participante Células', sivic_sitpartcelulas_path%> </li>
+                  <% end %>
 
-                <% if can? :manage, SivicParticipantecelula or can? :read, SivicParticipantecelula or can? :create, SivicParticipantecelula or can? :update, SivicParticipantecelula or can? :destroy, SivicParticipantecelula %>
-                  <li><%= link_to 'Participante de Célula', sivic_participantecelulas_path%> </li>
-                <% end %>                    
+                  <% if can? :manage, SivicParticipantecelula or can? :read, SivicParticipantecelula or can? :create, SivicParticipantecelula or can? :update, SivicParticipantecelula or can? :destroy, SivicParticipantecelula %>
+                    <li><%= link_to 'Participante de Célula', sivic_participantecelulas_path%> </li>
+                  <% end %>                    
+                <%end%>                
              
                 <% if can? :manage, SivicTipoEvento or can? :read, SivicTipoEvento or can? :create, SivicTipoEvento or can? :update, SivicTipoEvento or can? :destroy, SivicTipoEvento %>
                   <li><%= link_to 'Cadastro de Tipo Evento', sivic_tipo_eventos_path%> </li>

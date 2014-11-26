@@ -1,0 +1,692 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= 'Cadastro de Discípulos'%></h3>
+  </div>
+  <div class="panel-footer">
+    <%= form_for(@sivic_discipulo) do |f| %>
+      <% if @sivic_discipulo.errors.any? %>
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <% if @sivic_discipulo.errors.any? %>
+            <% @sivic_discipulo.errors.full_messages.each do |msg| %>
+              <%= msg %></br>       
+            <% end %>
+          <% end %>
+        </div>
+      <%end%>
+
+      <div class="tabbable">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="#tab1" data-toggle="tab">Dados Pessoais</a>
+          </li>
+          <li>
+            <a href="#tab2" data-toggle="tab">Dados Familiares</a>
+          </li>        
+          <li>
+            <a href="#tab3" data-toggle="tab">Endereço</a>
+          </li>
+          <li>
+            <a href="#tab4" data-toggle="tab">Dados Eclesiástico</a>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+
+          <div class="tab-pane active" id="tab1">
+
+            <br/>
+
+            <%=  f.fields_for :sivic_pessoa do |pessoa| %>
+
+              <%= pessoa.hidden_field :sivic_igreja_id, :value => current_user.sivic_pessoa.sivic_igreja_id %>
+              <%= pessoa.hidden_field :User_id, :value => current_user.id%>
+
+              <div class="row">
+                <div class="col-lg-4">
+
+                  <%= pessoa.label :Nome %>
+                  <%if @sivic_discipulo.id%>
+
+                    <div class='input-group'>
+                    <%= pessoa.text_field :nome_pessoa, :readonly => true, :class => "form-control"%>
+                    <span class="input-group-addon" data-toggle="modal" data-target="#myModal4"><span class="glyphicon glyphicon-pencil"></span></span>
+                    </div> 
+
+                  <%else%>
+                    <%= pessoa.text_field :nome_pessoa, :class => "form-control"%>
+
+                    <script>
+                    $("#sivic_discipulo_sivic_pessoa_attributes_nome_pessoa" ).click(function() {
+                    $('#myModal').modal('show');
+                    });                  
+                    </script>
+                  <%end%>
+                </div>
+
+                <div class="col-lg-4">
+                  <%= pessoa.label :Email %>
+                  <%= pessoa.text_field :DESC_email, :class =>  'form-control' %>
+                </div>
+
+                <div class="col-lg-2">
+                  <%= f.label :Data_de_Nascimento %>
+                  <%= f.text_field :data_nascimento, :value => (@sivic_discipulo.data_nascimento.blank? ? '' : @sivic_discipulo.data_nascimento.strftime("%d/%m/%Y")), :class => 'form-control' %>
+                </div>                
+
+                <div class="col-lg-2">
+                  <%= f.label :Sexo %>
+                  <%= f.collection_select :desc_sexo, SivicDiscipulo::SEXO, :to_s, :humanize,{},{ :class => 'form-control' }%>                  
+                </div>                  
+              </div>
+              <br/>
+              <div class="row">
+                <div class="col-lg-4">
+                  <%= pessoa.label :Situação %>
+                  <%= pessoa.select :sivic_situacaodiscipulo_id, options_from_collection_for_select(SivicSituacaodiscipulo.all, 'id', 'nome_situacao',@sivic_discipulo.sivic_pessoa.sivic_situacaodiscipulo_id),{}, :class =>  'form-control'%>
+                </div>
+                <div class="col-lg-8">
+                  <%= pessoa.label :Observação %>
+                  <%= pessoa.text_field :DESC_observacao, :class => 'form-control'%>               
+                </div>
+              </div> 
+            <%end%>
+            <br/>
+            <div class="row">
+
+              <div class="col-lg-4">
+                <%= f.label :Apelido %>
+                <%= f.text_field :DESC_Apelido, :class => 'form-control' %>
+              </div>
+
+              <div class="col-lg-2">
+                <%= f.label :Estado_Civil %>
+                <%= f.collection_select :desc_estadocivil, SivicDiscipulo::ESTADOCIVIL, :to_s, :humanize, {}, {:class => "form-control"}%>
+              </div>    
+
+              <div class="col-lg-3">
+                <%= f.label :Profissão %>
+                <%= f.select :sivic_profissao_id, options_from_collection_for_select(SivicProfissao.all, 'id', 'profissao',@sivic_discipulo.sivic_profissao_id),{}, {:class => "form-control"}%>
+              </div>
+
+              <div class="col-lg-3">
+                <%= f.label :Escolaridade %>
+                <%= f.select :sivic_escolaridade_id, options_from_collection_for_select(SivicEscolaridade.all, 'id', 'NOME_escolaridade'), {}, {:class => "form-control"}%>
+              </div>
+            </div>    
+            <br/>
+            <div class="row">
+
+              <div class="col-lg-2">
+                <label>CPF</label>
+                <%= f.text_field :NUMR_CPF, :class => 'form-control' %>
+              </div>
+
+              <div class="col-lg-2">
+                <label>RG</label>
+                <%= f.text_field :NUMR_RG, :class => 'form-control' %>
+              </div>
+
+              <div class="col-lg-2">
+                <label>Data de Emissão</label>
+                <%= f.text_field :DATA_EmissaoRG, :value => (@sivic_discipulo.DATA_EmissaoRG.blank? ? '' : @sivic_discipulo.DATA_EmissaoRG.strftime("%d/%m/%Y")), :class => 'form-control' %>
+              </div>
+
+              <div class="col-lg-3">
+                <%= f.label :Título_Eleitoral %>
+                <%= f.text_field :NUMR_TituloEleitoral, :class => 'form-control' %>
+              </div>            
+
+              <div class="col-lg-3">
+                <%= f.check_box :FLAG_DoadorSangue %>
+                <%= f.label :Doador_de_Sangue %>
+                <br/>
+                <%= f.check_box :FLAG_DoadorOrgao %>
+                <%= f.label :Doador_de_Orgao %>
+              </div>
+            </div>
+            <br/>
+            <div class="row">
+
+              <div class="col-lg-2">
+                <%= f.label :Telefone_Fixo %>
+                <%= f.text_field :DESC_TelefoneFixo, :class => 'form-control' %>
+              </div> 
+
+              <div class="col-lg-2">
+                <%= f.label :Telefone_Celular %>
+                <%= f.text_field :DESC_TelefoneCelular, :class => 'form-control' %>
+              </div> 
+
+              <%=f.fields_for :sivic_estado do |estado| %>
+                <div class="col-lg-3">
+                  <%= estado.label :Estado_Naturalidade %>
+                  <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado2), {:include_blank => true}, {:onchange => 'changeState2(this)', :class =>  'form-control'}%>
+                </div>
+              <%end%> 
+
+              <%if @sivic_cidade2 %>
+                <div class="col-lg-3">
+                  <%= f.label :Naturalidade %>
+                  <%= f.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade2, 'id', 'nome_cidade',@sivic_naturalidade_setada),{},{ :class =>  'form-control'}%>
+                </div>
+              <%else%>
+                <div class="col-lg-3">
+                  <%= f.label :Naturalidade   %>
+                  <%= f.select :sivic_cidade_id, [], {},{:class =>  'form-control'} %><br>
+                </div> 
+              <%end%>                
+
+              <div class="col-lg-2">
+                <%= f.label :Data_de_Casamento %>
+                <%= f.text_field :DATA_Casamento, :value => (@sivic_discipulo.DATA_Casamento.blank? ? '' : @sivic_discipulo.DATA_Casamento.strftime("%d/%m/%Y")), :class => 'form-control' %>
+              </div>  
+
+              <%= f.hidden_field :sivic_pessoa_id%>
+              <%= f.hidden_field :NUMG_UsuarioInclusao, :value => current_user.id %>
+            </div>
+          </div>        
+
+          <div class="tab-pane" id="tab2">
+
+            <br/>
+            <div class="row">
+              <div class="col-lg-5">
+                <%= f.label :Nome_do_Pai %>
+                <%= f.text_field :NOME_Pai, :class => 'form-control' %>
+              </div>
+
+              <div class="col-lg-5">
+                <%= f.label :Nome_da_Mãe %>
+                <%= f.text_field :NOME_Mae, :class => 'form-control' %>
+              </div> 
+
+              <div class="col-lg-2">
+                <%= f.label :Qtd_Filhos %>
+                <%= f.number_field :NUMR_QtdFilhos, :class => 'form-control' %>
+              </div>
+            </div>
+            <br/>
+            <div class="row">
+              <div class="col-lg-5">
+                <%= f.label :Nome_do_Cônjuge %>
+                <%= f.text_field :NOME_Conjuge, :class => 'form-control' %>
+              </div>              
+               <div class="col-lg-4">
+                <%= f.label :Profissão_do_Cônjuge %>
+                <%= f.select :NUMG_ProfissaoConjuge, options_from_collection_for_select(SivicProfissao.all, 'id', 'profissao',@sivic_discipulo.NUMG_ProfissaoConjuge), {}, {:class => 'form-control'}%>
+              </div>
+
+              <div class="col-lg-3">
+                <label>Nasc. do Cônjuge</label>
+                <%= f.text_field :DATA_NascConjuge, :value => (@sivic_discipulo.DATA_NascConjuge.blank? ? '' : @sivic_discipulo.DATA_NascConjuge.strftime("%d/%m/%Y")), :class => 'form-control' %>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-pane" id="tab3"> 
+
+            <br/>
+            <%=  f.fields_for :sivic_endereco do |endereco| %>
+              <div class="row">
+                <div class="col-lg-4">
+                  <%= endereco.label :Rua %>
+                  <%= endereco.text_field :DESC_Rua, :class =>  'form-control' %>
+                </div>
+
+                <div class="col-lg-4">
+                  <%= endereco.label :Complemento %>
+                  <%= endereco.text_field :DESC_Complemento, :class =>  'form-control' %>
+                </div>
+
+                <div class="col-lg-4">
+                  <%= endereco.label :Ponto_de_referência %>
+                  <%= endereco.text_field :DESC_Pontoreferencia, :class =>  'form-control' %>
+                </div>
+              </div>  
+              <br />
+              <div class="row">
+                <div class="col-lg-4">
+                  <%= endereco.label :Bairro %>
+                  <%= endereco.text_field :DESC_Bairro, :class =>  'form-control' %>
+                </div>
+
+                <div class="col-lg-2">
+                  <%= endereco.label :CEP.capitalize %>
+                  <%= endereco.text_field :NUMR_Cep, :class =>  'form-control' %>
+                </div>
+
+                <%=  f.fields_for :sivic_estado do |estado| %>
+                  <div class="col-lg-3">
+                    <%= estado.label :Estado %>
+                    <%= estado.select :sivic_estado_id, options_from_collection_for_select(SivicEstado.all, 'id', 'nome_estado',@sivic_estado), {:include_blank => true}, {:onchange => 'changeState(this)', :class =>  'form-control'}%>
+                  </div>
+                <%end%>
+
+                <%if @sivic_cidade %>
+                  <div class="col-lg-3">
+                    <%= endereco.label :Cidade %>
+                    <%= endereco.select :sivic_cidade_id, options_from_collection_for_select(@sivic_cidade, 'id', 'nome_cidade',@sivic_cidade_setada),{},{ :class =>  'form-control'}%>
+                  </div>
+                <%else%>
+                  <div class="col-lg-3">
+                    <%= endereco.label :Cidade   %>
+                    <%= endereco.select :sivic_cidade_id, [], {},{:class =>  'form-control'} %><br>
+                  </div> 
+                <%end%>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="tab-pane" id="tab4">
+
+            <br/>
+            <div class="row">
+
+              <div class="col-lg-4">
+                <%= f.label :Igreja_de_Batismo %>
+                <%= f.text_field :DESC_IgrejaBatismo, :class => 'form-control' %>
+              </div>  
+
+              <div class="col-lg-2">
+                <%= f.label :DATA_de_Batismo %>
+                <%= f.text_field :data_batismo, :value => (@sivic_discipulo.data_batismo.blank? ? '' : @sivic_discipulo.data_batismo.strftime("%d/%m/%Y")), :class => 'form-control' %>
+              </div> 
+
+              <div class="col-lg-2">
+                <%= f.label :Data_da_Decisão %>
+                <%= f.text_field :DATA_Decisao, :value => (@sivic_discipulo.DATA_Decisao.blank? ? '' : @sivic_discipulo.DATA_Decisao.strftime("%d/%m/%Y")), :class => 'form-control' %>
+              </div>
+              
+              <div class="col-lg-4">
+                <%= f.label :Rede %>
+                <%= f.select :sivic_rede_id, options_from_collection_for_select(SivicRede.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id), 'id', 'nome_rede'), {}, {:class => "form-control"} %>
+              </div>
+            </div>
+            </br>
+            <div class="row">
+              <div class="col-lg-3">
+                <%= f.label :Dia_Estudo %>
+                <%= f.collection_select :DESC_MomentoEstudoBiblico, SivicDiscipulo::DIAS, :to_s, :humanize, {}, {:class => "form-control"}%>
+              </div>            
+
+              <div class="col-lg-2">
+                <%= f.label :Hora_Estudo %>
+                <%= f.text_field :hora_estudobiblico, :value => (@sivic_discipulo.hora_estudobiblico.blank? ? '' : @sivic_discipulo.hora_estudobiblico.strftime("%H:%M")), :class => 'form-control' %>
+              </div>
+
+              <div class="col-lg-3">
+                <%= f.label :Ocasião_da_Decisão %>
+                <select class="form-control" id="sivic_discipulo_FLAG_OcasiaoRecebeuCristo" name="sivic_discipulo[FLAG_OcasiaoRecebeuCristo]" onclick="habilitaRede(this.value)">
+                  <option value="0" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 0 ? 'selected = "selected"' : '' %>>Célula</value>
+                  <option value="1" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 1 ? 'selected = "selected"' : '' %>>Celebração Evento</value>
+                  <option value="2" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 2 ? 'selected = "selected"' : '' %>>Evangelismo Pessoal</value>
+                  <option value="3" <%= @sivic_discipulo.FLAG_OcasiaoRecebeuCristo == 3 ? 'selected = "selected"' : '' %>>Rede</value>
+                </select>
+              </div>
+              
+              <div class="col-lg-4">
+                <%= f.label :Rede_conversao %>
+                <%= f.select :rede_conversao, options_from_collection_for_select(SivicRede.where(sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id), 'id', 'nome_rede',@sivic_discipulo.rede_conversao), {:include_blank => true}, {:class => "form-control", :disabled => "disabled"}%>
+              </div>              
+            </div>
+            </br>                    
+            <div class="row">
+              <div class="col-lg-3">
+                <%= f.label :Tipo_de_Decisão %>
+                <select class="form-control" id="sivic_discipulo_FLAG_Reconciliacao" name="sivic_discipulo[FLAG_Reconciliacao]">
+                  <option value="true" <%= @sivic_discipulo.FLAG_Reconciliacao == true ? 'selected = "selected"' : '' %>>Recebeu a Cristo</value>
+                  <option value="false" <%= @sivic_discipulo.FLAG_Reconciliacao == false ? 'selected = "selected"' : '' %>>Reconciliação</value>
+                </select>
+              </div>
+
+              <div class="col-lg-3">
+                <%= f.label :Trabalhando %>
+                <select class="form-control" id="sivic_discipulo_FLAG_Reconciliacao" name="sivic_discipulo[FLAG_Reconciliacao]">
+                  <option value="true" <%= @sivic_discipulo.FLAG_Trabalhando == true ? 'selected = "selected"' : '' %>>Sim</value>
+                  <option value="false" <%= @sivic_discipulo.FLAG_Trabalhando == false ? 'selected = "selected"' : '' %>>Não</value>
+                </select>
+              </div>
+            </dvi>              
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+</div>
+
+<div class="btn-group">
+
+  <%= link_to new_sivic_discipulo_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+
+  <button type="submit" class="btn btn-default btn">
+    <span class="glyphicon glyphicon-floppy-disk"></span> Salvar
+  </button>
+
+  <%= yield(:iconexibir) %>
+
+  <%= link_to sivic_discipulos_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-arrow-left"></span> Voltar
+  <% end %>
+
+</div>
+
+    <%end%>
+    
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Buscar Pessoas</h4>
+      </div>
+      <div class="modal-body">
+
+        <label >Nome</label><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <input id="nome_pessoa_buscar" name="nome_pessoa_buscar" onkeypress="buscaPessoa('pessoa')" type="text" class="form-control" placeholder="Nome">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" onclick="usaNome();">Usar</button>
+              </span>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+        <br />
+
+        <table id="table_user" name="table_user" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyid">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Buscar Pessoas</h4>
+      </div>
+      <div class="modal-body">
+
+        <label >Nome</label><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <input id="NOME_lider_buscar" name="NOME_lider_buscar" onkeypress="buscaPessoa('lider')" type="text" class="form-control" placeholder="Nome">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" onclick="buscaPessoa('lider');">Buscar</button>
+              </span>              
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+        <br />
+
+        <table id="table_lider" name="table_lider" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyid2">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+ </div>
+
+<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Editar Nome</h4>
+      </div>
+      <div class="modal-body">
+
+        <div class="row">
+            <div class="col-lg-12">
+              <label >Nome Antigo</label><br>
+              <input id="nome_antigo" name="nome_antigo" type="text" class="form-control" readonly="readonly">
+          </div>
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-lg-12">
+              <label >Nome Novo</label><br>
+              <input id="nome_novo" name="nome_novo" type="text" class="form-control">
+          </div>
+        </div>       
+
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+        <button id="bntSalvar" type="button" class="btn btn-primary" onclick="editaNome();">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+
+$('#myModal').on('shown.bs.modal', function () {
+    $('#nome_pessoa_buscar').val($("#sivic_discipulo_sivic_pessoa_attributes_nome_pessoa" ).val());
+    $("#sivic_discipulo_sivic_pessoa_attributes_nome_pessoa" ).val("");  
+    $('#nome_pessoa_buscar').focus();
+})
+
+$('#myModal2').on('shown.bs.modal', function () {
+    $('#NOME_lider_buscar').val($("#nome_lider" ).val());
+    $("#nome_lider" ).val("");  
+    $('#NOME_lider_buscar').focus();
+})
+
+$('#myModal3').on('shown.bs.modal', function () {
+    $('#NOME_lider_celula_buscar').val($('#nome_lider_celula').val());
+    $('#NOME_lider_celula_buscar').focus();
+})
+
+jQuery(function($){
+  $("#sivic_discipulo_data_nascimento").mask("99/99/9999");
+  $("#sivic_discipulo_DATA_EmissaoRG").mask("99/99/9999");
+  $("#sivic_discipulo_DATA_Casamento").mask("99/99/9999");
+  $("#sivic_discipulo_DATA_NascConjuge").mask("99/99/9999");
+  $("#sivic_discipulo_data_batismo").mask("99/99/9999");
+  $("#sivic_discipulo_DATA_Decisao").mask("99/99/9999");
+  $("#sivic_discipulo_NUMR_CPF").mask("999.999.999.99");
+  $("#sivic_discipulo_DESC_TelefoneFixo").mask("(99)9999-9999");
+  $("#sivic_discipulo_DESC_TelefoneCelular").mask("(99)9999-9999");
+  $("#sivic_discipulo_hora_estudobiblico").mask("99:99");
+  $("#sivic_discipulo_sivic_endereco_attributes_NUMR_Cep").mask("99.999-999");
+
+  $('#myModal4').on('shown.bs.modal', function () {
+      $("#nome_antigo").val($("#sivic_discipulo_sivic_pessoa_attributes_nome_pessoa" ).val());  
+      $("#sivic_pessoa_dizimo_id" ).val("");  
+      $('#nome_pessoa_buscar').focus();
+  }) 
+
+});
+
+  function editaNome(){
+
+      $.ajax({
+        url: '<%= editarNome_path %>',
+        data : {
+
+          id : $('#sivic_discipulo_sivic_pessoa_id').val()
+          ,nome_novo : $('#nome_novo').val()
+
+        },
+        success: function(data){
+          var options = "";
+          for (var i in data) {
+            var item = data[i];
+              $('#sivic_discipulo_sivic_pessoa_attributes_nome_pessoa').val(item.nome_pessoa);
+          };
+ 
+          $('#myModal4').modal('hide');
+        }
+      })
+    }
+
+  function changeState(state){
+      $.ajax({
+        url: '<%= listarCidade_path %>',
+        data : {id : state.value},
+        success: function(data){
+          $('#sivic_discipulo_sivic_endereco_attributes_sivic_cidade_id').empty();
+          $('#sivic_discipulo_sivic_endereco_attributes_sivic_cidade_id').html('<option>Carregando...</option>');
+          $('#sivic_discipulo_sivic_endereco_attributes_sivic_cidade_id').attr('disabled', 'disabled');
+          var options = "";
+          for (var i in data) {
+            var item = data[i];
+            options += "<option value='"+item.id+"'>"+item.name+"</option>"
+          };
+ 
+          $('#sivic_discipulo_sivic_endereco_attributes_sivic_cidade_id').html(options);
+          $('#sivic_discipulo_sivic_endereco_attributes_sivic_cidade_id').removeAttr('disabled');          
+        }
+      })
+    }
+
+  function changeState2(state){
+      $.ajax({
+        url: '<%= listarCidade_path %>',
+        data : {id : state.value},
+        success: function(data){
+          $('#sivic_discipulo_sivic_cidade_id').empty();
+          $('#sivic_discipulo_sivic_cidade_id').html('<option>Carregando...</option>');
+          $('#sivic_discipulo_sivic_cidade_id').attr('disabled', 'disabled');
+          var options = "";
+          for (var i in data) {
+            var item = data[i];
+            options += "<option value='"+item.id+"'>"+item.name+"</option>"
+          };
+ 
+          $('#sivic_discipulo_sivic_cidade_id').html(options);
+          $('#sivic_discipulo_sivic_cidade_id').removeAttr('disabled');          
+        }
+      })
+    }
+
+
+  function buscaPessoa(fonte){
+
+      var pesquisa;
+
+      if (fonte == 'lider'){
+        pesquisa = $('#NOME_lider_buscar').val();
+      }else{
+        pesquisa = $('#nome_pessoa_buscar').val();
+      }
+
+      $.ajax({
+        url: '<%= listarDiscipulos_path %>',
+        data : 
+        {
+            nome_pessoa : pesquisa
+        },
+        success: function(data){
+          $("#tbodyid").empty();
+          $("#tbodyid2").empty();
+          for (var i in data) {
+            var item = data[i];
+
+            if (fonte == 'lider' ) {
+              $('#table_lider').append('<tr><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
+            }else{
+
+              if (item.id_discipulo == "") {
+                $('#table_user').append('<tr><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+',\'' + item.DESC_email+'\','+item.father_id+',\''+item.NOME_Lider+'\');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaNome(\'' + item.nome_pessoa+'\','+item.id+',\'' + item.DESC_email+'\');">'+item.DESC_email+'</a></td></tr>');
+              } else {
+              $('#table_user').append('<tr><td><a href="javascript:window.location.replace(\'/sivic_discipulos/' +item.id_discipulo+ '/edit\')";">'+item.nome_pessoa+'</a></td><td><a href="javascript:window.location.replace(\'/sivic_discipulos/' +item.id_discipulo+ '/edit\')";">'+item.DESC_email+'</a></td></tr>');
+              }
+              
+            }
+          };
+ 
+        }
+      })
+    }
+   
+
+  function setaNome(nome,id,email,idlider,nomelider){
+
+    $('#sivic_discipulo_sivic_pessoa_id').val(id)
+    $('#sivic_discipulo_sivic_pessoa_attributes_nome_pessoa').val(nome)
+    $('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').val(email)
+    $('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty();
+    $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html('<option>Carregando...</option>');
+
+    var options = "<option value='"+idlider+"'>"+nomelider+"</option>";
+    $('#sivic_discipulo_sivic_pessoa_attributes_father_id').html(options);
+
+    $('#myModal').modal('hide');
+
+  }
+
+  function usaNome(nome){
+
+    $('#sivic_discipulo_sivic_pessoa_attributes_nome_pessoa').val($('#nome_pessoa_buscar').val());
+    $('#sivic_discipulo_sivic_pessoa_id').val("");
+    $('#sivic_discipulo_sivic_pessoa_attributes_DESC_email').val("")
+    $('#sivic_discipulo_sivic_pessoa_attributes_father_id').empty("");      
+    $('#myModal').modal('hide');
+
+  } 
+
+  function habilitaRede(valor){
+
+     if (valor == '3' ){
+        $('#sivic_discipulo_rede_conversao').removeAttr('disabled');
+      }else{
+        $('#sivic_discipulo_rede_conversao').attr('disabled', 'disabled');
+      } 
+
+  }
+
+  function RedeEditar(){
+
+    if (('<%=@sivic_discipulo.FLAG_OcasiaoRecebeuCristo%>') == '3')
+      {
+         habilitaRede(3)
+      }
+
+   }
+
+  RedeEditar()
+
+</script>
+
+

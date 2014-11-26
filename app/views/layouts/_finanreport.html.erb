@@ -1,0 +1,165 @@
+
+<% content_for :titlePage do %>
+
+<% end %>
+
+<input type="hidden" id="numgPagamento" value="0">
+
+<table class="table table-hover table-striped table-bordered table-condensed">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Data</th>
+      <th>Categoria</th>
+      <th>Lançamento</th>
+      <th>Valor</th>
+      <th>Valor Pago</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_lancamentos.each do |sivic_lancamento| %>
+      <tr>
+        <td align="center">
+              <%if sivic_lancamento.flag_pago %>
+                <span style="color:green;"class="glyphicon glyphicon-ok"></span>
+              <%end%>
+        </td>
+        <td><%= (sivic_lancamento.data_vencimento.blank? ? '' : sivic_lancamento.data_vencimento.strftime("%d/%m/%Y")) %></td>
+        <td><%= sivic_lancamento.sivic_category.nome_categoria rescue nil%></td>
+
+        <td>
+          <%if sivic_lancamento.numr_parcela %>
+            <%= sivic_lancamento.nome_lancamento + ' (' + sivic_lancamento.numr_parcela.to_s + '/' + sivic_lancamento.numr_recorrencia.to_s + ')' %>
+          <%else%>
+            <%= sivic_lancamento.nome_lancamento%>
+          <%end%>
+        </td>
+
+        <td><%= number_to_currency(sivic_lancamento.valr_lancamento, unit: "R$", separator: ",", delimiter: ".") %></td>
+        <td>
+          <%if sivic_lancamento.valr_pago < 0%>
+            <spam style='color: rgb(211, 47, 47);'>
+          <%else%>
+            <span style='color: rgb(74, 186, 88);'>
+          <%end%>
+          <%= number_to_currency(sivic_lancamento.valr_pago, unit: "R$", separator: ",", delimiter: ".") %>
+        </spam>
+        </td>
+
+        <%if sivic_lancamento.sivic_tipmovfinanceiro_id == 2%>
+        <td align='right'>
+          <% if can? :manage, SivicLancamento or can? :update, SivicLancamento%>
+            <%if sivic_lancamento.sivic_category_id != 1%>
+              <a class="btn btn-default btn-sm" onclick="pagaRecebe(<%= sivic_lancamento.id %>,<%=sivic_lancamento.flag_pago == true ? '0' : '1'%>)" rel="tooltip" title="<%=sivic_lancamento.flag_pago == true ? 'Desfazer Recebimento' : 'Receber'%>">
+                  <span class="<%=sivic_lancamento.flag_pago == true ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-ok'%>"></span>
+              </a>
+            <%end%>
+            <%if sivic_lancamento.sivic_category_id == 1%>
+              <a class="btn btn-default btn-sm" onclick="buscaDizimo(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
+                  <span class="glyphicon glyphicon-pencil"></span>
+              </a>            
+            <%else%>            
+              <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
+                  <span class="glyphicon glyphicon-pencil"></span>
+              </a>          
+            <%end%> 
+          <%end%>
+          <% if can? :manage, SivicLancamento or can? :destroy, SivicLancamento%> 
+            <a class="btn btn-default btn-sm" onclick="var answer = confirm('Deseja excluir o lançamento?');if(answer){ excluiLancamento(<%= sivic_lancamento.id %>);}else{ false;};" rel="tooltip" title="Excluir">
+                <span class="glyphicon glyphicon-trash"></span>
+            </a>            
+          <%end%>
+        </td>
+
+        <%elsif sivic_lancamento.sivic_tipmovfinanceiro_id == 1%>
+        <td align='right'>
+          <% if can? :manage, SivicLancamento or can? :update, SivicLancamento%>
+            <a class="btn btn-default btn-sm" onclick="pagaRecebe(<%= sivic_lancamento.id %>,<%=sivic_lancamento.flag_pago == true ? '0' : '1'%>)" rel="tooltip" title="<%=sivic_lancamento.flag_pago == true ? 'Desfazer Pagamento' : 'Pagar'%>">
+                <span class="<%=sivic_lancamento.flag_pago == true ? 'glyphicon glyphicon-remove' : 'glyphicon glyphicon-ok'%>"></span>
+            </a>
+            <a class="btn btn-default btn-sm" onclick="buscaLancamento(<%= sivic_lancamento.id %>);" rel="tooltip" title="Alterar">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </a>
+          <%end%>
+          <% if can? :manage, SivicLancamento or can? :destroy, SivicLancamento%>             
+            <a class="btn btn-default btn-sm" onclick="var answer = confirm('Deseja excluir o lançamento?');if(answer){ excluiLancamento(<%= sivic_lancamento.id %>);}else{ false;};" rel="tooltip" title="Excluir">
+                <span class="glyphicon glyphicon-trash"></span>
+            </a>
+          <%end%>
+        </td>
+
+        <%elsif sivic_lancamento.sivic_tipmovfinanceiro_id == 3%>
+        <td align='right'>
+            <a class="btn btn-default btn-sm" rel="tooltip" title="Conta: <%=sivic_lancamento.sivic_contabanco.nome_conta%>">
+                <span class="glyphicon glyphicon-tag"></span>
+            </a>
+            <% if can? :manage, SivicLancamento or can? :update, SivicLancamento%>           
+              <a class="btn btn-default btn-sm" onclick="buscaTransferencia(<%= sivic_lancamento.codi_parcela %>);" rel="tooltip" title="Alterar">
+                  <span class="glyphicon glyphicon-pencil"></span>
+              </a>
+            <%end%>
+            <% if can? :manage, SivicLancamento or can? :destroy, SivicLancamento%>            
+              <a class="btn btn-default btn-sm" onclick="var answer = confirm('Deseja excluir o lançamento?');if(answer){ excluiTransferencia(<%= sivic_lancamento.id %>);}else{ false;};" rel="tooltip" title="Excluir">
+                  <span class="glyphicon glyphicon-trash"></span>
+              </a>
+            <%end%>
+        </td>
+
+        <%end%>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="panel panel-info">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Totais</div>
+
+  <!-- Table -->
+  <table class="table">
+  
+    <tr>
+      <td>
+        Total de Receitas(R$)
+      </td>
+      <td align="right">
+        <spam style="color: rgb(74, 186, 88);"><%= number_to_currency(@total_recebimento, unit: "R$", separator: ",", delimiter: ".") %></spam>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Total de Despesas(R$)
+      </td>
+      <td align="right">
+        <spam style="color: rgb(211, 47, 47);"><%= number_to_currency(@total_pagamento, unit: "R$", separator: ",", delimiter: ".") %></spam>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        Total do Período(R$)
+      </td>
+      <td align="right">
+        <b>
+          <%if @total_periodo < 0%>
+            <label style='color: rgb(211, 47, 47);'>
+          <%elsif @total_periodo >= 0%>
+            <label style='color: rgb(56, 90, 122);'>
+          <%end%>        
+          <%= number_to_currency(@total_periodo, unit: "R$", separator: ",", delimiter: ".") %>
+            </label>
+        </b>
+      </td>
+    </tr>            
+  
+  </table>
+</div>
+
+</div></div>
+</div>
+
+<script>
+
+</script>
