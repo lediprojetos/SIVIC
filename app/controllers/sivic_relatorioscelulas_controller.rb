@@ -5,14 +5,11 @@ class SivicRelatorioscelulasController < ApplicationController
   include ActionView::Helpers::NumberHelper
 
   
-
-
   def celulasIndex
 
     @sivic_celulas = SivicCelula.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
    
   end 
-
 
 
   def relEspelhoCelula   

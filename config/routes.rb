@@ -169,7 +169,9 @@ SIVIC::Application.routes.draw do
 
   match '/relGeracoesIndex', to: 'sivic_discipulos#relGeracoesIndex', via: 'get'
 
-  match '/relCelulasGeracao', to: 'sivic_discipulos#relCelulasGeracao', via: 'get'
+  match '/relCelulasGeracao', to: 'sivic_relatorioscelulas#relCelulasGeracao', via: 'get'
+  
+  match '/celulasIndex', to: 'sivic_relatorioscelulas#celulasIndex', via: 'get'
 
 
   get '/relparticipantesEventos/:id/:tipo', to: 'sivic_parteventos#relparticipantesEventos', as: 'relparticipantesEventos'
