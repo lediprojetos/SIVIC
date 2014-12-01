@@ -7,15 +7,20 @@ class SivicRelatorioscelulasController < ApplicationController
   
   def celulasIndex
 
-    @sivic_celulas = SivicCelula.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+
+   @sivic_relatorioscelulas = SivicRelatorioscelula.joins(:sivic_celula).where(sivic_celulas: {sivic_igreja_id: current_user.sivic_pessoa.sivic_igreja_id})
+
+
+   #@sivic_Observacoesrelatorios = Observacoesrelatorio.where(:sivic_relatorioscelula_id => params[:id])
+
+  #@sivic_celulas = SivicCelula.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
    
   end 
 
-
   def relEspelhoCelula   
     @sivic_relatorio = SivicRelatorioscelula.find(params[:id])
+    @sivic_participantes = SivicPartevenrelacelula.where(sivic_relatorioscelula_id: params[:id])
 
-    @sivic_participantes = SivicPartevenrelacelula.find_by sivic_relatorioscelula_id: params[:id]
 
     respond_to do |format|
       format.html
@@ -214,25 +219,17 @@ class SivicRelatorioscelulasController < ApplicationController
 
 
   def render_atividade_celula_espelho(tasks,participantes)
-  report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'celulas_espelho.tlf')
+  report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'relatorio_celula.tlf')
 
-     @cont = 1
+  @cont = 1
 
-  for participante in participantes   
-    # dados_celula = SivicCelula.find_by_sivic_pessoa_id(n) rescue nil
-
-    if dados_celula
-      if not dados_celula.user_bloqueio
-      report.list.add_row do |row|
-        row.values lblId: @cont
-        row.values lblNomeParticipante: participante.sivic_participantecelula.nome_participante
-        row.values lblSituacao:participante.sivic_sitpartcelula.DESC_situacao
-         @cont = @cont + 1
-
-       end
+  if participantes
+     for  participante in participantes   
+          report.list.add_row do |row|
+            row.values lblNomeParticipante: participante.sivic_participantecelula.nome_participante
+            row.values lblSituacao:participante.sivic_sitpartcelula.DESC_situacao
+           end
       end
-    end
-
   end
 
  report.events.on :generate  do |e|
