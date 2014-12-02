@@ -226,17 +226,26 @@ class SivicRelatorioscelulasController < ApplicationController
   if participantes
      for  participante in participantes   
           report.list.add_row do |row|
+            row.values  lblNr: @cont
             row.values lblNomeParticipante: participante.sivic_participantecelula.nome_participante
             row.values lblSituacao:participante.sivic_sitpartcelula.DESC_situacao
+
+            @cont = @cont + 1
            end
       end
   end
 
  report.events.on :generate  do |e|
    e.pages.each do |page|
+
     page.item(:data).value(Time.now)
     page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
     page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
+    page.item(:lblNome).value(tasks.sivic_celula.sivic_pessoa.nome_pessoa)
+    page.item(:lblDataReuniao).value(tasks.DATA_Reuniao)
+    page.item(:lblHoraInicio).value(tasks.DATA_Horainicio)
+    page.item(:lblHoraFim).value(tasks.DATA_HoraTermino)
+
   end
 end
 
