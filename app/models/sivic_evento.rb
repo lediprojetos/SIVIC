@@ -15,9 +15,9 @@ class SivicEvento < ActiveRecord::Base
   def self.find_by_name_or_all(query,sivic_igreja_id)
 
     if query
-      self.where('desc_evento like ? and sivic_igreja_id = ?', "%#{query}%", sivic_igreja_id)
+      self.where('desc_evento like ? and sivic_igreja_id = ? and data_encerramento is null', "%#{query}%", sivic_igreja_id)
     else
-      self.where(sivic_igreja_id: sivic_igreja_id)
+      self.where(sivic_igreja_id: sivic_igreja_id, data_encerramento: nil)
     end    
   end
     
