@@ -247,15 +247,21 @@ end
 
     cont = 1
 
+    valorTotalPago = 0
+
+    x = tasks.length
+
+    #debugger
+
     tasks.each do |task|
       report.list.add_row do |row|
         row.values lblNome: task.sivic_pessoa.nome_pessoa rescue nil
-        row.values lblConvidadoPor: task.convidou.nome_pessoa rescue nil
-
-        @convidou = busca_participante_convidou(task.sivic_evento_id,task.pessoa_convidou)
-
+      
         row.values lblVlrPagoPart: number_to_currency(task.sivic_movimentofinanceiro.VALR_movimento, unit: "R$", separator: ",", delimiter: "") rescue nil
         row.values lblVlrResPart: number_to_currency(task.sivic_movimentofinanceiro.valr_restante, unit: "R$", separator: ",", delimiter: "") rescue nil
+
+        row.values lblConvidadoPor: task.convidou.nome_pessoa rescue nil
+        @convidou = busca_participante_convidou(task.sivic_evento_id,task.pessoa_convidou)
 
         row.values lblValorPago: number_to_currency(@convidou.first.sivic_movimentofinanceiro.VALR_movimento, unit: "R$", separator: ",", delimiter: "") rescue nil
         row.values lblValorRestante: number_to_currency(@convidou.first.sivic_movimentofinanceiro.valr_restante, unit: "R$", separator: ",", delimiter: "") rescue nil
@@ -266,6 +272,8 @@ end
 
         cont += 1
 
+        valorTotalPago = valorTotalPago + task.sivic_movimentofinanceiro.VALR_movimento rescue nil
+        
       end
 
       report.page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
