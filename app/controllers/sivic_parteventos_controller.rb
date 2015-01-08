@@ -9,7 +9,10 @@ class SivicParteventosController < ApplicationController
   # GET /sivic_parteventos.json
   def index
     #@sivic_parteventos = SivicPartevento.paginate(:page => params[:page], :per_page => 10)
-    @sivic_parteventos = SivicPartevento.where('(flag_naoparticipou is null or flag_naoparticipou = false) and (sivic_igreja_id =?)', current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+     @sivic_parteventos = SivicPartevento.find_by_name_or_all(params[:q],current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
+
+
+   # @sivic_parteventos = SivicPartevento.where('(flag_naoparticipou is null or flag_naoparticipou = false) and (sivic_igreja_id =?)', current_user.sivic_pessoa.sivic_igreja_id).paginate(:page => params[:page], :per_page => 10)
   end
 
   def participanteseventos
