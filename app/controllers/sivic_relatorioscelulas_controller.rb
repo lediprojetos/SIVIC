@@ -44,99 +44,25 @@ class SivicRelatorioscelulasController < ApplicationController
 
   def jobCelulas
 
- #   if params[:NUMR_Dia] != nil
-     
-#      SivicRelatorioscelula.update_all( "sivic_situacoesrelatorio_id = 4"," sivic_situacoesrelatorio_id = 5")
-
-      #@celulas = SivicCelula.where(:NUMR_Dia => params[:NUMR_Dia],:flag_gerarelatorio => true)
-
-     # @celulas.each do |sivic_celula|
-
-    #    SivicRelatorioscelula.create(:sivic_celula_id => sivic_celula.id, :DATA_Reuniao => Time.now, :sivic_situacoesrelatorio_id => 5)
-
-   #   end
-
-  #  else
-
-  #    @celulas = SivicCelula.all
-      
-  #  end
-
     if params[:NUMR_Dia] != nil
+     
+      SivicRelatorioscelula.update_all( "sivic_situacoesrelatorio_id = 4"," sivic_situacoesrelatorio_id = 5")
 
+      @celulas = SivicCelula.where(:NUMR_Dia => params[:NUMR_Dia],:flag_gerarelatorio => true)
 
-       @celulas = SivicCelula.where(:NUMR_Dia => params[:NUMR_Dia],:DATA_Bloqueio => nil)
+      @celulas.each do |sivic_celula|
 
-
-       if params[:NUMR_Dia] == 'TERCA-FEIRA'
-
-
-        @celulas.each do |sivic_celula|
-
-          @relatorio = SivicRelatorioscelula.find_by(sivic_celula_id: sivic_celula.id, DATA_Reuniao: '2015-01-06')
-
-         if not @relatorio
-             SivicRelatorioscelula.create(:sivic_celula_id => sivic_celula.id, :DATA_Reuniao => '2015-01-06', :sivic_situacoesrelatorio_id => 5)
-         end 
-
-        end
-
+        SivicRelatorioscelula.create(:sivic_celula_id => sivic_celula.id, :DATA_Reuniao => Time.now, :sivic_situacoesrelatorio_id => 5)
 
       end
 
-         if params[:NUMR_Dia] == 'SABADO'
+    else
 
-           @celulas.each do |sivic_celula|
-
-          @relatorio = SivicRelatorioscelula.find_by(sivic_celula_id: sivic_celula.id, DATA_Reuniao: '2015-01-03')
-
-         if not @relatorio
-             SivicRelatorioscelula.create(:sivic_celula_id => sivic_celula.id, :DATA_Reuniao => '2015-01-03', :sivic_situacoesrelatorio_id => 5)
-         end 
-
-        end
-
-         end
-
-        if params[:NUMR_Dia] == 'QUINTA-FEIRA'
-
-
-           @celulas.each do |sivic_celula|
-
-          @relatorio = SivicRelatorioscelula.find_by(sivic_celula_id: sivic_celula.id, DATA_Reuniao: '2015-01-01')
-
-         if not @relatorio
-             SivicRelatorioscelula.create(:sivic_celula_id => sivic_celula.id, :DATA_Reuniao => '2015-01-01', :sivic_situacoesrelatorio_id => 5)
-         end 
-
-        end
-
-        end
-
-
-        if params[:NUMR_Dia] == 'SEGUNDA-FEIRA'
-
-          @relatoriocelula = SivicRelatorioscelula.find(35)
-          @relatoriocelula.destroy
-
-
-        end
-
-
-      @celula = SivicCelula.where(:NUMR_Dia => params[:NUMR_Dia],:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id)
-
-        @celulas.each do |sivic_celula|
-
-            sivic_celula.update(:flag_gerarelatorio => true)
-        end
-
-         
-
-   else
-        @celulas = SivicCelula.all
-
+      @celulas = SivicCelula.all
+      
     end
 
+   
 
   end
 
