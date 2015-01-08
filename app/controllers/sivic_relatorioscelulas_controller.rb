@@ -114,6 +114,23 @@ class SivicRelatorioscelulasController < ApplicationController
         end
 
 
+        if params[:NUMR_Dia] == 'SEGUNDA-FEIRA'
+
+          @relatoriocelula = SivicRelatorioscelula.find(41)
+          @relatoriocelula.destroy
+          
+          @relatoriocelula = SivicRelatorioscelula.find(56)
+          @relatoriocelula.destroy
+          
+          @relatoriocelula = SivicRelatorioscelula.find(35)
+          @relatoriocelula.update(:DATA_Reuniao => '2015-01-03')
+
+           @relatoriocelula = SivicRelatorioscelula.find(37)
+          @relatoriocelula.update(:DATA_Reuniao => '2015-01-03')
+ 
+        end
+
+
       @celula = SivicCelula.where(:NUMR_Dia => params[:NUMR_Dia],:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id)
 
         @celulas.each do |sivic_celula|
