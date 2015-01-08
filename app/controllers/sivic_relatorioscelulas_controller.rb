@@ -65,7 +65,7 @@ class SivicRelatorioscelulasController < ApplicationController
     if params[:NUMR_Dia] != nil
 
 
-       @celulas = SivicCelula.where(:NUMR_Dia => params[:NUMR_Dia])
+       @celulas = SivicCelula.where(:NUMR_Dia => params[:NUMR_Dia],:DATA_Bloqueio => nil)
 
 
        if params[:NUMR_Dia] == 'TERCA-FEIRA'
@@ -80,6 +80,7 @@ class SivicRelatorioscelulasController < ApplicationController
          end 
 
         end
+
 
       end
 
@@ -112,6 +113,13 @@ class SivicRelatorioscelulasController < ApplicationController
 
         end
 
+
+      @celula = SivicCelula.where(:NUMR_Dia => params[:NUMR_Dia],:sivic_igreja_id => current_user.sivic_pessoa.sivic_igreja_id)
+
+        @celulas.each do |sivic_celula|
+
+            sivic_celula.update(:flag_gerarelatorio => true)
+        end
 
          
 
