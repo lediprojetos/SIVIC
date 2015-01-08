@@ -63,12 +63,17 @@ class SivicRelatorioscelulasController < ApplicationController
   #  end
 
     if params[:NUMR_Dia] != nil
-       
+
+
        @celulas = SivicCelula.where(:NUMR_Dia => params[:NUMR_Dia])
+
+
+       if params[:NUMR_Dia] == 'TERCA-FEIRA'
+
 
         @celulas.each do |sivic_celula|
 
-          @relatorio = SivicRelatorioscelula.find_by(id: sivic_celula.id, DATA_Reuniao: '2015-01-06')
+          @relatorio = SivicRelatorioscelula.find_by(sivic_celula_id: sivic_celula.id, DATA_Reuniao: '2015-01-06')
 
          if not @relatorio
              SivicRelatorioscelula.create(:sivic_celula_id => sivic_celula.id, :DATA_Reuniao => '2015-01-06', :sivic_situacoesrelatorio_id => 5)
@@ -76,6 +81,41 @@ class SivicRelatorioscelulasController < ApplicationController
 
         end
 
+      end
+
+         if params[:NUMR_Dia] == 'SABADO'
+
+           @celulas.each do |sivic_celula|
+
+          @relatorio = SivicRelatorioscelula.find_by(sivic_celula_id: sivic_celula.id, DATA_Reuniao: '2015-01-03')
+
+         if not @relatorio
+             SivicRelatorioscelula.create(:sivic_celula_id => sivic_celula.id, :DATA_Reuniao => '2015-01-03', :sivic_situacoesrelatorio_id => 5)
+         end 
+
+        end
+
+         end
+
+        if params[:NUMR_Dia] == 'QUINTA-FEIRA'
+
+
+           @celulas.each do |sivic_celula|
+
+          @relatorio = SivicRelatorioscelula.find_by(sivic_celula_id: sivic_celula.id, DATA_Reuniao: '2015-01-01')
+
+         if not @relatorio
+             SivicRelatorioscelula.create(:sivic_celula_id => sivic_celula.id, :DATA_Reuniao => '2015-01-01', :sivic_situacoesrelatorio_id => 5)
+         end 
+
+        end
+
+        end
+
+
+         
+
+   else
         @celulas = SivicCelula.all
 
     end
