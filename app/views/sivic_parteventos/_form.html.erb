@@ -96,12 +96,12 @@
         </div>
         <div div class="col-xs-2">
           <%= movimento.label :Valor_Pago %>
-          <%= movimento.text_field :VALR_movimento, :class => "form-control" %>
+          <%= movimento.text_field :VALR_movimento, :class => "form-control", :value => number_to_currency(@sivic_partevento.sivic_movimentofinanceiro.VALR_movimento, unit: "R$", separator: ",", delimiter: "") %>
         </div>
 
          <div div class="col-xs-2">
           <%= movimento.label :Valor_Restante %>
-          <%= movimento.text_field :valr_restante, :class => "form-control" %>
+          <%= movimento.text_field :valr_restante, :class => "form-control", :value => number_to_currency(@sivic_partevento.sivic_movimentofinanceiro.valr_restante, unit: "R$", separator: ",", delimiter: "")  %>
         </div>
         <div div class="col-xs-1">
         </div>

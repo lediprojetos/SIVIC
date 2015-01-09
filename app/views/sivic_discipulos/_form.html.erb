@@ -42,7 +42,7 @@
               <div class="col-xs-4">
 
                 <%= pessoa.label :Nome %>
-                <%if @sivic_discipulo.id%>
+                <%if @sivic_discipulo.id or @sivic_pessoa_evolucao.id%>
                   <div class='input-group'>
                     <%= pessoa.text_field :nome_pessoa, :readonly => true, :class => "form-control"%>
                     <span class="input-group-addon" data-toggle="modal" data-target="#myModal4"><span class="glyphicon glyphicon-pencil"></span></span>
