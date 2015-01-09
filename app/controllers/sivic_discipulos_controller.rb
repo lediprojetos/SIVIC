@@ -300,7 +300,6 @@ end
 end
 
 
-
   def busca_discipulos
 
     sivic_discipulo = SivicPessoa.joins('LEFT JOIN sivic_discipulos sp on sp.sivic_pessoa_id = sivic_pessoas.id').where('lower(nome_pessoa) like ? and sivic_igreja_id = ? and data_exclusao is null', "%#{params[:nome_pessoa].downcase}%", current_user.sivic_pessoa.sivic_igreja_id).last(10)

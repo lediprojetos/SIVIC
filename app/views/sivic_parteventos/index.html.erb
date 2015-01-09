@@ -74,12 +74,141 @@
   <%= link_to new_sivic_partevento_path, :class => "btn btn-default" do %>
     <span class="glyphicon glyphicon-file"></span> Novo
   <% end %>
+  <%if current_user.role == 'ADMINISTRADOR'%>
+  <a class="btn btn-default" title="" rel="tooltip" onclick="$('#myModalTransEvento').modal('show');">
+            <span class="glyphicon glyphicon-transfer" rel="tooltip"></span> Transferir
+  </a>
+  <%end%> 
 </div>
 
+
+<!-- Dízimo -->
+<div class="modal fade" id="myModalTransEvento" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+        <h4 class="modal-title" id="myModalLabel">Lançar Relatório Célula</h4>
+      </div>
+      <div class="modal-body">
+        <div id = "alert_placeholder_lider"></div>  
+        <div class="row">
+
+          <div class="col-xs-12">
+            <label for="nome_lider">Nome</label>
+              <input class="form-control" id="nome_lider" name="nome_lider" type="text" />
+
+              <script>
+                  $("#nome_lider" ).click(function() {
+                    $('#myModalLiderGeracao').modal('show');
+                  });                  
+              </script>
+
+              <input id="sivic_pessoa_lider_geracao" name="sivic_pessoa_lider_geracao" type="hidden" value="" />            
+         </div>                
+
+        </div> 
+        <br/>     
+        <div class="row">
+          <div class='col-sm-4'>
+            <label for="data_reuniao">Data Reunião</label>
+              <div class="form-group">
+                      <input id="data_reuniao" name="data_reuniao" type='text' class="form-control" />
+              </div>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        <button id="bntSalvar" type="button" class="btn btn-primary" onclick="validatesRelatorioCelula();">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" id="myModalLiderGeracao" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Buscar Pessoas</h4>
+      </div>
+      <div class="modal-body">
+
+        <label >Nome</label><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <input id="nome_lider_buscar" name="nome_lider_buscar" onkeypress="buscaPessoa('lider')" type="text" class="form-control" placeholder="Nome">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" onclick="buscaPessoa('lider');">Buscar</button>
+              </span>              
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+        <br />
+
+        <table id="table_lider" name="table_lider" class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyid2">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+ </div>
 
 
 <script>
 
+  $('#myModalLiderGeracao').on('shown.bs.modal', function () {
+      $("#nome_pessoa_buscar" ).val("");  
+      $("#sivic_pessoa_lider_geracao" ).val("");  
+      $('#nome_lider_buscar').focus();
+  }) 
+
+   function buscaPessoa(fonte){
+
+      $.ajax({
+        url: '<%= listarDiscipulos_path %>',
+        data : 
+        {
+            nome_pessoa : $('#nome_lider_buscar').val()
+        },
+        success: function(data){
+          $("#tbodyid").empty();
+          $("#tbodyid2").empty();
+          for (var i in data) {
+            var item = data[i];
+
+              $('#table_lider').append('<tr><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaLider(\'' + item.nome_pessoa+'\','+item.id+');">'+item.DESC_email+'</a></td></tr>');
+          
+          };
+ 
+        }
+      })
+    }
+
+  function setaLider(nome,id){
+
+      $('#nome_lider').val(nome);
+      $('#sivic_pessoa_lider_geracao').val(id);
+
+      $('#myModalLiderGeracao').modal('hide');
+  }
 
 $(function(){
   $("a[rel='tooltip']").tooltip();
