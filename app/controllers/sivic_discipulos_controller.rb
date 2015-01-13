@@ -351,6 +351,7 @@ end
     @sivic_discipulo = SivicDiscipulo.new
     @sivic_discipulo.build_sivic_pessoa
     @sivic_discipulo.build_sivic_endereco
+    @sivic_pessoa_evolucao = SivicPessoa.new
 
   end
 
