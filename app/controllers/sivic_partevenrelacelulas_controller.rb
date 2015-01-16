@@ -18,6 +18,7 @@ class SivicPartevenrelacelulasController < ApplicationController
     @sivic_partevenrelacelula = SivicPartevenrelacelula.new
   end
 
+
   # GET /sivic_partevenrelacelulas/1/edit
   def edit
   end
