@@ -175,7 +175,7 @@ SIVIC::Application.routes.draw do
 
 
   get '/relEspelhoCelula/:id', to: 'sivic_relatorioscelulas#relEspelhoCelula', as: 'relEspelhoCelula'
-  get '/relFrequenciaCelula/:id', to: 'sivic_relatorioscelulas#relatoriofrequenciaCelula', as: 'relatoriofrequenciaCelula'
+  get '/relFrequenciaCelula/:id/:datainicio/:datafim', to: 'sivic_relatorioscelulas#relatoriofrequenciaCelula', as: 'relFrequenciaCelula'
    
   match '/celulasIndex', to: 'sivic_relatorioscelulas#celulasIndex', via: 'get'
 

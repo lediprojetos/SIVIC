@@ -19,6 +19,10 @@ class SivicRelatorioscelulasController < ApplicationController
 
   def frequenciaCelula
 
+    
+    if params[:imprimir] == 'pdf'
+
+    end
       
   end 
 

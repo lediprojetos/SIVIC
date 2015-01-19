@@ -393,6 +393,8 @@ end
 
     pessoa = SivicPessoa.find params[:sivic_discipulo][:sivic_pessoa_id] rescue nil
 
+
+ #  debugger
     if pessoa
       @sivic_discipulo = SivicDiscipulo.new(sivic_discipulo_params_normal)
       @sivic_discipulo.sivic_pessoa.sivic_situacaodiscipulo_id = params[:sivic_discipulo][:sivic_pessoa_attributes][:sivic_situacaodiscipulo_id]
@@ -406,13 +408,20 @@ end
    
    respond_to do |format|
 
-      if @sivic_discipulo.save
-      
+     # debugger
+
+      if @sivic_discipulo.save      
         format.html { redirect_to @sivic_discipulo, notice: 'Registro inserido com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_discipulo }
       else
+       if @sivic_discipulo.sivic_pessoa_id
+         @sivic_pessoa_evolucao  = SivicPessoa.find(@sivic_discipulo.sivic_pessoa_id)
+       else
+        @sivic_pessoa_evolucao  = SivicPessoa.new
+       end
+
         format.html { render action: 'new' }
-        format.json { render json: @sivic_discipulo.errors, status: :unprocessable_entity }
+        format.json { render json: @sivic_discipulo.errors, status: :unprocessable_entity}
      
       end     
     end
