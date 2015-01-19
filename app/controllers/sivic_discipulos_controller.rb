@@ -383,6 +383,8 @@ end
     @sivic_naturalidade_setada = SivicDiscipulo.find(params[:id])
     @sivic_naturalidade_setada = @sivic_naturalidade_setada.sivic_cidade.id rescue nil
 
+    @sivic_pessoa_evolucao = SivicPessoa.new
+
   end
 
   # POST /sivic_discipulos

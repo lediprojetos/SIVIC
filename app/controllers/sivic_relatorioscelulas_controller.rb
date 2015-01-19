@@ -22,6 +22,12 @@ class SivicRelatorioscelulasController < ApplicationController
       
   end 
 
+
+  def relatoriofrequenciaCelula
+
+      
+  end 
+
   def relEspelhoCelula   
     @sivic_relatorio = SivicRelatorioscelula.find(params[:id])
     @sivic_participantes = SivicPartevenrelacelula.where(sivic_relatorioscelula_id: params[:id])

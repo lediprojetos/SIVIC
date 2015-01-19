@@ -4,7 +4,6 @@
 
 <%=render '/layouts/panel' %>
 
-
   <div class="row">
     <div class="col-lg-6">
       <label >Nome do Líder</label>
@@ -18,29 +17,19 @@
              </div>
     </div>
     
-      <div class="col-lg-3">
+  <div class="col-lg-3">
       <label >Data Fim</label>
       <div class="input-group">
-        <input id="data_fim" name="data_fim" type="text" class="form-control" placeholder="Data Fim">
-
-
-          <td align='right'>                                     
-            <%= link_to relEspelhoCelula_path(sivic_relatorioscelula.id, format: 'pdf'), {:class => "btn btn-default btn-sm", :target => '_blank', :rel=>"tooltip", :title=>"Relatório"} do %>
-              <span class="glyphicon glyphicon-tasks"></span>
-            <% end %> 
-          </td> 
-
-        <span class="input-group-btn">  
-               <%= link_to finalizarPedido_path, :class => "btn btn-primary" do %>
-               <span class="glyphicon glyphicon-chevron-right"></span> Finalizar Pedido
-               <% end %>
-        </span>
-
-
-        relEspelhoCelula_path(sivic_relatorioscelula.id, format: 'pdf')
-
+        <input id="data_fim" name="data_fim" type="text" class="form-control" placeholder="Data Fim">                    
       </div><!-- /input-group -->
     </div><!-- /.col-lg-6 -->
+   <div class="col-lg-3">
+    <td align='right'>                                     
+            <%= link_to relFrequenciaCelula_path('1', format: 'pdf'), {:class => "btn btn-default btn-sm", :target => '_blank', :rel=>"tooltip", :title=>"Relatório"} do %>
+              <span class="glyphicon glyphicon-tasks"></span>
+            <% end %> 
+          </td>
+  </div>
   </div>
 
 
