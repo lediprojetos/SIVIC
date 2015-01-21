@@ -29,6 +29,13 @@ class SivicRelatorioscelulasController < ApplicationController
 
   def relatoriofrequenciaCelula
 
+     @sivic_relatoriofrequencia = SivicRelatorioscelula.where('')
+
+     Client.where("orders_count = ? AND locked = ?", params[:orders], false)
+     Client.where("orders_count = #{params[:orders]}")
+
+     Client.where("created_at >= :start_date AND created_at <= :end_date", {start_date: params[:start_date], end_date: params[:end_date]})
+
       
   end 
 
@@ -47,7 +54,7 @@ class SivicRelatorioscelulasController < ApplicationController
 
   def lanca_relatorio
 
-       SivicRelatorioscelula.create(:sivic_celula_id => params[:id_celula], :DATA_Reuniao => params[:data_reuniao], :sivic_situacoesrelatorio_id => 5)
+       SivicRelatorioscelula.create(:sivic_celula_id => params[:id_celula], :data_reuniao => params[:data_reuniao], :sivic_situacoesrelatorio_id => 5)
 
       respond_to do |format|
       format.html { redirect_to sivic_relatorioscelulas_url }
@@ -67,7 +74,7 @@ class SivicRelatorioscelulasController < ApplicationController
 
       @celulas.each do |sivic_celula|
 
-        SivicRelatorioscelula.create(:sivic_celula_id => sivic_celula.id, :DATA_Reuniao => Time.now, :sivic_situacoesrelatorio_id => 5)
+        SivicRelatorioscelula.create(:sivic_celula_id => sivic_celula.id, :data_reuniao => Time.now, :sivic_situacoesrelatorio_id => 5)
 
       end
 
@@ -200,7 +207,7 @@ class SivicRelatorioscelulasController < ApplicationController
     @valor_oferta = @valor_oferta.gsub('.', '')
     @valor_oferta = @valor_oferta.gsub(',', '.').to_f
    
-    @sivic_relatorioscelula.DATA_Reuniao = sivic_relatorioscelula_params[:DATA_Reuniao]
+    @sivic_relatorioscelula.data_reuniao = sivic_relatorioscelula_params[:data_reuniao]
     @sivic_relatorioscelula.DATA_Horainicio = sivic_relatorioscelula_params[:DATA_Horainicio]
     @sivic_relatorioscelula.DATA_HoraTermino = sivic_relatorioscelula_params[:DATA_HoraTermino]
     @sivic_relatorioscelula.NUMR_NumVisitante = sivic_relatorioscelula_params[:NUMR_NumVisitante]
@@ -259,7 +266,7 @@ class SivicRelatorioscelulasController < ApplicationController
     page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
     page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
     page.item(:lblNome).value(tasks.sivic_celula.sivic_pessoa.nome_pessoa)
-    page.item(:lblDataReuniao).value(tasks.DATA_Reuniao)
+    page.item(:lblDataReuniao).value(tasks.data_reuniao)
     page.item(:lblHoraInicio).value(tasks.DATA_Horainicio)
     page.item(:lblHoraFim).value(tasks.DATA_HoraTermino)
 
@@ -294,6 +301,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_relatorioscelula_params
-      params.require(:sivic_relatorioscelula).permit(:sivic_celula_id, :DATA_Reuniao, :DATA_Horainicio, :DATA_HoraTermino, :NUMR_NumVisitante, :NUMR_NumParticipante, :DESC_AssuntoEstudo, :DESC_TextoBiblico, :VALR_Oferta, :NUMR_Decisoes, :DESC_OutrasInformacoes, :sivic_situacoesrelatorio_id, :NUMR_QtdNovoConvertido, :NUMR_QtdResgate, :NUMR_QtdPreEncontro, :NUMR_QtdEncontro, :NUMR_QtdPosEncontro, :NUMR_QtdEscoLid1, :NUMR_EscoLid2, :NUMR_EscoLid3, :NUMR_QtdLidCelula)
+      params.require(:sivic_relatorioscelula).permit(:sivic_celula_id, :data_reuniao, :DATA_Horainicio, :DATA_HoraTermino, :NUMR_NumVisitante, :NUMR_NumParticipante, :DESC_AssuntoEstudo, :DESC_TextoBiblico, :VALR_Oferta, :NUMR_Decisoes, :DESC_OutrasInformacoes, :sivic_situacoesrelatorio_id, :NUMR_QtdNovoConvertido, :NUMR_QtdResgate, :NUMR_QtdPreEncontro, :NUMR_QtdEncontro, :NUMR_QtdPosEncontro, :NUMR_QtdEscoLid1, :NUMR_EscoLid2, :NUMR_EscoLid3, :NUMR_QtdLidCelula)
     end
 end

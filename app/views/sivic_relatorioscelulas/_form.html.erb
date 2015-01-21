@@ -49,7 +49,7 @@
         </div>
         <div class="col-xs-3">
           <%= f.label :DATA_da_Reuniao %>
-          <%= f.text_field :DATA_Reuniao, :value => (@sivic_relatorioscelula.DATA_Reuniao.blank? ? '' : @sivic_relatorioscelula.DATA_Reuniao.strftime("%d/%m/%Y")), :class => 'form-control' %>          
+          <%= f.text_field :data_reuniao, :value => (@sivic_relatorioscelula.data_reuniao.blank? ? '' : @sivic_relatorioscelula.data_reuniao.strftime("%d/%m/%Y")), :class => 'form-control' %>          
         </div>    
         <div class="col-xs-2">
           <%= f.label :Horário_de_início %>
@@ -367,7 +367,7 @@
  
 <script>
 jQuery(function($){
-   $("#sivic_relatorioscelula_DATA_Reuniao").mask("99/99/9999");
+   $("#sivic_relatorioscelula_data_reuniao").mask("99/99/9999");
    $("#sivic_relatorioscelula_DATA_Horainicio").mask("99:99");
    $("#sivic_relatorioscelula_DATA_HoraTermino").mask("99:99");
    $("#sivic_relatorioscelula_VALR_Oferta").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});

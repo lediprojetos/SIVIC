@@ -104,6 +104,25 @@
       })
     }
 
+  function chamaRelatorio(){
+
+      $.ajax({
+        url: '<%= relFrequenciaCelula_path %>',
+        data : 
+        {
+            sivic_celula_id : $('#nome_pessoa_buscar').val()
+            data_inicio : $('#data_inicio').val()
+            data_fim : $('#data_fim').val()
+
+        },
+        
+        success: function(data){
+ 
+        }
+      })
+
+    }
+
 function setaCelula(nome, id){
 
     $('#nome_pessoa_buscar').val(nome);

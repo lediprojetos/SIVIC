@@ -50,7 +50,7 @@
       <tr>
         <td><%= sivic_relatorioscelula.sivic_celula.sivic_pessoa.nome_pessoa %></td>
         <td><%= sivic_relatorioscelula.sivic_celula.NUMR_Dia %></td>
-        <td><%= sivic_relatorioscelula.DATA_Reuniao.blank? ? '' : sivic_relatorioscelula.DATA_Reuniao.strftime("%d/%m/%Y")  %></td>
+        <td><%= sivic_relatorioscelula.data_reuniao.blank? ? '' : sivic_relatorioscelula.data_reuniao.strftime("%d/%m/%Y")  %></td>
         <td><%= sivic_relatorioscelula.DATA_Horainicio.blank? ? '' : sivic_relatorioscelula.DATA_Horainicio.strftime("%H:%M")  %></td>
         <td><%= sivic_relatorioscelula.DATA_HoraTermino.blank? ? '' : sivic_relatorioscelula.DATA_HoraTermino.strftime("%H:%M")  %></td>
         <td><%= sivic_relatorioscelula.VALR_Oferta %></td>
