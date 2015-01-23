@@ -19,11 +19,14 @@ class SivicRelatorioscelulasController < ApplicationController
 
   def frequenciaCelula
 
-    
-    if params[:imprimir] == 'pdf'
+ 
+   @sivic_relatoriofrequencia = SivicRelatorioscelula.where("data_reuniao >= :data_inicio AND data_reuniao <= :data_fim AND sivic_celula_id = :sivic_celula_id", {data_inicio: params[:data_inicio], data_fim: params[:data_fim], sivic_celula_id: params[:sivic_celula_id]})
 
+    respond_to do |format|
+      format.html
+      format.pdf { render_frequencia_celula(@sivic_relatoriofrequencia)}
     end
-      
+
   end 
 
 
@@ -35,8 +38,7 @@ class SivicRelatorioscelulasController < ApplicationController
      Client.where("orders_count = #{params[:orders]}")
 
      Client.where("created_at >= :start_date AND created_at <= :end_date", {start_date: params[:start_date], end_date: params[:end_date]})
-
-      
+   
   end 
 
   def relEspelhoCelula   
@@ -282,6 +284,33 @@ end
                              disposition: ''
 end
 
+
+def render_frequencia_celula(tasks)
+   report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'frequencia_celula.tlf')
+
+
+  debugger
+  tasks.each do |task|
+    report.list.add_row do |row|
+
+    end
+  end
+
+ report.events.on :generate  do |e|
+   e.pages.each do |page|
+
+    page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
+    page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
+    page.item(:lblNomeLider).value(tasks.sivic_celula.sivic_pessoa.nome_pessoa)
+
+  end
+end
+
+  
+  send_data report.generate, filename: 'frequencia_celula.pdf', 
+                             type: 'application/pdf', 
+                             disposition: ''
+end
 
   # DELETE /sivic_relatorioscelulas/1
   # DELETE /sivic_relatorioscelulas/1.json

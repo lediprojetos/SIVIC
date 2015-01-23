@@ -3,7 +3,7 @@
 <% end %>
 
 <%=render '/layouts/panel' %>
-
+<%= form_tag nil, method: 'GET' do %>
   <div class="row">
     <div class="col-lg-6">
       <label >Nome do Líder</label>
@@ -30,7 +30,7 @@
   </div>
 
   </div>
-
+<% end %>
 
   <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -104,24 +104,6 @@
       })
     }
 
-  function chamaRelatorio(){
-
-      $.ajax({
-        url: '<%= relFrequenciaCelula_path %>',
-        data : 
-        {
-            sivic_celula_id : $('#nome_pessoa_buscar').val()
-            data_inicio : $('#data_inicio').val()
-            data_fim : $('#data_fim').val()
-
-        },
-        
-        success: function(data){
- 
-        }
-      })
-
-    }
 
 function setaCelula(nome, id){
 
