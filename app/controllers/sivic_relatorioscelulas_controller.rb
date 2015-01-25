@@ -21,11 +21,10 @@ class SivicRelatorioscelulasController < ApplicationController
 
  
    @sivic_relatoriofrequencia = SivicRelatorioscelula.where("data_reuniao >= :data_inicio AND data_reuniao <= :data_fim AND sivic_celula_id = :sivic_celula_id", {data_inicio: params[:data_inicio], data_fim: params[:data_fim], sivic_celula_id: params[:sivic_celula_id]})
+   
+   @sivic_participantescelula =  SivicParticipantecelula.where(sivic_celula_id: params[:sivic_celula_id])
 
-    respond_to do |format|
-      format.html
-      format.pdf { render_frequencia_celula(@sivic_relatoriofrequencia)}
-    end
+   render_frequencia_celula(@sivic_relatoriofrequencia, @sivic_participantescelula)
 
   end 
 
@@ -285,23 +284,132 @@ end
 end
 
 
-def render_frequencia_celula(tasks)
+
+
+
+def render_frequencia_celula(tasks,participantes)
    report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'frequencia_celula.tlf')
 
-
-  debugger
-  tasks.each do |task|
+@cont = 1
+ 
+#Começa aqui os participantes com as faltas
+participantes.each do |participante|  
+   
     report.list.add_row do |row|
+       row.values  lblNr: @cont
+       row.values lblNome: participante.nome_participante
+    
+  posicao = 1
+    
+  tasks.each  do |task|
+ 
+    @x  =  SivicPartevenrelacelula.where(sivic_relatorioscelula_id: task.id, sivic_participantecelula_id: participante.id )
+       
+  if posicao == 1
+       if @x.first
+         row.values lblf1:'P'
+         else
+         row.values lblf1: 'F'
+       end
+  elsif posicao == 2  
+      
+      if @x.first
+         row.values lblf2: 'P'
+         else
+         row.values lblf2: 'F'
+       end
+  elsif posicao == 3
 
+      if @x.first
+         row.values lblf3: 'P'
+         else
+         row.values lblf3: 'F'
+       end
+  elsif posicao == 4
+       if @x.first
+         row.values lblf4: 'P'
+         else
+         row.values lblf4: 'F'
+       end
+  elsif posicao == 5 
+       if @x.first
+         row.values lblf5: 'P'
+         else
+         row.values lblf5: 'F'
+       end
+  elsif posicao == 6
+       if @x.first
+         row.values lblf6: 'P'
+         else
+         row.values lblf6: 'F'
+       end
+  elsif posicao == 7
+       if @x.first
+         row.values lblf7: 'P'
+         else
+         row.values lblf7: 'F'
+       end
+  elsif posicao == 8
+   
+       if @x.first
+         row.values lblf8: 'P'
+         else
+         row.values lblf8: 'F'
+       end
+  elsif posicao == 9
+   
+       if @x.first
+         row.values lblf9: 'P'
+         else
+         row.values lblf9: 'F'
+       end   
+  elsif posicao == 10
+   
+       if @x.first
+         row.values lblf10: 'P'
+         else
+         row.values lblf10: 'F'
+       end
+  elsif posicao == 11
+   
+       if @x.first
+         row.values lblf11: 'P'
+         else
+         row.values lblf11: 'F'
+       end
+  elsif posicao == 12
+   
+       if @x.first
+         row.values lblf12: 'P'
+         else
+         row.values lblf12: 'F'
+       end
+   end
+
+        posicao = posicao + 1
+
+         
     end
+                    
+       @cont = @cont + 1
+     end
   end
+
 
  report.events.on :generate  do |e|
    e.pages.each do |page|
 
     page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
     page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
-    page.item(:lblNomeLider).value(tasks.sivic_celula.sivic_pessoa.nome_pessoa)
+    page.item(:lblNomeLider).value(tasks.first.sivic_celula.sivic_pessoa.nome_pessoa)
+
+
+    
+#  tasks.each  do |task|
+     
+#    page.item(:lbld1).value(task.data_reuniao.strftime("%d/%m/%Y"))        
+
+#  end
 
   end
 end
