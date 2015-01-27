@@ -24,8 +24,11 @@ class SivicRelatorioscelulasController < ApplicationController
    
    @sivic_participantescelula =  SivicParticipantecelula.where(sivic_celula_id: params[:sivic_celula_id])
 
-   render_frequencia_celula(@sivic_relatoriofrequencia, @sivic_participantescelula)
+    if params[:imprimir] == 'pdf'
+     render_frequencia_celula(@sivic_relatoriofrequencia, @sivic_participantescelula) 
+    end
 
+  
   end 
 
 
@@ -405,11 +408,10 @@ participantes.each do |participante|
 
 
     
-#  tasks.each  do |task|
-     
-#    page.item(:lbld1).value(task.data_reuniao.strftime("%d/%m/%Y"))        
+tasks.each  do |task|
+    page.item(:lbld1).value(task.data_reuniao.strftime("%d/%m/%Y"))        
 
-#  end
+end
 
   end
 end
