@@ -22,7 +22,7 @@ class SivicCelulasController < ApplicationController
 
   def busca_celulas
 
-    sivic_celula = SivicCelula.joins('INNER JOIN sivic_pessoas sp on sp.id = sivic_celulas.sivic_pessoa_id').where('nome_pessoa like ?', "%#{params[:nome_pessoa]}%")
+    sivic_celula = SivicCelula.joins('INNER JOIN sivic_pessoas sp on sp.id = sivic_celulas.sivic_pessoa_id').where('nome_pessoa like ? AND user_bloqueio is null', "%#{params[:nome_pessoa]}%")
 
     sivic_celula_json = sivic_celula.map {|item| {:id => item.id, :nome_pessoa => item.sivic_pessoa.nome_pessoa, :NOME_Celula => item.NOME_Celula, :NUMR_Dia => item.NUMR_Dia}}
     render :json => sivic_celula_json

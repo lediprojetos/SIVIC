@@ -49,7 +49,7 @@
      
       <div class="col-xs-2">
           <%= f.label :Valor_inscricao %>
-          <%= f.text_field :VARL_inscricao, :class =>  'form-control'  %>
+          <%= f.text_field :VARL_inscricao, :class =>  'form-control', :value => number_to_currency(@sivic_evento.VARL_inscricao, unit: "R$", separator: ",", delimiter: "")%>
        </div>
         <div class="col-xs-2">
           <%= f.label :DATA_Inicio %>

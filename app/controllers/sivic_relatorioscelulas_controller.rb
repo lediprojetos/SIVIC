@@ -19,14 +19,21 @@ class SivicRelatorioscelulasController < ApplicationController
 
   def frequenciaCelula
 
- 
-   
-   @sivic_relatoriofrequencia = SivicRelatorioscelula.where("data_reuniao >= :data_inicio AND data_reuniao <= :data_fim AND sivic_celula_id = :sivic_celula_id", {data_inicio: params[:data_inicio], data_fim: params[:data_fim], sivic_celula_id: params[:sivic_celula_id]}).order("data_reuniao")
-   
-   @sivic_participantescelula =  SivicParticipantecelula.where(sivic_celula_id: params[:sivic_celula_id])
+ # debugger
 
-   if @sivic_relatoriofrequencia.first
+  if params[:data_inicio] && params[:data_inicio] != "" 
+      dateInicio = Date.parse(params[:data_inicio]).to_date
+  end
+  if params[:data_fim] && params[:data_fim] != ""
+     dateFim = Date.parse(params[:data_fim]).to_date
+  end
+   
+   
+    @sivic_relatoriofrequencia = SivicRelatorioscelula.where("data_reuniao >= :data_inicio AND data_reuniao <= :data_fim AND sivic_celula_id = :sivic_celula_id", {data_inicio: dateInicio, data_fim: dateFim, sivic_celula_id:  params[:sivic_celula_id]}).order("data_reuniao")
+   
+    @sivic_participantescelula =  SivicParticipantecelula.where(sivic_celula_id: params[:sivic_celula_id])
 
+   if @sivic_relatoriofrequencia
     if params[:imprimir] == 'pdf'
        render_frequencia_celula(@sivic_relatoriofrequencia, @sivic_participantescelula,params[:data_inicio],params[:data_fim]) 
     end 

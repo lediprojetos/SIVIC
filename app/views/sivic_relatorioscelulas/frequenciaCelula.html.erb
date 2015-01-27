@@ -26,7 +26,7 @@
     </div><!-- /.col-lg-6 -->
   
   <div class="col-lg-2">
-   <button class="btn btn-default" type="submit" name="imprimir" value="pdf" data-target="_blank">Imprimir</button>
+   <button class="btn btn-primary" style="margin-top:23px" type="submit" name="imprimir" value="pdf" data-target="_blank">Imprimir</button>
   </div>
 
   </div>
@@ -105,6 +105,8 @@
     }
 
 
+
+
 function setaCelula(nome, id){
 
     $('#nome_pessoa_buscar').val(nome);
@@ -112,9 +114,13 @@ function setaCelula(nome, id){
 
     $('#myModal1').modal('hide');
 
-
 }
 
+
+$('#myModal1').on('shown.bs.modal', function () {
+    $('#nome_lider_celula_buscar').val($('#nome_lider_celula').val());
+    $('#nome_lider_celula_buscar').focus();
+})
 
 $(function(){
   
