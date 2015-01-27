@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Sivic igreja:</strong>
+  <%= @sivic_fechamento.sivic_igreja %>
+</p>
+
+<p>
+  <strong>Desc fechamento:</strong>
+  <%= @sivic_fechamento.desc_fechamento %>
+</p>
+
+<p>
+  <strong>Valr fechamento:</strong>
+  <%= @sivic_fechamento.valr_fechamento %>
+</p>
+
+<p>
+  <strong>Tipo fechamento:</strong>
+  <%= @sivic_fechamento.tipo_fechamento %>
+</p>
+
+<p>
+  <strong>Data fechamento:</strong>
+  <%= @sivic_fechamento.data_fechamento %>
+</p>
+
+<p>
+  <strong>Data exclusao:</strong>
+  <%= @sivic_fechamento.data_exclusao %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @sivic_fechamento.user_inclusao %>
+</p>
+
+<%= link_to 'Edit', edit_sivic_fechamento_path(@sivic_fechamento) %> |
+<%= link_to 'Back', sivic_fechamentos_path %>

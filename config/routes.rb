@@ -1,5 +1,7 @@
 SIVIC::Application.routes.draw do
 
+  resources :sivic_fechamentos
+
   resources :sivic_atividadepessoas do
     member do
       get :altera_situacao   
