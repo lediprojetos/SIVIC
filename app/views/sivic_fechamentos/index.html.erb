@@ -1,0 +1,60 @@
+<% content_for :titlePage do %>
+  Listar Fechamentos
+<% end %>
+
+
+<%=render '/layouts/panel' %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Sivic igreja</th>
+      <th>Desc fechamento</th>
+      <th>Valr fechamento</th>
+      <th>Tipo fechamento</th>
+      <th>Data fechamento</th>
+      <th>Data exclusao</th>
+      <th>User</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sivic_fechamentos.each do |sivic_fechamento| %>
+      <tr>
+        <td><%= sivic_fechamento.sivic_igreja %></td>
+        <td><%= sivic_fechamento.desc_fechamento %></td>
+        <td><%= sivic_fechamento.valr_fechamento %></td>
+        <td><%= sivic_fechamento.tipo_fechamento %></td>
+        <td><%= sivic_fechamento.data_fechamento %></td>
+        <td><%= sivic_fechamento.data_exclusao %></td>
+        <td><%= sivic_fechamento.inclusao.sivic_pessoa.nome_pessoa %></td>
+
+        <td align='right'>
+          <div class="btn-group">
+            <%= link_to sivic_fechamento, :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-list-alt"></span> Exibir 
+            <% end %>             
+            <%= link_to edit_sivic_fechamento_path(sivic_fechamento), :class => "btn btn-default btn-sm" do %>
+              <span class="glyphicon glyphicon-pencil"></span> Editar 
+            <% end %>              
+              <%= link_to sivic_fechamento , :method => :delete,  :confirm => 'Deseja excluir o registro?', :class => "btn btn-default btn-sm" do %>
+                <span class="glyphicon glyphicon-trash"></span> Excluir 
+              <% end %>           
+          </div>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+</div></div>
+<div class="btn-group">
+  <%= link_to new_sivic_fechamento_path, :class => "btn btn-default" do %>
+    <span class="glyphicon glyphicon-file"></span> Novo
+  <% end %>
+</div>
+

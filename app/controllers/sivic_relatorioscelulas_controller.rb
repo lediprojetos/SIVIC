@@ -20,14 +20,19 @@ class SivicRelatorioscelulasController < ApplicationController
   def frequenciaCelula
 
  
-   @sivic_relatoriofrequencia = SivicRelatorioscelula.where("data_reuniao >= :data_inicio AND data_reuniao <= :data_fim AND sivic_celula_id = :sivic_celula_id", {data_inicio: params[:data_inicio], data_fim: params[:data_fim], sivic_celula_id: params[:sivic_celula_id]})
+   
+   @sivic_relatoriofrequencia = SivicRelatorioscelula.where("data_reuniao >= :data_inicio AND data_reuniao <= :data_fim AND sivic_celula_id = :sivic_celula_id", {data_inicio: params[:data_inicio], data_fim: params[:data_fim], sivic_celula_id: params[:sivic_celula_id]}).order("data_reuniao")
    
    @sivic_participantescelula =  SivicParticipantecelula.where(sivic_celula_id: params[:sivic_celula_id])
 
-    if params[:imprimir] == 'pdf'
-     render_frequencia_celula(@sivic_relatoriofrequencia, @sivic_participantescelula) 
-    end
 
+   if @sivic_relatoriofrequencia.first
+
+    if params[:imprimir] == 'pdf'
+       render_frequencia_celula(@sivic_relatoriofrequencia, @sivic_participantescelula,params[:data_inicio],params[:data_fim]) 
+    end 
+
+   end
   
   end 
 
@@ -290,107 +295,170 @@ end
 
 
 
-def render_frequencia_celula(tasks,participantes)
+def render_frequencia_celula(tasks,participantes,dtInicio,dtFim)
    report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'frequencia_celula.tlf')
 
-@cont = 1
- 
+
+  p = 1
+  tasks.each  do |task|
+   report.list do |list|
+      list.header do |header|
+      if p == 1 
+           header.values lbld1: task.data_reuniao.strftime("%d/%m/%y")
+        elsif p == 2
+          header.values lbld2: task.data_reuniao.strftime("%d/%m/%y")
+        elsif p == 3
+          header.values lbld3: task.data_reuniao.strftime("%d/%m/%y")
+        elsif p == 4
+          header.values lbld4: task.data_reuniao.strftime("%d/%m/%y")
+        elsif p == 5
+          header.values lbld5: task.data_reuniao.strftime("%d/%m/%y")
+        elsif p == 6
+          header.values lbld6: task.data_reuniao.strftime("%d/%m/%y")
+        elsif p == 7
+          header.values lbld7: task.data_reuniao.strftime("%d/%m/%y")
+        elsif p == 8
+          header.values lbld8: task.data_reuniao.strftime("%d/%m/%y")
+        elsif p == 9
+          header.values lbld9: task.data_reuniao.strftime("%d/%m/%y")
+        elsif p == 10
+          header.values lbld10: task.data_reuniao.strftime("%d/%m/%y")
+        elsif p == 11
+          header.values lbld11: task.data_reuniao.strftime("%d/%m/%y")
+        elsif p == 12
+          header.values lbld12: task.data_reuniao.strftime("%d/%m/%y")
+        end
+      end
+      p = p + 1
+   end
+  end
+
+
+@cont = 1 
 #Começa aqui os participantes com as faltas
 participantes.each do |participante|  
    
     report.list.add_row do |row|
        row.values  lblNr: @cont
        row.values lblNome: participante.nome_participante
+
     
   posicao = 1
-    
+  @falta = 0 
+  @prese = 0
+
   tasks.each  do |task|
  
-    @x  =  SivicPartevenrelacelula.where(sivic_relatorioscelula_id: task.id, sivic_participantecelula_id: participante.id )
-       
+    @x  =  SivicPartevenrelacelula.where(sivic_relatorioscelula_id: task.id, sivic_participantecelula_id: participante.id )       
   if posicao == 1
        if @x.first
          row.values lblf1:'P'
+         @prese = @prese + 1
          else
          row.values lblf1: 'F'
+          @falta =  @falta + 1
        end
   elsif posicao == 2  
       
       if @x.first
          row.values lblf2: 'P'
+         @prese = @prese + 1
          else
          row.values lblf2: 'F'
+         @falta =  @falta + 1
        end
   elsif posicao == 3
 
       if @x.first
          row.values lblf3: 'P'
+         @prese = @prese + 1
          else
          row.values lblf3: 'F'
+         @falta =  @falta + 1
        end
   elsif posicao == 4
        if @x.first
          row.values lblf4: 'P'
+         @prese = @prese + 1
          else
          row.values lblf4: 'F'
+         @falta =  @falta + 1
        end
   elsif posicao == 5 
        if @x.first
          row.values lblf5: 'P'
+         @prese = @prese + 1
          else
          row.values lblf5: 'F'
+         @falta =  @falta + 1
        end
   elsif posicao == 6
        if @x.first
          row.values lblf6: 'P'
+         @prese = @prese + 1
          else
          row.values lblf6: 'F'
+         @falta =  @falta + 1
        end
   elsif posicao == 7
        if @x.first
          row.values lblf7: 'P'
+         @prese = @prese + 1
          else
          row.values lblf7: 'F'
+         @falta =  @falta + 1
        end
   elsif posicao == 8
    
        if @x.first
          row.values lblf8: 'P'
+         @prese = @prese + 1
          else
          row.values lblf8: 'F'
+         @falta =  @falta + 1
        end
   elsif posicao == 9
    
        if @x.first
          row.values lblf9: 'P'
+         @prese = @prese + 1
          else
          row.values lblf9: 'F'
+         @falta =  @falta + 1
        end   
   elsif posicao == 10
    
        if @x.first
          row.values lblf10: 'P'
+         @prese = @prese + 1
          else
          row.values lblf10: 'F'
+         @falta =  @falta + 1
        end
   elsif posicao == 11
    
        if @x.first
          row.values lblf11: 'P'
+         @prese = @prese + 1
          else
          row.values lblf11: 'F'
+         @falta =  @falta + 1
        end
   elsif posicao == 12
    
        if @x.first
          row.values lblf12: 'P'
+         @prese = @prese + 1
          else
          row.values lblf12: 'F'
+         @falta =  @falta + 1
        end
    end
+    
+     row.values lblTF: @falta
+     row.values lblTP: @prese
 
-        posicao = posicao + 1
-
+      posicao = posicao + 1
          
     end
                     
@@ -398,13 +466,13 @@ participantes.each do |participante|
      end
   end
 
-
  report.events.on :generate  do |e|
    e.pages.each do |page|
 
     page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
     page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
     page.item(:lblNomeLider).value(tasks.first.sivic_celula.sivic_pessoa.nome_pessoa)
+<<<<<<< HEAD
 
 
     
@@ -412,6 +480,10 @@ tasks.each  do |task|
     page.item(:lbld1).value(task.data_reuniao.strftime("%d/%m/%Y"))        
 
 end
+=======
+    page.item(:lblDtInicio).value(dtInicio)
+    page.item(:lblDtfim).value(dtFim)
+>>>>>>> 619f150a977e4db462f1c5a4d9c2a3a18abd13d2
 
   end
 end

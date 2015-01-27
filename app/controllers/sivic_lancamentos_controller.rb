@@ -582,6 +582,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sivic_lancamento_params
-      params.require(:sivic_lancamento).permit(:nome_lancamento, :valr_lancamento, :data_vencimento, :data_competencia, :flag_pago, :flag_dizimo, :numr_recorrencia, :sivic_category_id, :sivic_centrocusto_id, :sivic_rede_id, :sivic_tipmovfinanceiro_id, :sivic_pessoa_id, :sivic_fornecedor_id, :sivic_igreja_id, :user_id, :user_id, :data_exclusao, :sivic_contabanco_id, :data_pagamento_id, :valr_pago, :valr_jurosmulta, :valr_descontotaxa, :numr_parcela)
+      params.require(:sivic_lancamento).permit(:nome_lancamento, :valr_lancamento, :data_vencimento, :data_competencia, :flag_pago, :flag_dizimo, :numr_recorrencia, :sivic_category_id, :sivic_centrocusto_id, :sivic_rede_id, :sivic_tipmovfinanceiro_id, :sivic_pessoa_id, :sivic_fornecedor_id, :sivic_igreja_id, :user_inclusao, :user_exclusao, :data_exclusao, :sivic_contabanco_id, :data_pagamento_id, :valr_pago, :valr_jurosmulta, :valr_descontotaxa, :numr_parcela)
     end
 end

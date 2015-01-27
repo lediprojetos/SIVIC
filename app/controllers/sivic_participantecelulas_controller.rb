@@ -5,8 +5,8 @@ class SivicParticipantecelulasController < ApplicationController
 
   def create_participante
 
-    SivicParticipantecelula.create(:nome_participante => params[:nome_participante],:DESC_Email => params[:DESC_Email],:NUMR_Telefone => params[:NUMR_Telefone],:sivic_sitpartcelula_id => params[:sivic_sitpartcelula_id], :sivic_celula_id => params[:sivic_celula_id])
-    sivic_participante = SivicParticipantecelula.find :all, :conditions => {:nome_participante => params[:nome_participante],:DESC_Email => params[:DESC_Email],:NUMR_Telefone => params[:NUMR_Telefone]}, :order => "nome_participante ASC"
+    sivic_participante = SivicParticipantecelula.create(:nome_participante => params[:nome_participante],:DESC_Email => params[:DESC_Email],:NUMR_Telefone => params[:NUMR_Telefone],:sivic_sitpartcelula_id => params[:sivic_sitpartcelula_id], :sivic_celula_id => params[:sivic_celula_id])
+    sivic_participante = SivicParticipantecelula.find :all, :conditions => {:id => sivic_participante.id}, :order => "nome_participante ASC"
     sivic_participante_json = sivic_participante.map {|item| {:id => item.id, :nome_participante => item.nome_participante, :sivic_sitpartcelula_id => item.sivic_sitpartcelula.id}}
     render :json => sivic_participante_json
 
