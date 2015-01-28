@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150121155927) do
+ActiveRecord::Schema.define(version: 20150127151401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -326,6 +326,22 @@ ActiveRecord::Schema.define(version: 20150121155927) do
   add_index "sivic_eventos", ["sivic_endereco_id"], name: "index_sivic_eventos_on_sivic_endereco_id", using: :btree
   add_index "sivic_eventos", ["sivic_igreja_id"], name: "index_sivic_eventos_on_sivic_igreja_id", using: :btree
   add_index "sivic_eventos", ["sivic_tipo_evento_id"], name: "index_sivic_eventos_on_sivic_tipo_evento_id", using: :btree
+
+  create_table "sivic_fechamentos", force: true do |t|
+    t.integer  "sivic_igreja_id"
+    t.string   "desc_fechamento"
+    t.decimal  "valr_fechamento"
+    t.integer  "tipo_fechamento"
+    t.datetime "data_fechamento"
+    t.datetime "data_exclusao"
+    t.integer  "user_inclusao"
+    t.integer  "integer"
+    t.integer  "user_exclusao"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sivic_fechamentos", ["sivic_igreja_id"], name: "index_sivic_fechamentos_on_sivic_igreja_id", using: :btree
 
   create_table "sivic_fornecedors", force: true do |t|
     t.string   "nome_fornecedor"

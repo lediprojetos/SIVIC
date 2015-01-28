@@ -19,8 +19,6 @@ class SivicRelatorioscelulasController < ApplicationController
 
   def frequenciaCelula
 
- # debugger
-
   if params[:data_inicio] && params[:data_inicio] != "" 
       dateInicio = Date.parse(params[:data_inicio]).to_date
   end
