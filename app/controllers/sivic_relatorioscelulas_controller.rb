@@ -477,18 +477,8 @@ participantes.each do |participante|
     page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
     page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
     page.item(:lblNomeLider).value(tasks.first.sivic_celula.sivic_pessoa.nome_pessoa)
-<<<<<<< HEAD
-
-
-    
-tasks.each  do |task|
-    page.item(:lbld1).value(task.data_reuniao.strftime("%d/%m/%Y"))        
-
-end
-=======
     page.item(:lblDtInicio).value(dtInicio)
     page.item(:lblDtfim).value(dtFim)
->>>>>>> 619f150a977e4db462f1c5a4d9c2a3a18abd13d2
 
   end
 end
