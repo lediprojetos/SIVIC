@@ -2,13 +2,19 @@
 
 <div align="left" style="text-align:left;"><h3 style="text-align: left;">Secretaria</h3></div>
 
-<p><%= link_to "Membros",   relMembros_path %></p>
-<p><%= link_to "Participantes de Eventos",   participantesEventos_path %></p>
-<p><%= link_to "Aniversariantes",   relAniversariantes_path %></p>
+<%if current_user.sivic_pessoa.sivic_igreja.flag_tradicional%>
+   <p><%= link_to "Membros",   relMembros_path %></p>
+  <%else%>
+    <p><%= link_to "Discípulos",   relMembros_path %></p>
+<%end%>
 
 <%if not current_user.sivic_pessoa.sivic_igreja.flag_tradicional%>
-	<p><%= link_to "Geração",   relGeracoesIndex_path %></p>
-	<p><%= link_to "Células por Geração",   relCelulasGeracao_path %></p>
+	 <p><%= link_to "Geração",   relGeracoesIndex_path %></p>
+	 <p><%= link_to "Células por Geração",   relCelulasGeracao_path %></p>
+ <%end%>
+<p><%= link_to "Aniversariantes",   relAniversariantes_path %></p>
+<p><%= link_to "Participantes de Eventos",   participantesEventos_path %></p>
+<%if not current_user.sivic_pessoa.sivic_igreja.flag_tradicional%>
 	<p><%= link_to "Participantes Eventos Detalhado",  participanteseventogeracao_path %></p>
     <p><%= link_to "Relatório de Atividades da célula",  celulasIndex_path %></p>
      <p><%= link_to "Relatório de Frequencia da célula",  frequenciaCelula_path %></p>	
