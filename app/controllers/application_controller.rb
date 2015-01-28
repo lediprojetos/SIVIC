@@ -63,9 +63,10 @@ def find_by_Extrato
 end
 
 def busca_aniversariantes_do_dia
-
 #@sivic_aniversariantes_do_dia = SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where("sivic_igreja_id = ? and date_part('day', data_nascimento) = ? ", current_user.sivic_pessoa.sivic_igreja_id, 24)
-  SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where("date_part('day', data_nascimento) = ? and date_part('month', data_nascimento) = ?", Date.today.day, Date.today.month)
+ if user_signed_in?
+  SivicDiscipulo.joins('INNER JOIN sivic_pessoas sp on sivic_pessoa_id = sp.id').where("date_part('day', data_nascimento) = ? and date_part('month', data_nascimento) = ? and sp.sivic_igreja_id = ?", Date.today.day, Date.today.month, current_user.sivic_pessoa.sivic_igreja_id)
+ end
 end    
 
 end

@@ -4,9 +4,9 @@ class StaticPagesController < ApplicationController
     
     @total_discipulos = SivicDiscipulo.joins(:sivic_pessoa).where('sivic_pessoas.sivic_igreja_id = ? and data_exclusao is null',current_user.sivic_pessoa.sivic_igreja_id).count rescue nil
 
-    @total_eventos = SivicEvento.where('sivic_igreja_id = ?', current_user.sivic_pessoa.sivic_igreja_id).count rescue nil
+    @total_eventos = SivicEvento.where('sivic_igreja_id = ? and data_encerramento is null', current_user.sivic_pessoa.sivic_igreja_id).count rescue nil
 
-    @total_celulas = SivicCelula.joins(:sivic_pessoa).where('sivic_pessoas.sivic_igreja_id = ?',current_user.sivic_pessoa.sivic_igreja_id).count rescue nil
+    @total_celulas = SivicCelula.joins(:sivic_pessoa).where('sivic_pessoas.sivic_igreja_id = ? and user_bloqueio is null',current_user.sivic_pessoa.sivic_igreja_id).count rescue nil
 
     @sivic_lancamentos = find_by_Extrato.order(:data_vencimento) rescue 0
     

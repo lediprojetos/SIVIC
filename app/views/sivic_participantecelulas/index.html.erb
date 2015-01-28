@@ -3,6 +3,24 @@
 <% end %>
 
 <%=render '/layouts/panel' %>
+<%if current_user.role == 'ADMINISTRADOR'%>
+
+<%= form_tag nil, method: 'GET' do %>
+  <label >Célula</label><br>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="input-group">
+        <input id="nome" name="q" type="text" class="form-control" onclick="$('#myModal1').modal('show');" placeholder="Filtre a pesquisa por uma célula clicando aqui">
+         <input id="sivic_celula_id" name="sivic_celula_id" type="hidden" value="" /> 
+        <span class="input-group-btn">
+          <button class="btn btn-success" type="submit" >Buscar</button>
+        </span>
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+  </div><!-- /.row -->
+  <br />  
+<% end %>
+<% end %>
 
 <table class="table table-hover">
   <thead>
@@ -50,7 +68,96 @@
   <% end %>
 </div>
 
+
+  <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Buscar Células</h4>
+      </div>
+      <div class="modal-body">
+
+        <label >Nome do Líder</label><br>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="input-group">
+              <input id="nome_lider_celula_buscar" name="nome_lider_celula_buscar" onkeypress="buscaLiderCelula()" type="text" class="form-control" placeholder="">
+              <span class="input-group-btn">
+                <button class="btn btn-success" type="button" onclick="buscaLiderCelula();">Buscar</button>
+              </span>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+        <br />
+
+        <table id="table_celula" name="table_celula" class="table table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Dia</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyid3">
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+              <tr>
+              </tr>
+          </tbody>  
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script>
+
+$('#myModal1').on('shown.bs.modal', function () {
+    $('#nome_lider_celula_buscar').val($('#nome_lider_celula').val());
+    $('#nome_lider_celula_buscar').focus();
+})
+
+
+  function buscaLiderCelula(){
+      var pesquisa;
+        pesquisa = $('#nome_lider_celula_buscar').val();
+
+      $.ajax({
+        url: '<%= listarCelulas_path %>',
+        data : 
+        {
+            nome_pessoa : pesquisa
+        },
+        success: function(data){
+          $("#tbodyid3").empty();
+          for (var i in data) {
+            var item = data[i];
+
+              $('#table_celula').append('<tr><td><a href="javascript:setaCelula(\'' + item.nome_pessoa+'\','+item.id+');">'+item.id+'</a></td><td><a href="javascript:setaCelula(\'' + item.nome_pessoa+'\','+item.id+');">'+item.nome_pessoa+'</a></td><td><a href="javascript:setaCelula(\'' + item.nome_pessoa+'\','+item.id+');">'+item.NUMR_Dia+'</a></td></tr>');
+
+          };
+ 
+        }
+      })
+    }
+
+
+function setaCelula(nome, id){
+
+    $('#nome').val(nome);
+    $('#sivic_celula_id').val(id);
+
+    $('#myModal1').modal('hide');
+
+}
+
 
 $(function(){
   $("a[rel='tooltip']").tooltip();

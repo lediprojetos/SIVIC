@@ -185,6 +185,7 @@ end
 
   # DELETE /sivic_parteventos/1
   # DELETE /sivic_parteventos/1.json
+  # le
   def destroy
     @sivic_partevento.destroy
     respond_to do |format|
