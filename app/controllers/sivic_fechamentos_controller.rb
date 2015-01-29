@@ -1,6 +1,8 @@
 class SivicFechamentosController < ApplicationController
   before_action :set_sivic_fechamento, only: [:show, :edit, :update, :destroy]
 
+  include ActionView::Helpers::NumberHelper
+
   # GET /sivic_fechamentos
   # GET /sivic_fechamentos.json
   def index
@@ -24,13 +26,20 @@ class SivicFechamentosController < ApplicationController
   # POST /sivic_fechamentos
   # POST /sivic_fechamentos.json
   def create
+
+    @valr_fechamento =  sivic_fechamento_params[:valr_fechamento]
+    @valr_fechamento = @valr_fechamento.gsub('.', '')
+    @valr_fechamento = @valr_fechamento.gsub(',', '.')
+
     @sivic_fechamento = SivicFechamento.new(sivic_fechamento_params)
+
+    @sivic_fechamento.valr_fechamento = @valr_fechamento
 
     respond_to do |format|
       if @sivic_fechamento.save
 
 
-        format.html { redirect_to @sivic_fechamento, notice: 'Sivic fechamento was successfully created.' }
+        format.html { redirect_to @sivic_fechamento, notice: 'Fechamento incluso com sucesso.' }
         format.json { render action: 'show', status: :created, location: @sivic_fechamento }
       else
         format.html { render action: 'new' }
@@ -43,9 +52,22 @@ class SivicFechamentosController < ApplicationController
   # PATCH/PUT /sivic_fechamentos/1.json
   def update
 
+
+    @valr_fechamento =  sivic_fechamento_params[:valr_fechamento]
+    @valr_fechamento = @valr_fechamento.gsub('.', '')
+    @valr_fechamento = @valr_fechamento.gsub(',', '.')
+    @sivic_fechamento.valr_fechamento = @valr_fechamento
+    @sivic_fechamento.sivic_igreja_id = current_user.sivic_pessoa.sivic_igreja_id
+    @sivic_fechamento.desc_fechamento = sivic_fechamento_params[:desc_fechamento]
+    @sivic_fechamento.tipo_fechamento = sivic_fechamento_params[:tipo_fechamento]
+    @sivic_fechamento.data_fechamento = sivic_fechamento_params[:data_fechamento]
+    @sivic_fechamento.user_inclusao = current_user.id
+
+    #ebugger
+
     respond_to do |format|
-      if @sivic_fechamento.update(sivic_fechamento_params)
-        format.html { redirect_to @sivic_fechamento, notice: 'Sivic fechamento was successfully updated.' }
+      if @sivic_fechamento.save
+        format.html { redirect_to @sivic_fechamento, notice: 'Fechamento alterado com sucesso.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
