@@ -8,13 +8,9 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th>Sivic igreja</th>
-      <th>Desc fechamento</th>
-      <th>Valr fechamento</th>
-      <th>Tipo fechamento</th>
-      <th>Data fechamento</th>
-      <th>Data exclusao</th>
-      <th>User</th>
+      <th>Descrição</th>
+      <th>Valor Fechado</th>
+      <th>Data</th>
       <th></th>
     </tr>
   </thead>
@@ -22,13 +18,9 @@
   <tbody>
     <% @sivic_fechamentos.each do |sivic_fechamento| %>
       <tr>
-        <td><%= sivic_fechamento.sivic_igreja %></td>
         <td><%= sivic_fechamento.desc_fechamento %></td>
-        <td><%= sivic_fechamento.valr_fechamento %></td>
-        <td><%= sivic_fechamento.tipo_fechamento %></td>
-        <td><%= sivic_fechamento.data_fechamento %></td>
-        <td><%= sivic_fechamento.data_exclusao %></td>
-        <td><%= sivic_fechamento.inclusao.sivic_pessoa.nome_pessoa %></td>
+        <td><%= number_to_currency(sivic_fechamento.valr_fechamento, unit: "R$", separator: ",", delimiter: ".") %></td>
+        <td><%= sivic_fechamento.data_fechamento.blank? ? '' : sivic_fechamento.data_fechamento.strftime("%d/%m/%Y")  %></td>
 
         <td align='right'>
           <div class="btn-group">

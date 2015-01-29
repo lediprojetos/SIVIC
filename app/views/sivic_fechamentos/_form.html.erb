@@ -23,21 +23,16 @@
   </div>
   <div class="col-xs-2">
     <%= f.label :Valor %><br>
-    <%= f.text_field :valr_fechamento, :class => 'form-control' %>
+    <%= f.text_field :valr_fechamento, :value => number_to_currency(@sivic_fechamento.valr_fechamento, unit: "R$", separator: ",", delimiter: ".") , :class => 'form-control' %>
   </div>
   <div class="col-xs-2">
     <%= f.label :tipo_fechamento %><br>
-    <%#= f.collection_select :tipo_fechamento, SivicFechamento::TIPOFECHAMENTO, :to_s, :humanize,{},{ :class => 'form-control' }%>
     <%= f.select(:tipo_fechamento, [['MENSAL', 1], ['EXTRAORDINARIA', 2]], {}, {:class => 'form-control'}) %>
-
-
   </div>
   <div class="col-xs-4">
     <%= f.label :Data_Do_Fechamento %><br>
-    <%= f.text_field :data_fechamento, :class => 'form-control' %>
+    <%= f.text_field :data_fechamento, :class => 'form-control', :value => @sivic_fechamento.data_fechamento.blank? ? '' : @sivic_fechamento.data_fechamento.strftime("%d/%m/%Y") %>
   </div>
-  
-  <%= f.hidden_field :user_inclusao, :value => current_user.id %>
   
 </div>
 </div>
@@ -61,5 +56,5 @@
 
 <script>
 $("#sivic_fechamento_valr_fechamento").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
-$("#sivic_fechamento_data_fechamento").mask("99/99/9999 99:99");
+$("#sivic_fechamento_data_fechamento").mask("99/99/9999");
 </script>
