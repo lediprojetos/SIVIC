@@ -6,8 +6,13 @@
 	<div class="col-xs-3">
 
 		<%= label :NUMR_Dia, "Dia da Semana" %>
-        <%= collection_select nil, :NUMR_Dia, SivicCelula::DIAS, :to_s, :humanize, {:include_blank => true}, {:class => "form-control"}%>
+    <%= collection_select nil, :NUMR_Dia, SivicCelula::DIAS, :to_s, :humanize, {:include_blank => true}, {:class => "form-control"}%>
 
+
+  </div>
+  <div class="col-xs-2">
+    <%= label :NUMR_Dia, "Data Lançamento" %>
+    <%= text_field nil, :DATA_Lancamento, :class => "form-control"%>    
 	</div>
 	<div class="col-xs-2" style='margin-top:23px;'>
 			<button class="btn btn-success" type="submit" >Lançar</button>
@@ -39,3 +44,9 @@
 </table>
 
 <%=Time.now.strftime("%A")%>
+
+<script>
+
+$("#_DATA_Lancamento").mask("99/99/9999");
+
+</script>

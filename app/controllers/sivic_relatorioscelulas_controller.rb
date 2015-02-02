@@ -86,9 +86,11 @@ def frequenciaCelula
 
       @celulas = SivicCelula.where(:NUMR_Dia => params[:NUMR_Dia],:flag_gerarelatorio => true)
 
+      data_lancamento = params[:DATA_Lancamento].to_dater
+
       @celulas.each do |sivic_celula|
 
-        SivicRelatorioscelula.create(:sivic_celula_id => sivic_celula.id, :data_reuniao => Time.now, :sivic_situacoesrelatorio_id => 5)
+        SivicRelatorioscelula.create(:sivic_celula_id => sivic_celula.id, :data_reuniao => data_lancamento, :sivic_situacoesrelatorio_id => 5)
 
       end
 
