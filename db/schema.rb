@@ -330,7 +330,7 @@ ActiveRecord::Schema.define(version: 20150128153546) do
   create_table "sivic_fechamentos", force: true do |t|
     t.integer  "sivic_igreja_id"
     t.string   "desc_fechamento"
-    t.decimal  "valr_fechamento", precision: 5, scale: 2
+    t.decimal  "valr_fechamento", precision: 10, scale: 2
     t.integer  "tipo_fechamento"
     t.datetime "data_fechamento"
     t.datetime "data_exclusao"

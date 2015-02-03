@@ -26,13 +26,16 @@ class SivicFechamentosController < ApplicationController
   # POST /sivic_fechamentos
   # POST /sivic_fechamentos.json
   def create
+    @sivic_fechamento = SivicFechamento.new
 
+    @sivic_fechamento.sivic_igreja_id = current_user.sivic_pessoa.sivic_igreja_id
+    @sivic_fechamento.desc_fechamento = sivic_fechamento_params[:desc_fechamento]
+    @sivic_fechamento.tipo_fechamento = sivic_fechamento_params[:tipo_fechamento]
+    @sivic_fechamento.data_fechamento = sivic_fechamento_params[:data_fechamento]
+     @sivic_fechamento.user_inclusao = current_user.id
     @valr_fechamento =  sivic_fechamento_params[:valr_fechamento]
     @valr_fechamento = @valr_fechamento.gsub('.', '')
     @valr_fechamento = @valr_fechamento.gsub(',', '.')
-
-    @sivic_fechamento = SivicFechamento.new(sivic_fechamento_params)
-
     @sivic_fechamento.valr_fechamento = @valr_fechamento
 
     respond_to do |format|

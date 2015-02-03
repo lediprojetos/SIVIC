@@ -503,6 +503,8 @@ end
     @total_recebimento = find_by_ContasReceber.sum(:valr_pago, :conditions => {:flag_pago => true})
     @total_pagamento = find_by_ContasPagar.sum(:valr_pago, :conditions => {:flag_pago => true})
     @total_periodo = find_by_Extrato.sum(:valr_pago)
+
+    @saldo_anterior = 100
   end
 
   def extrato_mensal

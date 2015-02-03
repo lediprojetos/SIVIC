@@ -25,11 +25,11 @@
     <%= f.label :Valor %><br>
     <%= f.text_field :valr_fechamento, :value => number_to_currency(@sivic_fechamento.valr_fechamento, unit: "R$", separator: ",", delimiter: ".") , :class => 'form-control' %>
   </div>
-  <div class="col-xs-2">
+  <div class="col-xs-3">
     <%= f.label :tipo_fechamento %><br>
-    <%= f.select(:tipo_fechamento, [['MENSAL', 1], ['EXTRAORDINARIA', 2]], {}, {:class => 'form-control'}) %>
+    <%= f.select(:tipo_fechamento, [['MENSAL', 1], ['EXTRAORDINARIA', 2]], {:selected => @sivic_fechamento.tipo_fechamento}, {:class => 'form-control'}) %>
   </div>
-  <div class="col-xs-4">
+  <div class="col-xs-3">
     <%= f.label :Data_Do_Fechamento %><br>
     <%= f.text_field :data_fechamento, :class => 'form-control', :value => @sivic_fechamento.data_fechamento.blank? ? '' : @sivic_fechamento.data_fechamento.strftime("%d/%m/%Y") %>
   </div>
