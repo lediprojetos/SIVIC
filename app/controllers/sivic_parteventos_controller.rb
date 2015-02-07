@@ -251,11 +251,12 @@ end
 
     cont = 1
 
-    valorTotalPago = 0
+    valorTotalPassando = 0
+    valorTotalServindo = 0
+
+    servi = Array.new
 
     x = tasks.length
-
-    #debugger
 
     tasks.each do |task|
       report.list.add_row do |row|
@@ -276,9 +277,11 @@ end
 
         cont += 1
 
-        valorTotalPago = valorTotalPago + task.sivic_movimentofinanceiro.VALR_movimento rescue nil
+
+        valorTotalPassando = valorTotalPassando + task.sivic_movimentofinanceiro.VALR_movimento rescue nil
         
       end
+
 
       report.page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
       report.page.item(:data).value(Time.now.strftime("%d/%m/%Y"))
@@ -287,6 +290,16 @@ end
       report.page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
       report.page.item(:lblNomeEvento).value(task.sivic_evento.desc_evento)
       report.page.item(:lblDataEvento).value(task.sivic_evento.DATA_inicio.blank? ? '' : task.sivic_evento.DATA_inicio.strftime("%d/%m/%Y"))
+        
+      if cont == x
+        report.page.item(:lblVpa).value(number_to_currency(valorTotalPassando, unit: "R$", separator: ",", delimiter: "")) rescue nil
+       if params[:tipo] == '1'
+          report.page.item(:lbltotal).value("Valor Total Passando")
+       else
+          report.page.item(:lbltotal).value("Valor Total Servindo")
+       end
+
+      end
 
       if params[:tipo] == '1'
         report.page.item(:lblTipoRelatorio).value('Passando')
@@ -294,11 +307,11 @@ end
         report.page.item(:lblTipoRelatorio).value('Servindo')
       end
 
-
     end
         send_data report.generate, filename: 'index.pdf', 
                                    type: 'application/pdf', 
                                    disposition: ''
+
   end
 
 
