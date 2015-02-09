@@ -305,6 +305,9 @@ end
 def render_frequencia_celula(tasks,participantes,dtInicio,dtFim)
    report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'frequencia_celula.tlf')
 
+  geracao = SivicParteventosController.new
+
+  @sivic_discipulo = geracao.busca_lider_geracao(tasks.first.sivic_celula.sivic_pessoa.id) 
 
   p = 1
   tasks.each  do |task|
@@ -479,6 +482,7 @@ participantes.each do |participante|
     page.item(:operador).value(current_user.sivic_pessoa.nome_pessoa)
     page.item(:lblNomeIgreja).value(current_user.sivic_pessoa.sivic_igreja.NOME_igreja)
     page.item(:lblNomeLider).value(tasks.first.sivic_celula.sivic_pessoa.nome_pessoa)
+    page.item(:lblNomeLiderGeracao).value(@sivic_discipulo.sivic_pessoa.nome_pessoa) 
     page.item(:lblDtInicio).value(dtInicio)
     page.item(:lblDtfim).value(dtFim)
 

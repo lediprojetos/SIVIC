@@ -194,6 +194,32 @@ end
     end
   end
 
+
+
+ def busca_lider_geracao(id_pessoa)
+
+  loop do
+  
+      @sivic_pessoa = SivicPessoa.find(id_pessoa)    
+    @sivic_discipulo = SivicDiscipulo.find_by sivic_pessoa_id: id_pessoa 
+
+    if @sivic_discipulo
+      if @sivic_discipulo.flag_discipulador?
+          break 
+        else
+        id_pessoa = @sivic_discipulo.sivic_pessoa.father_id  
+      end
+    else
+       id_pessoa = @sivic_pessoa.father_id  
+   end
+   end   
+
+
+   return @sivic_discipulo
+
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sivic_partevento
@@ -322,25 +348,3 @@ end
   end
 
 
-  def busca_lider_geracao(id_pessoa)
-
-  loop do
-  
-      @sivic_pessoa = SivicPessoa.find(id_pessoa)    
-    @sivic_discipulo = SivicDiscipulo.find_by sivic_pessoa_id: id_pessoa 
-
-    if @sivic_discipulo
-      if @sivic_discipulo.flag_discipulador?
-          break 
-        else
-        id_pessoa = @sivic_discipulo.sivic_pessoa.father_id  
-      end
-    else
-       id_pessoa = @sivic_pessoa.father_id  
-   end
-   end   
-
-
-   return @sivic_discipulo
-
-  end
